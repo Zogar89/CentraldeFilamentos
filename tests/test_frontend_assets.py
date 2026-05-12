@@ -15,8 +15,10 @@ def test_static_frontend_files_exist_and_are_linked():
     assert 'href="resumen.html"' in index
     assert 'id="quick-lines"' in index
     assert 'id="line-help"' in index
+    assert "0* indica que el proveedor seguramente no maneja esa variante." in index
     assert '<script src="resumen.js" defer></script>' in resumen
     assert 'id="summary-table"' in resumen
+    assert "0* indica que el proveedor seguramente no maneja esa variante." in resumen
 
 
 def test_catalog_script_fetches_json_and_supports_required_filters():
@@ -106,6 +108,7 @@ def test_styles_are_compact_and_responsive():
     assert ".footer-provider:target" in css
     assert ".summary-presentation" in css
     assert ".summary-group-row" in css
+    assert ".stock-note" in css
 
 
 def test_generated_stock_data_has_one_offer_per_provider_per_card():

@@ -146,6 +146,12 @@ input {
   font-size: 13px;
 }
 
+.stock-note {
+  margin: -4px 2px 12px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
 .filters.one-line {
   grid-template-columns: 1fr;
 }
