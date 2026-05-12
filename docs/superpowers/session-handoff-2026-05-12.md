@@ -9,7 +9,8 @@ Fecha: 2026-05-12
 - Ya existe scaffold Python con modelos, configuracion de proveedores, normalizacion conservadora y conector CSV para Google Sheets.
 - Tests actuales relevantes pasan para modelos, proveedores, normalizacion y Google Sheets.
 - El frontend estatico, build completo, scraper Filamentos3D, enriquecimiento/cache de imagenes Grilon3 y workflows de GitHub Actions siguen pendientes.
-- GitHub Pages debe quedar activado con GitHub Actions como source cuando el workflow de Pages este creado.
+- GitHub Pages esta activado con GitHub Actions como source. URL reservada: `https://zogar89.github.io/StockCentral/`.
+- La URL todavia no sirve la app final porque falta crear el workflow de Pages y el frontend/public build.
 
 ## Decisiones tomadas
 
