@@ -1,10 +1,10 @@
 # StockCentral
 
-StockCentral va a centralizar stock online de proveedores de filamento 3D del AMBA para que usuarios de impresion 3D encuentren rapido quien tiene el material, color, marca y formato que necesitan.
+StockCentral centraliza stock online de proveedores de filamento 3D del AMBA para que usuarios de impresion 3D encuentren rapido quien tiene el material, color, marca y formato que necesitan.
 
 ## Estado actual
 
-El proyecto esta en etapa de planificacion del MVP. Todavia no hay codigo de aplicacion implementado.
+El proyecto esta en implementacion inicial del MVP.
 
 Decisiones principales:
 
@@ -14,6 +14,22 @@ Decisiones principales:
 - GitHub Pages para publicar.
 - Proveedores iniciales: Filamentos3D, Grupo Senz y MundoInsumos.
 - UI en espanol argentino, compacta, mobile friendly y minimalista.
+
+## Desarrollo local
+
+```bash
+python -m pip install -e ".[dev]"
+pytest
+python -m stockcentral.build_data --output public/data/stock.json
+python -m http.server 8000 -d public
+```
+
+Abrir `http://localhost:8000`.
+La vista compacta de resumen queda en `http://localhost:8000/resumen.html`.
+
+## Datos
+
+El frontend lee `public/data/stock.json`. En produccion, GitHub Actions genera ese archivo y publica `public/` en GitHub Pages.
 
 ## Documentacion
 
