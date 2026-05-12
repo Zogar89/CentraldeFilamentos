@@ -4,7 +4,7 @@
 
 **Goal:** Build the first public StockCentral MVP: a static GitHub Pages catalog fed by Python ingestion and normalization jobs.
 
-**Architecture:** Python downloads provider stock sources, normalizes products, enriches Grilon3 products with official manufacturer links/images, and writes `public/data/stock.json`. The frontend is a static HTML/CSS/JS app that reads that JSON and renders a minimalist Apple-inspired catalog with filters.
+**Architecture:** Python downloads provider stock sources, normalizes products, enriches Grilon3 products with official manufacturer links/images, and writes `public/data/stock.json`. The frontend is a static HTML/CSS/JS app that reads that JSON and renders a minimalist Apple-inspired catalog with filters plus a compact pivot-style summary view.
 
 **Tech Stack:** Python 3.12, requests, BeautifulSoup, pytest, plain HTML/CSS/JavaScript, GitHub Actions, GitHub Pages.
 
@@ -24,8 +24,10 @@
 - Create `stockcentral/connectors/grilon3_catalog.py`: official Grilon3 catalog parser/enricher.
 - Create `stockcentral/build_data.py`: orchestration entrypoint that writes `public/data/stock.json`.
 - Create `public/index.html`: static app shell.
+- Create `public/resumen.html`: pivot-style stock summary page.
 - Create `public/styles.css`: minimalist visual system and responsive layout.
 - Create `public/app.js`: data loading, filters, grouping render, state updates.
+- Create `public/resumen.js`: provider-by-product pivot table render and totals.
 - Create `public/data/stock.json`: small fixture dataset for local UI before live ingestion runs.
 - Create `.github/workflows/ci.yml`: run tests on push and pull requests.
 - Create `.github/workflows/pages.yml`: scheduled ingestion and GitHub Pages deploy.
@@ -1845,8 +1847,10 @@ git commit -m "feat: build public stock json"
 
 **Files:**
 - Create: `public/index.html`
+- Create: `public/resumen.html`
 - Create: `public/styles.css`
 - Create: `public/app.js`
+- Create: `public/resumen.js`
 - Test: `tests/test_frontend_assets.py`
 
 - [ ] **Step 1: Write frontend asset smoke tests**
@@ -1864,6 +1868,18 @@ def test_index_loads_styles_script_and_data_app_root():
     assert '<script src="app.js" defer></script>' in html
     assert 'id="app"' in html
     assert 'id="site-footer"' in html
+    assert 'href="resumen.html"' in html
+    assert 'StockCentral' in html
+
+
+def test_summary_page_loads_assets_and_table_root():
+    html = Path("public/resumen.html").read_text(encoding="utf-8")
+
+    assert '<link rel="stylesheet" href="styles.css">' in html
+    assert '<script src="resumen.js" defer></script>' in html
+    assert 'id="summary-table"' in html
+    assert 'id="summary-search"' in html
+    assert 'href="index.html"' in html
     assert 'StockCentral' in html
 
 
@@ -1885,6 +1901,18 @@ def test_frontend_script_fetches_stock_json_and_supports_required_filters():
     assert "Stock a revisar" in js
 
 
+def test_summary_script_builds_pivot_totals():
+    js = Path("public/resumen.js").read_text(encoding="utf-8")
+
+    assert 'fetch("data/stock.json")' in js
+    assert "buildPivotRows" in js
+    assert "providerTotals" in js
+    assert "rowTotal" in js
+    assert "summary-table" in js
+    assert "stock_status" in js
+    assert "kg" in js
+
+
 def test_styles_include_minimal_visual_tokens():
     css = Path("public/styles.css").read_text(encoding="utf-8")
 
@@ -1893,6 +1921,15 @@ def test_styles_include_minimal_visual_tokens():
     assert "border-radius" in css
     assert ".site-footer" in css
     assert "@media" in css
+
+
+def test_styles_include_summary_table_tokens():
+    css = Path("public/styles.css").read_text(encoding="utf-8")
+
+    assert ".summary-table" in css
+    assert ".table-scroll" in css
+    assert "position: sticky" in css
+    assert "font-variant-numeric" in css
 ```
 
 - [ ] **Step 2: Run tests to verify frontend files are missing**
@@ -1933,6 +1970,11 @@ Create `public/index.html`:
           <strong id="generated-at">Cargando...</strong>
         </div>
       </header>
+
+      <nav class="top-nav" aria-label="Vistas">
+        <a class="active" href="index.html">Catalogo</a>
+        <a href="resumen.html">Resumen</a>
+      </nav>
 
       <section class="toolbar" aria-label="Filtros de catalogo">
         <label class="search">
@@ -2037,6 +2079,7 @@ h1 {
 .toolbar,
 .product-card,
 .source-status,
+.table-shell,
 .site-footer {
   background: var(--surface);
   border: 1px solid rgba(0, 0, 0, 0.06);
@@ -2060,6 +2103,27 @@ label span {
 .toolbar {
   padding: 18px;
   margin-bottom: 16px;
+}
+
+.top-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 16px;
+}
+
+.top-nav a {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 9px 12px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.top-nav a.active {
+  background: var(--text);
+  border-color: var(--text);
+  color: var(--surface);
 }
 
 .search input,
@@ -2249,6 +2313,58 @@ a:hover {
   font-size: 13px;
 }
 
+.table-shell {
+  overflow: hidden;
+  margin-bottom: 18px;
+}
+
+.table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.summary-table {
+  width: 100%;
+  min-width: 760px;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-variant-numeric: tabular-nums;
+  font-size: 14px;
+}
+
+.summary-table th,
+.summary-table td {
+  border-bottom: 1px solid var(--line);
+  padding: 11px 12px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.summary-table thead th {
+  position: sticky;
+  top: 0;
+  background: var(--surface);
+  z-index: 2;
+}
+
+.summary-table th:first-child,
+.summary-table td:first-child {
+  position: sticky;
+  left: 0;
+  background: var(--surface);
+  z-index: 1;
+}
+
+.summary-table .numeric {
+  text-align: right;
+  font-family: "SF Mono", "Roboto Mono", monospace;
+}
+
+.summary-table .summary-total {
+  background: var(--surface-soft);
+  font-weight: 700;
+}
+
 @media (max-width: 760px) {
   .shell {
     width: min(100% - 20px, 1180px);
@@ -2339,7 +2455,7 @@ function setupFilters() {
   setSelect("variant", valuesFor("variant"), "Variante");
   setSelect("color", valuesFor("color"), "Color");
   setSelect("diameter", valuesFor("diameter_mm").map((value) => [String(value), `${value} mm`]), "Diametro");
-  setSelect("weight", valuesFor("weight_g").map((value) => [String(value), `${value / 1000:g} kg`.replace(":g", "")]), "Peso");
+  setSelect("weight", valuesFor("weight_g").map((value) => [String(value), `${Number(value) / 1000} kg`]), "Peso");
   setSelect("brand", valuesFor("brand"), "Marca");
   setSelect("provider", providerValues(), "Proveedor");
 }
@@ -2528,15 +2644,231 @@ function escapeAttribute(value) {
 }
 ```
 
-- [ ] **Step 6: Fix the JavaScript weight label before running tests**
+Also create `public/resumen.html`:
 
-In `public/app.js`, replace the weight select line:
+```html
+<!doctype html>
+<html lang="es-AR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>StockCentral Resumen</title>
+    <meta name="description" content="Resumen compacto de stock de filamentos por proveedor.">
+    <link rel="stylesheet" href="styles.css">
+    <script src="resumen.js" defer></script>
+  </head>
+  <body>
+    <main class="shell">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">AMBA filament stock</p>
+          <h1>StockCentral</h1>
+          <p class="subtitle">Vista compacta por filamento y proveedor.</p>
+        </div>
+        <div class="update-card">
+          <span>Ultima actualizacion</span>
+          <strong id="summary-updated">Cargando...</strong>
+        </div>
+      </header>
 
-```javascript
-setSelect("weight", valuesFor("weight_g").map((value) => [String(value), `${value / 1000:g} kg`.replace(":g", "")]), "Peso");
+      <nav class="top-nav" aria-label="Vistas">
+        <a href="index.html">Catalogo</a>
+        <a class="active" href="resumen.html">Resumen</a>
+      </nav>
+
+      <section class="toolbar" aria-label="Busqueda de resumen">
+        <label class="search">
+          <span>Buscar</span>
+          <input id="summary-search" type="search" placeholder="negro, pla, grilon, 1kg">
+        </label>
+      </section>
+
+      <section class="summary" aria-live="polite">
+        <strong id="summary-count">0 filamentos</strong>
+      </section>
+
+      <section class="table-shell" aria-label="Resumen por proveedor">
+        <div class="table-scroll">
+          <table id="summary-table" class="summary-table"></table>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
 ```
 
-with:
+Create `public/resumen.js`:
+
+```javascript
+const state = {
+  products: [],
+  sources: [],
+  rows: [],
+  search: "",
+};
+
+document.addEventListener("DOMContentLoaded", init);
+
+async function init() {
+  const response = await fetch("data/stock.json");
+  const payload = await response.json();
+  state.products = payload.products || [];
+  state.sources = payload.sources || [];
+  state.rows = buildPivotRows(state.products, state.sources);
+  document.getElementById("summary-updated").textContent = formatDate(payload.generated_at);
+  document.getElementById("summary-search").addEventListener("input", (event) => {
+    state.search = event.target.value.toLowerCase().trim();
+    render();
+  });
+  render();
+}
+
+function buildPivotRows(products, sources) {
+  const providerIds = sources.map((source) => source.id);
+  return products.map((product) => {
+    const cells = Object.fromEntries(providerIds.map((id) => [id, { units: 0, kg: 0, unknown: false }]));
+
+    (product.offers || []).forEach((offer) => {
+      const cell = cells[offer.source_id];
+      if (!cell) return;
+
+      const quantity = Number(offer.stock_quantity);
+      if (Number.isFinite(quantity) && quantity > 0) {
+        cell.units += quantity;
+        if (product.weight_g) {
+          cell.kg += quantity * Number(product.weight_g) / 1000;
+        }
+        return;
+      }
+
+      if (offer.stock_status === "unknown") {
+        cell.unknown = true;
+      }
+    });
+
+    const providerCells = Object.values(cells);
+    const rowTotal = providerCells.reduce((total, cell) => total + cell.units, 0);
+    const kgTotal = providerCells.reduce((total, cell) => total + cell.kg, 0);
+    return { product, cells, rowTotal, kgTotal };
+  }).sort(compareRows);
+}
+
+function render() {
+  const rows = state.rows.filter(matchesSearch);
+  const providerTotals = buildProviderTotals(rows);
+  const grandTotalKg = Object.values(providerTotals).reduce((total, value) => total + value, 0);
+  document.getElementById("summary-count").textContent = `${rows.length} filamentos`;
+  document.getElementById("summary-table").innerHTML = `
+    <thead>
+      <tr>
+        <th scope="col">Filamento</th>
+        ${state.sources.map(sourceHeader).join("")}
+        <th scope="col" class="numeric summary-total">Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${rows.map(rowTemplate).join("")}
+    </tbody>
+    <tfoot>
+      <tr>
+        <th scope="row" class="summary-total">Kg por proveedor</th>
+        ${state.sources.map((source) => `<td class="numeric summary-total">${formatKg(providerTotals[source.id] || 0)}</td>`).join("")}
+        <td class="numeric summary-total">${formatKg(grandTotalKg)}</td>
+      </tr>
+    </tfoot>
+  `;
+}
+
+function buildProviderTotals(rows) {
+  const providerTotals = Object.fromEntries(state.sources.map((source) => [source.id, 0]));
+  rows.forEach((row) => {
+    state.sources.forEach((source) => {
+      providerTotals[source.id] += row.cells[source.id]?.kg || 0;
+    });
+  });
+  return providerTotals;
+}
+
+function rowTemplate(row) {
+  return `
+    <tr>
+      <th scope="row">${productTitle(row.product)}</th>
+      ${state.sources.map((source) => stockCell(row.cells[source.id])).join("")}
+      <td class="numeric summary-total">${formatInteger(row.rowTotal)}</td>
+    </tr>
+  `;
+}
+
+function stockCell(cell) {
+  if (cell.units > 0) {
+    return `<td class="numeric stock-in">${formatInteger(cell.units)}</td>`;
+  }
+  if (cell.unknown) {
+    return `<td class="numeric stock-unknown">Rev.</td>`;
+  }
+  return `<td class="numeric stock-out">0</td>`;
+}
+
+function sourceHeader(source) {
+  const label = escapeHtml(source.name);
+  const content = source.homepage_url
+    ? `<a href="${escapeAttribute(source.homepage_url)}" target="_blank" rel="noopener">${label}</a>`
+    : label;
+  return `<th scope="col" class="numeric">${content}</th>`;
+}
+
+function productTitle(product) {
+  const label = escapeHtml(product.display_name);
+  if (!product.manufacturer_product_url) return label;
+  return `<a href="${escapeAttribute(product.manufacturer_product_url)}" target="_blank" rel="noopener">${label}</a>`;
+}
+
+function matchesSearch(row) {
+  if (!state.search) return true;
+  const product = row.product;
+  const text = [
+    product.display_name,
+    product.material,
+    product.variant,
+    product.color,
+    product.brand,
+  ].join(" ").toLowerCase();
+  return text.includes(state.search);
+}
+
+function compareRows(left, right) {
+  const leftIsPla = left.product.material === "PLA";
+  const rightIsPla = right.product.material === "PLA";
+  if (leftIsPla && !rightIsPla) return -1;
+  if (!leftIsPla && rightIsPla) return 1;
+  return left.product.display_name.localeCompare(right.product.display_name, "es");
+}
+
+function formatInteger(value) {
+  return Number(value || 0).toLocaleString("es-AR");
+}
+
+function formatKg(value) {
+  return `${Number(value || 0).toLocaleString("es-AR", { maximumFractionDigits: 1 })} kg`;
+}
+
+function formatDate(value) {
+  if (!value) return "Sin datos";
+  return new Intl.DateTimeFormat("es-AR", { dateStyle: "short", timeStyle: "short" }).format(new Date(value));
+}
+
+function escapeHtml(value) {
+  return String(value ?? "").replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" }[char]));
+}
+
+function escapeAttribute(value) {
+  return escapeHtml(value);
+}
+```
+
+- [ ] **Step 6: Verify the JavaScript weight label before running tests**
+
+Confirm `public/app.js` uses the JavaScript-safe weight label:
 
 ```javascript
 setSelect("weight", valuesFor("weight_g").map((value) => [String(value), `${Number(value) / 1000} kg`]), "Peso");
@@ -2576,12 +2908,22 @@ Open `http://localhost:8000` in the in-app browser and verify:
 - Footer contact buttons only appear for configured WhatsApp, mail, contact or source links.
 - Mobile width keeps filters and cards readable with no overlap.
 
+Open `http://localhost:8000/resumen.html` and verify:
+
+- The summary page loads from the same `data/stock.json`.
+- Each row is one normalized filament.
+- Each provider appears as a column with its stock number.
+- The rightmost column shows the total units for that filament across providers.
+- The bottom row shows estimated kilos by provider and a grand total.
+- Unknown, negative or unusual stock values appear as `Rev.` and do not add to totals.
+- Mobile width keeps the table usable with horizontal scroll, sticky first column and no text overlap.
+
 - [ ] **Step 10: Commit frontend**
 
 Run:
 
 ```bash
-git add public/index.html public/styles.css public/app.js tests/test_frontend_assets.py
+git add public/index.html public/resumen.html public/styles.css public/app.js public/resumen.js tests/test_frontend_assets.py
 git commit -m "feat: add static stock catalog"
 ```
 
@@ -2718,6 +3060,7 @@ python -m http.server 8000 -d public
 ```
 
 Abrir `http://localhost:8000`.
+La vista compacta de resumen queda en `http://localhost:8000/resumen.html`.
 
 ## Fuentes iniciales
 
@@ -2762,6 +3105,7 @@ Open `http://localhost:8000` in the in-app browser and verify:
 - Zone appears next to providers but no zone filter exists.
 - Footer provider cards show sources, available contact actions, last update and estimated kilos.
 - Products with `stock_status: "unknown"` show "Stock a revisar" and do not appear as available stock.
+- The `resumen.html` view shows provider columns, product totals on the right and provider kg totals on the bottom.
 
 - [ ] **Step 4: Inspect git status**
 
@@ -2794,6 +3138,7 @@ Spec coverage:
 - GitHub Pages publication: Task 9.
 - Initial providers across AMBA: Task 2, Task 4 and Task 5.
 - PLA priority and catalog filters: Task 8.
+- Pivot-style summary view with provider columns and stock/kg totals: Task 8.
 - No prices: Task 8 visual verification.
 - Products without stock visible: Task 7 and Task 10.
 - Manufacturer links and images: Task 6, Task 7 and Task 8.

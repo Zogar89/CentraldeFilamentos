@@ -11,6 +11,7 @@ El MVP sera un sitio estatico servido con GitHub Pages. Python correra en GitHub
 ## Objetivos
 
 - Publicar una pagina simple y rapida para consultar stock de filamentos.
+- Agregar una pagina de super resumen tipo tabla dinamica para comparar proveedores de un vistazo.
 - Centralizar proveedores de Zona Sur, Zona Oeste y Zona Norte.
 - Mostrar todos los productos, incluidos los que no tienen stock.
 - Linkear cada producto a la pagina oficial del fabricante cuando exista.
@@ -198,7 +199,7 @@ Ademas de normalizar stock, el pipeline intentara enriquecer productos con infor
 
 ## Interfaz
 
-La UI sera un catalogo filtrable. No sera una landing page ni un buscador puro.
+La UI tendra dos vistas principales: un catalogo filtrable para explorar productos con detalle y una pagina de super resumen para comparar stock por proveedor en formato tabla. No sera una landing page ni un buscador puro.
 
 La direccion visual sera minimalista estilo Apple, entendida como inspiracion de calidad y claridad, no como copia de marca. La interfaz debe sentirse liviana, moderna y de alta confianza:
 
@@ -236,6 +237,23 @@ Filtros del MVP:
 - Estado de stock: todos / con stock / sin stock, con `todos` por defecto.
 
 La UI tambien tendra busqueda de texto simple para encontrar rapidamente terminos como `negro`, `pla+`, `grilon`, `3n3` o `1kg`.
+
+### Vista de super resumen
+
+Ademas del catalogo normal, el sitio tendra una pagina separada de resumen, por ejemplo `resumen.html`, pensada como una tabla dinamica compacta:
+
+- La primera columna muestra un filamento normalizado por fila.
+- Cada columna intermedia representa un proveedor.
+- Cada celda muestra el stock numerico de ese filamento en ese proveedor, cuando sea confiable.
+- La ultima columna derecha muestra la sumatoria de stock total de ese filamento entre todos los proveedores.
+- La ultima fila inferior muestra la sumatoria estimada de kilos disponibles por proveedor.
+- La celda inferior derecha muestra el total general estimado en kilos.
+- Valores negativos, vacios o `unknown` se muestran como `Revisar` o equivalente corto, pero no suman unidades ni kilos.
+- Productos sin stock siguen apareciendo para que el usuario pueda verificar que encontro el color/material correcto y que no hay disponibilidad.
+- La tabla debe ser rapida, compacta y compatible con celular mediante scroll horizontal cuidado, encabezado sticky y primera columna sticky.
+- Los numeros deben ser faciles de escanear, idealmente con cifras tabulares.
+- La vista debe incluir una busqueda simple para filtrar por material, color, marca o nombre del filamento.
+- Debe existir navegacion clara entre catalogo y resumen, sin convertirlo en una landing page.
 
 Cada producto agrupado mostrara:
 
@@ -283,6 +301,7 @@ Pruebas iniciales recomendadas:
 - Test de calculo de estadisticas por proveedor, incluyendo kilos estimados.
 - Test de parsing defensivo para stock negativo, celdas vacias y valores raros.
 - Test de que el footer renderice fuentes, contactos disponibles y ultima actualizacion.
+- Test de que la vista resumen renderice filas por filamento, columnas por proveedor, total por producto y total inferior de kilos por proveedor.
 - Revision visual manual de la UI para validar estilo minimalista, legibilidad mobile y ausencia de ruido visual.
 
 ## Decisiones aprobadas
@@ -303,3 +322,4 @@ Pruebas iniciales recomendadas:
 - Imagen del filamento siempre que este disponible.
 - Direccion visual minimalista estilo Apple, sin copiar marca ni assets.
 - Footer con fuentes, contactos disponibles, ultima actualizacion y estadisticas por proveedor.
+- Segunda pagina de super resumen tipo tabla dinamica con proveedores como columnas y totales por producto/proveedor.
