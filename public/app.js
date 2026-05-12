@@ -25,6 +25,32 @@ const filterIds = {
   stock: "stock-filter",
 };
 
+const lineMeta = {
+  "PLA Standard": { label: "PLA Standard", help: "El PLA común: fácil de imprimir y el más buscado para piezas generales.", rank: 10 },
+  "PLA+": { label: "PLA+", help: "PLA modificado: suele buscarse por mejor resistencia o terminación que el PLA común.", rank: 20 },
+  "PETG": { label: "PETG", help: "Más tenaz y resistente a temperatura que PLA; útil para piezas funcionales.", rank: 30 },
+  "ABS": { label: "ABS", help: "Material técnico para piezas resistentes; suele requerir cama caliente y buena ventilación.", rank: 40 },
+  "TPU": { label: "TPU", help: "Flexible/elástico, usado para piezas que necesitan doblarse o absorber impacto.", rank: 50 },
+  "Flex": { label: "Flex", help: "Línea flexible de 3N3; pensada para piezas blandas o elásticas.", rank: 51 },
+  "Simpliflex": { label: "Simpliflex", help: "Flexible de Grilon3: alternativa elástica con impresión más amigable.", rank: 52 },
+  "PLA Astra": { label: "PLA Astra · glitter/brillitos", help: "PLA con brillo tipo glitter. Ideal cuando importa la estética de la pieza.", rank: 60 },
+  "PLA Silk": { label: "PLA Silk · efecto seda", help: "PLA de acabado brillante/sedoso, muy usado en piezas decorativas.", rank: 61 },
+  "PLA Boutique": { label: "PLA Boutique · colores especiales", help: "Línea de colores especiales de Grilon3.", rank: 62 },
+  "PLA Wood": { label: "PLA Wood · símil madera", help: "PLA con terminación tipo madera.", rank: 63 },
+  "PLA 850": { label: "PLA 850 · técnico", help: "PLA de línea específica, distinto del PLA Standard.", rank: 70 },
+  "PLA 870": { label: "PLA 870 · técnico", help: "PLA de línea específica, distinto del PLA Standard.", rank: 71 },
+  "PLA Zeta": { label: "PLA Zeta · translúcido/especial", help: "Línea especial de Grilon3; no es PLA Standard.", rank: 72 },
+  "PETG Clear": { label: "PETG Clear · translúcido", help: "PETG translúcido/clear para piezas donde importa el pasaje de luz.", rank: 80 },
+  "E-PET": { label: "E-PET · PET reciclado", help: "PET reciclado. Distinto de PETG.", rank: 81 },
+  "PP-T": { label: "PP-T · polipropileno", help: "Polipropileno técnico; útil por su resistencia química y flexibilidad.", rank: 90 },
+  "Nylon 6": { label: "Nylon 6", help: "Nylon técnico para piezas exigentes.", rank: 100 },
+  "Nylon 12": { label: "Nylon 12", help: "Nylon técnico con otra formulación; no mezclar con Nylon 6.", rank: 101 },
+  "Acetal-POM": { label: "Acetal-POM", help: "Material técnico de baja fricción, usado en piezas mecánicas.", rank: 110 },
+  "PVA Soluble": { label: "PVA soluble", help: "Material soluble, usualmente para soportes.", rank: 120 },
+};
+
+const quickLineValues = ["PLA Standard", "PLA+", "PETG", "PLA Astra", "PLA Silk", "TPU"];
+
 document.addEventListener("DOMContentLoaded", init);
 
 async function init() {
@@ -46,6 +72,8 @@ function setupFilters() {
   setSelect("brand", valuesFor("brand"), "Marca");
   setSelect("provider", providerValues(), "Proveedor");
   setSelect("stock", [["all", "Todos"], ["in_stock", "Con stock"], ["out_of_stock", "Sin stock"], ["unknown", "A revisar"]]);
+  renderQuickLines();
+  updateLineHelp();
 
   document.getElementById("search-input").addEventListener("input", (event) => {
     state.filters.query = event.target.value.toLowerCase().trim();
@@ -54,6 +82,7 @@ function setupFilters() {
   Object.entries(filterIds).forEach(([key, id]) => {
     document.getElementById(id).addEventListener("change", (event) => {
       state.filters[key] = event.target.value;
+      if (key === "variant") updateLineHelp();
       render();
     });
   });
@@ -235,7 +264,10 @@ function brandRank(brand) {
 
 function setSelect(key, values, emptyLabel = "") {
   const select = document.getElementById(filterIds[key]);
-  const normalized = values.map((value) => Array.isArray(value) ? value : [value, value]);
+  const normalized = values.map((value) => {
+    if (Array.isArray(value)) return value;
+    return [value, key === "variant" ? lineOptionLabel(value) : value];
+  });
   const options = emptyLabel ? [["", emptyLabel], ...normalized] : normalized;
   select.innerHTML = options.map(([value, label]) => `<option value="${escapeAttribute(value)}">${escapeHtml(label)}</option>`).join("");
 }
@@ -249,7 +281,43 @@ function providerValues() {
 }
 
 function lineValues() {
-  return [...new Set(state.products.map(lineLabel).filter(Boolean))].sort();
+  return [...new Set(state.products.map(lineLabel).filter(Boolean))].sort((left, right) => {
+    return lineRank(left) - lineRank(right) || left.localeCompare(right, "es-AR");
+  });
+}
+
+function lineOptionLabel(line) {
+  return lineMeta[line]?.label || line;
+}
+
+function lineRank(line) {
+  return lineMeta[line]?.rank ?? 999;
+}
+
+function updateLineHelp() {
+  const line = state.filters.variant;
+  const help = document.getElementById("line-help");
+  if (!line) {
+    help.textContent = "Líneas más usadas: PLA Standard, PLA+, PETG y flexibles. Algunas líneas especiales tienen descripción para elegir sin adivinar.";
+    return;
+  }
+  help.textContent = lineMeta[line]?.help || `${line}: línea/material detectado desde las fuentes de stock.`;
+}
+
+function renderQuickLines() {
+  const available = new Set(lineValues());
+  const buttons = quickLineValues
+    .filter((line) => available.has(line))
+    .map((line) => `<button class="quick-line" type="button" data-line="${escapeAttribute(line)}">${escapeHtml(lineOptionLabel(line))}</button>`);
+  document.getElementById("quick-lines").innerHTML = buttons.join("");
+  document.querySelectorAll(".quick-line").forEach((button) => {
+    button.addEventListener("click", () => {
+      state.filters.variant = button.dataset.line || "";
+      document.getElementById("variant-filter").value = state.filters.variant;
+      updateLineHelp();
+      render();
+    });
+  });
 }
 
 function chip(value) {

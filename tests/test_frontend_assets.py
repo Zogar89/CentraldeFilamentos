@@ -11,6 +11,8 @@ def test_static_frontend_files_exist_and_are_linked():
     assert '<script src="app.js" defer></script>' in index
     assert 'href="styles.css"' in index
     assert 'href="resumen.html"' in index
+    assert 'id="quick-lines"' in index
+    assert 'id="line-help"' in index
     assert '<script src="resumen.js" defer></script>' in resumen
     assert 'id="summary-table"' in resumen
 
@@ -34,6 +36,10 @@ def test_catalog_script_fetches_json_and_supports_required_filters():
     assert "groupProducts" in js
     assert "group-section" in js
     assert "PLA Standard" in js
+    assert "glitter/brillitos" in js
+    assert "E-PET · PET reciclado" in js
+    assert "PP-T · polipropileno" in js
+    assert "quickLineValues" in js
     assert "sin stock online registrado" in js
     assert "whatsappLink" not in js
 

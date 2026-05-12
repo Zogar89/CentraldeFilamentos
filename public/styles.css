@@ -99,6 +99,30 @@ input {
   color: var(--muted);
 }
 
+.quick-lines {
+  display: flex;
+  gap: 6px;
+  margin: 8px 0;
+  overflow-x: auto;
+  padding-bottom: 2px;
+}
+
+.quick-line {
+  flex: 0 0 auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+  padding: 8px 10px;
+  font: inherit;
+  cursor: pointer;
+}
+
+.quick-line:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
 .filters {
   display: grid;
   grid-template-columns: minmax(220px, 2fr) repeat(7, minmax(112px, 1fr));
@@ -110,6 +134,12 @@ input {
   position: sticky;
   top: 0;
   z-index: 4;
+}
+
+.line-help {
+  margin: 8px 2px 12px;
+  color: var(--muted);
+  font-size: 13px;
 }
 
 .filters.one-line {
