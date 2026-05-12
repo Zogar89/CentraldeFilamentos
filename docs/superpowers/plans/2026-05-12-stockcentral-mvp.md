@@ -56,7 +56,7 @@
 Create `tests/test_models.py`:
 
 ```python
-from stockcentral.models import Offer, ProductGroup, SourceStatus
+from stockcentral.models import Offer, ProductGroup, ProviderStats, SourceStatus
 
 
 def test_product_group_serializes_for_public_json():
@@ -105,16 +105,29 @@ def test_source_status_serializes_error_message():
         zone="Zona Oeste",
         homepage_url="https://docs.google.com/spreadsheets/d/14nblAeXZfx_TEeHj4xnK90hSmUp3hk6KSO4nUTrb9zM",
         source_url="https://docs.google.com/spreadsheets/d/14nblAeXZfx_TEeHj4xnK90hSmUp3hk6KSO4nUTrb9zM",
+        contact_whatsapp_url="https://wa.me/5491112345678",
+        contact_email="ventas@example.com",
+        address="Moron, Buenos Aires",
+        contact_url="https://example.com/contacto",
         last_success_at="2026-05-12T12:00:00-03:00",
         last_attempt_at="2026-05-12T15:00:00-03:00",
         status="error",
         error_message="CSV export returned 403",
+        stats=ProviderStats(
+            total_stock_units=12,
+            total_stock_kg=12.0,
+            product_count=3,
+            in_stock_product_count=1,
+            out_of_stock_product_count=1,
+        ),
     )
 
     payload = source.to_dict()
 
     assert payload["status"] == "error"
     assert payload["error_message"] == "CSV export returned 403"
+    assert payload["contact_whatsapp_url"].startswith("https://wa.me/")
+    assert payload["stats"]["total_stock_kg"] == 12.0
 ```
 
 - [ ] **Step 2: Run the tests to verify the package is missing**
@@ -264,19 +277,38 @@ class ProductGroup:
 
 
 @dataclass(frozen=True)
+class ProviderStats:
+    total_stock_units: int
+    total_stock_kg: float
+    product_count: int
+    in_stock_product_count: int
+    out_of_stock_product_count: int
+
+    def to_dict(self) -> dict[str, object]:
+        return asdict(self)
+
+
+@dataclass(frozen=True)
 class SourceStatus:
     id: str
     name: str
     zone: str
     homepage_url: str
     source_url: str
+    contact_whatsapp_url: str
+    contact_email: str
+    address: str
+    contact_url: str
     last_success_at: str
     last_attempt_at: str
     status: SourceRunStatus
     error_message: str
+    stats: ProviderStats
 
     def to_dict(self) -> dict[str, object]:
-        return asdict(self)
+        payload = asdict(self)
+        payload["stats"] = self.stats.to_dict()
+        return payload
 
 
 @dataclass(frozen=True)
@@ -340,6 +372,13 @@ def test_google_sheet_sources_include_sheet_ids_and_gids():
     assert SOURCES["mundoinsumos"].gid == "1981641819"
 
 
+def test_provider_contacts_are_optional_and_not_invented():
+    assert SOURCES["filamentos3d"].contact_url == "https://filamentos3d.com.ar/"
+    assert SOURCES["grupo_senz"].contact_whatsapp_url == ""
+    assert SOURCES["grupo_senz"].contact_email == ""
+    assert SOURCES["grupo_senz"].address == ""
+
+
 def test_manufacturer_configuration_keeps_3n3_without_official_site():
     assert MANUFACTURERS["grilon3"].products_url == "https://grilon3.com.ar/productos/"
     assert MANUFACTURERS["grilon3"].has_official_product_pages is True
@@ -380,6 +419,10 @@ class SourceConfig:
     sheet_id: str = ""
     gid: str = "0"
     brand_hint: str = ""
+    contact_whatsapp_url: str = ""
+    contact_email: str = ""
+    address: str = ""
+    contact_url: str = ""
 
 
 SOURCES: dict[str, SourceConfig] = {
@@ -391,6 +434,7 @@ SOURCES: dict[str, SourceConfig] = {
         source_url="https://filamentos3d.com.ar/grilon3.php",
         connector="filamentos3d",
         brand_hint="Grilon3",
+        contact_url="https://filamentos3d.com.ar/",
     ),
     "grupo_senz": SourceConfig(
         id="grupo_senz",
@@ -411,6 +455,7 @@ SOURCES: dict[str, SourceConfig] = {
         connector="google_sheet",
         sheet_id="1r-nKy4tRRtZ-5xwgxAcia8REDVW0Dv0h",
         gid="1981641819",
+        contact_url="https://www.mundoinsumos.com.ar/",
     ),
 }
 
@@ -1298,7 +1343,7 @@ import json
 from pathlib import Path
 
 from stockcentral.build_data import build_payload, write_payload
-from stockcentral.models import RawStockItem
+from stockcentral.models import ProviderStats, RawStockItem, SourceStatus
 
 
 def test_build_payload_groups_products_and_preserves_out_of_stock():
@@ -1333,14 +1378,56 @@ def test_build_payload_groups_products_and_preserves_out_of_stock():
             "image_source": "manufacturer",
         }
     }
+    source_statuses = [
+        SourceStatus(
+            id="filamentos3d",
+            name="Filamentos3D",
+            zone="Zona Sur",
+            homepage_url="https://filamentos3d.com.ar/",
+            source_url="https://filamentos3d.com.ar/grilon3.php",
+            contact_whatsapp_url="",
+            contact_email="",
+            address="",
+            contact_url="https://filamentos3d.com.ar/",
+            last_success_at="2026-05-12T12:00:00-03:00",
+            last_attempt_at="2026-05-12T12:00:00-03:00",
+            status="ok",
+            error_message="",
+            stats=ProviderStats(0, 0.0, 0, 0, 0),
+        ),
+        SourceStatus(
+            id="mundoinsumos",
+            name="MundoInsumos",
+            zone="Zona Norte",
+            homepage_url="https://www.mundoinsumos.com.ar/",
+            source_url="https://docs.google.com/spreadsheets/d/1r-nKy4tRRtZ-5xwgxAcia8REDVW0Dv0h",
+            contact_whatsapp_url="",
+            contact_email="",
+            address="",
+            contact_url="https://www.mundoinsumos.com.ar/",
+            last_success_at="2026-05-12T12:00:00-03:00",
+            last_attempt_at="2026-05-12T12:00:00-03:00",
+            status="ok",
+            error_message="",
+            stats=ProviderStats(0, 0.0, 0, 0, 0),
+        ),
+    ]
 
-    payload = build_payload(raw_items, grilon3_enrichment=catalog, generated_at="2026-05-12T12:00:00-03:00")
+    payload = build_payload(
+        raw_items,
+        grilon3_enrichment=catalog,
+        generated_at="2026-05-12T12:00:00-03:00",
+        source_statuses=source_statuses,
+    )
 
     assert payload["generated_at"] == "2026-05-12T12:00:00-03:00"
     assert len(payload["products"]) == 1
     assert len(payload["products"][0]["offers"]) == 2
     assert payload["products"][0]["offers"][1]["stock_status"] == "out_of_stock"
     assert payload["products"][0]["manufacturer_product_url"] == "https://grilon3.com.ar/producto/pla-negro/"
+    assert payload["sources"][0]["stats"]["total_stock_units"] == 4
+    assert payload["sources"][0]["stats"]["total_stock_kg"] == 4.0
+    assert payload["sources"][1]["stats"]["out_of_stock_product_count"] == 1
 
 
 def test_write_payload_creates_json_file(tmp_path: Path):
@@ -1379,7 +1466,7 @@ from zoneinfo import ZoneInfo
 from stockcentral.connectors.filamentos3d import fetch_filamentos3d_items
 from stockcentral.connectors.google_sheet import fetch_sheet_items
 from stockcentral.connectors.grilon3_catalog import enrich_grilon3_product, fetch_grilon3_catalog
-from stockcentral.models import Offer, ProductGroup, RawStockItem, SourceStatus
+from stockcentral.models import Offer, ProductGroup, ProviderStats, RawStockItem, SourceStatus
 from stockcentral.normalize import build_display_name, build_product_id, normalize_record
 from stockcentral.providers import MANUFACTURERS, SOURCES
 
@@ -1424,10 +1511,15 @@ def fetch_all_sources(generated_at: str) -> tuple[list[RawStockItem], list[Sourc
                     zone=source.zone,
                     homepage_url=source.homepage_url,
                     source_url=source.source_url,
+                    contact_whatsapp_url=source.contact_whatsapp_url,
+                    contact_email=source.contact_email,
+                    address=source.address,
+                    contact_url=source.contact_url or source.homepage_url,
                     last_success_at=generated_at,
                     last_attempt_at=generated_at,
                     status="ok",
                     error_message="",
+                    stats=_empty_stats(),
                 )
             )
         except Exception as exc:
@@ -1438,10 +1530,15 @@ def fetch_all_sources(generated_at: str) -> tuple[list[RawStockItem], list[Sourc
                     zone=source.zone,
                     homepage_url=source.homepage_url,
                     source_url=source.source_url,
+                    contact_whatsapp_url=source.contact_whatsapp_url,
+                    contact_email=source.contact_email,
+                    address=source.address,
+                    contact_url=source.contact_url or source.homepage_url,
                     last_success_at="",
                     last_attempt_at=generated_at,
                     status="error",
                     error_message=str(exc)[:240],
+                    stats=_empty_stats(),
                 )
             )
 
@@ -1484,7 +1581,7 @@ def build_payload(
         )
 
     products.sort(key=_product_sort_key)
-    statuses = source_statuses or []
+    statuses = _statuses_with_stats(source_statuses or [], products)
 
     return {
         "generated_at": generated_at,
@@ -1501,6 +1598,71 @@ def write_payload(payload: dict[str, object], output: Path) -> None:
 
 def now_argentina() -> str:
     return datetime.now(ZoneInfo("America/Argentina/Buenos_Aires")).isoformat(timespec="seconds")
+
+
+def _empty_stats() -> ProviderStats:
+    return ProviderStats(
+        total_stock_units=0,
+        total_stock_kg=0.0,
+        product_count=0,
+        in_stock_product_count=0,
+        out_of_stock_product_count=0,
+    )
+
+
+def _statuses_with_stats(statuses: list[SourceStatus], products: list[ProductGroup]) -> list[SourceStatus]:
+    stats_by_source: dict[str, ProviderStats] = {
+        status.id: _stats_for_source(status.id, products) for status in statuses
+    }
+    return [
+        SourceStatus(
+            id=status.id,
+            name=status.name,
+            zone=status.zone,
+            homepage_url=status.homepage_url,
+            source_url=status.source_url,
+            contact_whatsapp_url=status.contact_whatsapp_url,
+            contact_email=status.contact_email,
+            address=status.address,
+            contact_url=status.contact_url,
+            last_success_at=status.last_success_at,
+            last_attempt_at=status.last_attempt_at,
+            status=status.status,
+            error_message=status.error_message,
+            stats=stats_by_source.get(status.id, _empty_stats()),
+        )
+        for status in statuses
+    ]
+
+
+def _stats_for_source(source_id: str, products: list[ProductGroup]) -> ProviderStats:
+    total_units = 0
+    total_kg = 0.0
+    product_count = 0
+    in_stock_count = 0
+    out_of_stock_count = 0
+
+    for product in products:
+        for offer in product.offers:
+            if offer.source_id != source_id:
+                continue
+            product_count += 1
+            if offer.stock_quantity is not None:
+                total_units += offer.stock_quantity
+                if product.weight_g is not None:
+                    total_kg += offer.stock_quantity * product.weight_g / 1000
+            if offer.stock_status == "in_stock":
+                in_stock_count += 1
+            elif offer.stock_status == "out_of_stock":
+                out_of_stock_count += 1
+
+    return ProviderStats(
+        total_stock_units=total_units,
+        total_stock_kg=round(total_kg, 2),
+        product_count=product_count,
+        in_stock_product_count=in_stock_count,
+        out_of_stock_product_count=out_of_stock_count,
+    )
 
 
 def _offer_from_raw(item: RawStockItem) -> Offer:
@@ -1577,7 +1739,30 @@ Create `public/data/stock.json`:
       ]
     }
   ],
-  "sources": [],
+  "sources": [
+    {
+      "id": "filamentos3d",
+      "name": "Filamentos3D",
+      "zone": "Zona Sur",
+      "homepage_url": "https://filamentos3d.com.ar/",
+      "source_url": "https://filamentos3d.com.ar/grilon3.php",
+      "contact_whatsapp_url": "",
+      "contact_email": "",
+      "address": "",
+      "contact_url": "https://filamentos3d.com.ar/",
+      "last_success_at": "2026-05-12T12:00:00-03:00",
+      "last_attempt_at": "2026-05-12T12:00:00-03:00",
+      "status": "ok",
+      "error_message": "",
+      "stats": {
+        "total_stock_units": 24,
+        "total_stock_kg": 24.0,
+        "product_count": 1,
+        "in_stock_product_count": 1,
+        "out_of_stock_product_count": 0
+      }
+    }
+  ],
   "manufacturers": []
 }
 ```
@@ -1635,6 +1820,7 @@ def test_index_loads_styles_script_and_data_app_root():
     assert '<link rel="stylesheet" href="styles.css">' in html
     assert '<script src="app.js" defer></script>' in html
     assert 'id="app"' in html
+    assert 'id="site-footer"' in html
     assert 'StockCentral' in html
 
 
@@ -1650,6 +1836,9 @@ def test_frontend_script_fetches_stock_json_and_supports_required_filters():
     assert "brand" in js
     assert "provider" in js
     assert "stock" in js
+    assert "renderFooter" in js
+    assert "contact_whatsapp_url" in js
+    assert "total_stock_kg" in js
 
 
 def test_styles_include_minimal_visual_tokens():
@@ -1658,6 +1847,7 @@ def test_styles_include_minimal_visual_tokens():
     assert "--surface" in css
     assert "--accent" in css
     assert "border-radius" in css
+    assert ".site-footer" in css
     assert "@media" in css
 ```
 
@@ -1726,6 +1916,7 @@ Create `public/index.html`:
 
       <section id="source-status" class="source-status" aria-label="Estado de fuentes"></section>
       <section id="products" class="products" aria-label="Productos"></section>
+      <footer id="site-footer" class="site-footer" aria-label="Fuentes, contactos y estadisticas"></footer>
     </main>
   </body>
 </html>
@@ -1801,7 +1992,8 @@ h1 {
 .update-card,
 .toolbar,
 .product-card,
-.source-status {
+.source-status,
+.site-footer {
   background: var(--surface);
   border: 1px solid rgba(0, 0, 0, 0.06);
   border-radius: var(--radius);
@@ -1965,6 +2157,49 @@ a:hover {
   font-weight: 700;
 }
 
+.site-footer {
+  margin-top: 28px;
+  padding: 22px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.footer-card {
+  background: var(--surface-soft);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px;
+}
+
+.footer-card h3 {
+  margin: 0 0 10px;
+  font-size: 15px;
+}
+
+.footer-card p {
+  margin: 7px 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.contact-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.contact-actions a {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 7px 10px;
+  font-size: 13px;
+}
+
 @media (max-width: 760px) {
   .shell {
     width: min(100% - 20px, 1180px);
@@ -1992,6 +2227,10 @@ a:hover {
   .product-image {
     width: 100%;
     height: 180px;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
   }
 }
 ```
@@ -2090,6 +2329,7 @@ function render() {
   document.getElementById("result-count").textContent = `${filtered.length} productos`;
   renderSources();
   renderProducts(filtered);
+  renderFooter();
 }
 
 function matchesFilters(product) {
@@ -2131,6 +2371,40 @@ function renderSources() {
 function renderProducts(products) {
   const container = document.getElementById("products");
   container.innerHTML = products.map(productTemplate).join("");
+}
+
+function renderFooter() {
+  const footer = document.getElementById("site-footer");
+  if (!state.sources.length) {
+    footer.innerHTML = "";
+    return;
+  }
+
+  footer.innerHTML = `
+    <div class="footer-grid">
+      ${state.sources.map(providerFooterCard).join("")}
+    </div>
+  `;
+}
+
+function providerFooterCard(source) {
+  const stats = source.stats || {};
+  const actions = [
+    source.contact_whatsapp_url ? `<a href="${escapeAttribute(source.contact_whatsapp_url)}" target="_blank" rel="noopener">WhatsApp</a>` : "",
+    source.contact_email ? `<a href="mailto:${escapeAttribute(source.contact_email)}">Mail</a>` : "",
+    source.contact_url ? `<a href="${escapeAttribute(source.contact_url)}" target="_blank" rel="noopener">Contacto</a>` : "",
+    source.source_url ? `<a href="${escapeAttribute(source.source_url)}" target="_blank" rel="noopener">Fuente</a>` : "",
+  ].filter(Boolean).join("");
+
+  return `
+    <section class="footer-card">
+      <h3>${escapeHtml(source.name)}</h3>
+      <p>${escapeHtml(source.zone)}${source.address ? ` · ${escapeHtml(source.address)}` : ""}</p>
+      <p>Actualizado: ${escapeHtml(formatDate(source.last_success_at || source.last_attempt_at))}</p>
+      <p>${escapeHtml(Number(stats.total_stock_kg || 0).toLocaleString("es-AR"))} kg estimados · ${escapeHtml(stats.product_count || 0)} productos</p>
+      <div class="contact-actions">${actions}</div>
+    </section>
+  `;
 }
 
 function productTemplate(product) {
@@ -2249,6 +2523,8 @@ Open `http://localhost:8000` in the in-app browser and verify:
 - Search for `negro` keeps the sample product visible.
 - The provider name opens the provider URL in a new tab.
 - The product title opens the Grilon3 manufacturer URL in a new tab.
+- The footer shows each provider source, last update and estimated stock kilos.
+- Footer contact buttons only appear for configured WhatsApp, mail, contact or source links.
 - Mobile width keeps filters and cards readable with no overlap.
 
 - [ ] **Step 10: Commit frontend**
@@ -2435,6 +2711,7 @@ Open `http://localhost:8000` in the in-app browser and verify:
 - Products without stock remain visible.
 - There are no prices in the UI.
 - Zone appears next to providers but no zone filter exists.
+- Footer provider cards show sources, available contact actions, last update and estimated kilos.
 
 - [ ] **Step 4: Inspect git status**
 
@@ -2472,6 +2749,7 @@ Spec coverage:
 - Manufacturer links and images: Task 6, Task 7 and Task 8.
 - Grilon3 official catalog and 3N3 without invented site: Task 2 and Task 6.
 - Minimalist Apple-inspired UI: Task 8 and Task 10.
+- Footer sources, contacts, update dates and provider statistics: Task 1, Task 2, Task 7, Task 8 and Task 10.
 
 Placeholder scan:
 
@@ -2480,5 +2758,5 @@ Placeholder scan:
 
 Type consistency:
 
-- `RawStockItem`, `NormalizedFields`, `Offer`, `ProductGroup`, `SourceStatus` and `ManufacturerInfo` are introduced before they are consumed.
-- Frontend field names match `ProductGroup.to_dict()` and `Offer.to_dict()`.
+- `RawStockItem`, `NormalizedFields`, `Offer`, `ProductGroup`, `ProviderStats`, `SourceStatus` and `ManufacturerInfo` are introduced before they are consumed.
+- Frontend field names match `ProductGroup.to_dict()`, `Offer.to_dict()` and `SourceStatus.to_dict()`.

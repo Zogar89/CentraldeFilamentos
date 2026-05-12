@@ -17,6 +17,7 @@ El MVP sera un sitio estatico servido con GitHub Pages. Python correra en GitHub
 - Mostrar imagen del filamento siempre que este disponible.
 - Priorizar la experiencia de busqueda por filtros, con PLA destacado porque es el caso de uso mayoritario.
 - Usar una direccion visual minimalista estilo Apple: clara, liviana, precisa y enfocada en el producto.
+- Incluir un footer informativo con fuentes, contactos de proveedores, ultima actualizacion y estadisticas simples por proveedor.
 - Mantener la ingesta y normalizacion separadas del frontend para facilitar una futura migracion a backend si hace falta.
 
 ## Fuera de alcance inicial
@@ -82,7 +83,7 @@ Si una fuente falla, el resto de las fuentes deben seguir publicandose. El JSON 
 
 ## Modelo de datos
 
-El JSON publico tendra dos secciones principales:
+El JSON publico tendra tres secciones principales:
 
 - `products`: productos agrupados para mostrar en la UI.
 - `sources`: metadata por proveedor.
@@ -129,10 +130,27 @@ Campos esperados:
 - `zone`.
 - `homepage_url`.
 - `source_url`.
+- `contact_whatsapp_url`.
+- `contact_email`.
+- `address`.
+- `contact_url`.
 - `last_success_at`.
 - `last_attempt_at`.
 - `status`: `ok` o `error`.
 - `error_message`: mensaje corto si fallo la ultima actualizacion.
+- `stats`: estadisticas calculadas por proveedor.
+
+### Estadisticas de proveedor
+
+Campos esperados dentro de `sources[].stats`:
+
+- `total_stock_units`: suma de unidades con stock numerico conocido.
+- `total_stock_kg`: kilos estimados, calculados como `stock_quantity * weight_g / 1000` cuando el peso normalizado exista.
+- `product_count`: cantidad de productos/ofertas publicados para el proveedor.
+- `in_stock_product_count`: cantidad de productos/ofertas con stock mayor a cero.
+- `out_of_stock_product_count`: cantidad de productos/ofertas sin stock.
+
+Si un producto no tiene peso normalizado o stock numerico, no debe aportar a `total_stock_kg`. La UI puede mostrar el total como estimado.
 
 ### Metadata de fabricantes
 
@@ -179,6 +197,7 @@ La direccion visual sera minimalista estilo Apple, entendida como inspiracion de
 - Controles simples, con estados claros y sin decoracion innecesaria.
 - Imagenes de filamento integradas como apoyo visual, sin dominar la lectura.
 - Layout responsive cuidado, especialmente mobile.
+- Footer funcional con informacion util sin competir con el catalogo.
 - Sin logos, iconografia ni assets de Apple.
 
 Comportamiento inicial:
@@ -217,6 +236,16 @@ Cada producto agrupado mostrara:
 - Nombre original de la fuente cuando ayude a verificar coincidencia.
 - Link en el nombre del proveedor.
 
+El footer mostrara:
+
+- Fuentes de la informacion usadas para construir el catalogo, con link a cada fuente publica.
+- Datos de contacto de cada proveedor cuando esten disponibles: WhatsApp, mail, direccion, sitio/contacto.
+- Ultima fecha de actualizacion general.
+- Ultima actualizacion y estado por proveedor.
+- Estadisticas pequenas por proveedor, especialmente kilos estimados disponibles.
+
+El footer debe mantener el mismo lenguaje visual minimalista: informacion compacta, clara y secundaria. Los botones de WhatsApp/mail deben aparecer solo cuando exista el dato configurado para ese proveedor. No se deben inventar contactos ni direcciones.
+
 ## Manejo de errores
 
 El sistema debe tolerar fallos parciales:
@@ -238,6 +267,8 @@ Pruebas iniciales recomendadas:
 - Test de filtros principales sobre un dataset fixture.
 - Test de enriquecimiento para productos Grilon3 con URL oficial e imagen cuando exista.
 - Test de que productos 3N3 no reciban links de fabricante inventados.
+- Test de calculo de estadisticas por proveedor, incluyendo kilos estimados.
+- Test de que el footer renderice fuentes, contactos disponibles y ultima actualizacion.
 - Revision visual manual de la UI para validar estilo minimalista, legibilidad mobile y ausencia de ruido visual.
 
 ## Decisiones aprobadas
@@ -257,3 +288,4 @@ Pruebas iniciales recomendadas:
 - Productos con link oficial del fabricante cuando exista.
 - Imagen del filamento siempre que este disponible.
 - Direccion visual minimalista estilo Apple, sin copiar marca ni assets.
+- Footer con fuentes, contactos disponibles, ultima actualizacion y estadisticas por proveedor.
