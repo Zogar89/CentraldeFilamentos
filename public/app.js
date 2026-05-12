@@ -164,10 +164,12 @@ function offerTemplate(offer) {
   const stockLabel = offer.stock_status === "in_stock" ? `${offer.stock_quantity} carretes` : offer.stock_status === "out_of_stock" ? "0" : "Rev.";
   return `
     <div class="offer">
-      <a href="${escapeAttribute(offer.provider_url)}" target="_blank" rel="noopener">${escapeHtml(offer.provider_name)}</a>
-      · ${escapeHtml(offer.provider_zone)}
-      · <span class="${stockClass}">${escapeHtml(stockLabel)}</span>
-      <br><small>${escapeHtml(offer.original_name)}</small>
+      <div class="offer-main">
+        <a href="${escapeAttribute(offer.provider_url)}" target="_blank" rel="noopener">${escapeHtml(offer.provider_name)}</a>
+        <span>${escapeHtml(offer.provider_zone)}</span>
+        <strong class="${stockClass}">${escapeHtml(stockLabel)}</strong>
+      </div>
+      <small>${escapeHtml(offer.original_name)}</small>
     </div>
   `;
 }
