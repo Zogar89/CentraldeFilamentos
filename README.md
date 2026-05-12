@@ -19,7 +19,7 @@ Decisiones principales:
 
 ```bash
 python -m pip install -e ".[dev]"
-pytest
+python -m pytest -v --basetemp C:\tmp\pytest-stockcentral
 python -m stockcentral.build_data --output public/data/stock.json
 python -m http.server 8000 -d public
 ```
@@ -27,9 +27,55 @@ python -m http.server 8000 -d public
 Abrir `http://localhost:8000`.
 La vista compacta de resumen queda en `http://localhost:8000/resumen.html`.
 
+### Comandos
+
+Instalar dependencias de desarrollo:
+
+```bash
+python -m pip install -e ".[dev]"
+```
+
+Ejecutar tests en Windows local:
+
+```bash
+python -m pytest -v --basetemp C:\tmp\pytest-stockcentral
+```
+
+Ejecutar tests en Linux o GitHub Actions:
+
+```bash
+python -m pytest -v
+```
+
+Generar datos para el sitio estatico:
+
+```bash
+python -m stockcentral.build_data --output public/data/stock.json
+```
+
+Levantar servidor estatico local:
+
+```bash
+python -m http.server 8000 -d public
+```
+
 ## Datos
 
 El frontend lee `public/data/stock.json`. En produccion, GitHub Actions genera ese archivo y publica `public/` en GitHub Pages.
+
+## GitHub Pages
+
+El sitio publicado queda disponible en:
+
+https://zogar89.github.io/StockCentral/
+
+GitHub Pages esta configurado con `build_type: workflow`. El workflow `.github/workflows/pages.yml` se puede correr manualmente con `workflow_dispatch` y tambien corre de lunes a viernes a las 12, 15, 18 y 21 UTC, que corresponden a las 09, 12, 15 y 18 hs de Argentina.
+
+## Fuentes iniciales
+
+- Filamentos3D
+- Grupo Senz
+- MundoInsumos
 
 ## Documentacion
 
@@ -39,4 +85,4 @@ El frontend lee `public/data/stock.json`. En produccion, GitHub Actions genera e
 
 ## Proximo paso
 
-Implementar el MVP siguiendo el plan desde Task 1: scaffold Python, modelos y tests.
+Completar el frontend estatico, validar visualmente en mobile/desktop y dejar el workflow de Pages publicando la app desde `public/`.
