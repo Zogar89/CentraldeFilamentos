@@ -1,4 +1,5 @@
 import json
+import pytest
 
 from stockcentral.build_data import (
     build_grilon3_enrichments,
@@ -117,6 +118,19 @@ def test_build_payload_deduplicates_repeated_provider_rows():
     )
 
     assert len(payload["products"][0]["offers"]) == 1
+
+
+def test_build_payload_rejects_repeated_provider_inside_product_card():
+    with pytest.raises(ValueError, match="repeated provider offers"):
+        build_payload(
+            [
+                raw("filamentos3d", "Filamentos3D", "Zona Sur", "GRILON3 PLA Negro 1kg 1.75mm", 4, "Grilon3"),
+                raw("filamentos3d", "Filamentos3D", "Zona Sur", "GRILON3 PLA NEGRO 1.75 MM X KG", 2, "Grilon3"),
+            ],
+            sources=SOURCES,
+            manufacturers=MANUFACTURERS,
+            generated_at="2026-05-12T13:00:00-03:00",
+        )
 
 
 def test_build_payload_adds_catalog_products_without_provider_stock():

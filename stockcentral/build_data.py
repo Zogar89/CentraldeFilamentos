@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+from collections import Counter
 from datetime import datetime
 from pathlib import Path
 from typing import Mapping
@@ -207,6 +208,7 @@ def _product_from_group(product_id: str, data: Mapping[str, object]) -> ProductG
     fields = data["fields"]
     enrichment = data["enrichment"]
     offers = sorted(data["offers"], key=_offer_sort_key)  # type: ignore[arg-type]
+    _validate_unique_provider_offers(product_id, offers)
 
     return ProductGroup(
         id=product_id,
@@ -313,6 +315,23 @@ def _source_sort_key(source: SourceConfig) -> tuple[int, str]:
 
 def _offer_sort_key(offer: Offer) -> tuple[int, str]:
     return (ZONE_ORDER.get(offer.provider_zone, 99), offer.provider_name)
+
+
+def _validate_unique_provider_offers(product_id: str, offers: list[Offer]) -> None:
+    provider_counts = Counter(offer.provider_name for offer in offers)
+    duplicated_providers = sorted(provider for provider, count in provider_counts.items() if count > 1)
+    if not duplicated_providers:
+        return
+
+    details = []
+    for provider in duplicated_providers:
+        provider_offers = [offer.original_name for offer in offers if offer.provider_name == provider]
+        details.append(f"{provider}: {' | '.join(provider_offers)}")
+    raise ValueError(
+        f"Product {product_id} has repeated provider offers. "
+        f"This usually means different products were normalized together. "
+        f"{'; '.join(details)}"
+    )
 
 
 def _now() -> str:
