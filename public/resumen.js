@@ -61,6 +61,7 @@ function render() {
     <thead>
       <tr>
         <th>Filamento</th>
+        <th class="summary-weight">Kg</th>
         ${state.sources.map(sourceHeader).join("")}
         <th class="summary-total">Total</th>
       </tr>
@@ -69,6 +70,7 @@ function render() {
     <tfoot>
       <tr>
         <th>Carretes por proveedor</th>
+        <td class="summary-weight"></td>
         ${state.sources.map((source) => `<td class="summary-total">${formatInteger(providerTotals[source.id])}</td>`).join("")}
         <td class="summary-total">${formatInteger(grandTotal)}</td>
       </tr>
@@ -102,6 +104,7 @@ function groupTemplate(group) {
   return `
     <tr class="summary-group-row">
       <th>${escapeHtml(group.title)}</th>
+      <td class="summary-weight"></td>
       ${state.sources.map((source) => `<td>${formatInteger(group.totals[source.id])}</td>`).join("")}
       <td class="summary-total">${formatInteger(group.total)}</td>
     </tr>
@@ -118,6 +121,7 @@ function rowTemplate(row) {
   return `
     <tr>
       <th>${productTitle(row.product)}</th>
+      <td class="summary-weight">${escapeHtml(formatWeightValue(row.product.weight_g))}</td>
       ${state.sources.map((source) => cellTemplate(row.cells[source.id])).join("")}
       <td class="summary-total">${formatInteger(row.total)}</td>
     </tr>
@@ -149,9 +153,15 @@ function cellTemplate(cell) {
 }
 
 function productTitle(product) {
-  const label = escapeHtml(product.display_name);
+  const label = escapeHtml(productSummaryName(product));
   if (!product.manufacturer_product_url) return label;
   return `<a href="${escapeAttribute(product.manufacturer_product_url)}" target="_blank" rel="noopener">${label}</a>`;
+}
+
+function productSummaryName(product) {
+  const weight = formatWeightLabel(product.weight_g);
+  if (!weight) return product.display_name;
+  return product.display_name.replace(` ${weight}`, "");
 }
 
 function matchesQuery(row) {
@@ -191,6 +201,16 @@ function lineLabel(product) {
 
 function formatInteger(value) {
   return Number(value || 0).toLocaleString("es-AR");
+}
+
+function formatWeightLabel(weightG) {
+  if (!weightG) return "";
+  return `${Number(weightG) / 1000} kg`;
+}
+
+function formatWeightValue(weightG) {
+  if (!weightG) return "";
+  return String(Number(weightG) / 1000);
 }
 
 function formatDate(value) {

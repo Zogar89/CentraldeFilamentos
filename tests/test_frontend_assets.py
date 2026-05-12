@@ -60,6 +60,10 @@ def test_summary_script_uses_carretes_totals_and_provider_order():
     assert "Zona Oeste" in js
     assert "Zona Sur" in js
     assert "Carretes por proveedor" in js
+    assert "summary-weight" in js
+    assert "formatWeightLabel" in js
+    assert "formatWeightValue" in js
+    assert "productSummaryName" in js
     assert "summary-group-row" in js
     assert "groupRows" in js
     assert "A revisar" in js
@@ -81,6 +85,7 @@ def test_styles_are_compact_and_responsive():
     assert ".review-reason" in css
     assert "scroll-behavior: smooth" in css
     assert ".footer-provider:target" in css
+    assert ".summary-weight" in css
     assert ".summary-group-row" in css
 
 
