@@ -79,6 +79,8 @@ def test_catalog_script_fetches_json_and_supports_required_filters():
     assert "encodeURIComponent" in js
     assert "Rev." not in js
     assert "whatsappLink" not in js
+    assert 'class="chips"' not in js
+    assert "function chip" not in js
     assert "<span>${escapeHtml(offer.provider_zone)}</span>" not in js
     assert "product.pantone ? chip(product.pantone)" not in js
 
@@ -119,6 +121,8 @@ def test_styles_are_compact_and_responsive():
     assert ".offer-main" in css
     assert ".presentation-list" in css
     assert ".presentation-row" in css
+    assert ".chips" not in css
+    assert ".chip" not in css
     assert ".color-swatch" in css
     assert ".swatch-pantone" in css
     assert ".product-media" in css

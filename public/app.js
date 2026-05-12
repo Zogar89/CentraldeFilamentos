@@ -143,13 +143,6 @@ function productCardTemplate(card) {
         <div class="product-head">
           <h2>${title}</h2>
         </div>
-        <div class="chips">
-          ${chip(product.material)}
-          ${product.variant ? chip(product.variant) : ""}
-          ${chip(product.color)}
-          ${product.diameter_mm ? chip(`${product.diameter_mm} mm`) : ""}
-          ${product.brand ? chip(product.brand) : ""}
-        </div>
         <div class="presentation-list">${card.products.map(presentationTemplate).join("")}</div>
       </div>
     </article>
@@ -586,10 +579,6 @@ function renderQuickLines() {
 function formatWeightLabel(weightG) {
   if (!weightG) return "";
   return `${Number(weightG) / 1000} kg`;
-}
-
-function chip(value) {
-  return `<span class="chip">${escapeHtml(value)}</span>`;
 }
 
 function formatDate(value) {
