@@ -47,6 +47,7 @@ const lineMeta = {
   "Nylon 12": { label: "Nylon 12", help: "Nylon técnico con otra formulación; no mezclar con Nylon 6.", rank: 101 },
   "Acetal-POM": { label: "Acetal-POM", help: "Material técnico de baja fricción, usado en piezas mecánicas.", rank: 110 },
   "PVA Soluble": { label: "PVA soluble", help: "Material soluble, usualmente para soportes.", rank: 120 },
+  "Sampler / lápiz 3D": { label: "Sampler / lápiz 3D", help: "Muestras cortas en metros, pensadas para lápiz 3D o prueba de material; no son bobinas.", rank: 130 },
 };
 
 const quickLineValues = ["PLA Standard", "PLA+", "PETG", "PLA Astra", "PLA Silk", "TPU"];
@@ -143,6 +144,7 @@ function productTemplate(product) {
           ${chip(product.color)}
           ${product.diameter_mm ? chip(`${product.diameter_mm} mm`) : ""}
           ${product.weight_g ? chip(`${product.weight_g / 1000} kg`) : ""}
+          ${!product.weight_g && formatPresentation(product) ? chip(formatPresentation(product)) : ""}
           ${product.brand ? chip(product.brand) : ""}
         </div>
         <div class="offers">${offerListTemplate(product)}</div>
@@ -238,8 +240,26 @@ function groupTemplate(group) {
 }
 
 function lineLabel(product) {
+  if (isSamplerProduct(product)) return "Sampler / lápiz 3D";
   if (!product.variant && product.material === "PLA") return "PLA Standard";
   return product.variant || product.material || "Sin clasificar";
+}
+
+function isSamplerProduct(product) {
+  return Boolean(samplerLengthLabel(product));
+}
+
+function formatPresentation(product) {
+  const samplerLength = samplerLengthLabel(product);
+  if (samplerLength) return `Sampler ${samplerLength}`;
+  return "";
+}
+
+function samplerLengthLabel(product) {
+  const names = (product.offers || []).map((offer) => offer.original_name).join(" ");
+  const match = names.match(/\bSAMPLER\b.*?\bX\s*(\d+(?:[,.]\d+)?)\s*M\b/i);
+  if (!match) return "";
+  return `${match[1].replace(",", ".")} m`;
 }
 
 function diameterLabel(product) {

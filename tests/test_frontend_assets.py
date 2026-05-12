@@ -41,6 +41,10 @@ def test_catalog_script_fetches_json_and_supports_required_filters():
     assert "glitter/brillitos" in js
     assert "E-PET · PET reciclado" in js
     assert "PP-T · polipropileno" in js
+    assert "Sampler / lápiz 3D" in js
+    assert "isSamplerProduct" in js
+    assert "formatPresentation" in js
+    assert "samplerLengthLabel" in js
     assert "quickLineValues" in js
     assert "sin stock online registrado" in js
     assert "offer-main" in js
@@ -64,6 +68,7 @@ def test_summary_script_uses_carretes_totals_and_provider_order():
     assert "formatWeightLabel" in js
     assert "formatPresentation" in js
     assert "samplerLengthLabel" in js
+    assert "isSamplerProduct" in js
     assert "productSummaryName" in js
     assert "summary-group-row" in js
     assert "groupRows" in js

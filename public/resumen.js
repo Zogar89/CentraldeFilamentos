@@ -195,8 +195,13 @@ function brandRank(brand) {
 }
 
 function lineLabel(product) {
+  if (isSamplerProduct(product)) return "Sampler / lápiz 3D";
   if (!product.variant && product.material === "PLA") return "PLA Standard";
   return product.variant || product.material || "Sin clasificar";
+}
+
+function isSamplerProduct(product) {
+  return Boolean(samplerLengthLabel(product));
 }
 
 function formatInteger(value) {
