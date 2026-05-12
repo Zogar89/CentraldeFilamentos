@@ -133,9 +133,7 @@ function productCardTemplate(card) {
   const title = product.manufacturer_product_url
     ? `<a href="${escapeAttribute(product.manufacturer_product_url)}" target="_blank" rel="noopener">${escapeHtml(titleText)}</a>`
     : escapeHtml(titleText);
-  const image = imageProduct.image_url
-    ? `<img class="product-image" src="${escapeAttribute(imageProduct.image_url)}" alt="${escapeAttribute(productBaseName(imageProduct))}">`
-    : colorSwatchTemplate(product);
+  const image = productVisualTemplate(product, imageProduct);
 
   return `
     <article class="product-row">
@@ -148,7 +146,6 @@ function productCardTemplate(card) {
           ${chip(product.material)}
           ${product.variant ? chip(product.variant) : ""}
           ${chip(product.color)}
-          ${product.pantone ? chip(product.pantone) : ""}
           ${product.diameter_mm ? chip(`${product.diameter_mm} mm`) : ""}
           ${product.brand ? chip(product.brand) : ""}
         </div>
@@ -164,12 +161,37 @@ function cardImageProduct(products) {
     || products[0];
 }
 
+function productVisualTemplate(product, imageProduct) {
+  const visualTitle = [product.color || "Sin color", product.pantone].filter(Boolean).join(" · ");
+  const pantone = pantoneBadgeTemplate(product);
+  if (imageProduct.image_url) {
+    return `
+      <div class="product-image product-media" title="${escapeAttribute(visualTitle)}">
+        <img src="${escapeAttribute(imageProduct.image_url)}" alt="${escapeAttribute(productBaseName(imageProduct))}">
+        ${pantone}
+      </div>
+    `;
+  }
+  return colorSwatchTemplate(product);
+}
+
 function colorSwatchTemplate(product) {
+  const visualTitle = [product.color || "Sin color", product.pantone].filter(Boolean).join(" · ");
   return `
-    <div class="product-image color-swatch" style="${escapeAttribute(colorSwatchStyle(product))}" role="img" aria-label="${escapeAttribute(product.color || "Sin color")}">
+    <div class="product-image color-swatch" style="${escapeAttribute(colorSwatchStyle(product))}" role="img" aria-label="${escapeAttribute(visualTitle)}" title="${escapeAttribute(visualTitle)}">
       <span>${escapeHtml(colorSwatchLabel(product.color))}</span>
+      ${pantoneBadgeTemplate(product)}
     </div>
   `;
+}
+
+function pantoneBadgeTemplate(product) {
+  if (!product.pantone) return "";
+  return `<small class="swatch-pantone">${escapeHtml(pantoneSwatchLabel(product.pantone))}</small>`;
+}
+
+function pantoneSwatchLabel(pantone) {
+  return String(pantone || "").replace(/^Pantone\s+/i, "P ");
 }
 
 function colorSwatchStyle(product) {

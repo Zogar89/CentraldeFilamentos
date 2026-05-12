@@ -53,8 +53,11 @@ def test_catalog_script_fetches_json_and_supports_required_filters():
     assert "groupBaseProducts" in js
     assert "productCardTemplate" in js
     assert "cardImageProduct" in js
+    assert "productVisualTemplate" in js
     assert "product.weight_g === 1000 && product.image_url" in js
     assert "colorSwatchTemplate" in js
+    assert "pantoneBadgeTemplate" in js
+    assert "pantoneSwatchLabel" in js
     assert "colorSwatchStyle" in js
     assert "baseColorFor" in js
     assert "foldText" in js
@@ -76,6 +79,7 @@ def test_catalog_script_fetches_json_and_supports_required_filters():
     assert "Rev." not in js
     assert "whatsappLink" not in js
     assert "<span>${escapeHtml(offer.provider_zone)}</span>" not in js
+    assert "product.pantone ? chip(product.pantone)" not in js
 
 
 def test_summary_script_uses_carretes_totals_and_provider_order():
@@ -115,6 +119,8 @@ def test_styles_are_compact_and_responsive():
     assert ".presentation-list" in css
     assert ".presentation-row" in css
     assert ".color-swatch" in css
+    assert ".swatch-pantone" in css
+    assert ".product-media" in css
     assert ".review-reason" in css
     assert "scroll-behavior: smooth" in css
     assert ".footer-provider:target" in css

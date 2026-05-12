@@ -224,6 +224,19 @@ input {
   background: var(--surface-soft);
 }
 
+.product-media {
+  position: relative;
+  overflow: hidden;
+}
+
+.product-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}
+
 .image-placeholder {
   display: grid;
   place-items: center;
@@ -234,21 +247,44 @@ input {
 .color-swatch {
   display: grid;
   place-items: center;
+  align-content: center;
+  gap: 3px;
+  padding: 5px;
   border: 1px solid color-mix(in srgb, var(--line) 82%, black);
+  text-align: center;
 }
 
-.color-swatch span {
+.color-swatch span,
+.swatch-pantone {
   display: grid;
   place-items: center;
-  min-width: 26px;
-  height: 20px;
-  padding: 0 5px;
   border-radius: 999px;
   background: rgba(255, 255, 255, .72);
   color: #1d1d1f;
-  font-size: 10px;
   font-weight: 700;
   box-shadow: 0 1px 5px rgba(0, 0, 0, .12);
+}
+
+.color-swatch span {
+  min-width: 26px;
+  height: 20px;
+  padding: 0 5px;
+  font-size: 10px;
+}
+
+.swatch-pantone {
+  max-width: 100%;
+  padding: 1px 4px;
+  font-size: 8px;
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+}
+
+.product-media .swatch-pantone {
+  position: absolute;
+  right: 4px;
+  bottom: 4px;
+  left: 4px;
 }
 
 .product-head {
