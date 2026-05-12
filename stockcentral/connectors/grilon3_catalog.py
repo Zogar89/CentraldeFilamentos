@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
 from html.parser import HTMLParser
 import re
@@ -12,7 +13,7 @@ from stockcentral.normalize import build_product_id, normalize_record
 
 BASE_URL = "https://grilon3.com.ar/productos/"
 SITEMAP_URL = "https://grilon3.com.ar/product-sitemap.xml"
-EMPTY_ENRICHMENT = {"manufacturer_product_url": "", "image_url": "", "image_source": ""}
+EMPTY_ENRICHMENT = {"manufacturer_product_url": "", "image_url": "", "image_source": "", "pantone": ""}
 
 
 @dataclass(frozen=True)
@@ -21,6 +22,7 @@ class CatalogProduct:
     title: str
     product_url: str
     image_url: str
+    pantone: str = ""
 
 
 def fetch_grilon3_catalog(products_url: str = BASE_URL, timeout_seconds: int = 30) -> dict[str, CatalogProduct]:
@@ -33,6 +35,97 @@ def fetch_grilon3_sitemap_catalog(sitemap_url: str = SITEMAP_URL, timeout_second
     response = requests.get(sitemap_url, timeout=timeout_seconds)
     response.raise_for_status()
     return parse_grilon3_sitemap(response.text)
+
+
+def enrich_grilon3_catalog_details(
+    catalog: dict[str, CatalogProduct],
+    timeout_seconds: int = 4,
+    max_workers: int = 12,
+) -> dict[str, CatalogProduct]:
+    enriched = dict(catalog)
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        futures = {
+            executor.submit(fetch_grilon3_product_detail, product.product_url, timeout_seconds): (product_id, product)
+            for product_id, product in catalog.items()
+        }
+        for future in as_completed(futures):
+            product_id, product = futures[future]
+            try:
+                detail = future.result()
+            except Exception:
+                continue
+            enriched[product_id] = CatalogProduct(
+                product_id=product.product_id,
+                title=product.title,
+                product_url=product.product_url,
+                image_url=product.image_url or detail["image_url"],
+                pantone=detail["pantone"],
+            )
+    return enriched
+
+
+def enrich_grilon3_selected_details(
+    catalog: dict[str, CatalogProduct],
+    product_ids: set[str],
+    timeout_seconds: int = 4,
+    max_workers: int = 12,
+) -> dict[str, CatalogProduct]:
+    selected = {
+        product_id: product
+        for product_id, product in catalog.items()
+        if product_id in product_ids and not product.pantone
+    }
+    if not selected:
+        return dict(catalog)
+
+    enriched = dict(catalog)
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        futures = {
+            executor.submit(fetch_grilon3_product_detail, product.product_url, timeout_seconds): (product_id, product)
+            for product_id, product in selected.items()
+        }
+        for future in as_completed(futures):
+            product_id, product = futures[future]
+            try:
+                detail = future.result()
+            except Exception:
+                continue
+            enriched[product_id] = CatalogProduct(
+                product_id=product.product_id,
+                title=product.title,
+                product_url=product.product_url,
+                image_url=product.image_url or detail["image_url"],
+                pantone=detail["pantone"],
+            )
+    return enriched
+
+
+def apply_grilon3_pantones(
+    catalog: dict[str, CatalogProduct],
+    pantones: dict[str, str],
+) -> dict[str, CatalogProduct]:
+    if not pantones:
+        return dict(catalog)
+    return {
+        product_id: CatalogProduct(
+            product_id=product.product_id,
+            title=product.title,
+            product_url=product.product_url,
+            image_url=product.image_url,
+            pantone=product.pantone or pantones.get(product_id, ""),
+        )
+        for product_id, product in catalog.items()
+    }
+
+
+def fetch_grilon3_product_detail(product_url: str, timeout_seconds: int = 10) -> dict[str, str]:
+    response = requests.get(product_url, timeout=timeout_seconds)
+    response.raise_for_status()
+    return parse_grilon3_product_detail(response.text, base_url=product_url)
+
+
+def parse_grilon3_product_detail(html_text: str, base_url: str = BASE_URL) -> dict[str, str]:
+    return _ProductDetailParser.parse(html_text, base_url)
 
 
 def parse_grilon3_catalog(html_text: str, base_url: str = BASE_URL) -> dict[str, CatalogProduct]:
@@ -62,6 +155,7 @@ def parse_grilon3_catalog(html_text: str, base_url: str = BASE_URL) -> dict[str,
             title=title,
             product_url=link["product_url"],
             image_url=link["image_url"],
+            pantone="",
         )
 
     return catalog
@@ -94,6 +188,7 @@ def parse_grilon3_sitemap(xml_text: str) -> dict[str, CatalogProduct]:
             title=title,
             product_url=url,
             image_url="",
+            pantone="",
         )
     return catalog
 
@@ -113,6 +208,7 @@ def enrich_with_grilon3_catalog(
         "manufacturer_product_url": product.product_url,
         "image_url": product.image_url,
         "image_source": "manufacturer" if product.image_url else "",
+        "pantone": getattr(product, "pantone", ""),
     }
 
 
@@ -163,8 +259,46 @@ class _ProductLinkParser(HTMLParser):
             self._text_stack.append(data)
 
 
+class _ProductDetailParser(HTMLParser):
+    def __init__(self, base_url: str) -> None:
+        super().__init__()
+        self.base_url = base_url
+        self.pantone = ""
+        self.image_url = ""
+
+    @classmethod
+    def parse(cls, html_text: str, base_url: str) -> dict[str, str]:
+        parser = cls(base_url)
+        parser.feed(html_text)
+        return {"pantone": parser.pantone, "image_url": parser.image_url}
+
+    def handle_starttag(self, tag: str, attrs) -> None:
+        if tag != "img" or self.image_url:
+            return
+        attributes = dict(attrs)
+        src = attributes.get("src") or attributes.get("data-src") or ""
+        alt = attributes.get("alt", "")
+        if src and ("Filamento" in alt or "Grilon3" in alt):
+            self.image_url = urljoin(self.base_url, src)
+
+    def handle_data(self, data: str) -> None:
+        if self.pantone:
+            return
+        pantone = _extract_pantone(data)
+        if pantone:
+            self.pantone = pantone
+
+
 def _clean_text(value: str) -> str:
     return " ".join(value.split())
+
+
+def _extract_pantone(value: str) -> str:
+    match = re.search(r"\bPANTONE\s+([^*<\n\r]+)", value, flags=re.IGNORECASE)
+    if not match:
+        return ""
+    color = _clean_text(match.group(1)).strip(" .:-")
+    return f"Pantone {color}" if color else ""
 
 
 def _title_from_product_url(url: str) -> str:

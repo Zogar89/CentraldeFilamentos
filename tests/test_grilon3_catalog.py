@@ -3,8 +3,10 @@ from pathlib import Path
 from stockcentral.connectors.grilon3_catalog import (
     enrich_with_grilon3_catalog,
     fetch_grilon3_catalog,
+    fetch_grilon3_product_detail,
     fetch_grilon3_sitemap_catalog,
     parse_grilon3_catalog,
+    parse_grilon3_product_detail,
     parse_grilon3_sitemap,
 )
 from stockcentral.models import NormalizedFields
@@ -41,6 +43,7 @@ def test_parse_grilon3_catalog_indexes_official_links_and_images():
     }
     assert catalog["pla-negro-175-1000-grilon3"].product_url == "https://grilon3.com.ar/producto/pla-negro/"
     assert catalog["pla-negro-175-1000-grilon3"].image_url == "https://grilon3.com.ar/wp-content/uploads/pla-negro.jpg"
+    assert catalog["pla-negro-175-1000-grilon3"].pantone == ""
     assert catalog["pla-rojo-175-1000-grilon3"].image_url == ""
 
 
@@ -55,9 +58,48 @@ def test_enrich_with_grilon3_catalog_matches_only_confident_grilon3_products():
         "manufacturer_product_url": "https://grilon3.com.ar/producto/pla-negro/",
         "image_url": "https://grilon3.com.ar/wp-content/uploads/pla-negro.jpg",
         "image_source": "manufacturer",
+        "pantone": "",
     }
-    assert not_grilon3 == {"manufacturer_product_url": "", "image_url": "", "image_source": ""}
-    assert unknown == {"manufacturer_product_url": "", "image_url": "", "image_source": ""}
+    assert not_grilon3 == {"manufacturer_product_url": "", "image_url": "", "image_source": "", "pantone": ""}
+    assert unknown == {"manufacturer_product_url": "", "image_url": "", "image_source": "", "pantone": ""}
+
+
+def test_parse_grilon3_product_detail_extracts_pantone_and_image():
+    html = """
+    <html><body>
+      <img src="/wp-content/uploads/abs-amarillo.jpg" alt="Filamento Grilon3 ABS">
+      <h1>ABS Amarillo</h1>
+      <p>PANTONE Yellow</p>
+    </body></html>
+    """
+
+    detail = parse_grilon3_product_detail(html, base_url="https://grilon3.com.ar/producto/abs-amarillo/")
+
+    assert detail == {
+        "pantone": "Pantone Yellow",
+        "image_url": "https://grilon3.com.ar/wp-content/uploads/abs-amarillo.jpg",
+    }
+
+
+def test_fetch_grilon3_product_detail_downloads_product_page(monkeypatch):
+    calls = []
+
+    class Response:
+        text = "<html><body><p>PANTONE Yellow</p></body></html>"
+
+        def raise_for_status(self):
+            calls.append("raise_for_status")
+
+    def fake_get(url, timeout):
+        calls.append((url, timeout))
+        return Response()
+
+    monkeypatch.setattr("stockcentral.connectors.grilon3_catalog.requests.get", fake_get)
+
+    detail = fetch_grilon3_product_detail("https://grilon3.com.ar/producto/abs-amarillo/", timeout_seconds=7)
+
+    assert calls == [("https://grilon3.com.ar/producto/abs-amarillo/", 7), "raise_for_status"]
+    assert detail["pantone"] == "Pantone Yellow"
 
 
 def test_fetch_grilon3_catalog_downloads_products_url(monkeypatch):

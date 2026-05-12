@@ -22,6 +22,8 @@ from stockcentral.models import (
 from stockcentral.normalize import build_display_name, build_product_id, normalize_record
 from stockcentral.providers import MANUFACTURERS, SOURCES, SourceConfig
 
+GRILON3_PANTONE_CACHE = Path("stockcentral/data/grilon3_pantones.json")
+
 ZONE_ORDER = {
     "Zona Norte": 0,
     "Zona Oeste": 1,
@@ -32,6 +34,7 @@ DEFAULT_ENRICHMENT = {
     "manufacturer_product_url": "",
     "image_url": "",
     "image_source": "",
+    "pantone": "",
 }
 
 
@@ -86,6 +89,7 @@ def build_payload(
                 "manufacturer_product_url": catalog_product.product_url,
                 "image_url": catalog_product.image_url,
                 "image_source": "manufacturer" if catalog_product.image_url else "",
+                "pantone": getattr(catalog_product, "pantone", ""),
             },
             "offers": [],
         }
@@ -141,28 +145,56 @@ def build_grilon3_enrichments(
 ) -> dict[str, dict[str, str]]:
     from stockcentral.connectors.grilon3_catalog import enrich_with_grilon3_catalog, fetch_grilon3_catalog
 
-    catalog = catalog or fetch_grilon3_catalog(MANUFACTURERS["grilon3"].products_url)
+    catalog = fetch_grilon3_catalog(MANUFACTURERS["grilon3"].products_url) if catalog is None else catalog
+    pantones = load_grilon3_pantones()
     enrichments: dict[str, dict[str, str]] = {}
 
     for item in raw_items:
         fields = normalize_record(item)
         product_id = build_product_id(fields)
         enrichment = enrich_with_grilon3_catalog(fields, catalog)
+        enrichment["pantone"] = enrichment.get("pantone", "") or pantones.get(_pantone_cache_key(fields), "")
         if enrichment["manufacturer_product_url"] or enrichment["image_url"]:
+            enrichments[product_id] = enrichment
+        elif enrichment["pantone"]:
             enrichments[product_id] = enrichment
 
     return enrichments
 
 
 def fetch_grilon3_catalog_products() -> dict[str, object]:
-    from stockcentral.connectors.grilon3_catalog import fetch_grilon3_catalog, fetch_grilon3_sitemap_catalog
+    from stockcentral.connectors.grilon3_catalog import apply_grilon3_pantones, fetch_grilon3_catalog, fetch_grilon3_sitemap_catalog
 
     catalog = fetch_grilon3_catalog(MANUFACTURERS["grilon3"].products_url)
     try:
         catalog.update(fetch_grilon3_sitemap_catalog())
     except Exception:
         pass
-    return catalog
+    return apply_grilon3_pantones(catalog, load_grilon3_pantones())
+
+
+def load_grilon3_pantones(path: str | Path = GRILON3_PANTONE_CACHE) -> dict[str, str]:
+    cache_path = Path(path)
+    if not cache_path.exists():
+        return {}
+    payload = json.loads(cache_path.read_text(encoding="utf-8"))
+    return {
+        str(product_id): str(pantone)
+        for product_id, pantone in payload.items()
+        if pantone
+    }
+
+
+def _pantone_cache_key(fields) -> str:
+    parts = [fields.material, fields.variant, fields.color, fields.brand]
+    return "-".join(_slug(part) for part in parts if part)
+
+
+def _slug(value: str) -> str:
+    normalized = unicodedata.normalize("NFKD", value)
+    without_marks = "".join(char for char in normalized if not unicodedata.combining(char))
+    folded = without_marks.lower()
+    return re.sub(r"[^a-z0-9]+", "-", folded).strip("-")
 
 
 def main() -> None:
@@ -242,6 +274,7 @@ def _product_from_group(product_id: str, data: Mapping[str, object]) -> ProductG
         manufacturer_product_url=str(enrichment["manufacturer_product_url"]),
         image_url=str(enrichment["image_url"]),
         image_source=enrichment["image_source"],  # type: ignore[arg-type]
+        pantone=str(enrichment["pantone"]),
         display_name=build_display_name(fields),
         offers=offers,
     )

@@ -107,6 +107,7 @@ function matchesFilters(product) {
     product.material,
     product.variant,
     product.color,
+    product.pantone,
     product.brand,
     ...(product.offers || []).map((offer) => offer.original_name),
   ].join(" ").toLowerCase();
@@ -144,6 +145,7 @@ function productCardTemplate(card) {
           ${chip(product.material)}
           ${product.variant ? chip(product.variant) : ""}
           ${chip(product.color)}
+          ${product.pantone ? chip(product.pantone) : ""}
           ${product.diameter_mm ? chip(`${product.diameter_mm} mm`) : ""}
           ${product.brand ? chip(product.brand) : ""}
         </div>
