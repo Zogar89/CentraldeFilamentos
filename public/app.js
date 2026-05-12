@@ -161,7 +161,8 @@ function offerListTemplate(product) {
 
 function offerTemplate(offer) {
   const stockClass = offer.stock_status === "in_stock" ? "stock-in" : offer.stock_status === "out_of_stock" ? "stock-out" : "stock-unknown";
-  const stockLabel = offer.stock_status === "in_stock" ? `${offer.stock_quantity} carretes` : offer.stock_status === "out_of_stock" ? "0" : "Rev.";
+  const stockLabel = offer.stock_status === "in_stock" ? `${offer.stock_quantity} carretes` : offer.stock_status === "out_of_stock" ? "0" : "A revisar";
+  const reviewReason = offer.stock_status === "unknown" ? `<small class="review-reason">La fuente no publicó una cantidad numérica.</small>` : "";
   return `
     <div class="offer">
       <div class="offer-main">
@@ -170,6 +171,7 @@ function offerTemplate(offer) {
         <strong class="${stockClass}">${escapeHtml(stockLabel)}</strong>
       </div>
       <small>${escapeHtml(offer.original_name)}</small>
+      ${reviewReason}
     </div>
   `;
 }

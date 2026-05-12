@@ -44,6 +44,9 @@ def test_catalog_script_fetches_json_and_supports_required_filters():
     assert "quickLineValues" in js
     assert "sin stock online registrado" in js
     assert "offer-main" in js
+    assert "A revisar" in js
+    assert "La fuente no publicó una cantidad numérica." in js
+    assert "Rev." not in js
     assert "whatsappLink" not in js
 
 
@@ -57,6 +60,8 @@ def test_summary_script_uses_carretes_totals_and_provider_order():
     assert "Carretes por proveedor" in js
     assert "summary-group-row" in js
     assert "groupRows" in js
+    assert "A revisar" in js
+    assert "Rev." not in js
     assert "total_stock_units" in js
     assert "total_stock_kg" not in js
 
@@ -71,6 +76,7 @@ def test_styles_are_compact_and_responsive():
     assert ".group-section" in css
     assert "repeat(auto-fit, minmax(320px, 1fr))" in css
     assert ".offer-main" in css
+    assert ".review-reason" in css
     assert ".summary-group-row" in css
 
 

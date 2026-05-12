@@ -305,6 +305,10 @@ input {
   overflow-wrap: anywhere;
 }
 
+.review-reason {
+  color: var(--warn);
+}
+
 .stock-in {
   color: var(--ok);
   font-weight: 700;
