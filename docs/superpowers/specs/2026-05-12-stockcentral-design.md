@@ -16,6 +16,7 @@ El MVP sera un sitio estatico servido con GitHub Pages. Python correra en GitHub
 - Linkear cada producto a la pagina oficial del fabricante cuando exista.
 - Mostrar imagen del filamento siempre que este disponible.
 - Priorizar la experiencia de busqueda por filtros, con PLA destacado porque es el caso de uso mayoritario.
+- Usar una direccion visual minimalista estilo Apple: clara, liviana, precisa y enfocada en el producto.
 - Mantener la ingesta y normalizacion separadas del frontend para facilitar una futura migracion a backend si hace falta.
 
 ## Fuera de alcance inicial
@@ -169,6 +170,17 @@ Ademas de normalizar stock, el pipeline intentara enriquecer productos con infor
 
 La UI sera un catalogo filtrable. No sera una landing page ni un buscador puro.
 
+La direccion visual sera minimalista estilo Apple, entendida como inspiracion de calidad y claridad, no como copia de marca. La interfaz debe sentirse liviana, moderna y de alta confianza:
+
+- Mucho espacio en blanco y jerarquia clara.
+- Tipografia sans limpia con tamanos contenidos.
+- Paleta neutral clara, con acentos sutiles para filtros activos y estados de stock.
+- Bordes suaves, sombras muy discretas y pocas lineas pesadas.
+- Controles simples, con estados claros y sin decoracion innecesaria.
+- Imagenes de filamento integradas como apoyo visual, sin dominar la lectura.
+- Layout responsive cuidado, especialmente mobile.
+- Sin logos, iconografia ni assets de Apple.
+
 Comportamiento inicial:
 
 - Mostrar todos los productos.
@@ -226,6 +238,7 @@ Pruebas iniciales recomendadas:
 - Test de filtros principales sobre un dataset fixture.
 - Test de enriquecimiento para productos Grilon3 con URL oficial e imagen cuando exista.
 - Test de que productos 3N3 no reciban links de fabricante inventados.
+- Revision visual manual de la UI para validar estilo minimalista, legibilidad mobile y ausencia de ruido visual.
 
 ## Decisiones aprobadas
 
@@ -243,3 +256,4 @@ Pruebas iniciales recomendadas:
 - Agrupacion normalizada por atributos del filamento.
 - Productos con link oficial del fabricante cuando exista.
 - Imagen del filamento siempre que este disponible.
+- Direccion visual minimalista estilo Apple, sin copiar marca ni assets.
