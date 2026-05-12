@@ -776,6 +776,8 @@ Producto,Stock,Marca
 PLA+ Rojo 1kg 1.75mm,12,3N3
 PETG Transparente 750g 1.75mm,0,3N3
 TPU Flex Negro 500g 1.75mm,,3N3
+PLA Azul 1kg 1.75mm,-2,3N3
+ABS Amarillo 1kg 1.75mm,N/D,3N3
 ```
 
 - [ ] **Step 2: Write connector tests**
@@ -801,12 +803,14 @@ def test_parse_sheet_csv_detects_name_stock_and_brand():
 
     items = parse_sheet_csv(csv_text, source, updated_at="2026-05-12T12:00:00-03:00")
 
-    assert len(items) == 3
+    assert len(items) == 5
     assert items[0].original_name == "PLA+ Rojo 1kg 1.75mm"
     assert items[0].stock_quantity == 12
     assert items[0].brand_hint == "3N3"
     assert items[1].stock_quantity == 0
     assert items[2].stock_quantity is None
+    assert items[3].stock_quantity is None
+    assert items[4].stock_quantity is None
 ```
 
 - [ ] **Step 3: Run tests to verify connector is missing**
@@ -904,11 +908,13 @@ def _parse_stock(value: str) -> int | None:
     cleaned = value.strip()
     if cleaned == "":
         return None
+    if cleaned.startswith(("-", "−")):
+        return None
+    lowered = cleaned.lower()
+    if "sin" in lowered or "no" in lowered:
+        return 0
     digits = "".join(char for char in cleaned if char.isdigit())
     if digits == "":
-        lowered = cleaned.lower()
-        if "sin" in lowered or "no" in lowered:
-            return 0
         return None
     return int(digits)
 
@@ -1079,12 +1085,15 @@ def _find_index(headers: list[str], candidates: list[str]) -> int | None:
 
 
 def _parse_stock(value: str) -> int | None:
-    digits = "".join(char for char in value if char.isdigit())
-    if digits:
-        return int(digits)
-    lowered = value.lower()
+    cleaned = value.strip()
+    if cleaned.startswith(("-", "−")):
+        return None
+    lowered = cleaned.lower()
     if "sin" in lowered or "no" in lowered:
         return 0
+    digits = "".join(char for char in cleaned if char.isdigit())
+    if digits:
+        return int(digits)
     return None
 
 
@@ -1370,6 +1379,17 @@ def test_build_payload_groups_products_and_preserves_out_of_stock():
             brand_hint="Grilon3",
             updated_at="2026-05-12T12:00:00-03:00",
         ),
+        RawStockItem(
+            source_id="grupo_senz",
+            provider_name="Grupo Senz",
+            provider_zone="Zona Oeste",
+            provider_url="https://docs.google.com/spreadsheets/d/14nblAeXZfx_TEeHj4xnK90hSmUp3hk6KSO4nUTrb9zM",
+            original_name="GRILON3 PLA Negro 1kg 1.75mm",
+            stock_quantity=-2,
+            source_url="https://docs.google.com/spreadsheets/d/14nblAeXZfx_TEeHj4xnK90hSmUp3hk6KSO4nUTrb9zM",
+            brand_hint="Grilon3",
+            updated_at="2026-05-12T12:00:00-03:00",
+        ),
     ]
     catalog = {
         "pla-negro": {
@@ -1411,6 +1431,22 @@ def test_build_payload_groups_products_and_preserves_out_of_stock():
             error_message="",
             stats=ProviderStats(0, 0.0, 0, 0, 0),
         ),
+        SourceStatus(
+            id="grupo_senz",
+            name="Grupo Senz",
+            zone="Zona Oeste",
+            homepage_url="https://docs.google.com/spreadsheets/d/14nblAeXZfx_TEeHj4xnK90hSmUp3hk6KSO4nUTrb9zM",
+            source_url="https://docs.google.com/spreadsheets/d/14nblAeXZfx_TEeHj4xnK90hSmUp3hk6KSO4nUTrb9zM",
+            contact_whatsapp_url="",
+            contact_email="",
+            address="",
+            contact_url="",
+            last_success_at="2026-05-12T12:00:00-03:00",
+            last_attempt_at="2026-05-12T12:00:00-03:00",
+            status="ok",
+            error_message="",
+            stats=ProviderStats(0, 0.0, 0, 0, 0),
+        ),
     ]
 
     payload = build_payload(
@@ -1422,12 +1458,17 @@ def test_build_payload_groups_products_and_preserves_out_of_stock():
 
     assert payload["generated_at"] == "2026-05-12T12:00:00-03:00"
     assert len(payload["products"]) == 1
-    assert len(payload["products"][0]["offers"]) == 2
+    assert len(payload["products"][0]["offers"]) == 3
     assert payload["products"][0]["offers"][1]["stock_status"] == "out_of_stock"
+    assert payload["products"][0]["offers"][2]["stock_status"] == "unknown"
     assert payload["products"][0]["manufacturer_product_url"] == "https://grilon3.com.ar/producto/pla-negro/"
     assert payload["sources"][0]["stats"]["total_stock_units"] == 4
     assert payload["sources"][0]["stats"]["total_stock_kg"] == 4.0
     assert payload["sources"][1]["stats"]["out_of_stock_product_count"] == 1
+    assert payload["sources"][2]["stats"]["total_stock_units"] == 0
+    assert payload["sources"][2]["stats"]["total_stock_kg"] == 0.0
+    assert payload["sources"][2]["stats"]["in_stock_product_count"] == 0
+    assert payload["sources"][2]["stats"]["out_of_stock_product_count"] == 0
 
 
 def test_write_payload_creates_json_file(tmp_path: Path):
@@ -1647,7 +1688,7 @@ def _stats_for_source(source_id: str, products: list[ProductGroup]) -> ProviderS
             if offer.source_id != source_id:
                 continue
             product_count += 1
-            if offer.stock_quantity is not None:
+            if offer.stock_quantity is not None and offer.stock_quantity >= 0:
                 total_units += offer.stock_quantity
                 if product.weight_g is not None:
                     total_kg += offer.stock_quantity * product.weight_g / 1000
@@ -1681,6 +1722,8 @@ def _offer_from_raw(item: RawStockItem) -> Offer:
 
 def _stock_status(quantity: int | None) -> str:
     if quantity is None:
+        return "unknown"
+    if quantity < 0:
         return "unknown"
     return "in_stock" if quantity > 0 else "out_of_stock"
 
@@ -1839,6 +1882,7 @@ def test_frontend_script_fetches_stock_json_and_supports_required_filters():
     assert "renderFooter" in js
     assert "contact_whatsapp_url" in js
     assert "total_stock_kg" in js
+    assert "Stock a revisar" in js
 
 
 def test_styles_include_minimal_visual_tokens():
@@ -2157,6 +2201,11 @@ a:hover {
   font-weight: 700;
 }
 
+.stock-unknown {
+  color: var(--muted);
+  font-weight: 700;
+}
+
 .site-footer {
   margin-top: 28px;
   padding: 22px;
@@ -2434,8 +2483,8 @@ function productTemplate(product) {
 }
 
 function offerTemplate(offer) {
-  const stockClass = offer.stock_status === "in_stock" ? "stock-in" : "stock-out";
-  const stockLabel = offer.stock_status === "in_stock" ? `${offer.stock_quantity} en stock` : "Sin stock";
+  const stockClass = offer.stock_status === "in_stock" ? "stock-in" : offer.stock_status === "out_of_stock" ? "stock-out" : "stock-unknown";
+  const stockLabel = offer.stock_status === "in_stock" ? `${offer.stock_quantity} en stock` : offer.stock_status === "out_of_stock" ? "Sin stock" : "Stock a revisar";
   return `
     <div class="offer">
       <a href="${escapeAttribute(offer.provider_url)}" target="_blank" rel="noopener">${escapeHtml(offer.provider_name)}</a>
@@ -2712,6 +2761,7 @@ Open `http://localhost:8000` in the in-app browser and verify:
 - There are no prices in the UI.
 - Zone appears next to providers but no zone filter exists.
 - Footer provider cards show sources, available contact actions, last update and estimated kilos.
+- Products with `stock_status: "unknown"` show "Stock a revisar" and do not appear as available stock.
 
 - [ ] **Step 4: Inspect git status**
 
@@ -2750,6 +2800,7 @@ Spec coverage:
 - Grilon3 official catalog and 3N3 without invented site: Task 2 and Task 6.
 - Minimalist Apple-inspired UI: Task 8 and Task 10.
 - Footer sources, contacts, update dates and provider statistics: Task 1, Task 2, Task 7, Task 8 and Task 10.
+- Negative stock, empty cells and unusual stock values: Task 4, Task 5, Task 7, Task 8 and Task 10.
 
 Placeholder scan:
 

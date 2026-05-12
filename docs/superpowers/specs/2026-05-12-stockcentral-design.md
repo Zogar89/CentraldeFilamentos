@@ -116,7 +116,7 @@ Campos esperados:
 - `provider_zone`: Zona Sur, Zona Oeste o Zona Norte.
 - `provider_url`: URL publica para que el usuario pueda ir al proveedor.
 - `original_name`: nombre original en la fuente.
-- `stock_quantity`: cantidad numerica si esta disponible.
+- `stock_quantity`: cantidad numerica no negativa si esta disponible y es confiable.
 - `stock_status`: `in_stock`, `out_of_stock` o `unknown`.
 - `source_url`: URL exacta de la fuente o producto cuando exista.
 - `updated_at`: fecha/hora de actualizacion de ese dato si se conoce.
@@ -150,7 +150,19 @@ Campos esperados dentro de `sources[].stats`:
 - `in_stock_product_count`: cantidad de productos/ofertas con stock mayor a cero.
 - `out_of_stock_product_count`: cantidad de productos/ofertas sin stock.
 
-Si un producto no tiene peso normalizado o stock numerico, no debe aportar a `total_stock_kg`. La UI puede mostrar el total como estimado.
+Si un producto no tiene peso normalizado o stock numerico confiable, no debe aportar a `total_stock_kg`. La UI puede mostrar el total como estimado.
+
+## Valores raros de stock
+
+Los conectores deben parsear stock de manera defensiva:
+
+- Un valor negativo, por ejemplo `-1`, no representa stock disponible. Debe publicarse como `stock_quantity: null` y `stock_status: unknown`.
+- Celdas vacias, textos ambiguos, formulas con error, valores no numericos o formatos inesperados tambien deben publicarse como `unknown`.
+- Un cero explicito debe publicarse como `stock_quantity: 0` y `stock_status: out_of_stock`.
+- Un numero positivo debe publicarse como `stock_quantity: N` y `stock_status: in_stock`.
+- Los valores `unknown` deben mantener visible el producto, pero no deben sumar unidades ni kilos en las estadisticas del footer.
+
+Esta politica evita mostrar disponibilidad falsa por valores administrativos, ajustes negativos o errores de planilla.
 
 ### Metadata de fabricantes
 
@@ -254,6 +266,7 @@ El sistema debe tolerar fallos parciales:
 - La UI debe poder mostrar que una fuente no actualizo.
 - Si existe un ultimo dataset valido, se debe preferir conservarlo antes que publicar un JSON vacio por error.
 - Los productos sin stock nunca deben desaparecer solo por estar en cero.
+- Valores negativos, celdas raras o datos no parseables de stock no deben romper la ingesta ni convertirse en stock positivo.
 
 ## Pruebas
 
@@ -268,6 +281,7 @@ Pruebas iniciales recomendadas:
 - Test de enriquecimiento para productos Grilon3 con URL oficial e imagen cuando exista.
 - Test de que productos 3N3 no reciban links de fabricante inventados.
 - Test de calculo de estadisticas por proveedor, incluyendo kilos estimados.
+- Test de parsing defensivo para stock negativo, celdas vacias y valores raros.
 - Test de que el footer renderice fuentes, contactos disponibles y ultima actualizacion.
 - Revision visual manual de la UI para validar estilo minimalista, legibilidad mobile y ausencia de ruido visual.
 
