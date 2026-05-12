@@ -59,9 +59,11 @@ def test_enrich_with_grilon3_catalog_matches_only_confident_grilon3_products():
         "image_url": "https://grilon3.com.ar/wp-content/uploads/pla-negro.jpg",
         "image_source": "manufacturer",
         "pantone": "",
+        "sku": "",
+        "ean": "",
     }
-    assert not_grilon3 == {"manufacturer_product_url": "", "image_url": "", "image_source": "", "pantone": ""}
-    assert unknown == {"manufacturer_product_url": "", "image_url": "", "image_source": "", "pantone": ""}
+    assert not_grilon3 == {"manufacturer_product_url": "", "image_url": "", "image_source": "", "pantone": "", "sku": "", "ean": ""}
+    assert unknown == {"manufacturer_product_url": "", "image_url": "", "image_source": "", "pantone": "", "sku": "", "ean": ""}
 
 
 def test_parse_grilon3_product_detail_extracts_pantone_and_image():
@@ -69,6 +71,7 @@ def test_parse_grilon3_product_detail_extracts_pantone_and_image():
     <html><body>
       <img src="/wp-content/uploads/abs-amarillo.jpg" alt="Filamento Grilon3 ABS">
       <h1>ABS Amarillo</h1>
+      <p>SKU: M09IAM175CJ EAN: 7798049653051</p>
       <p>PANTONE Yellow</p>
     </body></html>
     """
@@ -78,6 +81,8 @@ def test_parse_grilon3_product_detail_extracts_pantone_and_image():
     assert detail == {
         "pantone": "Pantone Yellow",
         "image_url": "https://grilon3.com.ar/wp-content/uploads/abs-amarillo.jpg",
+        "sku": "M09IAM175CJ",
+        "ean": "7798049653051",
     }
 
 
@@ -85,7 +90,7 @@ def test_fetch_grilon3_product_detail_downloads_product_page(monkeypatch):
     calls = []
 
     class Response:
-        text = "<html><body><p>PANTONE Yellow</p></body></html>"
+        text = "<html><body><p>SKU: M09IAM175CJ EAN: 7798049653051</p><p>PANTONE Yellow</p></body></html>"
 
         def raise_for_status(self):
             calls.append("raise_for_status")
@@ -100,6 +105,8 @@ def test_fetch_grilon3_product_detail_downloads_product_page(monkeypatch):
 
     assert calls == [("https://grilon3.com.ar/producto/abs-amarillo/", 7), "raise_for_status"]
     assert detail["pantone"] == "Pantone Yellow"
+    assert detail["sku"] == "M09IAM175CJ"
+    assert detail["ean"] == "7798049653051"
 
 
 def test_fetch_grilon3_catalog_downloads_products_url(monkeypatch):

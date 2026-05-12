@@ -27,6 +27,8 @@ def test_product_group_serializes_for_public_json():
         image_url="https://grilon3.com.ar/wp-content/uploads/pla-negro.jpg",
         image_source="manufacturer",
         pantone="Pantone Black 6 C",
+        sku="M09INE175CJ",
+        ean="7798049653037",
         display_name="PLA Negro Grilon3 1 kg",
         offers=[offer],
     )
@@ -40,6 +42,8 @@ def test_product_group_serializes_for_public_json():
     assert payload["manufacturer_product_url"].startswith("https://grilon3.com.ar/")
     assert payload["image_source"] == "manufacturer"
     assert payload["pantone"] == "Pantone Black 6 C"
+    assert payload["sku"] == "M09INE175CJ"
+    assert payload["ean"] == "7798049653037"
 
 
 def test_source_status_serializes_error_message():

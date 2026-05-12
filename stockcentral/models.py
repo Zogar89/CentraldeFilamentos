@@ -62,6 +62,8 @@ class ProductGroup:
     image_url: str
     image_source: ImageSource
     pantone: str
+    sku: str
+    ean: str
     display_name: str
     offers: list[Offer]
 

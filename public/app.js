@@ -108,6 +108,8 @@ function matchesFilters(product) {
     product.variant,
     product.color,
     product.pantone,
+    product.sku,
+    product.ean,
     product.brand,
     ...(product.offers || []).map((offer) => offer.original_name),
   ].join(" ").toLowerCase();

@@ -13,7 +13,7 @@ from stockcentral.normalize import build_product_id, normalize_record
 
 BASE_URL = "https://grilon3.com.ar/productos/"
 SITEMAP_URL = "https://grilon3.com.ar/product-sitemap.xml"
-EMPTY_ENRICHMENT = {"manufacturer_product_url": "", "image_url": "", "image_source": "", "pantone": ""}
+EMPTY_ENRICHMENT = {"manufacturer_product_url": "", "image_url": "", "image_source": "", "pantone": "", "sku": "", "ean": ""}
 
 
 @dataclass(frozen=True)
@@ -23,6 +23,8 @@ class CatalogProduct:
     product_url: str
     image_url: str
     pantone: str = ""
+    sku: str = ""
+    ean: str = ""
 
 
 def fetch_grilon3_catalog(products_url: str = BASE_URL, timeout_seconds: int = 30) -> dict[str, CatalogProduct]:
@@ -60,6 +62,8 @@ def enrich_grilon3_catalog_details(
                 product_url=product.product_url,
                 image_url=product.image_url or detail["image_url"],
                 pantone=detail["pantone"],
+                sku=detail["sku"],
+                ean=detail["ean"],
             )
     return enriched
 
@@ -96,26 +100,31 @@ def enrich_grilon3_selected_details(
                 product_url=product.product_url,
                 image_url=product.image_url or detail["image_url"],
                 pantone=detail["pantone"],
+                sku=detail["sku"],
+                ean=detail["ean"],
             )
     return enriched
 
 
-def apply_grilon3_pantones(
+def apply_grilon3_metadata(
     catalog: dict[str, CatalogProduct],
-    pantones: dict[str, str],
+    metadata: dict[str, dict[str, str]],
 ) -> dict[str, CatalogProduct]:
-    if not pantones:
+    if not metadata:
         return dict(catalog)
-    return {
-        product_id: CatalogProduct(
+    enriched: dict[str, CatalogProduct] = {}
+    for product_id, product in catalog.items():
+        data = metadata.get(product_id, {})
+        enriched[product_id] = CatalogProduct(
             product_id=product.product_id,
             title=product.title,
             product_url=product.product_url,
-            image_url=product.image_url,
-            pantone=product.pantone or pantones.get(product_id, ""),
+            image_url=product.image_url or data.get("image_url", ""),
+            pantone=product.pantone or data.get("pantone", ""),
+            sku=product.sku or data.get("sku", ""),
+            ean=product.ean or data.get("ean", ""),
         )
-        for product_id, product in catalog.items()
-    }
+    return enriched
 
 
 def fetch_grilon3_product_detail(product_url: str, timeout_seconds: int = 10) -> dict[str, str]:
@@ -125,7 +134,13 @@ def fetch_grilon3_product_detail(product_url: str, timeout_seconds: int = 10) ->
 
 
 def parse_grilon3_product_detail(html_text: str, base_url: str = BASE_URL) -> dict[str, str]:
-    return _ProductDetailParser.parse(html_text, base_url)
+    detail = _ProductDetailParser.parse(html_text, base_url)
+    sku, ean = _extract_sku_ean_from_html(html_text)
+    return {
+        **detail,
+        "sku": detail["sku"] or sku,
+        "ean": detail["ean"] or ean,
+    }
 
 
 def parse_grilon3_catalog(html_text: str, base_url: str = BASE_URL) -> dict[str, CatalogProduct]:
@@ -156,6 +171,8 @@ def parse_grilon3_catalog(html_text: str, base_url: str = BASE_URL) -> dict[str,
             product_url=link["product_url"],
             image_url=link["image_url"],
             pantone="",
+            sku="",
+            ean="",
         )
 
     return catalog
@@ -189,6 +206,8 @@ def parse_grilon3_sitemap(xml_text: str) -> dict[str, CatalogProduct]:
             product_url=url,
             image_url="",
             pantone="",
+            sku="",
+            ean="",
         )
     return catalog
 
@@ -209,6 +228,8 @@ def enrich_with_grilon3_catalog(
         "image_url": product.image_url,
         "image_source": "manufacturer" if product.image_url else "",
         "pantone": getattr(product, "pantone", ""),
+        "sku": getattr(product, "sku", ""),
+        "ean": getattr(product, "ean", ""),
     }
 
 
@@ -265,12 +286,14 @@ class _ProductDetailParser(HTMLParser):
         self.base_url = base_url
         self.pantone = ""
         self.image_url = ""
+        self.sku = ""
+        self.ean = ""
 
     @classmethod
     def parse(cls, html_text: str, base_url: str) -> dict[str, str]:
         parser = cls(base_url)
         parser.feed(html_text)
-        return {"pantone": parser.pantone, "image_url": parser.image_url}
+        return {"pantone": parser.pantone, "image_url": parser.image_url, "sku": parser.sku, "ean": parser.ean}
 
     def handle_starttag(self, tag: str, attrs) -> None:
         if tag != "img" or self.image_url:
@@ -287,6 +310,11 @@ class _ProductDetailParser(HTMLParser):
         pantone = _extract_pantone(data)
         if pantone:
             self.pantone = pantone
+        sku, ean = _extract_sku_ean(data)
+        if sku and not self.sku:
+            self.sku = sku
+        if ean and not self.ean:
+            self.ean = ean
 
 
 def _clean_text(value: str) -> str:
@@ -299,6 +327,27 @@ def _extract_pantone(value: str) -> str:
         return ""
     color = _clean_text(match.group(1)).strip(" .:-")
     return f"Pantone {color}" if color else ""
+
+
+def _extract_sku_ean(value: str) -> tuple[str, str]:
+    text = _clean_text(value)
+    sku_match = re.search(r"\bSKU:\s*([A-Z0-9_-]+)", text, flags=re.IGNORECASE)
+    ean_match = re.search(r"\bEAN:\s*([0-9]{8,14})", text, flags=re.IGNORECASE)
+    return (
+        sku_match.group(1).strip() if sku_match else "",
+        ean_match.group(1).strip() if ean_match else "",
+    )
+
+
+def _extract_sku_ean_from_html(html_text: str) -> tuple[str, str]:
+    sku_match = re.search(r'class=["\']sku["\'][^>]*>\s*([^<\s]+)', html_text, flags=re.IGNORECASE)
+    ean_match = re.search(r'class=["\']ean["\'][^>]*>\s*([0-9]{8,14})', html_text, flags=re.IGNORECASE)
+    if sku_match or ean_match:
+        return (
+            sku_match.group(1).strip() if sku_match else "",
+            ean_match.group(1).strip() if ean_match else "",
+        )
+    return _extract_sku_ean(_clean_text(re.sub(r"<[^>]+>", " ", html_text)))
 
 
 def _title_from_product_url(url: str) -> str:

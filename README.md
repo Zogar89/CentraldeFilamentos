@@ -53,10 +53,10 @@ Generar datos para el sitio estatico:
 python -m stockcentral.build_data --output public/data/stock.json
 ```
 
-Actualizar la cache local de Pantone de Grilon3, solo cuando Grilon3 cambie o agregue filamentos:
+Actualizar la cache local de metadatos de Grilon3, solo cuando Grilon3 cambie o agregue filamentos:
 
 ```bash
-python -m stockcentral.cache_grilon3_pantones --timeout-seconds 10 --max-workers 8
+python -m stockcentral.cache_grilon3_metadata --timeout-seconds 10 --max-workers 8
 python -m stockcentral.build_data --output public/data/stock.json
 ```
 
@@ -70,7 +70,7 @@ python -m http.server 8000 -d public
 
 El frontend lee `public/data/stock.json`. En produccion, GitHub Actions genera ese archivo y publica `public/` en GitHub Pages.
 
-La cache `stockcentral/data/grilon3_pantones.json` se versiona en el repositorio. La actualizacion normal de stock no consulta las fichas individuales de Grilon3; solo lee esa cache local.
+La cache `stockcentral/data/grilon3_metadata.json` se versiona en el repositorio. Guarda datos oficiales como Pantone, SKU y EAN. La actualizacion normal de stock no consulta las fichas individuales de Grilon3; solo lee esa cache local.
 
 ## GitHub Pages
 

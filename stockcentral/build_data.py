@@ -22,7 +22,7 @@ from stockcentral.models import (
 from stockcentral.normalize import build_display_name, build_product_id, normalize_record
 from stockcentral.providers import MANUFACTURERS, SOURCES, SourceConfig
 
-GRILON3_PANTONE_CACHE = Path("stockcentral/data/grilon3_pantones.json")
+GRILON3_METADATA_CACHE = Path("stockcentral/data/grilon3_metadata.json")
 
 ZONE_ORDER = {
     "Zona Norte": 0,
@@ -35,6 +35,8 @@ DEFAULT_ENRICHMENT = {
     "image_url": "",
     "image_source": "",
     "pantone": "",
+    "sku": "",
+    "ean": "",
 }
 
 
@@ -90,6 +92,8 @@ def build_payload(
                 "image_url": catalog_product.image_url,
                 "image_source": "manufacturer" if catalog_product.image_url else "",
                 "pantone": getattr(catalog_product, "pantone", ""),
+                "sku": getattr(catalog_product, "sku", ""),
+                "ean": getattr(catalog_product, "ean", ""),
             },
             "offers": [],
         }
@@ -146,46 +150,61 @@ def build_grilon3_enrichments(
     from stockcentral.connectors.grilon3_catalog import enrich_with_grilon3_catalog, fetch_grilon3_catalog
 
     catalog = fetch_grilon3_catalog(MANUFACTURERS["grilon3"].products_url) if catalog is None else catalog
-    pantones = load_grilon3_pantones()
+    metadata = load_grilon3_metadata()
     enrichments: dict[str, dict[str, str]] = {}
 
     for item in raw_items:
         fields = normalize_record(item)
         product_id = build_product_id(fields)
         enrichment = enrich_with_grilon3_catalog(fields, catalog)
-        enrichment["pantone"] = enrichment.get("pantone", "") or pantones.get(_pantone_cache_key(fields), "")
+        cache_data = metadata.get(_grilon3_metadata_cache_key(fields), {})
+        enrichment["pantone"] = enrichment.get("pantone", "") or cache_data.get("pantone", "")
+        enrichment["sku"] = enrichment.get("sku", "") or cache_data.get("sku", "")
+        enrichment["ean"] = enrichment.get("ean", "") or cache_data.get("ean", "")
+        if not enrichment["image_url"] and cache_data.get("image_url"):
+            enrichment["image_url"] = cache_data["image_url"]
+            enrichment["image_source"] = "manufacturer"
         if enrichment["manufacturer_product_url"] or enrichment["image_url"]:
             enrichments[product_id] = enrichment
-        elif enrichment["pantone"]:
+        elif enrichment["pantone"] or enrichment["sku"] or enrichment["ean"]:
             enrichments[product_id] = enrichment
 
     return enrichments
 
 
 def fetch_grilon3_catalog_products() -> dict[str, object]:
-    from stockcentral.connectors.grilon3_catalog import apply_grilon3_pantones, fetch_grilon3_catalog, fetch_grilon3_sitemap_catalog
+    from stockcentral.connectors.grilon3_catalog import apply_grilon3_metadata, fetch_grilon3_catalog, fetch_grilon3_sitemap_catalog
 
     catalog = fetch_grilon3_catalog(MANUFACTURERS["grilon3"].products_url)
     try:
         catalog.update(fetch_grilon3_sitemap_catalog())
     except Exception:
         pass
-    return apply_grilon3_pantones(catalog, load_grilon3_pantones())
+    return apply_grilon3_metadata(catalog, load_grilon3_metadata())
 
 
-def load_grilon3_pantones(path: str | Path = GRILON3_PANTONE_CACHE) -> dict[str, str]:
+def load_grilon3_metadata(path: str | Path = GRILON3_METADATA_CACHE) -> dict[str, dict[str, str]]:
     cache_path = Path(path)
     if not cache_path.exists():
         return {}
     payload = json.loads(cache_path.read_text(encoding="utf-8"))
-    return {
-        str(product_id): str(pantone)
-        for product_id, pantone in payload.items()
-        if pantone
-    }
+    metadata = {}
+    for product_id, data in payload.items():
+        if isinstance(data, str):
+            data = {"pantone": data}
+        if not isinstance(data, dict):
+            continue
+        clean = {
+            key: str(data.get(key, ""))
+            for key in ["pantone", "sku", "ean", "image_url"]
+            if data.get(key)
+        }
+        if clean:
+            metadata[str(product_id)] = clean
+    return metadata
 
 
-def _pantone_cache_key(fields) -> str:
+def _grilon3_metadata_cache_key(fields) -> str:
     parts = [fields.material, fields.variant, fields.color, fields.brand]
     return "-".join(_slug(part) for part in parts if part)
 
@@ -275,6 +294,8 @@ def _product_from_group(product_id: str, data: Mapping[str, object]) -> ProductG
         image_url=str(enrichment["image_url"]),
         image_source=enrichment["image_source"],  # type: ignore[arg-type]
         pantone=str(enrichment["pantone"]),
+        sku=str(enrichment["sku"]),
+        ean=str(enrichment["ean"]),
         display_name=build_display_name(fields),
         offers=offers,
     )

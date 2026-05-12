@@ -6,7 +6,7 @@ from stockcentral.build_data import (
     build_payload,
     collect_raw_items,
     fetch_grilon3_catalog_products,
-    load_grilon3_pantones,
+    load_grilon3_metadata,
     write_payload,
 )
 from stockcentral.connectors.grilon3_catalog import CatalogProduct
@@ -265,8 +265,11 @@ def test_build_grilon3_enrichments_indexes_raw_grilon_products(monkeypatch):
     assert enrichments["pla-negro-175-1000-grilon3"]["manufacturer_product_url"] == "https://grilon3.com.ar/producto/pla-negro/"
 
 
-def test_build_grilon3_enrichments_uses_local_pantone_cache(monkeypatch):
-    monkeypatch.setattr("stockcentral.build_data.load_grilon3_pantones", lambda: {"pla-negro-grilon3": "Pantone Black"})
+def test_build_grilon3_enrichments_uses_local_metadata_cache(monkeypatch):
+    monkeypatch.setattr(
+        "stockcentral.build_data.load_grilon3_metadata",
+        lambda: {"pla-negro-grilon3": {"pantone": "Pantone Black", "sku": "M09INE175CJ", "ean": "7798049653037"}},
+    )
 
     enrichments = build_grilon3_enrichments(
         [
@@ -283,13 +286,21 @@ def test_build_grilon3_enrichments_uses_local_pantone_cache(monkeypatch):
     )
 
     assert enrichments["pla-negro-175-1000-grilon3"]["pantone"] == "Pantone Black"
+    assert enrichments["pla-negro-175-1000-grilon3"]["sku"] == "M09INE175CJ"
+    assert enrichments["pla-negro-175-1000-grilon3"]["ean"] == "7798049653037"
 
 
-def test_load_grilon3_pantones_reads_cache_file(tmp_path):
-    cache = tmp_path / "pantones.json"
-    cache.write_text('{"pla-negro-grilon3": "Pantone Black", "empty": ""}', encoding="utf-8")
+def test_load_grilon3_metadata_reads_cache_file(tmp_path):
+    cache = tmp_path / "metadata.json"
+    cache.write_text(
+        '{"pla-negro-grilon3": {"pantone": "Pantone Black", "sku": "M09INE175CJ", "ean": "7798049653037"}, "old": "Pantone Old", "empty": {}}',
+        encoding="utf-8",
+    )
 
-    assert load_grilon3_pantones(cache) == {"pla-negro-grilon3": "Pantone Black"}
+    assert load_grilon3_metadata(cache) == {
+        "pla-negro-grilon3": {"pantone": "Pantone Black", "sku": "M09INE175CJ", "ean": "7798049653037"},
+        "old": {"pantone": "Pantone Old"},
+    }
 
 
 def test_fetch_grilon3_catalog_products_merges_shop_and_sitemap(monkeypatch):
@@ -313,12 +324,9 @@ def test_fetch_grilon3_catalog_products_merges_shop_and_sitemap(monkeypatch):
             )
         }
 
-    def fake_details(catalog):
-        return catalog
-
     monkeypatch.setattr("stockcentral.connectors.grilon3_catalog.fetch_grilon3_catalog", fake_shop)
     monkeypatch.setattr("stockcentral.connectors.grilon3_catalog.fetch_grilon3_sitemap_catalog", fake_sitemap)
-    monkeypatch.setattr("stockcentral.connectors.grilon3_catalog.enrich_grilon3_catalog_details", fake_details)
+    monkeypatch.setattr("stockcentral.build_data.load_grilon3_metadata", lambda: {})
 
     catalog = fetch_grilon3_catalog_products()
 
