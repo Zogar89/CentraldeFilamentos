@@ -55,6 +55,7 @@ function render() {
     });
   });
   const grandTotal = Object.values(providerTotals).reduce((sum, value) => sum + value, 0);
+  const groupedRows = groupRows(rows);
   document.getElementById("summary-count").textContent = `${rows.length} filamentos`;
   document.getElementById("summary-table").innerHTML = `
     <thead>
@@ -64,7 +65,7 @@ function render() {
         <th class="summary-total">Total</th>
       </tr>
     </thead>
-    <tbody>${rows.map(rowTemplate).join("")}</tbody>
+    <tbody>${groupedRows.map(groupTemplate).join("")}</tbody>
     <tfoot>
       <tr>
         <th>Carretes por proveedor</th>
@@ -72,6 +73,39 @@ function render() {
         <td class="summary-total">${formatInteger(grandTotal)}</td>
       </tr>
     </tfoot>
+  `;
+}
+
+function groupRows(rows) {
+  const groups = new Map();
+  rows.forEach((row) => {
+    const key = groupKey(row.product);
+    if (!groups.has(key)) {
+      groups.set(key, {
+        title: groupTitle(row.product),
+        rows: [],
+        totals: Object.fromEntries(state.sources.map((source) => [source.id, 0])),
+        total: 0,
+      });
+    }
+    const group = groups.get(key);
+    group.rows.push(row);
+    state.sources.forEach((source) => {
+      group.totals[source.id] += row.cells[source.id]?.units || 0;
+    });
+    group.total += row.total;
+  });
+  return [...groups.values()];
+}
+
+function groupTemplate(group) {
+  return `
+    <tr class="summary-group-row">
+      <th>${escapeHtml(group.title)}</th>
+      ${state.sources.map((source) => `<td>${formatInteger(group.totals[source.id])}</td>`).join("")}
+      <td class="summary-total">${formatInteger(group.total)}</td>
+    </tr>
+    ${group.rows.map(rowTemplate).join("")}
   `;
 }
 
@@ -88,6 +122,23 @@ function rowTemplate(row) {
       <td class="summary-total">${formatInteger(row.total)}</td>
     </tr>
   `;
+}
+
+function groupKey(product) {
+  return [
+    brandRank(product.brand),
+    product.brand || "Sin marca",
+    product.diameter_mm ? `${product.diameter_mm} mm` : "Sin diámetro",
+    lineLabel(product),
+  ].join("||");
+}
+
+function groupTitle(product) {
+  return [
+    product.brand || "Sin marca",
+    product.diameter_mm ? `${product.diameter_mm} mm` : "Sin diámetro",
+    lineLabel(product),
+  ].join(" · ");
 }
 
 function cellTemplate(cell) {

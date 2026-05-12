@@ -343,6 +343,19 @@ input {
   background: var(--surface);
 }
 
+.summary-group-row th,
+.summary-group-row td {
+  background: #e9eef5;
+  color: var(--text);
+  font-weight: 800;
+  border-top: 1px solid #c9d2df;
+}
+
+.summary-table .summary-group-row th:first-child,
+.summary-table .summary-group-row td:first-child {
+  background: #e9eef5;
+}
+
 .summary-table thead th {
   position: sticky;
   top: 0;

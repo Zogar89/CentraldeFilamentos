@@ -52,6 +52,8 @@ def test_summary_script_uses_carretes_totals_and_provider_order():
     assert "Zona Oeste" in js
     assert "Zona Sur" in js
     assert "Carretes por proveedor" in js
+    assert "summary-group-row" in js
+    assert "groupRows" in js
     assert "total_stock_units" in js
     assert "total_stock_kg" not in js
 
@@ -64,3 +66,4 @@ def test_styles_are_compact_and_responsive():
     assert "grid-template-columns" in css
     assert "border-radius: 8px" in css
     assert ".group-section" in css
+    assert ".summary-group-row" in css
