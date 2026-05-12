@@ -137,6 +137,29 @@ input {
 
 .product-list {
   display: grid;
+  gap: 14px;
+}
+
+.group-section {
+  display: grid;
+  gap: 8px;
+}
+
+.group-heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.group-heading strong {
+  color: var(--text);
+  font-size: 16px;
+}
+
+.group-products {
+  display: grid;
   gap: 8px;
 }
 
@@ -224,11 +247,6 @@ input {
 
 .stock-unknown {
   color: var(--warn);
-}
-
-.whatsapp {
-  color: var(--ok);
-  font-weight: 700;
 }
 
 .site-footer {

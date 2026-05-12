@@ -67,7 +67,7 @@ function setupFilters() {
 function render() {
   const products = state.products.filter(matchesFilters).sort(compareProducts);
   document.getElementById("result-count").textContent = `${products.length} productos`;
-  document.getElementById("product-list").innerHTML = products.map(productTemplate).join("");
+  document.getElementById("product-list").innerHTML = groupProducts(products).map(groupTemplate).join("");
   renderFooter();
 }
 
@@ -116,32 +116,23 @@ function productTemplate(product) {
           ${product.weight_g ? chip(`${product.weight_g / 1000} kg`) : ""}
           ${product.brand ? chip(product.brand) : ""}
         </div>
-        <div class="offers">${(product.offers || []).map((offer) => offerTemplate(offer, product)).join("")}</div>
+        <div class="offers">${(product.offers || []).map((offer) => offerTemplate(offer)).join("")}</div>
       </div>
     </article>
   `;
 }
 
-function offerTemplate(offer, product) {
-  const source = state.sources.find((item) => item.id === offer.source_id) || {};
+function offerTemplate(offer) {
   const stockClass = offer.stock_status === "in_stock" ? "stock-in" : offer.stock_status === "out_of_stock" ? "stock-out" : "stock-unknown";
   const stockLabel = offer.stock_status === "in_stock" ? `${offer.stock_quantity} carretes` : offer.stock_status === "out_of_stock" ? "0" : "Rev.";
-  const whatsapp = source.contact_whatsapp_url ? whatsappLink(source.contact_whatsapp_url, product, offer) : "";
   return `
     <div class="offer">
       <a href="${escapeAttribute(offer.provider_url)}" target="_blank" rel="noopener">${escapeHtml(offer.provider_name)}</a>
       · ${escapeHtml(offer.provider_zone)}
       · <span class="${stockClass}">${escapeHtml(stockLabel)}</span>
-      ${whatsapp}
       <br><small>${escapeHtml(offer.original_name)}</small>
     </div>
   `;
-}
-
-function whatsappLink(url, product, offer) {
-  const message = `Hola, vi en StockCentral que tienen ${product.display_name} (${offer.original_name}). ¿Me confirmás stock?`;
-  const separator = url.includes("?") ? "&" : "?";
-  return ` · <a class="whatsapp" href="${escapeAttribute(url)}${separator}text=${encodeURIComponent(message)}" target="_blank" rel="noopener">WhatsApp</a>`;
 }
 
 function renderFooter() {
@@ -171,10 +162,66 @@ function sourceFooter(source) {
   `;
 }
 
+function groupProducts(products) {
+  const groups = new Map();
+  products.forEach((product) => {
+    const key = [product.brand || "Sin marca", diameterLabel(product), lineLabel(product)].join("||");
+    if (!groups.has(key)) {
+      groups.set(key, {
+        brand: product.brand || "Sin marca",
+        diameter: diameterLabel(product),
+        line: lineLabel(product),
+        products: [],
+      });
+    }
+    groups.get(key).products.push(product);
+  });
+  return [...groups.values()];
+}
+
+function groupTemplate(group) {
+  return `
+    <section class="group-section">
+      <header class="group-heading">
+        <span>${escapeHtml(group.brand)}</span>
+        <span>${escapeHtml(group.diameter)}</span>
+        <strong>${escapeHtml(group.line)}</strong>
+      </header>
+      <div class="group-products">${group.products.map(productTemplate).join("")}</div>
+    </section>
+  `;
+}
+
+function lineLabel(product) {
+  return product.variant || product.material || "Sin clasificar";
+}
+
+function diameterLabel(product) {
+  return product.diameter_mm ? `${product.diameter_mm} mm` : "Sin diámetro";
+}
+
 function compareProducts(left, right) {
-  if (left.material === "PLA" && right.material !== "PLA") return -1;
-  if (left.material !== "PLA" && right.material === "PLA") return 1;
-  return left.display_name.localeCompare(right.display_name, "es-AR");
+  return [
+    brandRank(left.brand),
+    left.brand || "",
+    diameterLabel(left),
+    lineLabel(left),
+    left.color || "",
+    left.display_name,
+  ].join(" ").localeCompare([
+    brandRank(right.brand),
+    right.brand || "",
+    diameterLabel(right),
+    lineLabel(right),
+    right.color || "",
+    right.display_name,
+  ].join(" "), "es-AR");
+}
+
+function brandRank(brand) {
+  if (brand === "Grilon3") return "0";
+  if (brand === "3N3") return "1";
+  return "9";
 }
 
 function setSelect(key, values, emptyLabel = "") {

@@ -43,7 +43,7 @@ function buildRows() {
     });
     const total = Object.values(cells).reduce((sum, cell) => sum + cell.units, 0);
     return { product, cells, total };
-  }).sort((a, b) => a.product.display_name.localeCompare(b.product.display_name, "es-AR"));
+  }).sort((a, b) => compareProducts(a.product, b.product));
 }
 
 function render() {
@@ -107,6 +107,30 @@ function matchesQuery(row) {
   if (!state.query) return true;
   const product = row.product;
   return [product.display_name, product.material, product.variant, product.color, product.brand].join(" ").toLowerCase().includes(state.query);
+}
+
+function compareProducts(left, right) {
+  return [
+    brandRank(left.brand),
+    left.brand || "",
+    left.diameter_mm ? `${left.diameter_mm} mm` : "Sin diámetro",
+    left.variant || left.material || "Sin clasificar",
+    left.color || "",
+    left.display_name,
+  ].join(" ").localeCompare([
+    brandRank(right.brand),
+    right.brand || "",
+    right.diameter_mm ? `${right.diameter_mm} mm` : "Sin diámetro",
+    right.variant || right.material || "Sin clasificar",
+    right.color || "",
+    right.display_name,
+  ].join(" "), "es-AR");
+}
+
+function brandRank(brand) {
+  if (brand === "Grilon3") return "0";
+  if (brand === "3N3") return "1";
+  return "9";
 }
 
 function formatInteger(value) {

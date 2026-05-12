@@ -74,3 +74,19 @@ def test_parse_filamentos3d_html_supports_real_grilon3_table_shape():
         "GRILON3 ABS 04_GRIS PLATA 1.75 MM X 1 KG",
     ]
     assert [item.stock_quantity for item in items] == [93, 0]
+
+
+def test_parse_filamentos3d_html_skips_section_rows_without_stock():
+    html = """
+    <table>
+      <tr><th>SKU Fábrica</th><th>Grilon3</th><th></th></tr>
+      <tr><td></td><td>GRILON3 KITS LÁPIZ 3D</td><td></td></tr>
+      <tr><td></td><td>SUBMARCA 3NMAX (PVP LIBRE)</td><td></td></tr>
+      <tr><td>M09IBL175CJ</td><td>GRILON3 ABS 01_BLANCO 1.75 MM X 1 KG</td><td>93</td></tr>
+    </table>
+    """
+    source = SOURCES["filamentos3d"]
+
+    items = parse_filamentos3d_html(html, source, updated_at="2026-05-12T12:00:00Z")
+
+    assert [item.original_name for item in items] == ["GRILON3 ABS 01_BLANCO 1.75 MM X 1 KG"]

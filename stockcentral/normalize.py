@@ -5,40 +5,139 @@ import unicodedata
 
 from stockcentral.models import NormalizedFields, RawStockItem
 
-MATERIALS = ["PLA", "PETG", "ABS", "TPU", "HIPS", "NYLON", "PA"]
-VARIANTS = {
-    "PLA+": "PLA+",
-    "PLUS": "PLA+",
-    "SILK": "Silk",
-    "MATE": "Mate",
-    "BOUTIQUE": "Boutique",
-    "ASTRA": "Astra",
-    "PRO": "Pro",
-    "FLEX": "Flex",
-    "WOOD": "Wood",
-    "GALAXY": "Galaxy",
-}
-COLORS = {
-    "NEGRO": "Negro",
-    "BLANCO": "Blanco",
-    "ROJO": "Rojo",
-    "AZUL": "Azul",
-    "VERDE": "Verde",
-    "AMARILLO": "Amarillo",
-    "NARANJA": "Naranja",
-    "VIOLETA": "Violeta",
-    "GRIS": "Gris",
-    "ROSA": "Rosa",
-    "MARRON": "Marron",
-    "NATURAL": "Natural",
-    "TRANSPARENTE": "Transparente",
-    "CRISTAL": "Cristal",
-}
-BRANDS = {
-    "GRILON3": "Grilon3",
-    "GRILON 3": "Grilon3",
-    "3N3": "3N3",
-}
+MATERIAL_RULES = [
+    ("ACETAL-POM", "Acetal"),
+    ("ACETAL", "Acetal"),
+    ("PVA", "PVA"),
+    ("PP-T", "PP"),
+    ("PPT", "PP"),
+    (" PP ", "PP"),
+    ("EPET", "PET"),
+    ("E-PET", "PET"),
+    ("PETG", "PETG"),
+    ("PET-G", "PETG"),
+    ("NYLON12", "Nylon"),
+    ("NYLON 12", "Nylon"),
+    ("NYLON6", "Nylon"),
+    ("NYLON 6", "Nylon"),
+    ("NYLON", "Nylon"),
+    ("SIMPLIFLEX", "TPU"),
+    ("3NFLEX", "TPU"),
+    ("TPU", "TPU"),
+    ("FLEX", "TPU"),
+    ("ASA", "ASA"),
+    ("ABS", "ABS"),
+    ("HIPS", "HIPS"),
+    ("ASTRA", "PLA"),
+    ("BOUTIQUE", "PLA"),
+    ("SILK", "PLA"),
+    ("WOOD", "PLA"),
+    ("ZETA", "PLA"),
+    ("PLA", "PLA"),
+]
+
+VARIANT_RULES = [
+    ("PLA 870", "PLA 870"),
+    ("PLA 850", "PLA 850"),
+    ("PLA ZETA", "PLA Zeta"),
+    ("ZETA", "PLA Zeta"),
+    ("BOUTIQUE", "PLA Boutique"),
+    ("ASTRA", "PLA Astra"),
+    ("SILK", "PLA Silk"),
+    ("WOOD", "PLA Wood"),
+    ("PLA+", "PLA+"),
+    ("PLUS", "PLA+"),
+    ("PETG CLEAR", "PETG Clear"),
+    ("PP-T", "PP-T"),
+    ("PPT", "PP-T"),
+    ("EPET", "E-PET"),
+    ("E-PET", "E-PET"),
+    ("ACETAL-POM", "Acetal-POM"),
+    ("NYLON12", "Nylon 12"),
+    ("NYLON 12", "Nylon 12"),
+    ("NYLON6", "Nylon 6"),
+    ("NYLON 6", "Nylon 6"),
+    ("PVA", "PVA Soluble"),
+    ("SIMPLIFLEX", "Simpliflex"),
+    ("3NFLEX", "Flex"),
+    ("FLEX", "Flex"),
+    ("GALAXY", "Galaxy"),
+    ("MATE", "Mate"),
+    ("PRO", "Pro"),
+]
+
+COLOR_RULES = [
+    ("GRIS PLATA", "Gris Plata"),
+    ("GRIS ACERO", "Gris Acero"),
+    ("GRIS PLOMO", "Gris Plomo"),
+    ("AMARILLO FLUO", "Amarillo Fluo"),
+    ("NARANJA FLUO", "Naranja Fluo"),
+    ("VERDE FLUO", "Verde Fluo"),
+    ("CLEAR AMARILLO", "Clear Amarillo"),
+    ("CLEAR AZUL", "Clear Azul"),
+    ("CLEAR ROJO", "Clear Rojo"),
+    ("CLEAR VERDE", "Clear Verde"),
+    ("CLEAR AMBAR", "Clear Ambar"),
+    ("CLEAR CRISTAL", "Clear Cristal"),
+    ("PERLA CALIDO", "Perla Calido"),
+    ("PERLA FRIO", "Perla Frio"),
+    ("DULCE DE LECHE", "Dulce de Leche"),
+    ("VERDE AVIADOR", "Verde Aviador"),
+    ("AZUL TRAFUL", "Azul Traful"),
+    ("ROJO CARMIN", "Rojo Carmin"),
+    ("VERDE LIMA", "Verde Lima"),
+    ("GRIS ESPACIAL", "Gris Espacial"),
+    ("BLANCO PERLA", "Blanco Perla"),
+    ("CARBON", "Carbon"),
+    ("RUBI", "Rubi"),
+    ("ARENA", "Arena"),
+    ("CARIBE", "Caribe"),
+    ("ZAFIRO", "Zafiro"),
+    ("FRUTILLA", "Frutilla"),
+    ("LAVANDA", "Lavanda"),
+    ("SALMON", "Salmon"),
+    ("ACQUA", "Acqua"),
+    ("FUCSIA", "Fucsia"),
+    ("CELESTE", "Celeste"),
+    ("LILA", "Lila"),
+    ("BRONCE", "Bronce"),
+    ("TURQUESA", "Turquesa"),
+    ("PIEL", "Piel"),
+    ("CAOBA", "Caoba"),
+    ("CEREZO", "Cerezo"),
+    ("DORADO", "Dorado"),
+    ("COBRE", "Cobre"),
+    ("AZABACHE", "Azabache"),
+    ("DARK", "Dark"),
+    ("CHOCOLATE", "Chocolate"),
+    ("AMBAR", "Ambar"),
+    ("NOVA", "Nova"),
+    ("OPTICO", "Optico"),
+    ("TITANIO", "Titanio"),
+    ("NEGRO", "Negro"),
+    ("BLANCO", "Blanco"),
+    ("ROJO", "Rojo"),
+    ("AZUL", "Azul"),
+    ("VERDE", "Verde"),
+    ("AMARILLO", "Amarillo"),
+    ("NARANJA", "Naranja"),
+    ("VIOLETA", "Violeta"),
+    ("GRIS", "Gris"),
+    ("ROSA", "Rosa"),
+    ("MARRON", "Marron"),
+    ("NATURAL", "Natural"),
+    ("TRANSPARENTE", "Transparente"),
+    ("CRISTAL", "Cristal"),
+]
+
+BRAND_RULES = [
+    ("3NEPET", "3N3"),
+    ("3NMAX", "3N3"),
+    ("3NFLEX", "3N3"),
+    ("3N3", "3N3"),
+    ("GRILON3", "Grilon3"),
+    ("GRILON 3", "Grilon3"),
+]
 
 
 def normalize_record(item: RawStockItem) -> NormalizedFields:
@@ -78,9 +177,8 @@ def build_product_id(fields: NormalizedFields) -> str:
 
 
 def build_display_name(fields: NormalizedFields) -> str:
-    pieces = [fields.material]
-    if fields.variant and fields.variant != fields.material:
-        pieces.append(fields.variant)
+    line = fields.variant or fields.material
+    pieces = [line]
     if fields.color:
         pieces.append(fields.color)
     if fields.brand:
@@ -93,32 +191,35 @@ def build_display_name(fields: NormalizedFields) -> str:
 
 
 def _detect_material(text: str) -> str:
-    for material in MATERIALS:
-        if _contains_token(text, material):
-            return "Nylon" if material in {"NYLON", "PA"} else material
+    padded = f" {text} "
+    for token, value in MATERIAL_RULES:
+        if _matches_rule(padded, token):
+            return value
     return "Sin clasificar"
 
 
 def _detect_variant(text: str) -> str:
-    for token, value in VARIANTS.items():
-        if _contains_token(text, token):
+    for token, value in VARIANT_RULES:
+        if _matches_rule(text, token):
             return value
     return ""
 
 
 def _detect_color(text: str) -> str:
-    for token, value in COLORS.items():
-        if _contains_token(text, token):
+    for token, value in COLOR_RULES:
+        if _matches_rule(text, token):
             return value
     return "Sin color"
 
 
 def _detect_diameter(text: str) -> float | None:
-    if re.search(r"1[,.]?75\s*MM", text):
+    if re.search(r"1[,.]?7[45]\s*(?:MM)?\b", text):
+        return 1.75
+    if re.search(r"(?<!\d)[,.]75\s*MM\b", text):
         return 1.75
     if re.search(r"\b175\s*MM\b", text):
         return 1.75
-    if re.search(r"2[,.]?85\s*MM", text):
+    if re.search(r"2[,.]?85\s*(?:MM)?\b", text):
         return 2.85
     return None
 
@@ -127,8 +228,10 @@ def _detect_weight(text: str) -> int | None:
     kg_match = re.search(r"(\d+(?:[,.]\d+)?)\s*KG\b", text)
     if kg_match:
         return int(float(kg_match.group(1).replace(",", ".")) * 1000)
+    if re.search(r"\bX\s*KG\b", text):
+        return 1000
 
-    g_match = re.search(r"(\d{3,5})\s*G\b", text)
+    g_match = re.search(r"(\d{3,5})\s*(?:G|GR)\b", text)
     if g_match:
         return int(g_match.group(1))
 
@@ -136,15 +239,24 @@ def _detect_weight(text: str) -> int | None:
 
 
 def _detect_brand(text: str, brand_hint: str) -> str:
+    for token, value in BRAND_RULES:
+        if _matches_rule(text, token):
+            return value
     folded_hint = _fold(brand_hint)
-    for token, value in BRANDS.items():
-        if token in text or token in folded_hint:
+    for token, value in BRAND_RULES:
+        if _matches_rule(folded_hint, token):
             return value
     return brand_hint.strip() if brand_hint.strip() else ""
 
 
 def _contains_token(text: str, token: str) -> bool:
-    return re.search(rf"(?<![A-Z0-9]){re.escape(token)}(?![A-Z0-9])", text) is not None
+    return re.search(rf"(?<![A-Z0-9]){re.escape(token)}(?![A-Z])", text) is not None
+
+
+def _matches_rule(text: str, token: str) -> bool:
+    if token in {"EPET", "E-PET", "3NEPET", "3NMAX", "3NFLEX"}:
+        return token in text
+    return _contains_token(text, token)
 
 
 def _slug(value: str) -> str:

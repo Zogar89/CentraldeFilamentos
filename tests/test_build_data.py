@@ -99,6 +99,19 @@ def test_build_payload_orders_sources_north_west_south_and_counts_carretes():
     assert stats_by_id["grupo_senz"]["product_count"] == 1
 
 
+def test_build_payload_deduplicates_repeated_provider_rows():
+    item = raw("filamentos3d", "Filamentos3D", "Zona Sur", "GRILON3 PLA Negro 1kg 1.75mm", 4, "Grilon3")
+
+    payload = build_payload(
+        [item, item],
+        sources=SOURCES,
+        manufacturers=MANUFACTURERS,
+        generated_at="2026-05-12T13:00:00-03:00",
+    )
+
+    assert len(payload["products"][0]["offers"]) == 1
+
+
 def test_build_payload_marks_partial_source_errors():
     payload = build_payload(
         [],

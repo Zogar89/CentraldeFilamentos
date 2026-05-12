@@ -31,7 +31,9 @@ def test_catalog_script_fetches_json_and_supports_required_filters():
     ]:
         assert filter_id in js
     assert "contact_whatsapp_url" in js
-    assert "encodeURIComponent" in js
+    assert "groupProducts" in js
+    assert "group-section" in js
+    assert "whatsappLink" not in js
 
 
 def test_summary_script_uses_carretes_totals_and_provider_order():
@@ -53,3 +55,4 @@ def test_styles_are_compact_and_responsive():
     assert "position: sticky" in css
     assert "grid-template-columns" in css
     assert "border-radius: 8px" in css
+    assert ".group-section" in css

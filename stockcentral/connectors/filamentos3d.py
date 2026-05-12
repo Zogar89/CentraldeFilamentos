@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import re
+import unicodedata
 from html.parser import HTMLParser
 
 import requests
@@ -41,7 +42,7 @@ def parse_filamentos3d_html(html_text: str, source: SourceConfig, updated_at: st
                 continue
 
             stock_quantity = _parse_stock(_cell(cells, columns["stock"]))
-            if stock_quantity is None and _normalize_header(original_name) in {"grilon3"}:
+            if _is_non_product_row(original_name, stock_quantity):
                 continue
             items.append(
                 RawStockItem(
@@ -155,9 +156,30 @@ def _looks_like_header(cells: list[str]) -> bool:
     return bool(normalized & NAME_HEADERS) and bool(normalized & STOCK_HEADERS)
 
 
+def _is_non_product_row(original_name: str, stock_quantity: int | None) -> bool:
+    normalized = _normalize_header(original_name)
+    if stock_quantity is not None:
+        return False
+    if normalized in {"grilon3", "3n3", "sampler grilon3"}:
+        return True
+    return any(
+        marker in normalized
+        for marker in [
+            "submarca",
+            "descripcion marcas",
+            "kits lapiz",
+            "kit lapiz",
+            "maxifill bulk",
+            "megafill box",
+        ]
+    )
+
+
 def _clean_text(value: str) -> str:
     return " ".join(value.split())
 
 
 def _normalize_header(value: str) -> str:
-    return _clean_text(value).casefold()
+    normalized = unicodedata.normalize("NFKD", _clean_text(value))
+    without_marks = "".join(char for char in normalized if not unicodedata.combining(char))
+    return without_marks.casefold()

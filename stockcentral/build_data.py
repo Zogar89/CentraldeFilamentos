@@ -55,8 +55,13 @@ def build_payload(
                 "fields": fields,
                 "enrichment": enrichment,
                 "offers": [],
+                "offer_keys": set(),
             }
 
+        offer_key = (item.source_id, item.original_name, item.stock_quantity)
+        if offer_key in grouped[product_id]["offer_keys"]:  # type: ignore[operator]
+            continue
+        grouped[product_id]["offer_keys"].add(offer_key)  # type: ignore[union-attr]
         grouped[product_id]["offers"].append(_offer_from_raw(item))  # type: ignore[index, union-attr]
 
     products = [
