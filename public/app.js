@@ -129,12 +129,11 @@ function matchesFilters(product) {
 
 function productCardTemplate(card) {
   const product = card.products[0];
-  const imageProduct = cardImageProduct(card.products);
   const titleText = productBaseName(product);
   const title = product.manufacturer_product_url
     ? `<a href="${escapeAttribute(product.manufacturer_product_url)}" target="_blank" rel="noopener">${escapeHtml(titleText)}</a>`
     : escapeHtml(titleText);
-  const image = productVisualTemplate(product, imageProduct);
+  const image = productVisualsTemplate(product, card.products);
 
   return `
     <article class="product-row">
@@ -149,19 +148,39 @@ function productCardTemplate(card) {
   `;
 }
 
-function cardImageProduct(products) {
-  return products.find((product) => product.weight_g === 1000 && product.image_url)
-    || products.find((product) => product.image_url)
-    || products[0];
+function productVisualsTemplate(product, products) {
+  const imageProducts = cardImageProducts(products);
+  const showPresentation = imageProducts.length > 1;
+  return `
+    <div class="product-visuals${showPresentation ? " multi-image" : ""}">
+      ${imageProducts.map((imageProduct) => productVisualTemplate(product, imageProduct, showPresentation)).join("")}
+    </div>
+  `;
 }
 
-function productVisualTemplate(product, imageProduct) {
-  const visualTitle = [product.color || "Sin color", product.pantone].filter(Boolean).join(" · ");
+function cardImageProducts(products) {
+  const selected = [];
+  const seenUrls = new Set();
+  const add = (candidate) => {
+    if (!candidate?.image_url || seenUrls.has(candidate.image_url)) return;
+    selected.push(candidate);
+    seenUrls.add(candidate.image_url);
+  };
+  add(products.find((product) => product.weight_g === 1000 && product.image_url));
+  add(products.find((product) => product.weight_g === 2500 && product.image_url));
+  if (!selected.length) add(products.find((product) => product.image_url));
+  return selected.length ? selected : [products[0]];
+}
+
+function productVisualTemplate(product, imageProduct, showPresentation = false) {
+  const visualTitle = [product.color || "Sin color", product.pantone, formatPresentation(imageProduct)].filter(Boolean).join(" · ");
   const pantone = pantoneBadgeTemplate(product);
+  const presentation = showPresentation ? `<small class="media-presentation">${escapeHtml(formatPresentation(imageProduct))}</small>` : "";
   if (imageProduct.image_url) {
     return `
       <div class="product-image product-media" title="${escapeAttribute(visualTitle)}">
         <img src="${escapeAttribute(imageProduct.image_url)}" alt="${escapeAttribute(productBaseName(imageProduct))}">
+        ${presentation}
         ${pantone}
       </div>
     `;

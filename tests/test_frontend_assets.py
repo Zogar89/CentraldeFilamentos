@@ -53,9 +53,13 @@ def test_catalog_script_fetches_json_and_supports_required_filters():
     assert "samplerLengthLabel" in js
     assert "groupBaseProducts" in js
     assert "productCardTemplate" in js
-    assert "cardImageProduct" in js
+    assert "cardImageProducts" in js
+    assert "productVisualsTemplate" in js
     assert "productVisualTemplate" in js
     assert "product.weight_g === 1000 && product.image_url" in js
+    assert "product.weight_g === 2500 && product.image_url" in js
+    assert "seenUrls" in js
+    assert "media-presentation" in js
     assert "colorSwatchTemplate" in js
     assert "pantoneBadgeTemplate" in js
     assert "pantoneSwatchLabel" in js
@@ -123,6 +127,8 @@ def test_styles_are_compact_and_responsive():
     assert ".presentation-row" in css
     assert ".chips" not in css
     assert ".chip" not in css
+    assert ".product-visuals" in css
+    assert ".media-presentation" in css
     assert ".color-swatch" in css
     assert ".swatch-pantone" in css
     assert ".product-media" in css
