@@ -55,6 +55,9 @@ def test_catalog_script_fetches_json_and_supports_required_filters():
     assert "samplerLengthLabel" in js
     assert "groupBaseProducts" in js
     assert "productCardTemplate" in js
+    assert "officialProductLinkTemplate" in js
+    assert "official-product-link" in js
+    assert "Página oficial" in js
     assert "cardImageProducts" in js
     assert "productVisualsTemplate" in js
     assert "productVisualTemplate" in js
@@ -177,6 +180,7 @@ def test_styles_are_compact_and_responsive():
     assert ".color-swatch" in css
     assert ".swatch-pantone" in css
     assert ".product-media" in css
+    assert ".official-product-link" in css
     assert ".image-preview" in css
     assert ".image-preview.visible" in css
     assert "cursor: zoom-in" in css

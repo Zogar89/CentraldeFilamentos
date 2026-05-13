@@ -148,9 +148,6 @@ function searchTokens(value) {
 function productCardTemplate(card) {
   const product = card.products[0];
   const titleText = productBaseName(product);
-  const title = product.manufacturer_product_url
-    ? `<a href="${escapeAttribute(product.manufacturer_product_url)}" target="_blank" rel="noopener">${escapeHtml(titleText)}</a>`
-    : escapeHtml(titleText);
   const image = productVisualsTemplate(product, card.products);
 
   return `
@@ -158,11 +155,27 @@ function productCardTemplate(card) {
       ${image}
       <div>
         <div class="product-head">
-          <h2>${title}</h2>
+          <h2>
+            <span>${escapeHtml(titleText)}</span>
+            ${officialProductLinkTemplate(product, titleText)}
+          </h2>
         </div>
         <div class="presentation-list">${card.products.map(presentationTemplate).join("")}</div>
       </div>
     </article>
+  `;
+}
+
+function officialProductLinkTemplate(product, titleText) {
+  if (!product.manufacturer_product_url) return "";
+  return `
+    <a class="official-product-link" href="${escapeAttribute(product.manufacturer_product_url)}" target="_blank" rel="noopener" aria-label="Abrir página oficial de ${escapeAttribute(titleText)}" title="Página oficial">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M14 4h6v6"></path>
+        <path d="M10 14 20 4"></path>
+        <path d="M20 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h5"></path>
+      </svg>
+    </a>
   `;
 }
 
