@@ -345,9 +345,8 @@ function offerListTemplate(product) {
 }
 
 function offerTemplate(offer) {
-  const stockClass = offer.stock_status === "in_stock" ? "stock-in" : offer.stock_status === "out_of_stock" ? "stock-out" : "stock-unknown";
-  const stockLabel = offer.stock_status === "in_stock" ? `${offer.stock_quantity} carretes` : offer.stock_status === "out_of_stock" ? "0" : "0*";
-  const reviewReason = offer.stock_status === "unknown" ? `<small class="review-reason">El proveedor seguramente no maneja esta variante.</small>` : "";
+  const stockClass = offer.stock_status === "in_stock" ? "stock-in" : "stock-out";
+  const stockLabel = offer.stock_status === "in_stock" ? `${offer.stock_quantity} carretes` : "0";
   const providerTitle = `${offer.provider_name} · ${offer.provider_zone}`;
   return `
     <div class="offer" title="${escapeAttribute(providerTitle)}">
@@ -356,7 +355,6 @@ function offerTemplate(offer) {
         <strong class="${stockClass}">${escapeHtml(stockLabel)}</strong>
       </div>
       <small>${escapeHtml(offer.original_name)}</small>
-      ${reviewReason}
     </div>
   `;
 }

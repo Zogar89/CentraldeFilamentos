@@ -146,12 +146,6 @@ input {
   font-size: 13px;
 }
 
-.stock-note {
-  margin: -4px 2px 12px;
-  color: var(--muted);
-  font-size: 12px;
-}
-
 .filters.one-line {
   grid-template-columns: 1fr;
 }
@@ -404,10 +398,6 @@ input {
   overflow-wrap: anywhere;
 }
 
-.review-reason {
-  color: var(--warn);
-}
-
 .stock-in {
   color: var(--ok);
   font-weight: 700;
@@ -415,10 +405,6 @@ input {
 
 .stock-out {
   color: var(--out);
-}
-
-.stock-unknown {
-  color: var(--warn);
 }
 
 .site-footer {

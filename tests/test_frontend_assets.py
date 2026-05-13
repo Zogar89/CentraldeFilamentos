@@ -15,10 +15,8 @@ def test_static_frontend_files_exist_and_are_linked():
     assert 'href="resumen.html"' in index
     assert 'id="quick-lines"' in index
     assert 'id="line-help"' in index
-    assert "0* indica que el proveedor seguramente no maneja esa variante." in index
     assert '<script src="resumen.js" defer></script>' in resumen
     assert 'id="summary-table"' in resumen
-    assert "0* indica que el proveedor seguramente no maneja esa variante." in resumen
 
 
 def test_catalog_script_fetches_json_and_supports_required_filters():
@@ -73,8 +71,8 @@ def test_catalog_script_fetches_json_and_supports_required_filters():
     assert "offer-main" in js
     assert "providerTitle" in js
     assert "Sin cantidad" in js
-    assert "0*" in js
-    assert "El proveedor seguramente no maneja esta variante." in js
+    assert "0*" not in js
+    assert "El proveedor seguramente no maneja esta variante." not in js
     assert "providerAnchorId" in js
     assert "proveedor-" in js
     assert "sourceWhatsappUrl" in js
@@ -109,8 +107,8 @@ def test_summary_script_uses_carretes_totals_and_provider_order():
     assert "product.pantone" in js
     assert "summary-group-row" in js
     assert "groupRows" in js
-    assert "0*" in js
-    assert "El proveedor seguramente no maneja esta variante" in js
+    assert "0*" not in js
+    assert "El proveedor seguramente no maneja esta variante" not in js
     assert "A revisar" not in js
     assert "Rev." not in js
     assert "total_stock_units" in js
@@ -136,7 +134,6 @@ def test_styles_are_compact_and_responsive():
     assert ".color-swatch" in css
     assert ".swatch-pantone" in css
     assert ".product-media" in css
-    assert ".review-reason" in css
     assert "scroll-behavior: smooth" in css
     assert ".footer-provider:target" in css
     assert ".summary-presentation" in css
@@ -144,7 +141,6 @@ def test_styles_are_compact_and_responsive():
     assert ".summary-color-swatch" in css
     assert ".summary-product-name" in css
     assert ".summary-group-row" in css
-    assert ".stock-note" in css
 
 
 def test_generated_stock_data_has_one_offer_per_provider_per_card():
