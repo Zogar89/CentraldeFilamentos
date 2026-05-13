@@ -73,6 +73,13 @@ def test_catalog_script_fetches_json_and_supports_required_filters():
     assert "colorSwatchStyle" in js
     assert "baseColorFor" in js
     assert "foldText" in js
+    assert "matchesSearchTerms" in js
+    assert "matchesSearchToken" in js
+    assert "searchTokens" in js
+    assert 'term === "pla"' in js
+    assert 'token === "pla+"' in js
+    assert "token.startsWith(term)" in js
+    assert "queryText.includes" not in js
     assert "presentationTemplate" in js
     assert "productBaseName" in js
     assert "quickLineValues" in js
@@ -120,6 +127,12 @@ def test_summary_script_uses_carretes_totals_and_provider_order():
     assert "mergedBrandKey" in js
     assert "brandsLabel" in js
     assert "Grilon3 + 3N3" in js
+    assert "matchesSearchTerms" in js
+    assert "matchesSearchToken" in js
+    assert "searchTokens" in js
+    assert 'term === "pla"' in js
+    assert 'token === "pla+"' in js
+    assert "token.startsWith(term)" in js
     assert "summary-group-row" in js
     assert "groupRows" in js
     assert "0*" not in js

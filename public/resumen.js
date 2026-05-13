@@ -272,8 +272,27 @@ function matchesQuery(row) {
   if (!state.query) return true;
   const products = row.products || [row.product];
   return products.some((product) => {
-    return [product.display_name, product.material, product.variant, product.color, product.pantone, product.brand].join(" ").toLowerCase().includes(state.query);
+    return matchesSearchTerms(state.query, [product.display_name, product.material, product.variant, product.color, product.pantone, product.brand]);
   });
+}
+
+function matchesSearchTerms(query, values) {
+  const tokens = searchTokens(values.join(" "));
+  return searchTokens(query).every((term) => {
+    return tokens.some((token) => matchesSearchToken(term, token));
+  });
+}
+
+function matchesSearchToken(term, token) {
+  if (term === "pla") return token === "pla" || token === "pla+";
+  return token === term || token.startsWith(term);
+}
+
+function searchTokens(value) {
+  return foldText(value)
+    .toLowerCase()
+    .split(/[^a-z0-9+]+/)
+    .filter(Boolean);
 }
 
 function compareProducts(left, right) {

@@ -99,7 +99,7 @@ function render() {
 }
 
 function matchesFilters(product) {
-  const queryText = [
+  const queryFields = [
     product.display_name,
     product.material,
     product.variant,
@@ -109,9 +109,9 @@ function matchesFilters(product) {
     product.ean,
     product.brand,
     ...(product.offers || []).map((offer) => offer.original_name),
-  ].join(" ").toLowerCase();
+  ];
 
-  if (state.filters.query && !queryText.includes(state.filters.query)) return false;
+  if (state.filters.query && !matchesSearchTerms(state.filters.query, queryFields)) return false;
   if (state.filters.material && product.material !== state.filters.material) return false;
   if (state.filters.variant && lineLabel(product) !== state.filters.variant) return false;
   if (state.filters.color && product.color !== state.filters.color) return false;
@@ -121,6 +121,25 @@ function matchesFilters(product) {
   if (state.filters.provider && !(product.offers || []).some((offer) => offer.provider_name === state.filters.provider)) return false;
   if (state.filters.stock !== "all" && !(product.offers || []).some((offer) => offer.stock_status === state.filters.stock)) return false;
   return true;
+}
+
+function matchesSearchTerms(query, values) {
+  const tokens = searchTokens(values.join(" "));
+  return searchTokens(query).every((term) => {
+    return tokens.some((token) => matchesSearchToken(term, token));
+  });
+}
+
+function matchesSearchToken(term, token) {
+  if (term === "pla") return token === "pla" || token === "pla+";
+  return token === term || token.startsWith(term);
+}
+
+function searchTokens(value) {
+  return foldText(value)
+    .toLowerCase()
+    .split(/[^a-z0-9+]+/)
+    .filter(Boolean);
 }
 
 function productCardTemplate(card) {
