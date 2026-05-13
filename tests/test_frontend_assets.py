@@ -63,6 +63,8 @@ def test_catalog_script_fetches_json_and_supports_required_filters():
     assert "productVisualTemplate" in js
     assert "setupImagePreview" in js
     assert "data-preview-src" in js
+    assert 'loading="lazy"' in js
+    assert 'decoding="async"' in js
     assert "positionImagePreview" in js
     assert "image-preview" in js
     assert "compareImagePresentations" in js

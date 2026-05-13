@@ -223,7 +223,7 @@ function productVisualTemplate(product, imageProduct, showPresentation = false) 
   if (imageProduct.image_url) {
     return `
       <div class="product-image product-media" data-preview-src="${escapeAttribute(imageProduct.image_url)}" data-preview-title="${escapeAttribute(visualTitle)}" aria-label="${escapeAttribute(visualTitle)}" tabindex="0">
-        <img src="${escapeAttribute(imageProduct.image_url)}" alt="${escapeAttribute(productBaseName(imageProduct))}">
+        <img src="${escapeAttribute(imageProduct.image_url)}" alt="${escapeAttribute(productBaseName(imageProduct))}" loading="lazy" decoding="async">
         ${presentation}
         ${pantone}
       </div>
