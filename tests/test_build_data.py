@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pytest
 
-from stockcentral.cache_grilon3_metadata import download_grilon3_images, load_metadata_cache
+from stockcentral.cache_grilon3_metadata import build_grilon3_metadata_cache, download_grilon3_images, load_metadata_cache
 from stockcentral.build_data import (
     build_grilon3_enrichments,
     build_payload,
@@ -389,6 +389,35 @@ def test_download_grilon3_images_caches_remote_images_locally(tmp_path, monkeypa
     assert cache["pla-negro-grilon3"]["image_remote_url"] == "https://grilon3.com.ar/wp-content/uploads/pla-negro.jpg"
     assert (tmp_path / "assets" / Path(image_url).name).read_bytes() == b"image-bytes"
     assert calls == [("https://grilon3.com.ar/wp-content/uploads/pla-negro.jpg", 9), "raise_for_status"]
+
+
+def test_build_grilon3_metadata_cache_keeps_duplicate_normalized_titles(monkeypatch):
+    shop_catalog = {
+        "pla-amarillo-unknown-1000-grilon3": CatalogProduct(
+            product_id="pla-amarillo-unknown-1000-grilon3",
+            title="PLA Amarillo Grilon3",
+            product_url="https://grilon3.com.ar/producto/filamento-3d-pla-amarillo/",
+            image_url="https://grilon3.com.ar/wp-content/uploads/pla_amarillo2.jpg",
+        ),
+        "pla-amarillo-unknown-1000-grilon3-megafill": CatalogProduct(
+            product_id="pla-amarillo-unknown-1000-grilon3-megafill",
+            title="PLA Amarillo Grilon3",
+            product_url="https://grilon3.com.ar/producto/megafill-pla-amarillo/",
+            image_url="https://grilon3.com.ar/wp-content/uploads/megafill_amarillo2.jpg",
+        ),
+    }
+
+    monkeypatch.setattr("stockcentral.cache_grilon3_metadata.fetch_grilon3_catalog", lambda url: shop_catalog)
+    monkeypatch.setattr("stockcentral.cache_grilon3_metadata.fetch_grilon3_sitemap_catalog", lambda: {})
+    monkeypatch.setattr("stockcentral.cache_grilon3_metadata.enrich_grilon3_catalog_details", lambda catalog, timeout_seconds, max_workers: catalog)
+
+    cache = build_grilon3_metadata_cache()
+    urls = {data["manufacturer_product_url"] for data in cache.values()}
+
+    assert urls == {
+        "https://grilon3.com.ar/producto/filamento-3d-pla-amarillo/",
+        "https://grilon3.com.ar/producto/megafill-pla-amarillo/",
+    }
 
 
 def test_fetch_grilon3_catalog_products_merges_shop_and_sitemap(monkeypatch):

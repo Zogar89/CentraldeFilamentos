@@ -24,7 +24,10 @@ GRILON3_IMAGE_PUBLIC_PREFIX = "assets/grilon3"
 
 def build_grilon3_metadata_cache(timeout_seconds: int = 4, max_workers: int = 12) -> dict[str, dict[str, str]]:
     catalog = fetch_grilon3_catalog(MANUFACTURERS["grilon3"].products_url)
-    catalog.update(fetch_grilon3_sitemap_catalog())
+    for product_id, product in fetch_grilon3_sitemap_catalog().items():
+        if product_id in catalog and catalog[product_id].product_url != product.product_url:
+            product_id = f"{product_id}-{slug(product.product_url.rstrip('/').rsplit('/', 1)[-1])}"
+        catalog[product_id] = product
     enriched = enrich_grilon3_catalog_details(
         catalog,
         timeout_seconds=timeout_seconds,
@@ -41,7 +44,10 @@ def build_grilon3_metadata_cache(timeout_seconds: int = 4, max_workers: int = 12
         }
         clean = {key: value for key, value in data.items() if value}
         if clean:
-            cache[grilon3_metadata_cache_key(product.title)] = clean
+            key = grilon3_metadata_cache_key(product.title)
+            if key in cache and cache[key].get("manufacturer_product_url") != product.product_url:
+                key = f"{key}-{slug(product.product_url.rstrip('/').rsplit('/', 1)[-1])}"
+            cache[key] = clean
     return cache
 
 

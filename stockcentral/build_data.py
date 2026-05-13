@@ -178,7 +178,10 @@ def fetch_grilon3_catalog_products() -> dict[str, object]:
 
     catalog = fetch_grilon3_catalog(MANUFACTURERS["grilon3"].products_url)
     try:
-        catalog.update(fetch_grilon3_sitemap_catalog())
+        for product_id, product in fetch_grilon3_sitemap_catalog().items():
+            if product_id in catalog and catalog[product_id].product_url != product.product_url:
+                product_id = f"{product_id}-{_slug(product.product_url.rstrip('/').rsplit('/', 1)[-1])}"
+            catalog[product_id] = product
     except Exception:
         pass
     return apply_grilon3_metadata(catalog, load_grilon3_metadata())

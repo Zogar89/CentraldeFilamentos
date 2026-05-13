@@ -47,6 +47,27 @@ def test_parse_grilon3_catalog_indexes_official_links_and_images():
     assert catalog["pla-rojo-175-1000-grilon3"].image_url == ""
 
 
+def test_parse_grilon3_catalog_keeps_distinct_urls_that_normalize_equal():
+    html = """
+    <html><body>
+      <a href="https://grilon3.com.ar/producto/filamento-3d-pla-amarillo/">
+        <img src="/wp-content/uploads/pla_amarillo.jpg" alt="PLA Amarillo Grilon3">
+      </a>
+      <a href="https://grilon3.com.ar/producto/megafill-pla-amarillo/">
+        <img src="/wp-content/uploads/megafill_amarillo.jpg" alt="PLA Amarillo Grilon3">
+      </a>
+    </body></html>
+    """
+
+    catalog = parse_grilon3_catalog(html)
+    urls = {product.product_url for product in catalog.values()}
+
+    assert urls == {
+        "https://grilon3.com.ar/producto/filamento-3d-pla-amarillo/",
+        "https://grilon3.com.ar/producto/megafill-pla-amarillo/",
+    }
+
+
 def test_enrich_with_grilon3_catalog_matches_only_confident_grilon3_products():
     catalog = parse_grilon3_catalog(FIXTURE_PATH.read_text(encoding="utf-8"))
 
@@ -120,6 +141,26 @@ def test_parse_grilon3_product_detail_prefers_angle_spool_when_no_web_image():
     assert detail["image_url"] == "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_850_turquesa2-600x600.jpg"
 
 
+def test_parse_grilon3_product_detail_ignores_related_product_images_when_gallery_exists():
+    html = """
+    <html><body>
+      <div class="woocommerce-product-gallery woocommerce-product-gallery--with-images">
+        <div class="woocommerce-product-gallery__wrapper">
+          <img src="/wp-content/uploads/2020/09/pla_amarillo-600x600.jpg" alt="Grilon3 PLA">
+          <img src="/wp-content/uploads/2020/09/pla_amarillo2-600x600.jpg" alt="Grilon3 PLA">
+        </div>
+      </div>
+      <section class="related products">
+        <img src="/wp-content/uploads/2024/10/abs_maxicarrete_turquesa_web-600x600.webp" alt="Producto relacionado">
+      </section>
+    </body></html>
+    """
+
+    detail = parse_grilon3_product_detail(html, base_url="https://grilon3.com.ar/producto/filamento-3d-pla-amarillo/")
+
+    assert detail["image_url"] == "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_amarillo2-600x600.jpg"
+
+
 def test_fetch_grilon3_product_detail_downloads_product_page(monkeypatch):
     calls = []
 
@@ -141,6 +182,35 @@ def test_fetch_grilon3_product_detail_downloads_product_page(monkeypatch):
     assert detail["pantone"] == "Pantone Yellow"
     assert detail["sku"] == "M09IAM175CJ"
     assert detail["ean"] == "7798049653051"
+
+
+def test_enrich_grilon3_catalog_details_prefers_product_page_image(monkeypatch):
+    from stockcentral.connectors.grilon3_catalog import CatalogProduct, enrich_grilon3_catalog_details
+
+    def fake_detail(product_url, timeout_seconds):
+        assert product_url == "https://grilon3.com.ar/producto/pla-negro/"
+        return {
+            "pantone": "Pantone Black",
+            "image_url": "https://grilon3.com.ar/wp-content/uploads/pla_negro_web-600x600.jpg",
+            "sku": "M09INE175CJ",
+            "ean": "7798049653037",
+        }
+
+    monkeypatch.setattr("stockcentral.connectors.grilon3_catalog.fetch_grilon3_product_detail", fake_detail)
+
+    enriched = enrich_grilon3_catalog_details(
+        {
+            "pla-negro-175-1000-grilon3": CatalogProduct(
+                product_id="pla-negro-175-1000-grilon3",
+                title="PLA Negro Grilon3 1 kg 1.75 mm",
+                product_url="https://grilon3.com.ar/producto/pla-negro/",
+                image_url="https://grilon3.com.ar/wp-content/uploads/pla_negro_con_caja-350x350.jpg",
+            )
+        },
+        max_workers=1,
+    )
+
+    assert enriched["pla-negro-175-1000-grilon3"].image_url == "https://grilon3.com.ar/wp-content/uploads/pla_negro_web-600x600.jpg"
 
 
 def test_fetch_grilon3_catalog_downloads_products_url(monkeypatch):

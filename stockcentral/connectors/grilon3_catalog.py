@@ -14,6 +14,7 @@ from stockcentral.normalize import build_product_id, normalize_record
 BASE_URL = "https://grilon3.com.ar/productos/"
 SITEMAP_URL = "https://grilon3.com.ar/product-sitemap.xml"
 EMPTY_ENRICHMENT = {"manufacturer_product_url": "", "image_url": "", "image_source": "", "pantone": "", "sku": "", "ean": ""}
+VOID_TAGS = {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "param", "source", "track", "wbr"}
 
 
 @dataclass(frozen=True)
@@ -60,7 +61,7 @@ def enrich_grilon3_catalog_details(
                 product_id=product.product_id,
                 title=product.title,
                 product_url=product.product_url,
-                image_url=product.image_url or detail["image_url"],
+                image_url=detail["image_url"] or product.image_url,
                 pantone=detail["pantone"],
                 sku=detail["sku"],
                 ean=detail["ean"],
@@ -98,7 +99,7 @@ def enrich_grilon3_selected_details(
                 product_id=product.product_id,
                 title=product.title,
                 product_url=product.product_url,
-                image_url=product.image_url or detail["image_url"],
+                image_url=detail["image_url"] or product.image_url,
                 pantone=detail["pantone"],
                 sku=detail["sku"],
                 ean=detail["ean"],
@@ -165,7 +166,7 @@ def parse_grilon3_catalog(html_text: str, base_url: str = BASE_URL) -> dict[str,
         product_id = build_product_id(fields)
         if fields.brand != "Grilon3" or fields.material == "Sin clasificar" or fields.color == "Sin color":
             continue
-        catalog[product_id] = CatalogProduct(
+        catalog[_unique_catalog_key(catalog, product_id, link["product_url"])] = CatalogProduct(
             product_id=product_id,
             title=title,
             product_url=link["product_url"],
@@ -200,7 +201,7 @@ def parse_grilon3_sitemap(xml_text: str) -> dict[str, CatalogProduct]:
         if fields.brand != "Grilon3" or fields.material == "Sin clasificar" or fields.color == "Sin color":
             continue
         product_id = build_product_id(fields)
-        catalog[product_id] = CatalogProduct(
+        catalog[_unique_catalog_key(catalog, product_id, url)] = CatalogProduct(
             product_id=product_id,
             title=title,
             product_url=url,
@@ -210,6 +211,14 @@ def parse_grilon3_sitemap(xml_text: str) -> dict[str, CatalogProduct]:
             ean="",
         )
     return catalog
+
+
+def _unique_catalog_key(catalog: dict[str, CatalogProduct], product_id: str, product_url: str) -> str:
+    existing = catalog.get(product_id)
+    if existing is None or existing.product_url == product_url:
+        return product_id
+    suffix = re.sub(r"[^a-z0-9]+", "-", product_url.rstrip("/").rsplit("/", 1)[-1].lower()).strip("-")
+    return f"{product_id}-{suffix}"
 
 
 def enrich_with_grilon3_catalog(
@@ -286,6 +295,8 @@ class _ProductDetailParser(HTMLParser):
         self.base_url = base_url
         self.pantone = ""
         self.image_candidates: list[str] = []
+        self.gallery_image_candidates: list[str] = []
+        self._gallery_depth = 0
         self.sku = ""
         self.ean = ""
 
@@ -293,12 +304,19 @@ class _ProductDetailParser(HTMLParser):
     def parse(cls, html_text: str, base_url: str) -> dict[str, str]:
         parser = cls(base_url)
         parser.feed(html_text)
-        return {"pantone": parser.pantone, "image_url": _preferred_product_image(parser.image_candidates), "sku": parser.sku, "ean": parser.ean}
+        image_candidates = parser.gallery_image_candidates or parser.image_candidates
+        return {"pantone": parser.pantone, "image_url": _preferred_product_image(image_candidates), "sku": parser.sku, "ean": parser.ean}
 
     def handle_starttag(self, tag: str, attrs) -> None:
+        attributes = dict(attrs)
+        classes = set((attributes.get("class") or "").split())
+        if self._gallery_depth > 0 and tag not in VOID_TAGS:
+            self._gallery_depth += 1
+        elif "woocommerce-product-gallery" in classes:
+            self._gallery_depth = 1
+
         if tag != "img":
             return
-        attributes = dict(attrs)
         src = (
             attributes.get("data-large_image")
             or _largest_srcset_image(attributes.get("srcset", "") or attributes.get("data-srcset", ""))
@@ -310,6 +328,12 @@ class _ProductDetailParser(HTMLParser):
         image_url = urljoin(self.base_url, src)
         if _is_product_image_candidate(image_url, alt):
             self.image_candidates.append(image_url)
+            if self._gallery_depth > 0:
+                self.gallery_image_candidates.append(image_url)
+
+    def handle_endtag(self, tag: str) -> None:
+        if self._gallery_depth > 0 and tag not in VOID_TAGS:
+            self._gallery_depth -= 1
 
     def handle_data(self, data: str) -> None:
         if self.pantone:
@@ -389,6 +413,8 @@ def _product_image_score(image_url: str) -> tuple[int, str]:
         score += 80
     if re.search(r"(?:^|[-_])web(?:[-_.]|$)", filename):
         score += 25
+    if re.search(r"(?:^|[-_])wp[-_]post[-_]image(?:[-_.]|$)", filename):
+        score -= 30
     if re.search(r"[a-z]+2(?:-\d+x\d+)?\.", filename):
         score += 12
     if re.search(r"[a-z]+3(?:-\d+x\d+)?\.", filename):
@@ -397,7 +423,7 @@ def _product_image_score(image_url: str) -> tuple[int, str]:
         score -= 8
     if re.search(r"\d+(?:[-_]\d+x\d+)?\.", filename):
         score -= 12
-    if any(token in filename for token in ["caja", "box", "leon", "dragon", "pieza", "textura"]):
+    if any(token in filename for token in ["caja", "box", "leon", "dragon", "pieza", "textura", "packaging"]):
         score -= 50
     return (score, image_url)
 
