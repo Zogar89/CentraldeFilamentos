@@ -99,9 +99,9 @@ function render() {
     <tfoot>
       <tr>
         <th>Carretes por proveedor</th>
-        <td class="summary-presentation"></td>
-        ${state.sources.map((source) => `<td class="summary-total">${formatInteger(providerTotals[source.id])}</td>`).join("")}
-        <td class="summary-total">${formatInteger(grandTotal)}</td>
+        <td class="summary-presentation" data-label="Presentación"></td>
+        ${state.sources.map((source) => `<td class="summary-total" data-label="${escapeAttribute(source.name)}">${formatInteger(providerTotals[source.id])}</td>`).join("")}
+        <td class="summary-total" data-label="Total">${formatInteger(grandTotal)}</td>
       </tr>
     </tfoot>
   `;
@@ -163,12 +163,26 @@ function compareGroups(left, right) {
 function groupTemplate(group) {
   return `
     <tr class="summary-group-row">
-      <th>${escapeHtml(group.title)}</th>
-      <td class="summary-presentation"></td>
-      ${state.sources.map((source) => `<td>${formatInteger(group.totals[source.id])}</td>`).join("")}
-      <td class="summary-total">${formatInteger(group.total)}</td>
+      <th>
+        ${escapeHtml(group.title)}
+        ${mobileProviderTotalsTemplate(group.totals, group.total)}
+      </th>
+      <td class="summary-presentation" data-label="Presentación"></td>
+      ${state.sources.map((source) => `<td data-label="${escapeAttribute(source.name)}">${formatInteger(group.totals[source.id])}</td>`).join("")}
+      <td class="summary-total" data-label="Total">${formatInteger(group.total)}</td>
     </tr>
     ${group.rows.map(rowTemplate).join("")}
+  `;
+}
+
+function mobileProviderTotalsTemplate(totals, total) {
+  return `
+    <span class="summary-mobile-totals" aria-hidden="true">
+      ${state.sources.map((source) => `
+        <span><b>${escapeHtml(source.name)}</b> ${formatInteger(totals[source.id])}</span>
+      `).join("")}
+      <span class="summary-mobile-total"><b>Total</b> ${formatInteger(total)}</span>
+    </span>
   `;
 }
 
@@ -181,9 +195,9 @@ function rowTemplate(row) {
   return `
     <tr>
       <th>${summaryProductTemplate(row)}</th>
-      <td class="summary-presentation">${escapeHtml(formatPresentation(row.product))}</td>
-      ${state.sources.map((source) => cellTemplate(row.cells[source.id])).join("")}
-      <td class="summary-total">${formatInteger(row.total)}</td>
+      <td class="summary-presentation" data-label="Presentación">${escapeHtml(formatPresentation(row.product))}</td>
+      ${state.sources.map((source) => cellTemplate(row.cells[source.id], source)).join("")}
+      <td class="summary-total" data-label="Total">${formatInteger(row.total)}</td>
     </tr>
   `;
 }
@@ -206,11 +220,12 @@ function groupTitle(product) {
   return parts.join(" · ");
 }
 
-function cellTemplate(cell) {
-  if (!cell) return `<td class="stock-out">0</td>`;
-  if (cell.units > 0) return `<td class="stock-in">${formatInteger(cell.units)}</td>`;
-  if (cell.unknown) return `<td class="stock-out">0</td>`;
-  return `<td class="stock-out">0</td>`;
+function cellTemplate(cell, source) {
+  const label = escapeAttribute(source.name);
+  if (!cell) return `<td class="stock-out" data-label="${label}">0</td>`;
+  if (cell.units > 0) return `<td class="stock-in" data-label="${label}">${formatInteger(cell.units)}</td>`;
+  if (cell.unknown) return `<td class="stock-out" data-label="${label}">0</td>`;
+  return `<td class="stock-out" data-label="${label}">0</td>`;
 }
 
 function productTitle(product) {
