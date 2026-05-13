@@ -172,6 +172,8 @@ def test_styles_are_compact_and_responsive():
     assert "border-radius: 8px" in css
     assert ".group-section" in css
     assert ".group-section.quick-target" in css
+    assert ".group-heading" in css
+    assert "top: var(--quick-lines-height)" in css
     assert "scroll-margin-top" in css
     assert "repeat(auto-fit, minmax(320px, 1fr))" in css
     assert ".offer-main" in css
@@ -197,6 +199,8 @@ def test_styles_are_compact_and_responsive():
     assert ".category-sort" in css
     assert ".soft-button.active" in css
     assert ".summary-group-row" in css
+    assert "top: var(--summary-head-height)" in css
+    assert ".summary-table tbody .summary-group-row th" in css
 
 
 def test_generated_stock_data_has_one_offer_per_provider_per_card():

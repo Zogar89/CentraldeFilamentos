@@ -10,6 +10,8 @@
   --ok: #0a7a3f;
   --out: #7a7a82;
   --warn: #a15c00;
+  --quick-lines-height: 52px;
+  --summary-head-height: 38px;
 }
 
 * {
@@ -228,7 +230,7 @@ input {
 .group-section {
   display: grid;
   gap: 8px;
-  scroll-margin-top: 70px;
+  scroll-margin-top: calc(var(--quick-lines-height) + 18px);
   border-radius: 8px;
   transition: background-color 240ms ease, box-shadow 240ms ease;
 }
@@ -239,9 +241,17 @@ input {
 }
 
 .group-heading {
+  position: sticky;
+  top: var(--quick-lines-height);
+  z-index: 4;
   display: flex;
   align-items: center;
   gap: 10px;
+  margin: 0 -2px;
+  padding: 7px 2px 8px;
+  border-bottom: 1px solid color-mix(in srgb, var(--line) 72%, transparent);
+  background: color-mix(in srgb, var(--bg) 88%, white);
+  backdrop-filter: blur(14px);
   color: var(--muted);
   font-size: 14px;
   line-height: 1.15;
@@ -628,12 +638,23 @@ input {
 .summary-table thead th {
   position: sticky;
   top: 0;
-  z-index: 3;
+  z-index: 6;
   background: var(--surface-soft);
 }
 
 .summary-table thead th:first-child {
-  z-index: 4;
+  z-index: 7;
+}
+
+.summary-table tbody .summary-group-row th,
+.summary-table tbody .summary-group-row td {
+  position: sticky;
+  top: var(--summary-head-height);
+  z-index: 5;
+}
+
+.summary-table tbody .summary-group-row th:first-child {
+  z-index: 6;
 }
 
 .summary-total {
@@ -804,9 +825,13 @@ input {
   }
 
   .summary-table .summary-group-row {
+    position: sticky;
+    top: 0;
+    z-index: 4;
     padding: 11px 12px;
     border-color: #c9d2df;
-    background: #e9eef5;
+    background: color-mix(in srgb, #e9eef5 92%, white);
+    backdrop-filter: blur(12px);
   }
 
   .summary-group-row th,
@@ -882,7 +907,17 @@ input {
   }
 
   .group-section {
-    scroll-margin-top: 64px;
+    scroll-margin-top: calc(var(--quick-lines-height) + 12px);
+  }
+
+  .group-heading {
+    gap: 7px;
+    padding: 6px 0 7px;
+    font-size: 12px;
+  }
+
+  .group-heading strong {
+    font-size: 18px;
   }
 
   .product-image {
