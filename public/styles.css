@@ -594,7 +594,20 @@ input {
 }
 
 .summary-total {
-  font-weight: 800;
+  background: #f4f5f7;
+  color: var(--muted);
+  font-weight: 650;
+}
+
+.summary-table thead .summary-total {
+  background: #eef0f3;
+  color: #5f6670;
+}
+
+.summary-group-row .summary-total {
+  background: #dde3eb;
+  color: #5f6670;
+  font-weight: 700;
 }
 
 .summary-product {
