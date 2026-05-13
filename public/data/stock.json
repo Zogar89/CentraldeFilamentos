@@ -2643,12 +2643,12 @@
       "color": "Carpincho",
       "diameter_mm": 1.75,
       "display_name": "PLA Carpincho Grilon3 1 kg 1.75 mm",
-      "ean": "",
+      "ean": "7798049657387",
       "id": "pla-carpincho-175-1000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/pla-carpincho-web-277f0647.webp",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/pla-carpincho-serie-limitada/",
       "material": "PLA",
       "offers": [
         {
@@ -2685,8 +2685,8 @@
           "updated_at": "2026-05-12T20:22:02-03:00"
         }
       ],
-      "pantone": "",
-      "sku": "",
+      "pantone": "Pantone 7510",
+      "sku": "M10ICA175CJ",
       "variant": "",
       "weight_g": 1000
     },
@@ -4967,12 +4967,12 @@
       "color": "Magenta Fluo",
       "diameter_mm": 1.75,
       "display_name": "PLA Magenta Fluo Grilon3 1 kg 1.75 mm",
-      "ean": "",
+      "ean": "7798049657363",
       "id": "pla-magenta-fluo-175-1000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/pla-magenta-880128a2.webp",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/pla-magenta/",
       "material": "PLA",
       "offers": [
         {
@@ -5009,8 +5009,8 @@
           "updated_at": "2026-05-12T20:22:02-03:00"
         }
       ],
-      "pantone": "",
-      "sku": "",
+      "pantone": "Pantone 226",
+      "sku": "M10IMF175CJ",
       "variant": "",
       "weight_g": 1000
     },
@@ -5454,12 +5454,12 @@
       "color": "Natural",
       "diameter_mm": 1.75,
       "display_name": "PLA Natural Grilon3 1 kg 1.75 mm",
-      "ean": "7798049653945",
+      "ean": "7798049652801",
       "id": "pla-natural-175-1000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/pla-natural-5ccd971a.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-natural/",
       "material": "PLA",
       "offers": [
         {
@@ -5497,7 +5497,7 @@
         }
       ],
       "pantone": "",
-      "sku": "M15INT175CJ",
+      "sku": "M10INT175CJ",
       "variant": "",
       "weight_g": 1000
     },

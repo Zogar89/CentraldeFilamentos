@@ -389,6 +389,14 @@
     "image_url": "assets/grilon3/pla-850-bronce-600x600-4a74034e.jpg",
     "sku": "M11IBR175CJ"
   },
+  "pla-carpincho-175-1000-grilon3": {
+    "ean": "7798049657387",
+    "image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2025/06/pla_carpincho_web.webp",
+    "image_url": "assets/grilon3/pla-carpincho-web-277f0647.webp",
+    "manufacturer_product_url": "https://grilon3.com.ar/producto/pla-carpincho-serie-limitada/",
+    "pantone": "Pantone 7510",
+    "sku": "M10ICA175CJ"
+  },
   "pla-celeste-grilon3": {
     "ean": "7798049652900",
     "image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_celeste-600x600.jpg",
@@ -439,12 +447,27 @@
     "pantone": "Pantone Cool Gray 9",
     "sku": "M10IGR175C4"
   },
+  "pla-magenta-fluo-175-1000-grilon3": {
+    "ean": "7798049657363",
+    "image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2025/11/pla_magenta.webp",
+    "image_url": "assets/grilon3/pla-magenta-880128a2.webp",
+    "manufacturer_product_url": "https://grilon3.com.ar/producto/pla-magenta/",
+    "pantone": "Pantone 226",
+    "sku": "M10IMF175CJ"
+  },
   "pla-naranja-fluo-grilon3": {
     "ean": "7798049652863",
     "image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_naranja_fluo-600x600.jpg",
     "image_url": "assets/grilon3/pla-naranja-fluo-600x600-d033d93e.jpg",
     "pantone": "Pantone 172",
     "sku": "M10INF175CJ"
+  },
+  "pla-natural-175-1000-grilon3": {
+    "ean": "7798049652801",
+    "image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_natural.jpg",
+    "image_url": "assets/grilon3/pla-natural-5ccd971a.jpg",
+    "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-natural/",
+    "sku": "M10INT175CJ"
   },
   "pla-natural-grilon3": {
     "ean": "7798049653945",
