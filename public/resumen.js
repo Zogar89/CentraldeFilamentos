@@ -3,6 +3,33 @@ const state = {
   sources: [],
   rows: [],
   query: "",
+  categoryOrder: "popular",
+};
+
+const lineRanks = {
+  "PLA Standard": 10,
+  "PLA+": 20,
+  "PLA Flexible": 25,
+  PETG: 30,
+  ABS: 40,
+  TPU: 50,
+  Flex: 51,
+  Simpliflex: 52,
+  "PLA Astra": 60,
+  "PLA Silk": 61,
+  "PLA Boutique": 62,
+  "PLA Wood": 63,
+  "PLA 850": 70,
+  "PLA 870": 71,
+  "PLA Zeta": 72,
+  "PETG Clear": 80,
+  "E-PET": 81,
+  "PP-T": 90,
+  "Nylon 6": 100,
+  "Nylon 12": 101,
+  "Acetal-POM": 110,
+  "PVA Soluble": 120,
+  "Sampler / lápiz 3D": 130,
 };
 
 const zoneOrder = {
@@ -26,6 +53,7 @@ async function init() {
     state.query = event.target.value.toLowerCase().trim();
     render();
   });
+  setupCategorySort();
   render();
 }
 
@@ -57,6 +85,7 @@ function render() {
   const grandTotal = Object.values(providerTotals).reduce((sum, value) => sum + value, 0);
   const groupedRows = groupRows(rows);
   document.getElementById("summary-count").textContent = `${rows.length} filamentos`;
+  updateCategorySortButtons();
   document.getElementById("summary-table").innerHTML = `
     <thead>
       <tr>
@@ -85,6 +114,9 @@ function groupRows(rows) {
     if (!groups.has(key)) {
       groups.set(key, {
         title: groupTitle(row.product),
+        brand: row.product.brand || "Sin marca",
+        diameter: row.product.diameter_mm ? `${row.product.diameter_mm} mm` : "Sin diámetro",
+        line: lineLabel(row.product),
         rows: [],
         totals: Object.fromEntries(state.sources.map((source) => [source.id, 0])),
         total: 0,
@@ -97,7 +129,35 @@ function groupRows(rows) {
     });
     group.total += row.total;
   });
-  return [...groups.values()];
+  return [...groups.values()].sort(compareGroups);
+}
+
+function setupCategorySort() {
+  document.querySelectorAll("[data-category-order]").forEach((button) => {
+    button.addEventListener("click", () => {
+      state.categoryOrder = button.dataset.categoryOrder || "popular";
+      render();
+    });
+  });
+}
+
+function updateCategorySortButtons() {
+  document.querySelectorAll("[data-category-order]").forEach((button) => {
+    button.classList.toggle("active", button.dataset.categoryOrder === state.categoryOrder);
+  });
+}
+
+function compareGroups(left, right) {
+  if (state.categoryOrder === "alpha") {
+    return left.title.localeCompare(right.title, "es-AR");
+  }
+
+  return (
+    lineRank(left.line) - lineRank(right.line)
+    || brandRank(left.brand).localeCompare(brandRank(right.brand), "es-AR")
+    || left.diameter.localeCompare(right.diameter, "es-AR")
+    || left.title.localeCompare(right.title, "es-AR")
+  );
 }
 
 function groupTemplate(group) {
@@ -246,6 +306,10 @@ function brandRank(brand) {
   if (brand === "Grilon3") return "0";
   if (brand === "3N3") return "1";
   return "9";
+}
+
+function lineRank(line) {
+  return lineRanks[line] ?? 999;
 }
 
 function lineLabel(product) {

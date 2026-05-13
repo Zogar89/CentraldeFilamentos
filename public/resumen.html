@@ -23,7 +23,12 @@
 
       <section class="status-strip">
         <span id="summary-updated">Actualizando...</span>
-        <strong id="summary-count">0 filamentos</strong>
+        <div class="category-sort" role="group" aria-label="Orden de categorías">
+          <strong id="summary-count">0 filamentos</strong>
+          <span>Orden</span>
+          <button id="summary-sort-popular" class="soft-button active" type="button" data-category-order="popular">Popularidad</button>
+          <button id="summary-sort-alpha" class="soft-button" type="button" data-category-order="alpha">A-Z</button>
+        </div>
       </section>
 
       <section class="filters one-line" aria-label="Buscar en resumen">
