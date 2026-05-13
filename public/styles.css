@@ -88,6 +88,7 @@ input {
 }
 
 .nav-link.active,
+.soft-button.active,
 .soft-button:hover {
   background: var(--text);
   color: white;
@@ -148,6 +149,13 @@ input {
 
 .filters.one-line {
   grid-template-columns: 1fr;
+}
+
+.summary-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: -2px 0 12px;
 }
 
 .search-field {

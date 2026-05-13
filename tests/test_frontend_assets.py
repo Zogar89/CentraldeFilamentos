@@ -17,6 +17,8 @@ def test_static_frontend_files_exist_and_are_linked():
     assert 'id="line-help"' in index
     assert '<script src="resumen.js" defer></script>' in resumen
     assert 'id="summary-table"' in resumen
+    assert 'id="merge-brands-toggle"' in resumen
+    assert "Fusionar Grilon3 + 3N3" in resumen
 
 
 def test_catalog_script_fetches_json_and_supports_required_filters():
@@ -108,6 +110,12 @@ def test_summary_script_uses_carretes_totals_and_provider_order():
     assert "summaryColorSwatchTemplate" in js
     assert "colorSwatchStyle" in js
     assert "product.pantone" in js
+    assert "mergeBrands" in js
+    assert "mergeCompatibleBrands" in js
+    assert "mergeRowKey" in js
+    assert "mergedBrandKey" in js
+    assert "brandsLabel" in js
+    assert "Grilon3 + 3N3" in js
     assert "summary-group-row" in js
     assert "groupRows" in js
     assert "0*" not in js
@@ -143,6 +151,8 @@ def test_styles_are_compact_and_responsive():
     assert ".summary-product" in css
     assert ".summary-color-swatch" in css
     assert ".summary-product-name" in css
+    assert ".summary-actions" in css
+    assert ".soft-button.active" in css
     assert ".summary-group-row" in css
 
 
