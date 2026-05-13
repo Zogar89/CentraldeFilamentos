@@ -86,6 +86,25 @@ def test_parse_grilon3_product_detail_extracts_pantone_and_image():
     }
 
 
+def test_parse_grilon3_product_detail_prefers_clean_spool_gallery_image():
+    html = """
+    <html><body>
+      <img src="/wp-content/uploads/logo_grilon3_10.png" alt="Grilon3">
+      <img src="/wp-content/uploads/2021/10/astra_calipso4-600x600.jpg" alt="pieza impresa calipso">
+      <img src="/wp-content/uploads/2021/10/astra_calipso_web-100x100.jpg"
+        srcset="/wp-content/uploads/2021/10/astra_calipso_web-100x100.jpg 100w,
+                /wp-content/uploads/2021/10/astra_calipso_web-600x600.jpg 600w"
+        alt="Filamento Grilon3 Astra Calipso">
+      <img src="/wp-content/uploads/2021/10/astra_calipso2_web-600x600.jpg" alt="Filamento Grilon3 Astra Calipso caja">
+      <p>SKU: M10ICA175CJ EAN: 7798049653000</p>
+    </body></html>
+    """
+
+    detail = parse_grilon3_product_detail(html, base_url="https://grilon3.com.ar/producto/pla-astra-calipso/")
+
+    assert detail["image_url"] == "https://grilon3.com.ar/wp-content/uploads/2021/10/astra_calipso_web-600x600.jpg"
+
+
 def test_fetch_grilon3_product_detail_downloads_product_page(monkeypatch):
     calls = []
 

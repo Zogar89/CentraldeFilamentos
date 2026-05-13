@@ -4,7 +4,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
 from html.parser import HTMLParser
 import re
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlparse
 
 import requests
 
@@ -285,7 +285,7 @@ class _ProductDetailParser(HTMLParser):
         super().__init__()
         self.base_url = base_url
         self.pantone = ""
-        self.image_url = ""
+        self.image_candidates: list[str] = []
         self.sku = ""
         self.ean = ""
 
@@ -293,16 +293,23 @@ class _ProductDetailParser(HTMLParser):
     def parse(cls, html_text: str, base_url: str) -> dict[str, str]:
         parser = cls(base_url)
         parser.feed(html_text)
-        return {"pantone": parser.pantone, "image_url": parser.image_url, "sku": parser.sku, "ean": parser.ean}
+        return {"pantone": parser.pantone, "image_url": _preferred_product_image(parser.image_candidates), "sku": parser.sku, "ean": parser.ean}
 
     def handle_starttag(self, tag: str, attrs) -> None:
-        if tag != "img" or self.image_url:
+        if tag != "img":
             return
         attributes = dict(attrs)
-        src = attributes.get("src") or attributes.get("data-src") or ""
+        src = (
+            attributes.get("data-large_image")
+            or _largest_srcset_image(attributes.get("srcset", "") or attributes.get("data-srcset", ""))
+            or attributes.get("data-src")
+            or attributes.get("src")
+            or ""
+        )
         alt = attributes.get("alt", "")
-        if src and ("Filamento" in alt or "Grilon3" in alt):
-            self.image_url = urljoin(self.base_url, src)
+        image_url = urljoin(self.base_url, src)
+        if _is_product_image_candidate(image_url, alt):
+            self.image_candidates.append(image_url)
 
     def handle_data(self, data: str) -> None:
         if self.pantone:
@@ -337,6 +344,62 @@ def _extract_sku_ean(value: str) -> tuple[str, str]:
         sku_match.group(1).strip() if sku_match else "",
         ean_match.group(1).strip() if ean_match else "",
     )
+
+
+def _largest_srcset_image(srcset: str) -> str:
+    candidates = []
+    for item in srcset.split(","):
+        parts = item.strip().split()
+        if not parts:
+            continue
+        url = parts[0]
+        width = 0
+        if len(parts) > 1 and parts[1].endswith("w"):
+            width_text = parts[1][:-1]
+            width = int(width_text) if width_text.isdigit() else 0
+        candidates.append((width, url))
+    if not candidates:
+        return ""
+    return max(candidates, key=lambda candidate: candidate[0])[1]
+
+
+def _is_product_image_candidate(image_url: str, alt: str) -> bool:
+    folded = _image_token(f"{image_url} {alt}")
+    if "/wp-content/uploads/" not in image_url:
+        return False
+    blocked = ["favicon", "logo", "auspicia", "iso", "tabla", "perfil", "icon"]
+    return not any(token in folded for token in blocked)
+
+
+def _preferred_product_image(image_urls: list[str]) -> str:
+    unique_urls = list(dict.fromkeys(image_urls))
+    if not unique_urls:
+        return ""
+    return max(unique_urls, key=_product_image_score)
+
+
+def _product_image_score(image_url: str) -> tuple[int, str]:
+    filename = _image_token(urlparse(image_url).path.rsplit("/", 1)[-1])
+    score = 0
+    if "600x600" in filename:
+        score += 20
+    if "350x350" in filename:
+        score += 10
+    if "web" in filename:
+        score += 80
+    if re.search(r"(?:^|[-_])web(?:[-_.]|$)", filename):
+        score += 25
+    if re.search(r"\d+[-_]web", filename):
+        score -= 8
+    if re.search(r"\d+(?:[-_]\d+x\d+)?\.", filename):
+        score -= 12
+    if any(token in filename for token in ["caja", "box", "leon", "dragon", "pieza", "textura"]):
+        score -= 50
+    return (score, image_url)
+
+
+def _image_token(value: str) -> str:
+    return value.lower().replace("%20", "-").replace("_", "-")
 
 
 def _extract_sku_ean_from_html(html_text: str) -> tuple[str, str]:
