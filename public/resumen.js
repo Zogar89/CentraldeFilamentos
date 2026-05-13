@@ -32,6 +32,19 @@ const lineRanks = {
   "Sampler / lápiz 3D": 130,
 };
 
+const lineMeta = {
+  "PLA Standard": { label: "PLA Standard", quickLabel: "PLA", quickTone: "pla", help: "PLA común: fácil de imprimir y el más buscado para piezas generales." },
+  "PLA+": { label: "PLA+", quickLabel: "PLA+", quickTone: "plus", help: "PLA modificado: suele buscarse por mejor resistencia o terminación." },
+  "PLA Flexible": { label: "PLA Flexible", quickLabel: "Flex", quickTone: "flex", help: "PLA+ flexible de 3N3/3NFLEX: piezas con algo de elasticidad." },
+  PETG: { label: "PETG", quickLabel: "PETG", quickTone: "petg", help: "Más tenaz y resistente a temperatura que PLA; útil para piezas funcionales." },
+  TPU: { label: "TPU", quickLabel: "TPU", quickTone: "flex", help: "Flexible/elástico, usado para piezas que necesitan doblarse o absorber impacto." },
+  "PLA Astra": { label: "PLA Astra", quickLabel: "Astra", quickTone: "astra", help: "PLA con brillo tipo glitter. Ideal cuando importa la estética de la pieza." },
+  "PLA Silk": { label: "PLA Silk", quickLabel: "Silk", quickTone: "silk", help: "PLA de acabado brillante/sedoso, muy usado en piezas decorativas." },
+  "PLA Wood": { label: "PLA Wood", quickLabel: "Wood", quickTone: "wood", help: "PLA con terminación tipo madera." },
+};
+
+const quickLineValues = ["PLA Standard", "PLA+", "PLA Flexible", "PETG", "PLA Astra", "PLA Silk", "PLA Wood", "TPU"];
+
 const zoneOrder = {
   "Zona Norte": 0,
   "Zona Oeste": 1,
@@ -54,6 +67,7 @@ async function init() {
     render();
   });
   setupCategorySort();
+  renderQuickLines();
   render();
 }
 
@@ -161,8 +175,9 @@ function compareGroups(left, right) {
 }
 
 function groupTemplate(group) {
+  const targetId = summaryGroupTargetId(group);
   return `
-    <tr class="summary-group-row">
+    <tr class="summary-group-row" id="${escapeAttribute(targetId)}" data-line="${escapeAttribute(group.line)}">
       <th>
         ${escapeHtml(group.title)}
         ${mobileProviderTotalsTemplate(group.totals, group.total)}
@@ -173,6 +188,54 @@ function groupTemplate(group) {
     </tr>
     ${group.rows.map(rowTemplate).join("")}
   `;
+}
+
+function renderQuickLines() {
+  const available = new Set(state.products.map(lineLabel).filter(Boolean));
+  const buttons = quickLineValues
+    .filter((line) => available.has(line))
+    .map((line) => quickLineButtonTemplate(line));
+  document.getElementById("summary-quick-lines").innerHTML = buttons.join("");
+  document.querySelectorAll("#summary-quick-lines .quick-line").forEach((button) => {
+    button.addEventListener("click", () => {
+      scrollToQuickLine(button.dataset.line || "");
+    });
+  });
+}
+
+function quickLineButtonTemplate(line) {
+  const label = quickLineLabel(line);
+  const hint = quickLineHint(line);
+  const tone = lineMeta[line]?.quickTone || "default";
+  return `
+    <button class="quick-line quick-line-${escapeAttribute(tone)}" type="button" data-line="${escapeAttribute(line)}" title="${escapeAttribute(hint)}" aria-label="${escapeAttribute(`${label}. ${hint}`)}">
+      <span>${escapeHtml(label)}</span>
+    </button>
+  `;
+}
+
+function quickLineLabel(line) {
+  return lineMeta[line]?.quickLabel || line;
+}
+
+function quickLineHint(line) {
+  return lineMeta[line]?.help || `${line}: línea/material detectado desde las fuentes de stock.`;
+}
+
+function scrollToQuickLine(line) {
+  const target = [...document.querySelectorAll(".summary-group-row")].find((row) => row.dataset.line === line);
+  const help = document.getElementById("summary-line-help");
+  help.textContent = "";
+
+  if (!target) {
+    help.textContent = `No hay resultados visibles para ${quickLineLabel(line)} con la búsqueda actual.`;
+    return;
+  }
+
+  document.querySelectorAll(".summary-group-row.quick-target").forEach((row) => row.classList.remove("quick-target"));
+  target.classList.add("quick-target");
+  target.scrollIntoView({ behavior: "smooth", block: "start" });
+  window.setTimeout(() => target.classList.remove("quick-target"), 1400);
 }
 
 function mobileProviderTotalsTemplate(totals, total) {
@@ -218,6 +281,10 @@ function groupTitle(product) {
     lineLabel(product),
   ].filter(Boolean);
   return parts.join(" · ");
+}
+
+function summaryGroupTargetId(group) {
+  return `resumen-linea-${slugText(group.title)}`;
 }
 
 function cellTemplate(cell, source) {
@@ -488,4 +555,8 @@ function escapeHtml(value) {
 
 function escapeAttribute(value) {
   return escapeHtml(value);
+}
+
+function slugText(value) {
+  return foldText(value).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 }

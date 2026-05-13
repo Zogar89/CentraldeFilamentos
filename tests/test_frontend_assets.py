@@ -19,6 +19,8 @@ def test_static_frontend_files_exist_and_are_linked():
     assert 'data-category-order="alpha"' in index
     assert '<script src="resumen.js" defer></script>' in resumen
     assert 'id="summary-table"' in resumen
+    assert 'id="summary-quick-lines"' in resumen
+    assert 'id="summary-line-help"' in resumen
     assert 'id="merge-brands-toggle"' not in resumen
     assert "Fusionar Grilon3 + 3N3" not in resumen
 
@@ -46,7 +48,7 @@ def test_catalog_script_fetches_json_and_supports_required_filters():
     assert "product.ean" in js
     assert "PLA Standard" in js
     assert "PLA Flexible" in js
-    assert "glitter/brillitos" in js
+    assert "brillo tipo glitter" in js
     assert "E-PET · PET reciclado" in js
     assert "PP-T · polipropileno" in js
     assert "Sampler / lápiz 3D" in js
@@ -92,6 +94,10 @@ def test_catalog_script_fetches_json_and_supports_required_filters():
     assert "presentationTemplate" in js
     assert "productBaseName" in js
     assert "quickLineValues" in js
+    assert "quickLabel" in js
+    assert "quickTone" in js
+    assert "PLA Wood" in js
+    assert "quickLineButtonTemplate" in js
     assert "categoryOrder" in js
     assert "setupCategorySort" in js
     assert "updateCategorySortButtons" in js
@@ -154,6 +160,11 @@ def test_summary_script_uses_carretes_totals_and_provider_order():
     assert 'token === "pla+"' in js
     assert "token.startsWith(term)" in js
     assert "summary-group-row" in js
+    assert "quickLineValues" in js
+    assert "renderQuickLines" in js
+    assert "scrollToQuickLine" in js
+    assert "summaryGroupTargetId" in js
+    assert "slugText" in js
     assert "groupRows" in js
     assert "0*" not in js
     assert "El proveedor seguramente no maneja esta variante" not in js
@@ -173,6 +184,8 @@ def test_styles_are_compact_and_responsive():
     assert ".group-section" in css
     assert ".group-section.quick-target" in css
     assert ".group-heading" in css
+    assert ".quick-line::before" in css
+    assert ".quick-line-wood" in css
     assert "top: var(--quick-lines-height)" in css
     assert "scroll-margin-top" in css
     assert "repeat(auto-fit, minmax(320px, 1fr))" in css
@@ -199,7 +212,8 @@ def test_styles_are_compact_and_responsive():
     assert ".category-sort" in css
     assert ".soft-button.active" in css
     assert ".summary-group-row" in css
-    assert "top: var(--summary-head-height)" in css
+    assert ".summary-group-row.quick-target" in css
+    assert "top: calc(var(--quick-lines-height) + var(--summary-head-height))" in css
     assert ".summary-table tbody .summary-group-row th" in css
 
 
