@@ -88,11 +88,6 @@ function setupFilters() {
       render();
     });
   });
-  document.getElementById("pla-shortcut").addEventListener("click", () => {
-    state.filters.material = "PLA";
-    document.getElementById("material-filter").value = "PLA";
-    render();
-  });
 }
 
 function render() {
