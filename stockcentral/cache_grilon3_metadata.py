@@ -15,7 +15,7 @@ from stockcentral.connectors.grilon3_catalog import (
     fetch_grilon3_sitemap_catalog,
 )
 from stockcentral.models import RawStockItem
-from stockcentral.normalize import normalize_record
+from stockcentral.normalize import build_product_id, normalize_record
 from stockcentral.providers import MANUFACTURERS
 
 GRILON3_IMAGE_ASSETS_DIR = Path("public/assets/grilon3")
@@ -33,6 +33,7 @@ def build_grilon3_metadata_cache(timeout_seconds: int = 4, max_workers: int = 12
     cache: dict[str, dict[str, str]] = {}
     for _, product in sorted(enriched.items()):
         data = {
+            "manufacturer_product_url": product.product_url,
             "pantone": product.pantone,
             "sku": product.sku,
             "ean": product.ean,
@@ -157,8 +158,7 @@ def grilon3_metadata_cache_key(title: str) -> str:
             brand_hint="Grilon3",
         )
     )
-    parts = [fields.material, fields.variant, fields.color, fields.brand]
-    return "-".join(slug(part) for part in parts if part)
+    return build_product_id(fields)
 
 
 def slug(value: str) -> str:

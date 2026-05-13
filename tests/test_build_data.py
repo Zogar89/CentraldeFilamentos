@@ -293,15 +293,56 @@ def test_build_grilon3_enrichments_uses_local_metadata_cache(monkeypatch):
     assert enrichments["pla-negro-175-1000-grilon3"]["ean"] == "7798049653037"
 
 
+def test_build_grilon3_enrichments_prefers_presentation_specific_metadata(monkeypatch):
+    monkeypatch.setattr(
+        "stockcentral.build_data.load_grilon3_metadata",
+        lambda: {
+            "pla-amarillo-grilon3": {
+                "image_url": "assets/grilon3/megafill-amarillo.jpg",
+                "sku": "M10IAM175C4",
+            },
+            "pla-amarillo-175-1000-grilon3": {
+                "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-amarillo/",
+                "image_url": "assets/grilon3/pla-amarillo.jpg",
+                "sku": "M10IAM175CJ",
+            },
+        },
+    )
+
+    enrichments = build_grilon3_enrichments(
+        [
+            raw(
+                "filamentos3d",
+                "Filamentos3D",
+                "Zona Sur",
+                "GRILON3 PLA Amarillo 1kg 1.75mm",
+                4,
+                brand_hint="Grilon3",
+            )
+        ],
+        catalog={},
+    )
+
+    enrichment = enrichments["pla-amarillo-175-1000-grilon3"]
+    assert enrichment["manufacturer_product_url"] == "https://grilon3.com.ar/producto/filamento-3d-pla-amarillo/"
+    assert enrichment["image_url"] == "assets/grilon3/pla-amarillo.jpg"
+    assert enrichment["sku"] == "M10IAM175CJ"
+
+
 def test_load_grilon3_metadata_reads_cache_file(tmp_path):
     cache = tmp_path / "metadata.json"
     cache.write_text(
-        '{"pla-negro-grilon3": {"pantone": "Pantone Black", "sku": "M09INE175CJ", "ean": "7798049653037"}, "old": "Pantone Old", "empty": {}}',
+        '{"pla-negro-grilon3": {"manufacturer_product_url": "https://grilon3.com.ar/producto/pla-negro/", "pantone": "Pantone Black", "sku": "M09INE175CJ", "ean": "7798049653037"}, "old": "Pantone Old", "empty": {}}',
         encoding="utf-8",
     )
 
     assert load_grilon3_metadata(cache) == {
-        "pla-negro-grilon3": {"pantone": "Pantone Black", "sku": "M09INE175CJ", "ean": "7798049653037"},
+        "pla-negro-grilon3": {
+            "manufacturer_product_url": "https://grilon3.com.ar/producto/pla-negro/",
+            "pantone": "Pantone Black",
+            "sku": "M09INE175CJ",
+            "ean": "7798049653037",
+        },
         "old": {"pantone": "Pantone Old"},
     }
 

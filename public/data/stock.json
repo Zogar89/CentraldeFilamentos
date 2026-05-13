@@ -178,12 +178,12 @@
       "color": "Amarillo",
       "diameter_mm": 1.75,
       "display_name": "PLA Amarillo Grilon3 1 kg 1.75 mm",
-      "ean": "7798049654782",
+      "ean": "7798049652832",
       "id": "pla-amarillo-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/megafill-amarillo2-600x600-356af72c.jpg",
+      "image_url": "assets/grilon3/pla-amarillo-600x600-535755a6.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-amarillo/",
       "material": "PLA",
       "offers": [
         {
@@ -221,7 +221,7 @@
         }
       ],
       "pantone": "Pantone Yellow",
-      "sku": "M10IAM175C4",
+      "sku": "M10IAM175CJ",
       "variant": "",
       "weight_g": 1000
     },
@@ -235,7 +235,7 @@
       "image_source": "manufacturer",
       "image_url": "assets/grilon3/megafill-amarillo2-600x600-356af72c.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/megafill-pla-amarillo/",
       "material": "PLA",
       "offers": [
         {

@@ -157,7 +157,8 @@ def build_grilon3_enrichments(
         fields = normalize_record(item)
         product_id = build_product_id(fields)
         enrichment = enrich_with_grilon3_catalog(fields, catalog)
-        cache_data = metadata.get(_grilon3_metadata_cache_key(fields), {})
+        cache_data = _grilon3_metadata_for_fields(metadata, fields)
+        enrichment["manufacturer_product_url"] = enrichment.get("manufacturer_product_url", "") or cache_data.get("manufacturer_product_url", "")
         enrichment["pantone"] = enrichment.get("pantone", "") or cache_data.get("pantone", "")
         enrichment["sku"] = enrichment.get("sku", "") or cache_data.get("sku", "")
         enrichment["ean"] = enrichment.get("ean", "") or cache_data.get("ean", "")
@@ -196,7 +197,7 @@ def load_grilon3_metadata(path: str | Path = GRILON3_METADATA_CACHE) -> dict[str
             continue
         clean = {
             key: str(data.get(key, ""))
-            for key in ["pantone", "sku", "ean", "image_url"]
+            for key in ["manufacturer_product_url", "pantone", "sku", "ean", "image_url"]
             if data.get(key)
         }
         if clean:
@@ -204,7 +205,19 @@ def load_grilon3_metadata(path: str | Path = GRILON3_METADATA_CACHE) -> dict[str
     return metadata
 
 
+def _grilon3_metadata_for_fields(metadata: Mapping[str, dict[str, str]], fields) -> dict[str, str]:
+    exact = metadata.get(_grilon3_metadata_cache_key(fields), {})
+    legacy = metadata.get(_grilon3_metadata_legacy_cache_key(fields), {})
+    if not legacy:
+        return exact
+    return {**legacy, **exact}
+
+
 def _grilon3_metadata_cache_key(fields) -> str:
+    return build_product_id(fields)
+
+
+def _grilon3_metadata_legacy_cache_key(fields) -> str:
     parts = [fields.material, fields.variant, fields.color, fields.brand]
     return "-".join(_slug(part) for part in parts if part)
 

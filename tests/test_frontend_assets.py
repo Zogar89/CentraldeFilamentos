@@ -175,3 +175,12 @@ def test_generated_stock_data_has_no_stocked_products_without_color():
     ]
 
     assert stocked_without_color == []
+
+
+def test_generated_stock_data_keeps_presentation_specific_images():
+    payload = json.loads((PUBLIC / "data" / "stock.json").read_text(encoding="utf-8"))
+    products = {product["id"]: product for product in payload["products"]}
+
+    assert products["pla-amarillo-175-1000-grilon3"]["image_url"] == "assets/grilon3/pla-amarillo-600x600-535755a6.jpg"
+    assert products["pla-amarillo-175-4000-grilon3"]["image_url"] == "assets/grilon3/megafill-amarillo2-600x600-356af72c.jpg"
+    assert products["pla-amarillo-175-1000-grilon3"]["image_url"] != products["pla-amarillo-175-4000-grilon3"]["image_url"]
