@@ -329,6 +329,74 @@ def test_build_grilon3_enrichments_prefers_presentation_specific_metadata(monkey
     assert enrichment["sku"] == "M10IAM175CJ"
 
 
+def test_build_grilon3_enrichments_uses_unknown_diameter_metadata_before_legacy_megafill(monkeypatch):
+    monkeypatch.setattr(
+        "stockcentral.build_data.load_grilon3_metadata",
+        lambda: {
+            "pla-azul-grilon3": {
+                "image_url": "assets/grilon3/megafill-azul.jpg",
+                "sku": "M10IAZ175C4",
+            },
+            "pla-azul-unknown-1000-grilon3": {
+                "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-azul/",
+                "image_url": "assets/grilon3/pla-azul.jpg",
+                "sku": "M10IAZ175CJ",
+            },
+        },
+    )
+
+    enrichments = build_grilon3_enrichments(
+        [
+            raw(
+                "filamentos3d",
+                "Filamentos3D",
+                "Zona Sur",
+                "GRILON3 PLA Azul 1kg 1.75mm",
+                4,
+                brand_hint="Grilon3",
+            )
+        ],
+        catalog={},
+    )
+
+    enrichment = enrichments["pla-azul-175-1000-grilon3"]
+    assert enrichment["manufacturer_product_url"] == "https://grilon3.com.ar/producto/filamento-3d-pla-azul/"
+    assert enrichment["image_url"] == "assets/grilon3/pla-azul.jpg"
+    assert enrichment["sku"] == "M10IAZ175CJ"
+
+
+def test_build_grilon3_enrichments_does_not_use_megafill_image_for_1kg_product(monkeypatch):
+    monkeypatch.setattr(
+        "stockcentral.build_data.load_grilon3_metadata",
+        lambda: {
+            "pla-piel-162-grilon3": {
+                "image_url": "assets/grilon3/megafill-piel.jpg",
+                "pantone": "Pantone Piel 162",
+                "sku": "M10IPI175C4",
+            },
+        },
+    )
+
+    enrichments = build_grilon3_enrichments(
+        [
+            raw(
+                "filamentos3d",
+                "Filamentos3D",
+                "Zona Sur",
+                "GRILON3 PLA Piel 162 1kg 1.75mm",
+                4,
+                brand_hint="Grilon3",
+            )
+        ],
+        catalog={},
+    )
+
+    enrichment = enrichments["pla-piel-162-175-1000-grilon3"]
+    assert enrichment["pantone"] == "Pantone Piel 162"
+    assert "image_url" not in enrichment or enrichment["image_url"] == ""
+    assert "sku" not in enrichment or enrichment["sku"] == ""
+
+
 def test_load_grilon3_metadata_reads_cache_file(tmp_path):
     cache = tmp_path / "metadata.json"
     cache.write_text(

@@ -225,3 +225,16 @@ def test_generated_stock_data_keeps_presentation_specific_images():
     assert products["pla-amarillo-175-1000-grilon3"]["image_url"] == "assets/grilon3/pla-amarillo2-fbce7107.jpg"
     assert products["pla-amarillo-175-4000-grilon3"]["image_url"] == "assets/grilon3/megafill-amarillo2-a4b176d0.jpg"
     assert products["pla-amarillo-175-1000-grilon3"]["image_url"] != products["pla-amarillo-175-4000-grilon3"]["image_url"]
+
+
+def test_generated_stock_data_does_not_use_large_spool_images_for_1kg_products():
+    payload = json.loads((PUBLIC / "data" / "stock.json").read_text(encoding="utf-8"))
+    large_markers = ("megafill", "maxicarrete")
+    mismatches = [
+        (product["id"], product["image_url"])
+        for product in payload["products"]
+        if product.get("weight_g") == 1000
+        and any(marker in product.get("image_url", "").lower() for marker in large_markers)
+    ]
+
+    assert mismatches == []

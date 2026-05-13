@@ -684,12 +684,12 @@
       "color": "Azul",
       "diameter_mm": 1.75,
       "display_name": "PLA 850 Azul Grilon3 1 kg 1.75 mm",
-      "ean": "7798049654218",
+      "ean": "7798049653419",
       "id": "pla-pla-850-azul-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/petg-maxicarrete-blanco1-350x350-006d487d.jpg",
+      "image_url": "assets/grilon3/pla-850-azul-ml-17d120d8.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-azul-2/",
       "material": "PLA",
       "offers": [
         {
@@ -727,7 +727,7 @@
         }
       ],
       "pantone": "",
-      "sku": "M11IAZ175C2",
+      "sku": "M11IAZ175CJ",
       "variant": "PLA 850",
       "weight_g": 1000
     },
@@ -892,12 +892,12 @@
       "color": "Azul",
       "diameter_mm": 1.75,
       "display_name": "PLA Azul Grilon3 1 kg 1.75 mm",
-      "ean": "7798049654799",
+      "ean": "7798049652856",
       "id": "pla-azul-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/megafill-azul2-600x600-632b4bc2.jpg",
+      "image_url": "assets/grilon3/pla-azul2-5dbfb9d5.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-azul/",
       "material": "PLA",
       "offers": [
         {
@@ -935,7 +935,7 @@
         }
       ],
       "pantone": "Pantone 286",
-      "sku": "M10IAZ175C4",
+      "sku": "M10IAZ175CJ",
       "variant": "",
       "weight_g": 1000
     },
@@ -1260,12 +1260,12 @@
       "color": "Blanco",
       "diameter_mm": 1.75,
       "display_name": "PLA 850 Blanco Grilon3 1 kg 1.75 mm",
-      "ean": "7798049654164",
+      "ean": "7798049653372",
       "id": "pla-pla-850-blanco-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/petg-maxicarrete-blanco1-350x350-006d487d.jpg",
+      "image_url": "assets/grilon3/pla-850-blanco-ml-507ee82e.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-blanco-2/",
       "material": "PLA",
       "offers": [
         {
@@ -1303,7 +1303,7 @@
         }
       ],
       "pantone": "",
-      "sku": "M11IBL175C2",
+      "sku": "M11IBL175CJ",
       "variant": "PLA 850",
       "weight_g": 1000
     },
@@ -4071,12 +4071,12 @@
       "color": "Gris Plata",
       "diameter_mm": 1.75,
       "display_name": "PLA 850 Gris Plata Grilon3 1 kg 1.75 mm",
-      "ean": "7798049654195",
+      "ean": "7798049653396",
       "id": "pla-pla-850-gris-plata-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/abs-maxicarrete-negro-web-350x350-f949f286.webp",
+      "image_url": "assets/grilon3/pla-850-grisplata2-537a11d1.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-gris-plata-2/",
       "material": "PLA",
       "offers": [
         {
@@ -4114,7 +4114,7 @@
         }
       ],
       "pantone": "",
-      "sku": "M11IGR175C2",
+      "sku": "M11IGR175CJ",
       "variant": "PLA 850",
       "weight_g": 1000
     },
@@ -4227,12 +4227,12 @@
       "color": "Gris Plata",
       "diameter_mm": 1.75,
       "display_name": "PLA Gris Plata Grilon3 1 kg 1.75 mm",
-      "ean": "7798049654768",
+      "ean": "7798049652818",
       "id": "pla-gris-plata-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/megafill-grisplata2-600x600-500a9452.jpg",
+      "image_url": "assets/grilon3/pla-grisplata-8aa114c1.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-gris-plata/",
       "material": "PLA",
       "offers": [
         {
@@ -4270,7 +4270,7 @@
         }
       ],
       "pantone": "Pantone Cool Gray 9",
-      "sku": "M10IGR175C4",
+      "sku": "M10IGR175CJ",
       "variant": "",
       "weight_g": 1000
     },
@@ -5588,12 +5588,12 @@
       "color": "Negro",
       "diameter_mm": 1.75,
       "display_name": "PLA 850 Negro Grilon3 1 kg 1.75 mm",
-      "ean": "7798049654171",
+      "ean": "7798049653389",
       "id": "pla-pla-850-negro-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/abs-maxicarrete-turquesa-web-350x350-cb1ad28b.webp",
+      "image_url": "assets/grilon3/pla-850-negro-ml-bffee702.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-negro/",
       "material": "PLA",
       "offers": [
         {
@@ -5631,7 +5631,7 @@
         }
       ],
       "pantone": "",
-      "sku": "M11ING175C2",
+      "sku": "M11ING175C",
       "variant": "PLA 850",
       "weight_g": 1000
     },
@@ -6309,12 +6309,12 @@
       "color": "Perla",
       "diameter_mm": 1.75,
       "display_name": "PLA Boutique Perla Grilon3 1 kg 1.75 mm",
-      "ean": "7798049654829",
+      "ean": "7798049653518",
       "id": "pla-pla-boutique-perla-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/megafill-grisplata2-350x350-54df10ca.jpg",
+      "image_url": "assets/grilon3/pla-boutique-perla2-864d1665.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-boutique-perla/",
       "material": "PLA",
       "offers": [
         {
@@ -6330,7 +6330,7 @@
         }
       ],
       "pantone": "Pantone Perla",
-      "sku": "M17IPE175C4",
+      "sku": "M17IPE175CJ",
       "variant": "PLA Boutique",
       "weight_g": 1000
     },
@@ -6492,12 +6492,12 @@
       "color": "Piel 162",
       "diameter_mm": 1.75,
       "display_name": "PLA Piel 162 Grilon3 1 kg 1.75 mm",
-      "ean": "7798049654812",
+      "ean": "7798049654577",
       "id": "pla-piel-162-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/megafill-piel2-600x600-3ec73a19.jpg",
+      "image_url": "assets/grilon3/pla-piel162-3-b41fef43.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-piel/",
       "material": "PLA",
       "offers": [
         {
@@ -6534,8 +6534,8 @@
           "updated_at": "2026-05-12T20:22:02-03:00"
         }
       ],
-      "pantone": "Pantone Piel 162",
-      "sku": "M10IPI175C4",
+      "pantone": "Pantone 162",
+      "sku": "M10IPI175CJ",
       "variant": "",
       "weight_g": 1000
     },
@@ -6987,12 +6987,12 @@
       "color": "Rojo",
       "diameter_mm": 1.75,
       "display_name": "PLA 850 Rojo Grilon3 1 kg 1.75 mm",
-      "ean": "7798049654201",
+      "ean": "7798049653402",
       "id": "pla-pla-850-rojo-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/petg-maxicarrete-blanco1-350x350-006d487d.jpg",
+      "image_url": "assets/grilon3/pla-850-rojo2-26d3ca6c.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-rojo-2/",
       "material": "PLA",
       "offers": [
         {
@@ -7030,7 +7030,7 @@
         }
       ],
       "pantone": "",
-      "sku": "M11IRJ175C2",
+      "sku": "M11IRJ175CJ",
       "variant": "PLA 850",
       "weight_g": 1000
     },
@@ -7236,12 +7236,12 @@
       "color": "Rojo",
       "diameter_mm": 1.75,
       "display_name": "PLA Rojo Grilon3 1 kg 1.75 mm",
-      "ean": "7798049654775",
+      "ean": "7798049652825",
       "id": "pla-rojo-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/megafill-rojo2-600x600-5bf500c1.jpg",
+      "image_url": "assets/grilon3/pla-rojo-bea352ed.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-rojo/",
       "material": "PLA",
       "offers": [
         {
@@ -7279,7 +7279,7 @@
         }
       ],
       "pantone": "Pantone 485",
-      "sku": "M10IRJ175C4",
+      "sku": "M10IRJ175CJ",
       "variant": "",
       "weight_g": 1000
     },
@@ -7946,12 +7946,12 @@
       "color": "Turquesa",
       "diameter_mm": 1.75,
       "display_name": "PLA Turquesa Grilon3 1 kg 1.75 mm",
-      "ean": "7798049654805",
+      "ean": "7798049652931",
       "id": "pla-turquesa-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/megafill-turquesa2-600x600-7a748bbb.jpg",
+      "image_url": "assets/grilon3/pla-turquesa2-bc2bb633.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-turquesa/",
       "material": "PLA",
       "offers": [
         {
@@ -7989,7 +7989,7 @@
         }
       ],
       "pantone": "Pantone 313",
-      "sku": "M10ITU175C4",
+      "sku": "M10ITU175CJ",
       "variant": "",
       "weight_g": 1000
     },
@@ -12977,12 +12977,12 @@
       "color": "Negro",
       "diameter_mm": 1.75,
       "display_name": "PETG Negro Grilon3 1 kg 1.75 mm",
-      "ean": "7798049654232",
+      "ean": "7798049653709",
       "id": "petg-negro-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/abs-maxicarrete-turquesa-web-350x350-cb1ad28b.webp",
+      "image_url": "assets/grilon3/petg-negro2-8218e01d.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-petg-negro/",
       "material": "PETG",
       "offers": [
         {
@@ -13019,8 +13019,8 @@
           "updated_at": "2026-05-12T20:22:02-03:00"
         }
       ],
-      "pantone": "",
-      "sku": "M77IBL175CJ-1-1",
+      "pantone": "Pantone Black",
+      "sku": "M77ING175CJ",
       "variant": "",
       "weight_g": 1000
     },
@@ -13047,12 +13047,12 @@
       "color": "Negro",
       "diameter_mm": 1.75,
       "display_name": "PETG Negro Grilon3 1.75 mm",
-      "ean": "7798049654232",
+      "ean": "7798049653709",
       "id": "petg-negro-175-unknown-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/abs-maxicarrete-turquesa-web-350x350-cb1ad28b.webp",
+      "image_url": "assets/grilon3/petg-negro2-8218e01d.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-petg-negro/",
       "material": "PETG",
       "offers": [
         {
@@ -13067,8 +13067,8 @@
           "updated_at": "2026-05-12T20:22:02-03:00"
         }
       ],
-      "pantone": "",
-      "sku": "M77IBL175CJ-1-1",
+      "pantone": "Pantone Black",
+      "sku": "M77ING175CJ",
       "variant": "",
       "weight_g": null
     },

@@ -210,19 +210,51 @@ def load_grilon3_metadata(path: str | Path = GRILON3_METADATA_CACHE) -> dict[str
 
 def _grilon3_metadata_for_fields(metadata: Mapping[str, dict[str, str]], fields) -> dict[str, str]:
     exact = metadata.get(_grilon3_metadata_cache_key(fields), {})
+    unknown_diameter = metadata.get(_grilon3_metadata_unknown_diameter_cache_key(fields), {})
     legacy = metadata.get(_grilon3_metadata_legacy_cache_key(fields), {})
-    if not legacy:
-        return exact
-    return {**legacy, **exact}
+    legacy = _strip_large_presentation_metadata(legacy, fields)
+    unknown_diameter = _strip_large_presentation_metadata(unknown_diameter, fields)
+    exact = _strip_large_presentation_metadata(exact, fields)
+    return {**legacy, **unknown_diameter, **exact}
 
 
 def _grilon3_metadata_cache_key(fields) -> str:
     return build_product_id(fields)
 
 
+def _grilon3_metadata_unknown_diameter_cache_key(fields) -> str:
+    weight = str(fields.weight_g) if fields.weight_g is not None else "unknown"
+    parts = [
+        fields.material,
+        fields.variant,
+        fields.color,
+        "unknown",
+        weight,
+        fields.brand,
+    ]
+    return "-".join(_slug(part) for part in parts if part)
+
+
 def _grilon3_metadata_legacy_cache_key(fields) -> str:
     parts = [fields.material, fields.variant, fields.color, fields.brand]
     return "-".join(_slug(part) for part in parts if part)
+
+
+def _strip_large_presentation_metadata(data: Mapping[str, str], fields) -> dict[str, str]:
+    if not data:
+        return {}
+    clean = dict(data)
+    if fields.weight_g and fields.weight_g >= 2500:
+        return clean
+    marker_text = " ".join(
+        clean.get(key, "")
+        for key in ["manufacturer_product_url", "image_url", "sku", "ean"]
+    ).lower()
+    if "megafill" not in marker_text and "maxicarrete" not in marker_text:
+        return clean
+    for key in ["manufacturer_product_url", "image_url", "sku", "ean"]:
+        clean.pop(key, None)
+    return clean
 
 
 def _slug(value: str) -> str:

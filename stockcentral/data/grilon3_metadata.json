@@ -244,11 +244,21 @@
     "image_url": "assets/grilon3/pla-turquesa-350x350-cd184f30.jpg",
     "sku": "M77INT175CJ"
   },
+  "petg-negro-175-1000-grilon3": {
+    "ean": "7798049653709",
+    "image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/petg_negro2.jpg",
+    "image_url": "assets/grilon3/petg-negro2-8218e01d.jpg",
+    "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-petg-negro/",
+    "pantone": "Pantone Black",
+    "sku": "M77ING175CJ"
+  },
   "petg-negro-grilon3": {
-    "ean": "7798049654232",
-    "image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2024/10/abs_maxicarrete_turquesa_web-350x350.webp",
-    "image_url": "assets/grilon3/abs-maxicarrete-turquesa-web-350x350-cb1ad28b.webp",
-    "sku": "M77IBL175CJ-1-1"
+    "ean": "7798049653709",
+    "image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/petg_negro2.jpg",
+    "image_url": "assets/grilon3/petg-negro2-8218e01d.jpg",
+    "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-petg-negro/",
+    "pantone": "Pantone Black",
+    "sku": "M77ING175CJ"
   },
   "petg-petg-clear-clear-amarillo-grilon3": {
     "ean": "7798049653754",
@@ -313,6 +323,14 @@
     "image_url": "assets/grilon3/pla-amarillo-fluo-600x600-81c10d4c.jpg",
     "pantone": "Pantone 388",
     "sku": "M10IAF175CJ"
+  },
+  "pla-azul-175-1000-grilon3": {
+    "ean": "7798049652856",
+    "image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_azul2.jpg",
+    "image_url": "assets/grilon3/pla-azul2-5dbfb9d5.jpg",
+    "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-azul/",
+    "pantone": "Pantone 286",
+    "sku": "M10IAZ175CJ"
   },
   "pla-azul-de-prusia-grilon3": {
     "ean": "7798049654706",
@@ -379,6 +397,14 @@
     "pantone": "Pantone Cool Gray 3",
     "sku": "M10IGE175CJ"
   },
+  "pla-gris-plata-175-1000-grilon3": {
+    "ean": "7798049652818",
+    "image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_grisplata.jpg",
+    "image_url": "assets/grilon3/pla-grisplata-8aa114c1.jpg",
+    "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-gris-plata/",
+    "pantone": "Pantone Cool Gray 9",
+    "sku": "M10IGR175CJ"
+  },
   "pla-gris-plata-grilon3": {
     "ean": "7798049654768",
     "image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2022/08/megafill_grisplata2-600x600.jpg",
@@ -404,6 +430,14 @@
     "pantone": "Pantone Black",
     "sku": "M10ING175CJ"
   },
+  "pla-piel-162-175-1000-grilon3": {
+    "ean": "7798049654577",
+    "image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_piel162_3.jpg",
+    "image_url": "assets/grilon3/pla-piel162-3-b41fef43.jpg",
+    "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-piel/",
+    "pantone": "Pantone 162",
+    "sku": "M10IPI175CJ"
+  },
   "pla-piel-162-grilon3": {
     "ean": "7798049654812",
     "image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2023/08/megafill_piel2-600x600.jpg",
@@ -425,11 +459,25 @@
     "pantone": "Pantone 162",
     "sku": "M10IPI175CJ"
   },
+  "pla-pla-850-azul-175-1000-grilon3": {
+    "ean": "7798049653419",
+    "image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_850_azul_ml.jpg",
+    "image_url": "assets/grilon3/pla-850-azul-ml-17d120d8.jpg",
+    "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-azul-2/",
+    "sku": "M11IAZ175CJ"
+  },
   "pla-pla-850-azul-grilon3": {
     "ean": "7798049654218",
     "image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2021/04/petg_maxicarrete_blanco1-350x350.jpg",
     "image_url": "assets/grilon3/petg-maxicarrete-blanco1-350x350-006d487d.jpg",
     "sku": "M11IAZ175C2"
+  },
+  "pla-pla-850-blanco-175-1000-grilon3": {
+    "ean": "7798049653372",
+    "image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_850_blanco_ml.jpg",
+    "image_url": "assets/grilon3/pla-850-blanco-ml-507ee82e.jpg",
+    "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-blanco-2/",
+    "sku": "M11IBL175CJ"
   },
   "pla-pla-850-blanco-grilon3": {
     "ean": "7798049654164",
@@ -441,17 +489,38 @@
     "ean": "7798049654188",
     "sku": "M11IBR175C2"
   },
+  "pla-pla-850-gris-plata-175-1000-grilon3": {
+    "ean": "7798049653396",
+    "image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_850_grisplata2.jpg",
+    "image_url": "assets/grilon3/pla-850-grisplata2-537a11d1.jpg",
+    "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-gris-plata-2/",
+    "sku": "M11IGR175CJ"
+  },
   "pla-pla-850-gris-plata-grilon3": {
     "ean": "7798049654195",
     "image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2024/10/abs_maxicarrete_negro_web-350x350.webp",
     "image_url": "assets/grilon3/abs-maxicarrete-negro-web-350x350-f949f286.webp",
     "sku": "M11IGR175C2"
   },
+  "pla-pla-850-negro-175-1000-grilon3": {
+    "ean": "7798049653389",
+    "image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_850_negro_ml.jpg",
+    "image_url": "assets/grilon3/pla-850-negro-ml-bffee702.jpg",
+    "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-negro/",
+    "sku": "M11ING175C"
+  },
   "pla-pla-850-negro-grilon3": {
     "ean": "7798049654171",
     "image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2024/10/abs_maxicarrete_turquesa_web-350x350.webp",
     "image_url": "assets/grilon3/abs-maxicarrete-turquesa-web-350x350-cb1ad28b.webp",
     "sku": "M11ING175C2"
+  },
+  "pla-pla-850-rojo-175-1000-grilon3": {
+    "ean": "7798049653402",
+    "image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_850_rojo2.jpg",
+    "image_url": "assets/grilon3/pla-850-rojo2-26d3ca6c.jpg",
+    "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-rojo-2/",
+    "sku": "M11IRJ175CJ"
   },
   "pla-pla-850-rojo-grilon3": {
     "ean": "7798049654201",
@@ -565,6 +634,13 @@
     "image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_boutique_lavanda-1-600x600.jpg",
     "image_url": "assets/grilon3/pla-boutique-lavanda-1-600x600-6f3b8c95.jpg",
     "sku": "M17ILA175CJ"
+  },
+  "pla-pla-boutique-perla-175-1000-grilon3": {
+    "ean": "7798049653518",
+    "image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_boutique_perla2.jpg",
+    "image_url": "assets/grilon3/pla-boutique-perla2-864d1665.jpg",
+    "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-boutique-perla/",
+    "sku": "M17IPE175CJ"
   },
   "pla-pla-boutique-perla-frio-grilon3": {
     "image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2026/02/boutique_perla_frio2-600x600.png",
@@ -684,6 +760,14 @@
     "ean": "7798049653624",
     "sku": "M16ICR175CJ"
   },
+  "pla-rojo-175-1000-grilon3": {
+    "ean": "7798049652825",
+    "image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_rojo.jpg",
+    "image_url": "assets/grilon3/pla-rojo-bea352ed.jpg",
+    "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-rojo/",
+    "pantone": "Pantone 485",
+    "sku": "M10IRJ175CJ"
+  },
   "pla-rojo-grilon3": {
     "ean": "7798049654775",
     "image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2022/08/megafill_rojo2-600x600.jpg",
@@ -704,6 +788,14 @@
     "image_url": "assets/grilon3/pla-carpincho-web2-600x600-76466412.webp",
     "pantone": "Pantone 7510",
     "sku": "M10ICA175CJ"
+  },
+  "pla-turquesa-175-1000-grilon3": {
+    "ean": "7798049652931",
+    "image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_turquesa2.jpg",
+    "image_url": "assets/grilon3/pla-turquesa2-bc2bb633.jpg",
+    "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-turquesa/",
+    "pantone": "Pantone 313",
+    "sku": "M10ITU175CJ"
   },
   "pla-turquesa-grilon3": {
     "ean": "7798049654805",
