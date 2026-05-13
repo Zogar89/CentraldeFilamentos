@@ -73,6 +73,33 @@
     "pantone": "Pantone 347",
     "sku": "M09IVR175CJ"
   },
+  "acetal-acetal-pom-blanco-175-1000-grilon3": {
+    "ean": "7798049654010",
+    "image_url": "assets/grilon3/acetal-blanco-600x600-2e8a15e2.jpg",
+    "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-acetal-blanco/",
+    "sku": "M03IBL175CJ"
+  },
+  "acetal-acetal-pom-gris-acero-175-1000-grilon3": {
+    "ean": "7798049653686",
+    "image_url": "assets/grilon3/acetal-gris-acero-600x600-a5e5adcf.jpg",
+    "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-acetal-gris-acero/",
+    "sku": "M03IGA175CJ"
+  },
+  "acetal-acetal-pom-gris-plata-175-1000-grilon3": {
+    "manufacturer_product_url": "https://grilon3.com.ar/categoria-producto/tecnicos/acetal/"
+  },
+  "acetal-acetal-pom-negro-175-1000-grilon3": {
+    "ean": "7798049654003",
+    "image_url": "assets/grilon3/acetal-negro-600x600-d3d3df13.jpg",
+    "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-acetal-negro/",
+    "sku": "M03ING175CJ"
+  },
+  "acetal-acetal-pom-rojo-175-1000-grilon3": {
+    "ean": "7798049653990",
+    "image_url": "assets/grilon3/acetal-rojo-600x600-ccbd8868.jpg",
+    "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-acetal-rojo/",
+    "sku": "M03IRJ175CJ"
+  },
   "acetal-blanco-grilon3": {
     "ean": "7798049654010",
     "image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/acetal_blanco-600x600.jpg",
@@ -830,6 +857,46 @@
     "image_url": "assets/grilon3/pla-verde-voleta-600x600-fe28807a.jpg",
     "pantone": "Pantone 2603",
     "sku": "M10IVI175CJ"
+  },
+  "pp-pp-t-amarillo-175-1000-grilon3": {
+    "ean": "7798049654720",
+    "image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2024/07/ppt_amarillo.webp",
+    "image_url": "assets/grilon3/ppt-amarillo-67e2e0b9.webp",
+    "manufacturer_product_url": "https://grilon3.com.ar/producto/pp-t-amarillo/",
+    "sku": "M04IAM175CJ"
+  },
+  "pp-pp-t-azul-175-1000-grilon3": {
+    "ean": "7798049654447",
+    "image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2024/07/ppt_azul.webp",
+    "image_url": "assets/grilon3/ppt-azul-6a5e1c89.webp",
+    "manufacturer_product_url": "https://grilon3.com.ar/producto/pp-t-azul/",
+    "sku": "M04IAZ175CJ"
+  },
+  "pp-pp-t-blanco-175-1000-grilon3": {
+    "manufacturer_product_url": "https://grilon3.com.ar/categoria-producto/tecnicos/pp-t/"
+  },
+  "pp-pp-t-gris-acero-175-1000-grilon3": {
+    "manufacturer_product_url": "https://grilon3.com.ar/categoria-producto/tecnicos/pp-t/"
+  },
+  "pp-pp-t-natural-175-1000-grilon3": {
+    "ean": "7798049654423",
+    "image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2022/04/polipropileno1.jpg",
+    "image_url": "assets/grilon3/polipropileno1-9cb231ff.jpg",
+    "manufacturer_product_url": "https://grilon3.com.ar/producto/pp-natural/",
+    "sku": "M04INT175CJ"
+  },
+  "pp-pp-t-negro-175-1000-grilon3": {
+    "manufacturer_product_url": "https://grilon3.com.ar/categoria-producto/tecnicos/pp-t/"
+  },
+  "pp-pp-t-rojo-175-1000-grilon3": {
+    "manufacturer_product_url": "https://grilon3.com.ar/categoria-producto/tecnicos/pp-t/"
+  },
+  "pp-pp-t-verde-175-1000-grilon3": {
+    "ean": "7798049654737",
+    "image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2024/07/ppt_verde.webp",
+    "image_url": "assets/grilon3/ppt-verde-77cb9ea8.webp",
+    "manufacturer_product_url": "https://grilon3.com.ar/producto/pp-t-verde/",
+    "sku": "M04IVR175CJ"
   },
   "tpu-simpliflex-blanco-grilon3": {
     "ean": "7798049653839",

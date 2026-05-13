@@ -397,6 +397,34 @@ def test_build_grilon3_enrichments_does_not_use_megafill_image_for_1kg_product(m
     assert "sku" not in enrichment or enrichment["sku"] == ""
 
 
+def test_build_grilon3_enrichments_does_not_apply_roll_images_to_sampler_products(monkeypatch):
+    monkeypatch.setattr(
+        "stockcentral.build_data.load_grilon3_metadata",
+        lambda: {
+            "pla-pla-silk-azul-grilon3": {
+                "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-silk-azul/",
+                "image_url": "assets/grilon3/silk-azul-1kg.jpg",
+            },
+        },
+    )
+
+    enrichments = build_grilon3_enrichments(
+        [
+            raw(
+                "filamentos3d",
+                "Filamentos3D",
+                "Zona Sur",
+                "SAMPLER GRILON3 SILK AZUL 1.75 MM X 17 M",
+                None,
+                brand_hint="Grilon3",
+            )
+        ],
+        catalog={},
+    )
+
+    assert enrichments == {}
+
+
 def test_load_grilon3_metadata_reads_cache_file(tmp_path):
     cache = tmp_path / "metadata.json"
     cache.write_text(

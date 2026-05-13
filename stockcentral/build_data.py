@@ -156,6 +156,8 @@ def build_grilon3_enrichments(
     for item in raw_items:
         fields = normalize_record(item)
         product_id = build_product_id(fields)
+        if _is_sampler_or_3d_pen_item(item):
+            continue
         enrichment = enrich_with_grilon3_catalog(fields, catalog)
         cache_data = _grilon3_metadata_for_fields(metadata, fields)
         enrichment["manufacturer_product_url"] = enrichment.get("manufacturer_product_url", "") or cache_data.get("manufacturer_product_url", "")
@@ -171,6 +173,11 @@ def build_grilon3_enrichments(
             enrichments[product_id] = enrichment
 
     return enrichments
+
+
+def _is_sampler_or_3d_pen_item(item: RawStockItem) -> bool:
+    text = f" {item.original_name.upper()} "
+    return " SAMPLER " in text or "LAPIZ 3D" in text or "LÁPIZ 3D" in text
 
 
 def fetch_grilon3_catalog_products() -> dict[str, object]:

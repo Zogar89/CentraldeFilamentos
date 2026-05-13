@@ -602,10 +602,10 @@
       "color": "Azabache",
       "diameter_mm": 1.75,
       "display_name": "PLA Silk Azabache Grilon3 1.75 mm",
-      "ean": "7798049654584",
+      "ean": "",
       "id": "pla-pla-silk-azabache-175-unknown-grilon3",
-      "image_source": "manufacturer",
-      "image_url": "assets/grilon3/silk-dorado-350x350-d3787093.jpg",
+      "image_source": "",
+      "image_url": "",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
@@ -623,7 +623,7 @@
         }
       ],
       "pantone": "",
-      "sku": "M10IGE175CJ-1-3-1",
+      "sku": "",
       "variant": "PLA Silk",
       "weight_g": null
     },
@@ -1066,10 +1066,10 @@
       "color": "Azul",
       "diameter_mm": 1.75,
       "display_name": "PLA Silk Azul Grilon3 1.75 mm",
-      "ean": "7798049654478",
+      "ean": "",
       "id": "pla-pla-silk-azul-175-unknown-grilon3",
-      "image_source": "manufacturer",
-      "image_url": "assets/grilon3/silk-azul-600x600-7502dda7.jpg",
+      "image_source": "",
+      "image_url": "",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
@@ -1087,7 +1087,7 @@
         }
       ],
       "pantone": "",
-      "sku": "M10IGE175CJ-1-1",
+      "sku": "",
       "variant": "PLA Silk",
       "weight_g": null
     },
@@ -1806,10 +1806,10 @@
       "color": "Blanco Perla",
       "diameter_mm": 1.75,
       "display_name": "PLA Silk Blanco Perla Grilon3 1.75 mm",
-      "ean": "7798049654461",
+      "ean": "",
       "id": "pla-pla-silk-blanco-perla-175-unknown-grilon3",
-      "image_source": "manufacturer",
-      "image_url": "assets/grilon3/silk-blanco-600x600-ccbfae2b.jpg",
+      "image_source": "",
+      "image_url": "",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
@@ -1827,7 +1827,7 @@
         }
       ],
       "pantone": "",
-      "sku": "M10IGE175CJ-1-2",
+      "sku": "",
       "variant": "PLA Silk",
       "weight_g": null
     },
@@ -2427,10 +2427,10 @@
       "color": "Calipso",
       "diameter_mm": 1.75,
       "display_name": "PLA Astra Calipso Grilon3 1.75 mm",
-      "ean": "7798049654553",
+      "ean": "",
       "id": "pla-pla-astra-calipso-175-unknown-grilon3",
-      "image_source": "manufacturer",
-      "image_url": "assets/grilon3/astra-calipso-web-600x600-ea3a0024.jpg",
+      "image_source": "",
+      "image_url": "",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
@@ -2447,8 +2447,8 @@
           "updated_at": "2026-05-12T20:22:02-03:00"
         }
       ],
-      "pantone": "Pantone 320",
-      "sku": "M22ICA175CJ",
+      "pantone": "",
+      "sku": "",
       "variant": "PLA Astra",
       "weight_g": null
     },
@@ -2509,10 +2509,10 @@
       "color": "Caoba",
       "diameter_mm": 1.75,
       "display_name": "PLA Wood Caoba Grilon3 1.75 mm",
-      "ean": "7798049654362",
+      "ean": "",
       "id": "pla-pla-wood-caoba-175-unknown-grilon3",
-      "image_source": "manufacturer",
-      "image_url": "assets/grilon3/wood-caoba-1-600x600-0cb08d3d.jpg",
+      "image_source": "",
+      "image_url": "",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
@@ -2530,7 +2530,7 @@
         }
       ],
       "pantone": "",
-      "sku": "M20ICA175CJ",
+      "sku": "",
       "variant": "PLA Wood",
       "weight_g": null
     },
@@ -2985,10 +2985,10 @@
       "color": "Cerezo",
       "diameter_mm": 1.75,
       "display_name": "PLA Wood Cerezo Grilon3 1.75 mm",
-      "ean": "7798049654379",
+      "ean": "",
       "id": "pla-pla-wood-cerezo-175-unknown-grilon3",
-      "image_source": "manufacturer",
-      "image_url": "assets/grilon3/wood-pino-350x350-e1932119.jpg",
+      "image_source": "",
+      "image_url": "",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
@@ -3006,7 +3006,7 @@
         }
       ],
       "pantone": "",
-      "sku": "M20ICE175CJ",
+      "sku": "",
       "variant": "PLA Wood",
       "weight_g": null
     },
@@ -3357,10 +3357,10 @@
       "color": "Cobre",
       "diameter_mm": 1.75,
       "display_name": "PLA Silk Cobre Grilon3 1.75 mm",
-      "ean": "7798049654652",
+      "ean": "",
       "id": "pla-pla-silk-cobre-175-unknown-grilon3",
-      "image_source": "manufacturer",
-      "image_url": "assets/grilon3/silk-cobre-600x600-f42df4ff.jpg",
+      "image_source": "",
+      "image_url": "",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
@@ -3378,7 +3378,7 @@
         }
       ],
       "pantone": "",
-      "sku": "M10IGE175CJ-1-3-2",
+      "sku": "",
       "variant": "PLA Silk",
       "weight_g": null
     },
@@ -3491,10 +3491,10 @@
       "color": "Dark",
       "diameter_mm": 1.75,
       "display_name": "PLA Astra Dark Grilon3 1.75 mm",
-      "ean": "7798049654508",
+      "ean": "",
       "id": "pla-pla-astra-dark-175-unknown-grilon3",
-      "image_source": "manufacturer",
-      "image_url": "assets/grilon3/astra-dark3-600x600-15bb7915.jpg",
+      "image_source": "",
+      "image_url": "",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
@@ -3511,8 +3511,8 @@
           "updated_at": "2026-05-12T20:22:02-03:00"
         }
       ],
-      "pantone": "Pantone 419",
-      "sku": "M22IDA175CJ",
+      "pantone": "",
+      "sku": "",
       "variant": "PLA Astra",
       "weight_g": null
     },
@@ -3625,10 +3625,10 @@
       "color": "Dorado",
       "diameter_mm": 1.75,
       "display_name": "PLA Silk Dorado Grilon3 1.75 mm",
-      "ean": "7798049654492",
+      "ean": "",
       "id": "pla-pla-silk-dorado-175-unknown-grilon3",
-      "image_source": "manufacturer",
-      "image_url": "assets/grilon3/silk-dorado-600x600-1e261111.jpg",
+      "image_source": "",
+      "image_url": "",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
@@ -3646,7 +3646,7 @@
         }
       ],
       "pantone": "",
-      "sku": "M10IGE175CJ-1",
+      "sku": "",
       "variant": "PLA Silk",
       "weight_g": null
     },
@@ -4721,10 +4721,10 @@
       "color": "Jade",
       "diameter_mm": 1.75,
       "display_name": "PLA Astra Jade Grilon3 1.75 mm",
-      "ean": "7798049654522",
+      "ean": "",
       "id": "pla-pla-astra-jade-175-unknown-grilon3",
-      "image_source": "manufacturer",
-      "image_url": "assets/grilon3/astra-jade3-600x600-30d4d015.jpg",
+      "image_source": "",
+      "image_url": "",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
@@ -4741,8 +4741,8 @@
           "updated_at": "2026-05-12T20:22:02-03:00"
         }
       ],
-      "pantone": "Pantone 3305",
-      "sku": "M22IJA175CJ",
+      "pantone": "",
+      "sku": "",
       "variant": "PLA Astra",
       "weight_g": null
     },
@@ -5558,10 +5558,10 @@
       "color": "Nebula",
       "diameter_mm": 1.75,
       "display_name": "PLA Astra Nebula Grilon3 1.75 mm",
-      "ean": "7798049654546",
+      "ean": "",
       "id": "pla-pla-astra-nebula-175-unknown-grilon3",
-      "image_source": "manufacturer",
-      "image_url": "assets/grilon3/astra-nebula3-600x600-6cfd46bb.jpg",
+      "image_source": "",
+      "image_url": "",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
@@ -5578,8 +5578,8 @@
           "updated_at": "2026-05-12T20:22:02-03:00"
         }
       ],
-      "pantone": "Pantone Violet",
-      "sku": "M22INE175CJ",
+      "pantone": "",
+      "sku": "",
       "variant": "PLA Astra",
       "weight_g": null
     },
@@ -6145,10 +6145,10 @@
       "color": "Noche",
       "diameter_mm": 1.75,
       "display_name": "PLA Astra Noche Grilon3 1.75 mm",
-      "ean": "7798049654539",
+      "ean": "",
       "id": "pla-pla-astra-noche-175-unknown-grilon3",
-      "image_source": "manufacturer",
-      "image_url": "assets/grilon3/astra-noche3-600x600-7ffb3493.jpg",
+      "image_source": "",
+      "image_url": "",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
@@ -6165,8 +6165,8 @@
           "updated_at": "2026-05-12T20:22:02-03:00"
         }
       ],
-      "pantone": "Pantone 2747",
-      "sku": "M22INO175CJ",
+      "pantone": "",
+      "sku": "",
       "variant": "PLA Astra",
       "weight_g": null
     },
@@ -6227,10 +6227,10 @@
       "color": "Nogal",
       "diameter_mm": 1.75,
       "display_name": "PLA Wood Nogal Grilon3 1.75 mm",
-      "ean": "7798049654355",
+      "ean": "",
       "id": "pla-pla-wood-nogal-175-unknown-grilon3",
-      "image_source": "manufacturer",
-      "image_url": "assets/grilon3/wood-nogal-600x600-5dcc902b.jpg",
+      "image_source": "",
+      "image_url": "",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
@@ -6248,7 +6248,7 @@
         }
       ],
       "pantone": "",
-      "sku": "M20INO175CJ",
+      "sku": "",
       "variant": "PLA Wood",
       "weight_g": null
     },
@@ -6793,10 +6793,10 @@
       "color": "Pino",
       "diameter_mm": 1.75,
       "display_name": "PLA Wood Pino Grilon3 1.75 mm",
-      "ean": "7798049654348",
+      "ean": "",
       "id": "pla-pla-wood-pino-175-unknown-grilon3",
-      "image_source": "manufacturer",
-      "image_url": "assets/grilon3/wood-pino-600x600-77c6580b.jpg",
+      "image_source": "",
+      "image_url": "",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
@@ -6814,7 +6814,7 @@
         }
       ],
       "pantone": "",
-      "sku": "M20IPI175CJ",
+      "sku": "",
       "variant": "PLA Wood",
       "weight_g": null
     },
@@ -6875,10 +6875,10 @@
       "color": "Platino",
       "diameter_mm": 1.75,
       "display_name": "PLA Silk Platino Grilon3 1.75 mm",
-      "ean": "7798049654638",
+      "ean": "",
       "id": "pla-pla-silk-platino-175-unknown-grilon3",
-      "image_source": "manufacturer",
-      "image_url": "assets/grilon3/silk-platino-600x600-44b3505a.jpg",
+      "image_source": "",
+      "image_url": "",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
@@ -6896,7 +6896,7 @@
         }
       ],
       "pantone": "",
-      "sku": "M10IGE175CJ-1-3-2-1",
+      "sku": "",
       "variant": "PLA Silk",
       "weight_g": null
     },
@@ -6957,10 +6957,10 @@
       "color": "Roby",
       "diameter_mm": 1.75,
       "display_name": "PLA Astra Roby Grilon3 1.75 mm",
-      "ean": "7798049654515",
+      "ean": "",
       "id": "pla-pla-astra-roby-175-unknown-grilon3",
-      "image_source": "manufacturer",
-      "image_url": "assets/grilon3/astra-roby3-600x600-1d307948.jpg",
+      "image_source": "",
+      "image_url": "",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
@@ -6977,8 +6977,8 @@
           "updated_at": "2026-05-12T20:22:02-03:00"
         }
       ],
-      "pantone": "Pantone 200",
-      "sku": "M22IRO175CJ",
+      "pantone": "",
+      "sku": "",
       "variant": "PLA Astra",
       "weight_g": null
     },
@@ -8102,10 +8102,10 @@
       "color": "Tutti Frutti",
       "diameter_mm": 1.75,
       "display_name": "PLA Silk Tutti Frutti Grilon3 1.75 mm",
-      "ean": "7798049654645",
+      "ean": "",
       "id": "pla-pla-silk-tutti-frutti-175-unknown-grilon3",
-      "image_source": "manufacturer",
-      "image_url": "assets/grilon3/silk-tuttifrutti-600x600-6ec143cf.jpg",
+      "image_source": "",
+      "image_url": "",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
@@ -8123,7 +8123,7 @@
         }
       ],
       "pantone": "",
-      "sku": "M10IGE175CJ-1-3-2-1-1",
+      "sku": "",
       "variant": "PLA Silk",
       "weight_g": null
     },
@@ -8285,10 +8285,10 @@
       "color": "Verde",
       "diameter_mm": 1.75,
       "display_name": "PLA Silk Verde Grilon3 1.75 mm",
-      "ean": "7798049654485",
+      "ean": "",
       "id": "pla-pla-silk-verde-175-unknown-grilon3",
-      "image_source": "manufacturer",
-      "image_url": "assets/grilon3/silk-verde-600x600-69a9d28d.jpg",
+      "image_source": "",
+      "image_url": "",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
@@ -8306,7 +8306,7 @@
         }
       ],
       "pantone": "",
-      "sku": "M10IGE175CJ-1-3",
+      "sku": "",
       "variant": "PLA Silk",
       "weight_g": null
     },
@@ -9789,12 +9789,12 @@
       "color": "Blanco",
       "diameter_mm": 1.75,
       "display_name": "Acetal-POM Blanco Grilon3 1 kg 1.75 mm",
-      "ean": "",
+      "ean": "7798049654010",
       "id": "acetal-acetal-pom-blanco-175-1000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/acetal-blanco-600x600-2e8a15e2.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-acetal-blanco/",
       "material": "Acetal",
       "offers": [
         {
@@ -9832,7 +9832,7 @@
         }
       ],
       "pantone": "",
-      "sku": "",
+      "sku": "M03IBL175CJ",
       "variant": "Acetal-POM",
       "weight_g": 1000
     },
@@ -9871,12 +9871,12 @@
       "color": "Gris Acero",
       "diameter_mm": 1.75,
       "display_name": "Acetal-POM Gris Acero Grilon3 1 kg 1.75 mm",
-      "ean": "",
+      "ean": "7798049653686",
       "id": "acetal-acetal-pom-gris-acero-175-1000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/acetal-gris-acero-600x600-a5e5adcf.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-acetal-gris-acero/",
       "material": "Acetal",
       "offers": [
         {
@@ -9914,7 +9914,7 @@
         }
       ],
       "pantone": "",
-      "sku": "",
+      "sku": "M03IGA175CJ",
       "variant": "Acetal-POM",
       "weight_g": 1000
     },
@@ -9958,7 +9958,7 @@
       "image_source": "",
       "image_url": "",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/categoria-producto/tecnicos/acetal/",
       "material": "Acetal",
       "offers": [
         {
@@ -10035,12 +10035,12 @@
       "color": "Negro",
       "diameter_mm": 1.75,
       "display_name": "Acetal-POM Negro Grilon3 1 kg 1.75 mm",
-      "ean": "",
+      "ean": "7798049654003",
       "id": "acetal-acetal-pom-negro-175-1000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/acetal-negro-600x600-d3d3df13.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-acetal-negro/",
       "material": "Acetal",
       "offers": [
         {
@@ -10078,7 +10078,7 @@
         }
       ],
       "pantone": "",
-      "sku": "",
+      "sku": "M03ING175CJ",
       "variant": "Acetal-POM",
       "weight_g": 1000
     },
@@ -10117,12 +10117,12 @@
       "color": "Rojo",
       "diameter_mm": 1.75,
       "display_name": "Acetal-POM Rojo Grilon3 1 kg 1.75 mm",
-      "ean": "",
+      "ean": "7798049653990",
       "id": "acetal-acetal-pom-rojo-175-1000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/acetal-rojo-600x600-ccbd8868.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-acetal-rojo/",
       "material": "Acetal",
       "offers": [
         {
@@ -10160,7 +10160,7 @@
         }
       ],
       "pantone": "",
-      "sku": "",
+      "sku": "M03IRJ175CJ",
       "variant": "Acetal-POM",
       "weight_g": 1000
     },
@@ -10475,10 +10475,10 @@
       "color": "Azul",
       "diameter_mm": 1.75,
       "display_name": "Nylon 12 Azul Grilon3 1.75 mm",
-      "ean": "7798049653280",
+      "ean": "",
       "id": "nylon-nylon-12-azul-175-unknown-grilon3",
-      "image_source": "manufacturer",
-      "image_url": "assets/grilon3/nylon6-optico-350x350-52415f1e.jpg",
+      "image_source": "",
+      "image_url": "",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "Nylon",
@@ -10496,7 +10496,7 @@
         }
       ],
       "pantone": "",
-      "sku": "M12IAZ175CJ",
+      "sku": "",
       "variant": "Nylon 12",
       "weight_g": null
     },
@@ -10557,10 +10557,10 @@
       "color": "Blanco",
       "diameter_mm": 1.75,
       "display_name": "Nylon 12 Blanco Grilon3 1.75 mm",
-      "ean": "7798049653242",
+      "ean": "",
       "id": "nylon-nylon-12-blanco-175-unknown-grilon3",
-      "image_source": "manufacturer",
-      "image_url": "assets/grilon3/acetal-negro-350x350-41a76d38.jpg",
+      "image_source": "",
+      "image_url": "",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "Nylon",
@@ -10578,7 +10578,7 @@
         }
       ],
       "pantone": "",
-      "sku": "M12IBL175CJ",
+      "sku": "",
       "variant": "Nylon 12",
       "weight_g": null
     },
@@ -10639,10 +10639,10 @@
       "color": "Blanco",
       "diameter_mm": 1.75,
       "display_name": "Nylon 6 Blanco Grilon3 1.75 mm",
-      "ean": "7798049653181",
+      "ean": "",
       "id": "nylon-nylon-6-blanco-175-unknown-grilon3",
-      "image_source": "manufacturer",
-      "image_url": "assets/grilon3/nylon6-blanco-600x600-aabb7d5e.jpg",
+      "image_source": "",
+      "image_url": "",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "Nylon",
@@ -10660,7 +10660,7 @@
         }
       ],
       "pantone": "",
-      "sku": "M01IBL175CJ",
+      "sku": "",
       "variant": "Nylon 6",
       "weight_g": null
     },
@@ -10721,10 +10721,10 @@
       "color": "Naranja Fluo",
       "diameter_mm": 1.75,
       "display_name": "Nylon 6 Naranja Fluo Grilon3 1.75 mm",
-      "ean": "7798049653211",
+      "ean": "",
       "id": "nylon-nylon-6-naranja-fluo-175-unknown-grilon3",
-      "image_source": "manufacturer",
-      "image_url": "assets/grilon3/nylon6-blanco-350x350-dc792f8d.jpg",
+      "image_source": "",
+      "image_url": "",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "Nylon",
@@ -10741,8 +10741,8 @@
           "updated_at": "2026-05-12T20:22:02-03:00"
         }
       ],
-      "pantone": "Pantone Orange 021",
-      "sku": "M01INF175CJ",
+      "pantone": "",
+      "sku": "",
       "variant": "Nylon 6",
       "weight_g": null
     },
@@ -10803,10 +10803,10 @@
       "color": "Natural",
       "diameter_mm": 1.75,
       "display_name": "Nylon 12 Natural Grilon3 1.75 mm",
-      "ean": "7798049653266",
+      "ean": "",
       "id": "nylon-nylon-12-natural-175-unknown-grilon3",
-      "image_source": "manufacturer",
-      "image_url": "assets/grilon3/nylon6-negro-350x350-af828d4d.jpg",
+      "image_source": "",
+      "image_url": "",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "Nylon",
@@ -10824,7 +10824,7 @@
         }
       ],
       "pantone": "",
-      "sku": "M12INT175CJ",
+      "sku": "",
       "variant": "Nylon 12",
       "weight_g": null
     },
@@ -10885,7 +10885,7 @@
       "color": "Natural",
       "diameter_mm": 1.75,
       "display_name": "Nylon 6 Natural Grilon3 1.75 mm",
-      "ean": "7798049653204",
+      "ean": "",
       "id": "nylon-nylon-6-natural-175-unknown-grilon3",
       "image_source": "",
       "image_url": "",
@@ -10906,7 +10906,7 @@
         }
       ],
       "pantone": "",
-      "sku": "M01INT175CJ",
+      "sku": "",
       "variant": "Nylon 6",
       "weight_g": null
     },
@@ -10967,10 +10967,10 @@
       "color": "Negro",
       "diameter_mm": 1.75,
       "display_name": "Nylon 12 Negro Grilon3 1.75 mm",
-      "ean": "7798049653259",
+      "ean": "",
       "id": "nylon-nylon-12-negro-175-unknown-grilon3",
-      "image_source": "manufacturer",
-      "image_url": "assets/grilon3/acetal-rojo-350x350-7bfeb732.jpg",
+      "image_source": "",
+      "image_url": "",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "Nylon",
@@ -10988,7 +10988,7 @@
         }
       ],
       "pantone": "",
-      "sku": "M12ING175CJ",
+      "sku": "",
       "variant": "Nylon 12",
       "weight_g": null
     },
@@ -11049,10 +11049,10 @@
       "color": "Negro",
       "diameter_mm": 1.75,
       "display_name": "Nylon 6 Negro Grilon3 1.75 mm",
-      "ean": "7798049653198",
+      "ean": "",
       "id": "nylon-nylon-6-negro-175-unknown-grilon3",
-      "image_source": "manufacturer",
-      "image_url": "assets/grilon3/nylon6-negro-600x600-0e56c1d3.jpg",
+      "image_source": "",
+      "image_url": "",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "Nylon",
@@ -11069,8 +11069,8 @@
           "updated_at": "2026-05-12T20:22:02-03:00"
         }
       ],
-      "pantone": "Pantone Black",
-      "sku": "M01ING175CJ",
+      "pantone": "",
+      "sku": "",
       "variant": "Nylon 6",
       "weight_g": null
     },
@@ -11131,10 +11131,10 @@
       "color": "Optico",
       "diameter_mm": 1.75,
       "display_name": "Nylon 6 Optico Grilon3 1.75 mm",
-      "ean": "7798049653235",
+      "ean": "",
       "id": "nylon-nylon-6-optico-175-unknown-grilon3",
-      "image_source": "manufacturer",
-      "image_url": "assets/grilon3/nylon6-optico-600x600-6a56a529.jpg",
+      "image_source": "",
+      "image_url": "",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "Nylon",
@@ -11152,7 +11152,7 @@
         }
       ],
       "pantone": "",
-      "sku": "M01IOT175CJ",
+      "sku": "",
       "variant": "Nylon 6",
       "weight_g": null
     },
@@ -11191,10 +11191,10 @@
       "color": "Titanio",
       "diameter_mm": 1.75,
       "display_name": "Nylon 12 Titanio Grilon3 1.75 mm",
-      "ean": "7798049653273",
+      "ean": "",
       "id": "nylon-nylon-12-titanio-175-unknown-grilon3",
-      "image_source": "manufacturer",
-      "image_url": "assets/grilon3/nylon6-negro-350x350-af828d4d.jpg",
+      "image_source": "",
+      "image_url": "",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "Nylon",
@@ -11212,7 +11212,7 @@
         }
       ],
       "pantone": "",
-      "sku": "M12ITI175CJ",
+      "sku": "",
       "variant": "Nylon 12",
       "weight_g": null
     },
@@ -11273,10 +11273,10 @@
       "color": "Verde Fluo",
       "diameter_mm": 1.75,
       "display_name": "Nylon 6 Verde Fluo Grilon3 1.75 mm",
-      "ean": "7798049653228",
+      "ean": "",
       "id": "nylon-nylon-6-verde-fluo-175-unknown-grilon3",
-      "image_source": "manufacturer",
-      "image_url": "assets/grilon3/nylon6-600x600-3778f508.webp",
+      "image_source": "",
+      "image_url": "",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "Nylon",
@@ -11293,8 +11293,8 @@
           "updated_at": "2026-05-12T20:22:02-03:00"
         }
       ],
-      "pantone": "Pantone 375",
-      "sku": "M01IVF175CJ",
+      "pantone": "",
+      "sku": "",
       "variant": "Nylon 6",
       "weight_g": null
     },
@@ -11837,10 +11837,10 @@
       "color": "Blanco",
       "diameter_mm": 1.75,
       "display_name": "PETG Blanco Grilon3 1.75 mm",
-      "ean": "7798049653693",
+      "ean": "",
       "id": "petg-blanco-175-unknown-grilon3",
-      "image_source": "manufacturer",
-      "image_url": "assets/grilon3/pla-rojo-350x350-b39ac945.jpg",
+      "image_source": "",
+      "image_url": "",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PETG",
@@ -11858,7 +11858,7 @@
         }
       ],
       "pantone": "",
-      "sku": "M77IBL175CJ",
+      "sku": "",
       "variant": "",
       "weight_g": null
     },
@@ -12064,10 +12064,10 @@
       "color": "Chocolate",
       "diameter_mm": 1.75,
       "display_name": "PETG Chocolate Grilon3 1.75 mm",
-      "ean": "7798049654065",
+      "ean": "",
       "id": "petg-chocolate-175-unknown-grilon3",
-      "image_source": "manufacturer",
-      "image_url": "assets/grilon3/pla-rojo-350x350-b39ac945.jpg",
+      "image_source": "",
+      "image_url": "",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PETG",
@@ -12084,8 +12084,8 @@
           "updated_at": "2026-05-12T20:22:02-03:00"
         }
       ],
-      "pantone": "Pantone 477",
-      "sku": "M77ICH175CJ",
+      "pantone": "",
+      "sku": "",
       "variant": "",
       "weight_g": null
     },
@@ -12597,10 +12597,10 @@
       "color": "Gris Acero",
       "diameter_mm": 1.75,
       "display_name": "PETG Gris Acero Grilon3 1.75 mm",
-      "ean": "7798049653730",
+      "ean": "",
       "id": "petg-gris-acero-175-unknown-grilon3",
-      "image_source": "manufacturer",
-      "image_url": "assets/grilon3/pla-amarillo-fluo-350x350-8dc65e25.jpg",
+      "image_source": "",
+      "image_url": "",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PETG",
@@ -12617,8 +12617,8 @@
           "updated_at": "2026-05-12T20:22:02-03:00"
         }
       ],
-      "pantone": "Pantone 432",
-      "sku": "M77IGA175CJ",
+      "pantone": "",
+      "sku": "",
       "variant": "",
       "weight_g": null
     },
@@ -12731,10 +12731,10 @@
       "color": "Gris Plata",
       "diameter_mm": 1.75,
       "display_name": "PETG Gris Plata Grilon3 1.75 mm",
-      "ean": "7798049654157",
+      "ean": "",
       "id": "petg-gris-plata-175-unknown-grilon3",
-      "image_source": "manufacturer",
-      "image_url": "assets/grilon3/pla-bronce-350x350-5d2ad9bf.jpg",
+      "image_source": "",
+      "image_url": "",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PETG",
@@ -12751,8 +12751,8 @@
           "updated_at": "2026-05-12T20:22:02-03:00"
         }
       ],
-      "pantone": "Pantone Cool Gray 10",
-      "sku": "M77IGA175CJ-1",
+      "pantone": "",
+      "sku": "",
       "variant": "",
       "weight_g": null
     },
@@ -12813,10 +12813,10 @@
       "color": "Naranja Praga",
       "diameter_mm": 1.75,
       "display_name": "PETG Naranja Praga Grilon3 1.75 mm",
-      "ean": "7798049653716",
+      "ean": "",
       "id": "petg-naranja-praga-175-unknown-grilon3",
-      "image_source": "manufacturer",
-      "image_url": "assets/grilon3/pla-turquesa-350x350-cd184f30.jpg",
+      "image_source": "",
+      "image_url": "",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PETG",
@@ -12833,8 +12833,8 @@
           "updated_at": "2026-05-12T20:22:02-03:00"
         }
       ],
-      "pantone": "Pantone Orange 021",
-      "sku": "M77INP175CJ",
+      "pantone": "",
+      "sku": "",
       "variant": "",
       "weight_g": null
     },
@@ -12895,10 +12895,10 @@
       "color": "Natural",
       "diameter_mm": 1.75,
       "display_name": "PETG Natural Grilon3 1.75 mm",
-      "ean": "7798049653723",
+      "ean": "",
       "id": "petg-natural-175-unknown-grilon3",
-      "image_source": "manufacturer",
-      "image_url": "assets/grilon3/pla-turquesa-350x350-cd184f30.jpg",
+      "image_source": "",
+      "image_url": "",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PETG",
@@ -12916,7 +12916,7 @@
         }
       ],
       "pantone": "",
-      "sku": "M77INT175CJ",
+      "sku": "",
       "variant": "",
       "weight_g": null
     },
@@ -13047,12 +13047,12 @@
       "color": "Negro",
       "diameter_mm": 1.75,
       "display_name": "PETG Negro Grilon3 1.75 mm",
-      "ean": "7798049653709",
+      "ean": "",
       "id": "petg-negro-175-unknown-grilon3",
-      "image_source": "manufacturer",
-      "image_url": "assets/grilon3/petg-negro2-8218e01d.jpg",
+      "image_source": "",
+      "image_url": "",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-petg-negro/",
+      "manufacturer_product_url": "",
       "material": "PETG",
       "offers": [
         {
@@ -13067,8 +13067,8 @@
           "updated_at": "2026-05-12T20:22:02-03:00"
         }
       ],
-      "pantone": "Pantone Black",
-      "sku": "M77ING175CJ",
+      "pantone": "",
+      "sku": "",
       "variant": "",
       "weight_g": null
     },
@@ -13315,12 +13315,12 @@
       "color": "Amarillo",
       "diameter_mm": 1.75,
       "display_name": "PP-T Amarillo Grilon3 1 kg 1.75 mm",
-      "ean": "",
+      "ean": "7798049654720",
       "id": "pp-pp-t-amarillo-175-1000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/ppt-amarillo-67e2e0b9.webp",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/pp-t-amarillo/",
       "material": "PP",
       "offers": [
         {
@@ -13347,7 +13347,7 @@
         }
       ],
       "pantone": "",
-      "sku": "",
+      "sku": "M04IAM175CJ",
       "variant": "PP-T",
       "weight_g": 1000
     },
@@ -13386,12 +13386,12 @@
       "color": "Azul",
       "diameter_mm": 1.75,
       "display_name": "PP-T Azul Grilon3 1 kg 1.75 mm",
-      "ean": "",
+      "ean": "7798049654447",
       "id": "pp-pp-t-azul-175-1000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/ppt-azul-6a5e1c89.webp",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/pp-t-azul/",
       "material": "PP",
       "offers": [
         {
@@ -13429,7 +13429,7 @@
         }
       ],
       "pantone": "",
-      "sku": "",
+      "sku": "M04IAZ175CJ",
       "variant": "PP-T",
       "weight_g": 1000
     },
@@ -13473,7 +13473,7 @@
       "image_source": "",
       "image_url": "",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/categoria-producto/tecnicos/pp-t/",
       "material": "PP",
       "offers": [
         {
@@ -13555,7 +13555,7 @@
       "image_source": "",
       "image_url": "",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/categoria-producto/tecnicos/pp-t/",
       "material": "PP",
       "offers": [
         {
@@ -13632,12 +13632,12 @@
       "color": "Natural",
       "diameter_mm": 1.75,
       "display_name": "PP-T Natural Grilon3 1 kg 1.75 mm",
-      "ean": "",
+      "ean": "7798049654423",
       "id": "pp-pp-t-natural-175-1000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/polipropileno1-9cb231ff.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/pp-natural/",
       "material": "PP",
       "offers": [
         {
@@ -13675,7 +13675,7 @@
         }
       ],
       "pantone": "",
-      "sku": "",
+      "sku": "M04INT175CJ",
       "variant": "PP-T",
       "weight_g": 1000
     },
@@ -13719,7 +13719,7 @@
       "image_source": "",
       "image_url": "",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/categoria-producto/tecnicos/pp-t/",
       "material": "PP",
       "offers": [
         {
@@ -13801,7 +13801,7 @@
       "image_source": "",
       "image_url": "",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/categoria-producto/tecnicos/pp-t/",
       "material": "PP",
       "offers": [
         {
@@ -13878,12 +13878,12 @@
       "color": "Verde",
       "diameter_mm": 1.75,
       "display_name": "PP-T Verde Grilon3 1 kg 1.75 mm",
-      "ean": "",
+      "ean": "7798049654737",
       "id": "pp-pp-t-verde-175-1000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/ppt-verde-77cb9ea8.webp",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/pp-t-verde/",
       "material": "PP",
       "offers": [
         {
@@ -13910,7 +13910,7 @@
         }
       ],
       "pantone": "",
-      "sku": "",
+      "sku": "M04IVR175CJ",
       "variant": "PP-T",
       "weight_g": 1000
     },
@@ -14154,10 +14154,10 @@
       "color": "Blanco",
       "diameter_mm": 1.75,
       "display_name": "Simpliflex Blanco Grilon3 1.75 mm",
-      "ean": "7798049653839",
+      "ean": "",
       "id": "tpu-simpliflex-blanco-175-unknown-grilon3",
-      "image_source": "manufacturer",
-      "image_url": "assets/grilon3/simpliflex-blanco-600x600-eff26d67.jpg",
+      "image_source": "",
+      "image_url": "",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "TPU",
@@ -14175,7 +14175,7 @@
         }
       ],
       "pantone": "",
-      "sku": "M13IBL175CJ",
+      "sku": "",
       "variant": "Simpliflex",
       "weight_g": null
     },
@@ -14277,10 +14277,10 @@
       "color": "Celeste",
       "diameter_mm": 1.75,
       "display_name": "Simpliflex Celeste Grilon3 1.75 mm",
-      "ean": "7798049653860",
+      "ean": "",
       "id": "tpu-simpliflex-celeste-175-unknown-grilon3",
-      "image_source": "manufacturer",
-      "image_url": "assets/grilon3/simpliflex-celeste-600x600-bd049947.jpg",
+      "image_source": "",
+      "image_url": "",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "TPU",
@@ -14297,8 +14297,8 @@
           "updated_at": "2026-05-12T20:22:02-03:00"
         }
       ],
-      "pantone": "Pantone 2925",
-      "sku": "M13ICE175CJ",
+      "pantone": "",
+      "sku": "",
       "variant": "Simpliflex",
       "weight_g": null
     },
@@ -14430,10 +14430,10 @@
       "color": "Naranja",
       "diameter_mm": 1.75,
       "display_name": "Simpliflex Naranja Grilon3 1.75 mm",
-      "ean": "7798049653877",
+      "ean": "",
       "id": "tpu-simpliflex-naranja-175-unknown-grilon3",
-      "image_source": "manufacturer",
-      "image_url": "assets/grilon3/simpliflex-naranja-600x600-0d42c35b.jpg",
+      "image_source": "",
+      "image_url": "",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "TPU",
@@ -14450,8 +14450,8 @@
           "updated_at": "2026-05-12T20:22:02-03:00"
         }
       ],
-      "pantone": "Pantone 172",
-      "sku": "M13INA175CJ",
+      "pantone": "",
+      "sku": "",
       "variant": "Simpliflex",
       "weight_g": null
     },
@@ -14512,10 +14512,10 @@
       "color": "Natural",
       "diameter_mm": 1.75,
       "display_name": "Simpliflex Natural Grilon3 1.75 mm",
-      "ean": "7798049653822",
+      "ean": "",
       "id": "tpu-simpliflex-natural-175-unknown-grilon3",
-      "image_source": "manufacturer",
-      "image_url": "assets/grilon3/simpliflex-natural-600x600-90555472.jpg",
+      "image_source": "",
+      "image_url": "",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "TPU",
@@ -14533,7 +14533,7 @@
         }
       ],
       "pantone": "",
-      "sku": "M13INT175CJ",
+      "sku": "",
       "variant": "Simpliflex",
       "weight_g": null
     },
@@ -14624,10 +14624,10 @@
       "color": "Negro",
       "diameter_mm": 1.75,
       "display_name": "Simpliflex Negro Grilon3 1.75 mm",
-      "ean": "7798049653846",
+      "ean": "",
       "id": "tpu-simpliflex-negro-175-unknown-grilon3",
-      "image_source": "manufacturer",
-      "image_url": "assets/grilon3/simpliflex-negro-600x600-d65e3792.jpg",
+      "image_source": "",
+      "image_url": "",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "TPU",
@@ -14644,8 +14644,8 @@
           "updated_at": "2026-05-12T20:22:02-03:00"
         }
       ],
-      "pantone": "Pantone Black",
-      "sku": "M13ING175CJ",
+      "pantone": "",
+      "sku": "",
       "variant": "Simpliflex",
       "weight_g": null
     },
@@ -14747,10 +14747,10 @@
       "color": "Nova",
       "diameter_mm": 1.75,
       "display_name": "Simpliflex Nova Grilon3 1.75 mm",
-      "ean": "7798049653983",
+      "ean": "",
       "id": "tpu-simpliflex-nova-175-unknown-grilon3",
-      "image_source": "manufacturer",
-      "image_url": "assets/grilon3/simpliflex-blanco-350x350-74815da6.jpg",
+      "image_source": "",
+      "image_url": "",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "TPU",
@@ -14768,7 +14768,7 @@
         }
       ],
       "pantone": "",
-      "sku": "M13INV175CJ",
+      "sku": "",
       "variant": "Simpliflex",
       "weight_g": null
     },
@@ -14930,10 +14930,10 @@
       "color": "Verde",
       "diameter_mm": 1.75,
       "display_name": "Simpliflex Verde Grilon3 1.75 mm",
-      "ean": "7798049653853",
+      "ean": "",
       "id": "tpu-simpliflex-verde-175-unknown-grilon3",
-      "image_source": "manufacturer",
-      "image_url": "assets/grilon3/simpliflex-verde-600x600-b9b2212c.jpg",
+      "image_source": "",
+      "image_url": "",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "TPU",
@@ -14950,8 +14950,8 @@
           "updated_at": "2026-05-12T20:22:02-03:00"
         }
       ],
-      "pantone": "Pantone 347",
-      "sku": "M13IVR175CJ",
+      "pantone": "",
+      "sku": "",
       "variant": "Simpliflex",
       "weight_g": null
     },

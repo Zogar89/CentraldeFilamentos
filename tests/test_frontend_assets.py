@@ -253,3 +253,33 @@ def test_generated_stock_data_does_not_use_large_spool_images_for_1kg_products()
     ]
 
     assert mismatches == []
+
+
+def test_generated_stock_data_keeps_sampler_products_without_roll_images():
+    payload = json.loads((PUBLIC / "data" / "stock.json").read_text(encoding="utf-8"))
+    sampler_products = [
+        product
+        for product in payload["products"]
+        if any(
+            "SAMPLER" in offer["original_name"].upper()
+            or "LAPIZ 3D" in offer["original_name"].upper()
+            or "LÁPIZ 3D" in offer["original_name"].upper()
+            for offer in product["offers"]
+        )
+    ]
+
+    assert sampler_products
+    assert [product["image_url"] for product in sampler_products if product["image_url"]] == []
+    assert [product["manufacturer_product_url"] for product in sampler_products if product["manufacturer_product_url"]] == []
+
+
+def test_generated_stock_data_has_official_metadata_for_technical_grilon3_lines():
+    payload = json.loads((PUBLIC / "data" / "stock.json").read_text(encoding="utf-8"))
+    products = {product["id"]: product for product in payload["products"]}
+
+    assert products["pp-pp-t-azul-175-1000-grilon3"]["manufacturer_product_url"] == "https://grilon3.com.ar/producto/pp-t-azul/"
+    assert products["pp-pp-t-azul-175-1000-grilon3"]["image_url"] == "assets/grilon3/ppt-azul-6a5e1c89.webp"
+    assert products["pp-pp-t-blanco-175-1000-grilon3"]["manufacturer_product_url"] == "https://grilon3.com.ar/categoria-producto/tecnicos/pp-t/"
+    assert products["pp-pp-t-blanco-175-1000-grilon3"]["image_url"] == ""
+    assert products["acetal-acetal-pom-negro-175-1000-grilon3"]["manufacturer_product_url"] == "https://grilon3.com.ar/producto/filamento-3d-acetal-negro/"
+    assert products["acetal-acetal-pom-negro-175-1000-grilon3"]["image_url"] == "assets/grilon3/acetal-negro-600x600-d3d3df13.jpg"
