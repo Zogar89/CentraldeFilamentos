@@ -39,13 +39,16 @@ const lineMeta = {
   "PLA+": { label: "PLA+", quickLabel: "PLA+", quickTone: "plus", help: "PLA modificado: suele buscarse por mejor resistencia o terminación." },
   "PLA Flexible": { label: "PLA Flexible", quickLabel: "Flex", quickTone: "flex", help: "PLA+ flexible de 3N3/3NFLEX: piezas con algo de elasticidad." },
   PETG: { label: "PETG", quickLabel: "PETG", quickTone: "petg", help: "Más tenaz y resistente a temperatura que PLA; útil para piezas funcionales." },
+  ABS: { label: "ABS", quickLabel: "ABS", quickTone: "abs", help: "Material técnico para piezas resistentes; suele requerir cama caliente y buena ventilación." },
   TPU: { label: "TPU", quickLabel: "TPU", quickTone: "flex", help: "Flexible/elástico, usado para piezas que necesitan doblarse o absorber impacto." },
   "PLA Astra": { label: "PLA Astra", quickLabel: "Astra", quickTone: "astra", help: "PLA con brillo tipo glitter. Ideal cuando importa la estética de la pieza." },
   "PLA Silk": { label: "PLA Silk", quickLabel: "Silk", quickTone: "silk", help: "PLA de acabado brillante/sedoso, muy usado en piezas decorativas." },
+  "PLA Boutique": { label: "PLA Boutique", quickLabel: "Boutique", quickTone: "boutique", help: "Línea de colores especiales de Grilon3." },
   "PLA Wood": { label: "PLA Wood", quickLabel: "Wood", quickTone: "wood", help: "PLA con terminación tipo madera." },
+  "Nylon 6": { label: "Nylon 6", quickLabel: "Nylon", quickTone: "nylon", help: "Nylon técnico para piezas exigentes." },
 };
 
-const quickLineValues = ["PLA Standard", "PLA+", "PLA Flexible", "PETG", "PLA Astra", "PLA Silk", "PLA Wood", "TPU"];
+const quickLineValues = ["PLA Standard", "PLA+", "PLA Flexible", "PETG", "ABS", "PLA Astra", "PLA Silk", "PLA Boutique", "PLA Wood", "TPU", "Nylon 6"];
 
 const zoneOrder = {
   "Zona Norte": 0,

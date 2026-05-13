@@ -213,6 +213,10 @@ input {
   --quick-accent: #0a7a3f;
 }
 
+.quick-line-abs {
+  --quick-accent: #c94a2e;
+}
+
 .quick-line-astra {
   --quick-accent: radial-gradient(circle at 25% 25%, #ffffff 0 1px, transparent 2px), radial-gradient(circle at 70% 62%, #ffffff 0 1px, transparent 2px), #2f3a56;
 }
@@ -221,8 +225,16 @@ input {
   --quick-accent: linear-gradient(135deg, #c9a227, #f4e3bd 52%, #c7c7c7);
 }
 
+.quick-line-boutique {
+  --quick-accent: linear-gradient(135deg, #7ddfd4, #c6925b 52%, #c2185b);
+}
+
 .quick-line-wood {
   --quick-accent: linear-gradient(135deg, #704214, #c6925b);
+}
+
+.quick-line-nylon {
+  --quick-accent: #7f8c99;
 }
 
 .quick-line:hover {

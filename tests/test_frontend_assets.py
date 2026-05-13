@@ -98,6 +98,9 @@ def test_catalog_script_fetches_json_and_supports_required_filters():
     assert "quickLineValues" in js
     assert "quickLabel" in js
     assert "quickTone" in js
+    assert '"ABS"' in js
+    assert '"PLA Boutique"' in js
+    assert '"Nylon 6"' in js
     assert "PLA Wood" in js
     assert "quickLineButtonTemplate" in js
     assert "categoryOrder" in js
@@ -168,6 +171,9 @@ def test_summary_script_uses_carretes_totals_and_provider_order():
     assert "token.startsWith(term)" in js
     assert "summary-group-row" in js
     assert "quickLineValues" in js
+    assert '"ABS"' in js
+    assert '"PLA Boutique"' in js
+    assert '"Nylon 6"' in js
     assert "renderQuickLines" in js
     assert "scrollToQuickLine" in js
     assert "summaryGroupTargetId" in js
@@ -201,7 +207,10 @@ def test_styles_are_compact_and_responsive():
     assert ".group-section.quick-target" in css
     assert ".group-heading" in css
     assert ".quick-line::before" in css
+    assert ".quick-line-abs" in css
+    assert ".quick-line-boutique" in css
     assert ".quick-line-wood" in css
+    assert ".quick-line-nylon" in css
     assert "scrollbar-width: none" in css
     assert "top: var(--quick-lines-height)" in css
     assert "scroll-margin-top" in css

@@ -31,13 +31,13 @@ const lineMeta = {
   "PLA+": { label: "PLA+", quickLabel: "PLA+", quickTone: "plus", help: "PLA modificado: suele buscarse por mejor resistencia o terminación.", rank: 20 },
   "PLA Flexible": { label: "PLA Flexible", quickLabel: "Flex", quickTone: "flex", help: "PLA+ flexible de 3N3/3NFLEX: piezas con algo de elasticidad.", rank: 25 },
   "PETG": { label: "PETG", quickLabel: "PETG", quickTone: "petg", help: "Más tenaz y resistente a temperatura que PLA; útil para piezas funcionales.", rank: 30 },
-  "ABS": { label: "ABS", quickTone: "tech", help: "Material técnico para piezas resistentes; suele requerir cama caliente y buena ventilación.", rank: 40 },
+  "ABS": { label: "ABS", quickLabel: "ABS", quickTone: "abs", help: "Material técnico para piezas resistentes; suele requerir cama caliente y buena ventilación.", rank: 40 },
   "TPU": { label: "TPU", quickLabel: "TPU", quickTone: "flex", help: "Flexible/elástico, usado para piezas que necesitan doblarse o absorber impacto.", rank: 50 },
   "Flex": { label: "Flex", quickTone: "flex", help: "Línea flexible de 3N3; pensada para piezas blandas o elásticas.", rank: 51 },
   "Simpliflex": { label: "Simpliflex", quickTone: "flex", help: "Flexible de Grilon3: alternativa elástica con impresión más amigable.", rank: 52 },
   "PLA Astra": { label: "PLA Astra", quickLabel: "Astra", quickTone: "astra", help: "PLA con brillo tipo glitter. Ideal cuando importa la estética de la pieza.", rank: 60 },
   "PLA Silk": { label: "PLA Silk", quickLabel: "Silk", quickTone: "silk", help: "PLA de acabado brillante/sedoso, muy usado en piezas decorativas.", rank: 61 },
-  "PLA Boutique": { label: "PLA Boutique", quickTone: "boutique", help: "Línea de colores especiales de Grilon3.", rank: 62 },
+  "PLA Boutique": { label: "PLA Boutique", quickLabel: "Boutique", quickTone: "boutique", help: "Línea de colores especiales de Grilon3.", rank: 62 },
   "PLA Wood": { label: "PLA Wood", quickLabel: "Wood", quickTone: "wood", help: "PLA con terminación tipo madera.", rank: 63 },
   "PLA 850": { label: "PLA 850 · técnico", help: "PLA de línea específica, distinto del PLA Standard.", rank: 70 },
   "PLA 870": { label: "PLA 870 · técnico", help: "PLA de línea específica, distinto del PLA Standard.", rank: 71 },
@@ -45,14 +45,14 @@ const lineMeta = {
   "PETG Clear": { label: "PETG Clear · translúcido", help: "PETG translúcido/clear para piezas donde importa el pasaje de luz.", rank: 80 },
   "E-PET": { label: "E-PET · PET reciclado", help: "PET reciclado. Distinto de PETG.", rank: 81 },
   "PP-T": { label: "PP-T · polipropileno", help: "Polipropileno técnico; útil por su resistencia química y flexibilidad.", rank: 90 },
-  "Nylon 6": { label: "Nylon 6", help: "Nylon técnico para piezas exigentes.", rank: 100 },
-  "Nylon 12": { label: "Nylon 12", help: "Nylon técnico con otra formulación; no mezclar con Nylon 6.", rank: 101 },
+  "Nylon 6": { label: "Nylon 6", quickLabel: "Nylon", quickTone: "nylon", help: "Nylon técnico para piezas exigentes.", rank: 100 },
+  "Nylon 12": { label: "Nylon 12", quickTone: "nylon", help: "Nylon técnico con otra formulación; no mezclar con Nylon 6.", rank: 101 },
   "Acetal-POM": { label: "Acetal-POM", help: "Material técnico de baja fricción, usado en piezas mecánicas.", rank: 110 },
   "PVA Soluble": { label: "PVA soluble", help: "Material soluble, usualmente para soportes.", rank: 120 },
   "Sampler / lápiz 3D": { label: "Sampler / lápiz 3D", help: "Muestras cortas en metros, pensadas para lápiz 3D o prueba de material; no son bobinas.", rank: 130 },
 };
 
-const quickLineValues = ["PLA Standard", "PLA+", "PLA Flexible", "PETG", "PLA Astra", "PLA Silk", "PLA Wood", "TPU"];
+const quickLineValues = ["PLA Standard", "PLA+", "PLA Flexible", "PETG", "ABS", "PLA Astra", "PLA Silk", "PLA Boutique", "PLA Wood", "TPU", "Nylon 6"];
 
 const siteContactUrl = "https://github.com/Zogar89/StockCentral/issues/new";
 const siteRepoUrl = "https://github.com/Zogar89/StockCentral";
