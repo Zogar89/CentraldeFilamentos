@@ -120,9 +120,15 @@ input {
 .quick-lines {
   display: flex;
   gap: 6px;
-  margin: 8px 0;
+  margin: 8px 0 0;
   overflow-x: auto;
-  padding-bottom: 2px;
+  padding: 8px 0;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: color-mix(in srgb, var(--bg) 92%, transparent);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid color-mix(in srgb, var(--line) 78%, transparent);
 }
 
 .quick-line {
@@ -149,9 +155,6 @@ input {
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: 8px;
-  position: sticky;
-  top: 0;
-  z-index: 4;
 }
 
 .line-help {
@@ -191,7 +194,7 @@ input {
 .group-section {
   display: grid;
   gap: 8px;
-  scroll-margin-top: 150px;
+  scroll-margin-top: 70px;
   border-radius: 8px;
   transition: background-color 240ms ease, box-shadow 240ms ease;
 }
@@ -694,7 +697,7 @@ input {
   }
 
   .group-section {
-    scroll-margin-top: 16px;
+    scroll-margin-top: 64px;
   }
 
   .product-image {
