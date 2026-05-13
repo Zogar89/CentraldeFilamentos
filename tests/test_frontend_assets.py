@@ -54,8 +54,11 @@ def test_catalog_script_fetches_json_and_supports_required_filters():
     assert "cardImageProducts" in js
     assert "productVisualsTemplate" in js
     assert "productVisualTemplate" in js
-    assert "product.weight_g === 1000 && product.image_url" in js
-    assert "product.weight_g === 2500 && product.image_url" in js
+    assert "compareImagePresentations" in js
+    assert "imagePresentationRank" in js
+    assert ".filter((product) => product.image_url)" in js
+    assert "Number(product.weight_g) === 1000" in js
+    assert "Number(product.weight_g) === 2500" in js
     assert "seenUrls" in js
     assert "media-presentation" in js
     assert "colorSwatchTemplate" in js

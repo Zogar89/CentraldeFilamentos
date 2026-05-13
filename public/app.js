@@ -166,10 +166,23 @@ function cardImageProducts(products) {
     selected.push(candidate);
     seenUrls.add(candidate.image_url);
   };
-  add(products.find((product) => product.weight_g === 1000 && product.image_url));
-  add(products.find((product) => product.weight_g === 2500 && product.image_url));
-  if (!selected.length) add(products.find((product) => product.image_url));
+
+  products
+    .filter((product) => product.image_url)
+    .sort(compareImagePresentations)
+    .forEach(add);
+
   return selected.length ? selected : [products[0]];
+}
+
+function compareImagePresentations(left, right) {
+  return imagePresentationRank(left) - imagePresentationRank(right) || comparePresentations(left, right);
+}
+
+function imagePresentationRank(product) {
+  if (Number(product.weight_g) === 1000) return 0;
+  if (Number(product.weight_g) === 2500) return 1;
+  return 2;
 }
 
 function productVisualTemplate(product, imageProduct, showPresentation = false) {
