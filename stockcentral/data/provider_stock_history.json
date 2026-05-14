@@ -1,3 +1,13 @@
 {
-  "days": []
+  "days": [
+    {
+      "captured_at": "2026-05-14T09:37:27-03:00",
+      "date": "2026-05-14",
+      "providers": {
+        "filamentos3d": 13152,
+        "grupo_senz": 11785,
+        "mundoinsumos": 6763
+      }
+    }
+  ]
 }
