@@ -771,6 +771,96 @@ input {
   color: var(--muted);
 }
 
+.build-health {
+  margin: 12px 0;
+}
+
+.build-health:empty {
+  display: none;
+}
+
+.build-health-card {
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.build-health-card header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.build-health-card h2 {
+  margin: 2px 0 0;
+  font-size: 16px;
+}
+
+.build-health-card header strong {
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: var(--surface-soft);
+  color: var(--muted);
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.build-health-ok {
+  border-color: color-mix(in srgb, var(--ok) 34%, var(--line));
+}
+
+.build-health-blocked {
+  border-color: color-mix(in srgb, var(--out) 34%, var(--line));
+}
+
+.build-health-events {
+  display: grid;
+  gap: 6px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+  color: var(--muted);
+}
+
+.build-health-events li {
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: var(--surface-soft);
+}
+
+.health-event-error {
+  color: var(--out);
+}
+
+.health-event-warning {
+  color: color-mix(in srgb, var(--out) 72%, var(--ink));
+}
+
+.build-health-last-good {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 8px;
+  margin: 12px 0 0;
+}
+
+.build-health-last-good div {
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.build-health-last-good dt {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.build-health-last-good dd {
+  margin: 3px 0 0;
+  font-weight: 750;
+}
+
 .vendor-stat-card header strong {
   white-space: nowrap;
 }

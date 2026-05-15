@@ -223,7 +223,11 @@ def test_internal_vendor_script_uses_feature_flag_and_30_day_history():
 
     assert "data/feature_flags.json" in js
     assert "data/provider_stock_history.json" in js
+    assert "data/build_business_log.json" in js
     assert "vendorStatsEnabled" in js
+    assert "renderBuildHealth" in js
+    assert "build-health" in js
+    assert "last_good_sources" in js
     assert "slice(-30)" in js
     assert "deltaForProvider" in js
     assert "vs dia anterior" in js
@@ -296,6 +300,8 @@ def test_styles_are_compact_and_responsive():
     assert "top: calc(var(--quick-lines-height) + var(--summary-head-height))" in css
     assert ".summary-table tbody .summary-group-row th" in css
     assert ".internal-shell" in css
+    assert ".build-health" in css
+    assert ".build-health-events" in css
     assert ".vendor-stat-grid" in css
     assert ".vendor-history-table" in css
     assert ".intraday-checks" in css

@@ -2,6 +2,7 @@ const state = {
   providers: [],
   days: [],
   generatedAt: "",
+  health: null,
 };
 
 document.addEventListener("DOMContentLoaded", init);
@@ -14,6 +15,7 @@ async function init() {
   }
 
   const history = await fetchJson("data/provider_stock_history.json", { providers: [], days: [] });
+  state.health = await fetchJson("data/build_business_log.json", null);
   state.providers = history.providers || [];
   state.days = (history.days || []).slice(-30);
   state.generatedAt = history.generated_at || "";
@@ -39,6 +41,7 @@ function showDisabled() {
 function render() {
   document.getElementById("vendor-updated").textContent = `Actualizado: ${formatDate(state.generatedAt)}`;
   document.getElementById("vendor-window").textContent = `${state.days.length} dias registrados`;
+  renderBuildHealth();
 
   const dashboard = document.getElementById("vendor-dashboard");
   if (!state.days.length || !state.providers.length) {
@@ -56,6 +59,52 @@ function render() {
       ${state.providers.map(providerCardTemplate).join("")}
     </section>
   `;
+}
+
+function renderBuildHealth() {
+  const health = state.health || {};
+  const target = document.getElementById("build-health");
+  if (!target) return;
+  if (!health.status || health.status === "not_run") {
+    target.innerHTML = "";
+    return;
+  }
+
+  const status = health.status === "ok" ? "ok" : "blocked";
+  const events = Array.isArray(health.events) ? health.events : [];
+  const lastGoodSources = health.last_good_sources || {};
+  target.innerHTML = `
+    <article class="build-health-card build-health-${status}">
+      <header>
+        <div>
+          <p class="eyebrow">Salud del build</p>
+          <h2>${escapeHtml(health.summary || "Sin novedades")}</h2>
+        </div>
+        <strong>${escapeHtml(statusLabel(health.status))}</strong>
+      </header>
+      ${events.length ? `<ul class="build-health-events">${events.slice(0, 4).map(healthEventTemplate).join("")}</ul>` : ""}
+      ${Object.keys(lastGoodSources).length ? `<dl class="build-health-last-good">${Object.entries(lastGoodSources).map(lastGoodSourceTemplate).join("")}</dl>` : ""}
+    </article>
+  `;
+}
+
+function healthEventTemplate(event) {
+  return `<li class="health-event-${escapeAttribute(event.level || "info")}">${escapeHtml(event.message || "")}</li>`;
+}
+
+function lastGoodSourceTemplate([sourceId, source]) {
+  return `
+    <div>
+      <dt>${escapeHtml(source.name || sourceId)}</dt>
+      <dd>${formatInteger(source.total_stock_units)} carretes · ${escapeHtml(formatDate(source.generated_at))}</dd>
+    </div>
+  `;
+}
+
+function statusLabel(status) {
+  if (status === "ok") return "OK";
+  if (status === "blocked") return "Bloqueado";
+  return status || "";
 }
 
 function providerCardTemplate(provider) {
@@ -218,4 +267,8 @@ function formatTime(value) {
 
 function escapeHtml(value) {
   return String(value ?? "").replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" }[char]));
+}
+
+function escapeAttribute(value) {
+  return escapeHtml(value).replace(/`/g, "&#096;");
 }
