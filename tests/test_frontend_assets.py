@@ -218,6 +218,12 @@ def test_internal_vendor_svelte_uses_feature_flag_and_30_day_history():
     assert "build-health" in js
     assert "last_good_sources" in js
     assert "slice(-30)" in js
+    assert "stockSeriesForProvider" in js
+    assert "stockChartForProvider" in js
+    assert "vendor-stock-chart" in js
+    assert "Evolucion 30d" in js
+    assert "chart-line" in js
+    assert "chart-point" in js
     assert "deltaForProvider" in js
     assert "vs dia anterior" in js
     assert "checksForDay" in js
@@ -292,6 +298,10 @@ def test_styles_are_compact_and_responsive():
     assert ".build-health" in css
     assert ".build-health-events" in css
     assert ".vendor-stat-grid" in css
+    assert ".vendor-stock-chart" in css
+    assert ".chart-line" in css
+    assert ".chart-area" in css
+    assert ".chart-point" in css
     assert ".vendor-history-table" in css
     assert ".intraday-checks" in css
     assert ".intraday-panel" in css

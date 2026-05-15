@@ -61,6 +61,51 @@
     return [{ captured_at: day.captured_at, providers: day.providers || {} }];
   }
 
+  function stockSeriesForProvider(providerId) {
+    return days.map((day) => ({
+      date: day.date,
+      quantity: quantityForProvider(day, providerId),
+    }));
+  }
+
+  function stockChartForProvider(providerId) {
+    const series = stockSeriesForProvider(providerId);
+    const values = series.map((item) => item.quantity);
+    const min = values.length ? Math.min(...values) : 0;
+    const max = values.length ? Math.max(...values) : 0;
+    const first = values[0] ?? 0;
+    const latest = values[values.length - 1] ?? 0;
+    const delta = latest - first;
+    const width = 220;
+    const height = 72;
+    const padX = 10;
+    const padY = 9;
+    const range = max - min || 1;
+    const points = series.map((item, index) => {
+      const x = series.length === 1
+        ? width / 2
+        : padX + (index * (width - padX * 2)) / (series.length - 1);
+      const y = height - padY - ((item.quantity - min) * (height - padY * 2)) / range;
+      return { ...item, x, y };
+    });
+    const linePath = points.map((point, index) => `${index ? "L" : "M"} ${point.x.toFixed(1)} ${point.y.toFixed(1)}`).join(" ");
+    const areaPath = points.length
+      ? `${linePath} L ${points[points.length - 1].x.toFixed(1)} ${height - padY} L ${points[0].x.toFixed(1)} ${height - padY} Z`
+      : "";
+    return {
+      areaPath,
+      delta,
+      firstLabel: series[0]?.date ? formatDay(series[0].date) : "",
+      height,
+      latest,
+      linePath,
+      max,
+      min,
+      points,
+      width,
+    };
+  }
+
   function deltaTone(delta) {
     if (!Number.isFinite(delta)) return "muted";
     if (delta > 0) return "positive";
@@ -142,6 +187,7 @@
       {:else}
         <section class="vendor-stat-grid">
           {#each providers as provider}
+            {@const chart = stockChartForProvider(provider.id)}
             <article class="vendor-stat-card">
               <header>
                 <div>
@@ -164,6 +210,34 @@
                   <dd class="delta-negative">-{formatInteger(movementForProvider(provider.id, "negative"))}</dd>
                 </div>
               </dl>
+              <section class="vendor-stock-chart" aria-label={`Evolucion de stock de ${provider.name} en los ultimos 30 dias`}>
+                <header>
+                  <div>
+                    <span>Evolucion 30d</span>
+                    <strong>{formatInteger(chart.latest)} carretes</strong>
+                  </div>
+                  <span class={`delta-badge delta-${deltaTone(chart.delta)}`}>{deltaLabel(chart.delta)}</span>
+                </header>
+                <svg viewBox={`0 0 ${chart.width} ${chart.height}`} preserveAspectRatio="none" role="img" aria-label={`Stock minimo ${formatInteger(chart.min)}, maximo ${formatInteger(chart.max)}`}>
+                  <line class="chart-grid-line" x1="0" y1="9" x2={chart.width} y2="9"></line>
+                  <line class="chart-grid-line" x1="0" y1="63" x2={chart.width} y2="63"></line>
+                  {#if chart.areaPath}
+                    <path class="chart-area" d={chart.areaPath}></path>
+                  {/if}
+                  {#if chart.linePath}
+                    <path class="chart-line" d={chart.linePath}></path>
+                  {/if}
+                  {#each chart.points as point}
+                    <circle class="chart-point" cx={point.x} cy={point.y} r="2.4">
+                      <title>{formatDay(point.date)} · {formatInteger(point.quantity)} carretes</title>
+                    </circle>
+                  {/each}
+                </svg>
+                <footer>
+                  <span>{chart.firstLabel}</span>
+                  <span>Min {formatInteger(chart.min)} · Max {formatInteger(chart.max)}</span>
+                </footer>
+              </section>
               <div class="vendor-table-wrap">
                 <table class="vendor-history-table">
                   <thead>
