@@ -1,5 +1,92 @@
 {
-  "days": [],
-  "generated_at": "",
-  "providers": []
+  "days": [
+    {
+      "captured_at": "2026-05-14T09:37:27-03:00",
+      "checks": [
+        {
+          "captured_at": "2026-05-14T09:37:27-03:00",
+          "providers": {
+            "filamentos3d": 13152,
+            "grupo_senz": 11785,
+            "mundoinsumos": 6763
+          }
+        }
+      ],
+      "date": "2026-05-14",
+      "providers": {
+        "filamentos3d": 13152,
+        "grupo_senz": 11785,
+        "mundoinsumos": 6763
+      }
+    },
+    {
+      "captured_at": "2026-05-15T02:07:44-03:00",
+      "checks": [
+        {
+          "captured_at": "2026-05-15T02:20:17-03:00",
+          "providers": {
+            "filamentos3d": 13206,
+            "grupo_senz": 11741,
+            "mundoinsumos": 7195
+          }
+        },
+        {
+          "captured_at": "2026-05-15T03:48:31-03:00",
+          "providers": {
+            "filamentos3d": 13206,
+            "grupo_senz": 11741,
+            "mundoinsumos": 7195
+          }
+        },
+        {
+          "captured_at": "2026-05-15T04:50:06-03:00",
+          "providers": {
+            "filamentos3d": 13206,
+            "grupo_senz": 11741,
+            "mundoinsumos": 7195
+          }
+        },
+        {
+          "captured_at": "2026-05-15T05:19:03-03:00",
+          "providers": {
+            "filamentos3d": 13206,
+            "grupo_senz": 11741,
+            "mundoinsumos": 7195
+          }
+        },
+        {
+          "captured_at": "2026-05-15T06:57:35-03:00",
+          "providers": {
+            "filamentos3d": 13206,
+            "grupo_senz": 11741,
+            "mundoinsumos": 7195
+          }
+        }
+      ],
+      "date": "2026-05-15",
+      "providers": {
+        "filamentos3d": 13206,
+        "grupo_senz": 11741,
+        "mundoinsumos": 7195
+      }
+    }
+  ],
+  "generated_at": "2026-05-12T20:22:12-03:00",
+  "providers": [
+    {
+      "id": "mundoinsumos",
+      "name": "MundoInsumos",
+      "zone": "Zona Norte"
+    },
+    {
+      "id": "grupo_senz",
+      "name": "Grupo Senz",
+      "zone": "Zona Oeste"
+    },
+    {
+      "id": "filamentos3d",
+      "name": "Filamentos3D",
+      "zone": "Zona Sur"
+    }
+  ]
 }
