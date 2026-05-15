@@ -11,8 +11,8 @@ Decisiones principales:
 - Sitio estatico publico.
 - Python para ingesta y normalizacion.
 - Vite + Svelte para el frontend.
-- GitHub Actions para actualizar stock 2 a 4 veces por dia en horario de oficina.
-- GitHub Pages para publicar.
+- GitHub Actions con procesos separados para stock, UI y miniaturas.
+- GitHub Pages publica desde la rama `gh-pages`.
 - Proveedores iniciales: Filamentos3D, Grupo Senz y MundoInsumos.
 - UI en espanol argentino, compacta, mobile friendly y minimalista.
 
@@ -23,7 +23,6 @@ python -m pip install -e ".[dev]"
 npm ci
 python -m pytest -v --basetemp C:\tmp\pytest-centraldefilamentos
 python -m centraldefilamentos.build_data --output public/data/stock.json
-python -m centraldefilamentos.generate_thumbnails --stock-json public/data/stock.json
 npm run dev
 ```
 
@@ -56,8 +55,13 @@ Generar datos para el sitio estatico:
 
 ```bash
 python -m centraldefilamentos.build_data --output public/data/stock.json
-python -m centraldefilamentos.generate_thumbnails --stock-json public/data/stock.json
 npm run build
+```
+
+Generar o refrescar miniaturas solo cuando cambian imagenes fuente:
+
+```bash
+python -m centraldefilamentos.generate_thumbnails --stock-json public/data/stock.json
 ```
 
 Actualizar la cache local de metadatos e imagenes oficiales de Grilon3, solo cuando Grilon3 cambie o agregue filamentos:
@@ -91,7 +95,7 @@ npm run preview
 
 ## Datos
 
-El frontend lee `public/data/stock.json` durante desarrollo. En produccion, GitHub Actions genera ese archivo, genera las miniaturas, corre `npm run build` y publica `dist/` en GitHub Pages.
+El frontend lee `public/data/stock.json` durante desarrollo. En produccion, los datos se publican como archivos estaticos en la rama `gh-pages`, sin reconstruir la interfaz.
 
 `public/data/stock.json` es salida generada. Evitar editarlo a mano: los cambios persistentes van en normalizacion, fuentes o caches de metadata, y luego se regenera con los comandos anteriores.
 
@@ -121,7 +125,15 @@ El sitio publicado queda disponible en:
 
 https://zogar89.github.io/CentraldeFilamentos/
 
-GitHub Pages esta configurado con `build_type: workflow`. El workflow `.github/workflows/pages.yml` se puede correr manualmente con `workflow_dispatch` y tambien corre de lunes a viernes a las 12, 15, 18 y 21 UTC, que corresponden a las 09, 12, 15 y 18 hs de Argentina.
+GitHub Pages esta configurado con `build_type: legacy` y publica desde la rama `gh-pages`, carpeta `/`.
+
+La publicacion esta separada en tres procesos:
+
+- `.github/workflows/data-capture.yml`: captura stock de lunes a viernes a las 12, 15, 18 y 21 UTC, que corresponden a las 09, 12, 15 y 18 hs de Argentina. Actualiza `public/data/*.json` y los publica en `gh-pages/data/` sin correr Vite.
+- `.github/workflows/pages.yml`: publica la interfaz. Corre manualmente o cuando cambian archivos de UI/configuracion, ejecuta `npm run build` y copia `dist/` a `gh-pages`.
+- `.github/workflows/thumbnails.yml`: genera y publica miniaturas. Corre manualmente o cuando cambian imagenes fuente en `public/assets/**`, sin mezclarse con la captura de stock diaria.
+
+El detalle operativo de estos workflows esta en `docs/publishing-workflows.md`.
 
 ## Fuentes iniciales
 
@@ -131,6 +143,7 @@ GitHub Pages esta configurado con `build_type: workflow`. El workflow `.github/w
 
 ## Documentacion
 
+- Publicacion y workflows: `docs/publishing-workflows.md`
 - Spec de producto: `docs/superpowers/specs/2026-05-12-centraldefilamentos-design.md`
 - Plan de implementacion: `docs/superpowers/plans/2026-05-12-centraldefilamentos-mvp.md`
 - Handoff de sesion y preguntas pendientes: `docs/superpowers/session-handoff-2026-05-12.md`
