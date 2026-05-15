@@ -265,7 +265,7 @@
     </select>
   </section>
 
-  <section aria-label="Líneas populares">
+  <section class="quick-lines-shell" aria-label="Líneas populares">
     <QuickLines id="quick-lines" available={availableLines} bind:help={lineHelp} targetSelector=".group-section" />
     <p id="line-help" class="line-help">{lineHelp}</p>
   </section>

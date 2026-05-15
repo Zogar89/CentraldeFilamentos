@@ -11,8 +11,8 @@
   --ok: #0a7a3f;
   --out: #7a7a82;
   --warn: #a15c00;
-  --quick-lines-height: 44px;
-  --summary-head-height: 38px;
+  --quick-lines-height: 43px;
+  --summary-head-height: 37px;
 }
 
 * {
@@ -148,19 +148,26 @@ input {
   border-radius: 8px;
 }
 
-.quick-lines {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  margin: 8px 0 0;
-  overflow-x: auto;
-  padding: 6px 0;
+.filters {
+  margin-bottom: 8px;
+}
+
+.quick-lines-shell {
   position: sticky;
   top: 0;
   z-index: 8;
   background: color-mix(in srgb, var(--bg) 92%, transparent);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid color-mix(in srgb, var(--line) 78%, transparent);
+}
+
+.quick-lines {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  overflow-x: auto;
+  min-height: var(--quick-lines-height);
+  padding: 6px 0;
   scrollbar-width: none;
 }
 

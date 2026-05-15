@@ -241,6 +241,7 @@ def test_styles_are_compact_and_responsive():
     assert ".group-section.quick-target" in css
     assert ".group-heading" in css
     assert ".quick-line::before" in css
+    assert ".quick-lines-shell" in css
     assert ".quick-line-abs" in css
     assert ".quick-line-boutique" in css
     assert ".quick-line-wood" in css

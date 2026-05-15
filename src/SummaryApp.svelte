@@ -161,7 +161,7 @@
     </label>
   </section>
 
-  <section aria-label="Líneas populares">
+  <section class="quick-lines-shell" aria-label="Líneas populares">
     <QuickLines id="summary-quick-lines" available={availableLines} bind:help={lineHelp} targetSelector=".summary-group-row" />
     <p id="summary-line-help" class="line-help">{lineHelp}</p>
   </section>
