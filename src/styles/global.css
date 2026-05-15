@@ -1671,11 +1671,11 @@ input {
   .quick-lines-cue {
     position: absolute;
     top: 50%;
-    right: 7px;
+    right: 6px;
     z-index: 3;
     display: block;
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
     border: 1px solid color-mix(in srgb, var(--line) 78%, black);
     border-radius: 999px;
     background: color-mix(in srgb, var(--surface) 92%, transparent);
@@ -1692,8 +1692,8 @@ input {
     position: absolute;
     top: 50%;
     left: 47%;
-    width: 7px;
-    height: 7px;
+    width: 6px;
+    height: 6px;
     border-top: 2px solid color-mix(in srgb, var(--muted) 82%, var(--text));
     border-right: 2px solid color-mix(in srgb, var(--muted) 82%, var(--text));
     transform: translate(-50%, -50%) rotate(45deg);

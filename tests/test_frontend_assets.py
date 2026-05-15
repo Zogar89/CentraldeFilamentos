@@ -119,6 +119,8 @@ def test_catalog_svelte_fetches_json_and_supports_required_filters():
     assert "compareProductGroups" in js
     assert "scrollIntoView" in js
     assert "quick-target" in js
+    assert "updateScrollCue" in js
+    assert "showScrollCue" in js
     assert "groupTargetId" in js
     assert "slugText" in js
     assert "state.filters.variant = button.dataset.line" not in js

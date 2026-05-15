@@ -1,4 +1,5 @@
 <script>
+  import { onMount, tick } from "svelte";
   import { lineMeta, quickLineHint, quickLineLabel, quickLineValues } from "../lib/shared.js";
 
   export let available = [];
@@ -6,8 +7,27 @@
   export let help = "";
   export let id = "";
 
+  let scrollNode;
+  let showScrollCue = false;
+
   $: availableSet = new Set(available);
   $: visibleLines = quickLineValues.filter((line) => availableSet.has(line));
+  $: {
+    visibleLines;
+    tick().then(updateScrollCue);
+  }
+
+  onMount(() => {
+    updateScrollCue();
+    window.addEventListener("resize", updateScrollCue);
+    return () => window.removeEventListener("resize", updateScrollCue);
+  });
+
+  function updateScrollCue() {
+    if (!scrollNode) return;
+    const remaining = scrollNode.scrollWidth - scrollNode.clientWidth - scrollNode.scrollLeft;
+    showScrollCue = remaining > 10;
+  }
 
   function scrollToLine(line) {
     help = "";
@@ -23,7 +43,7 @@
   }
 </script>
 
-<div id={id || undefined} class="quick-lines">
+<div bind:this={scrollNode} id={id || undefined} class="quick-lines" on:scroll={updateScrollCue}>
   {#each visibleLines as line}
     {@const tone = lineMeta[line]?.quickTone || "default"}
     <button class={`quick-line quick-line-${tone}`} type="button" data-line={line} title={quickLineHint(line)} aria-label={`${quickLineLabel(line)}. ${quickLineHint(line)}`} on:click={() => scrollToLine(line)}>
@@ -31,4 +51,6 @@
     </button>
   {/each}
 </div>
-<span class="quick-lines-cue" aria-hidden="true"></span>
+{#if showScrollCue}
+  <span class="quick-lines-cue" aria-hidden="true"></span>
+{/if}
