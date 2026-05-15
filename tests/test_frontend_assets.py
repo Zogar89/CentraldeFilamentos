@@ -232,6 +232,8 @@ def test_internal_vendor_script_uses_feature_flag_and_30_day_history():
     assert "details" in js
     assert "Chequeos del dia" in js
     assert "vs 09:00" in js
+    assert "intraday-list" in js
+    assert "intraday-row" in js
     assert "America/Argentina/Buenos_Aires" in js
     assert "vendor-dashboard" in js
     assert "vendor-disabled" in js
@@ -297,7 +299,9 @@ def test_styles_are_compact_and_responsive():
     assert ".vendor-stat-grid" in css
     assert ".vendor-history-table" in css
     assert ".intraday-checks" in css
-    assert ".intraday-table" in css
+    assert ".intraday-panel" in css
+    assert ".intraday-list" in css
+    assert ".intraday-row" in css
     assert ".delta-positive" in css
     assert ".delta-negative" in css
 

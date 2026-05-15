@@ -107,15 +107,18 @@ function dayRowsTemplate(day, providerId) {
   const delta = deltaForProvider(day.date, providerId);
   const checks = checksForDay(day);
   return `
-    <tr>
+    <tr class="daily-row">
       <td>${escapeHtml(formatDay(day.date))}</td>
       <td>${formatInteger(quantity)}</td>
       <td>${deltaBadgeTemplate(delta)}</td>
     </tr>
     <tr class="intraday-checks">
       <td colspan="3">
-        <details>
-          <summary>Chequeos del dia (${checks.length})</summary>
+        <details class="intraday-panel">
+          <summary>
+            <span>Chequeos del dia</span>
+            <strong>${formatInteger(checks.length)}</strong>
+          </summary>
           ${intradayRowsTemplate(day, providerId, checks)}
         </details>
       </td>
@@ -127,19 +130,9 @@ function intradayRowsTemplate(day, providerId, checks) {
   if (!checks.length) return `<p class="intraday-empty">Sin chequeos intradia.</p>`;
   const baseline = quantityForProvider(day, providerId);
   return `
-    <table class="intraday-table">
-      <thead>
-        <tr>
-          <th>Hora</th>
-          <th>Cantidad</th>
-          <th>Vs anterior</th>
-          <th>vs 09:00</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${checks.map((check, index) => intradayCheckRowTemplate(check, checks[index - 1], providerId, baseline)).join("")}
-      </tbody>
-    </table>
+    <div class="intraday-list">
+      ${checks.map((check, index) => intradayCheckRowTemplate(check, checks[index - 1], providerId, baseline)).join("")}
+    </div>
   `;
 }
 
@@ -148,12 +141,12 @@ function intradayCheckRowTemplate(check, previousCheck, providerId, baseline) {
   const previousQuantity = previousCheck ? quantityForProvider(previousCheck, providerId) : null;
   const previousDelta = Number.isFinite(previousQuantity) ? quantity - previousQuantity : null;
   return `
-    <tr>
-      <td>${escapeHtml(formatTime(check.captured_at))}</td>
-      <td>${formatInteger(quantity)}</td>
-      <td>${deltaBadgeTemplate(previousDelta)}</td>
-      <td>${deltaBadgeTemplate(quantity - baseline)}</td>
-    </tr>
+    <div class="intraday-row">
+      <span class="intraday-time">${escapeHtml(formatTime(check.captured_at))}</span>
+      <strong class="intraday-quantity">${formatInteger(quantity)}</strong>
+      <span class="intraday-metric"><small>vs anterior</small>${deltaBadgeTemplate(previousDelta)}</span>
+      <span class="intraday-metric"><small>vs 09:00</small>${deltaBadgeTemplate(quantity - baseline)}</span>
+    </div>
   `;
 }
 
