@@ -70,6 +70,8 @@ async function init() {
   });
   state.rows = buildRows();
   document.getElementById("summary-updated").textContent = `Última actualización: ${formatDate(payload.generated_at)}`;
+  document.getElementById("summary-provider-count").textContent = `${state.sources.length} proveedores conectados`;
+  setupBackToTopButton();
   document.getElementById("summary-search").addEventListener("input", (event) => {
     state.query = event.target.value.toLowerCase().trim();
     render();
@@ -107,23 +109,68 @@ function sourceFooter(source) {
   const stats = source.stats || {};
   const stockDelta = stockDeltaTemplate(stats);
   const actions = [
-    source.contact_whatsapp_url ? `<a href="${escapeAttribute(sourceWhatsappUrl(source))}" target="_blank" rel="noopener">WhatsApp</a>` : "",
-    source.contact_phone ? `<a href="tel:${escapeAttribute(source.contact_phone.replaceAll(" ", ""))}">Teléfono</a>` : "",
-    source.contact_email ? `<a href="mailto:${escapeAttribute(source.contact_email)}">Mail</a>` : "",
-    source.source_url ? `<a href="${escapeAttribute(source.source_url)}" target="_blank" rel="noopener">Fuente</a>` : "",
+    source.contact_whatsapp_url ? providerActionTemplate(sourceWhatsappUrl(source), "WhatsApp", "whatsapp", true) : "",
+    source.contact_phone ? providerActionTemplate(`tel:${source.contact_phone.replaceAll(" ", "")}`, "Teléfono", "phone") : "",
+    source.contact_email ? providerActionTemplate(`mailto:${source.contact_email}`, "Mail", "mail") : "",
+    source.source_url ? providerActionTemplate(source.source_url, "Fuente", "source", true) : "",
   ].filter(Boolean).join("");
   return `
     <section class="footer-provider" id="${escapeAttribute(providerAnchorId(source.id))}">
-      <h3><a href="${escapeAttribute(source.homepage_url)}" target="_blank" rel="noopener">${escapeHtml(source.name)}</a></h3>
-      <p>${escapeHtml(source.zone)}${source.address ? ` · ${escapeHtml(source.address)}` : ""}</p>
-      <p class="provider-stock-line">
-        <span>${escapeHtml(stats.total_stock_units || 0)} carretes · ${escapeHtml(stats.product_count || 0)} productos</span>
-        ${stockDelta}
-      </p>
-      <p>Actualizado: ${escapeHtml(formatDate(source.last_success_at || source.last_attempt_at))}</p>
+      <header class="provider-card-head">
+        <a class="provider-logo provider-logo-${escapeAttribute(source.id)}" href="${escapeAttribute(source.homepage_url)}" target="_blank" rel="noopener" aria-label="${escapeAttribute(source.name)}">
+          ${escapeHtml(providerInitials(source.name))}
+        </a>
+        <div>
+          <h3><a href="${escapeAttribute(source.homepage_url)}" target="_blank" rel="noopener">${escapeHtml(source.name)}</a></h3>
+          <p>${providerIconTemplate("location")}${escapeHtml(source.zone)}${source.address ? ` · ${escapeHtml(source.address)}` : ""}</p>
+        </div>
+      </header>
+      <dl class="provider-stats">
+        <div>
+          <dt>${providerIconTemplate("spool")}Stock</dt>
+          <dd>${escapeHtml(stats.total_stock_units || 0)} carretes ${stockDelta}</dd>
+        </div>
+        <div>
+          <dt>${providerIconTemplate("box")}Productos</dt>
+          <dd>${escapeHtml(stats.product_count || 0)} listados</dd>
+        </div>
+        <div>
+          <dt>${providerIconTemplate("clock")}Actualizado</dt>
+          <dd>${escapeHtml(formatDate(source.last_success_at || source.last_attempt_at))}</dd>
+        </div>
+      </dl>
       <div class="contact-actions">${actions}</div>
     </section>
   `;
+}
+
+function providerInitials(name) {
+  return String(name || "")
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0])
+    .join("")
+    .toUpperCase();
+}
+
+function providerActionTemplate(url, label, icon, isExternal = false) {
+  const target = isExternal ? ` target="_blank" rel="noopener"` : "";
+  return `<a href="${escapeAttribute(url)}"${target}>${providerIconTemplate(icon)}<span>${escapeHtml(label)}</span></a>`;
+}
+
+function providerIconTemplate(icon) {
+  const icons = {
+    box: '<path d="m3 7 9-4 9 4-9 4-9-4Z"></path><path d="M3 7v10l9 4 9-4V7"></path><path d="M12 11v10"></path>',
+    clock: '<circle cx="12" cy="12" r="8"></circle><path d="M12 8v5l3 2"></path>',
+    location: '<path d="M12 21s7-5.1 7-11a7 7 0 1 0-14 0c0 5.9 7 11 7 11Z"></path><circle cx="12" cy="10" r="2.3"></circle>',
+    mail: '<path d="M4 6h16v12H4z"></path><path d="m4 7 8 6 8-6"></path>',
+    phone: '<path d="M7 4h3l1.4 4-2 1.2a10 10 0 0 0 5.4 5.4l1.2-2L20 14v3a3 3 0 0 1-3 3A13 13 0 0 1 4 7a3 3 0 0 1 3-3Z"></path>',
+    source: '<path d="M14 4h6v6"></path><path d="M10 14 20 4"></path><path d="M20 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h5"></path>',
+    spool: '<circle cx="12" cy="12" r="7"></circle><circle cx="12" cy="12" r="2"></circle><path d="M12 5v3M12 16v3M5 12h3M16 12h3"></path>',
+    whatsapp: '<path d="M5.5 18.5 6.6 15A7 7 0 1 1 9 17.4l-3.5 1.1Z"></path><path d="M9.5 8.8c.2 2.3 1.5 4.1 3.8 5 .7.3 1.4-.3 1.6-1"></path>',
+  };
+  return `<svg viewBox="0 0 24 24" aria-hidden="true">${icons[icon] || icons.source}</svg>`;
 }
 
 function sourceWhatsappUrl(source) {
@@ -239,8 +286,8 @@ function compareGroups(left, right) {
 
   return (
     lineRank(left.line) - lineRank(right.line)
-    || brandRank(left.brand).localeCompare(brandRank(right.brand), "es-AR")
     || left.diameter.localeCompare(right.diameter, "es-AR")
+    || brandRank(left.brand).localeCompare(brandRank(right.brand), "es-AR")
     || left.title.localeCompare(right.title, "es-AR")
   );
 }
@@ -257,8 +304,25 @@ function groupTemplate(group) {
       ${state.sources.map((source) => `<td data-label="${escapeAttribute(source.name)}">${formatInteger(group.totals[source.id])}</td>`).join("")}
       <td class="summary-total" data-label="Total">${formatInteger(group.total)}</td>
     </tr>
-    ${group.rows.map(rowTemplate).join("")}
+    ${groupSummaryRows(group.rows).map(summaryProductGroupTemplate).join("")}
   `;
+}
+
+function groupSummaryRows(rows) {
+  const groups = new Map();
+  rows.forEach((row) => {
+    const key = summaryProductGroupKey(row.product);
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(row);
+  });
+  return [...groups.values()];
+}
+
+function summaryProductGroupTemplate(rows) {
+  return rows.map((row, index) => rowTemplate(row, {
+    grouped: rows.length > 1,
+    continuation: index > 0,
+  })).join("");
 }
 
 function renderQuickLines() {
@@ -305,8 +369,15 @@ function scrollToQuickLine(line) {
 
   document.querySelectorAll(".summary-group-row.quick-target").forEach((row) => row.classList.remove("quick-target"));
   target.classList.add("quick-target");
-  target.scrollIntoView({ behavior: "smooth", block: "start" });
+  scrollSummaryTargetIntoView(target);
   window.setTimeout(() => target.classList.remove("quick-target"), 1400);
+}
+
+function scrollSummaryTargetIntoView(target) {
+  updateSummaryStickyMetrics();
+  const offset = summaryGroupStickyTop();
+  const top = target.getBoundingClientRect().top + window.scrollY - offset;
+  window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
 }
 
 function mobileProviderTotalsTemplate(totals, total) {
@@ -321,20 +392,36 @@ function mobileProviderTotalsTemplate(totals, total) {
 }
 
 function setupStickyGroupRows() {
+  updateSummaryStickyMetrics();
   updateStickyGroupRows();
   if (stickyGroupRowsReady) return;
 
   stickyGroupRowsReady = true;
   window.addEventListener("scroll", updateStickyGroupRows, { passive: true });
-  window.addEventListener("resize", updateStickyGroupRows);
+  window.addEventListener("resize", () => {
+    updateSummaryStickyMetrics();
+    updateStickyGroupRows();
+  });
 }
 
 function updateStickyGroupRows() {
-  const stickyTop = summaryStickyTop();
+  updateSummaryStickyMetrics();
+  const stickyTop = summaryGroupStickyTop();
   document.querySelectorAll(".summary-group-row").forEach((row) => {
     const rect = row.getBoundingClientRect();
     row.classList.toggle("is-stuck", rect.top <= stickyTop + 1 && rect.bottom > stickyTop);
   });
+}
+
+function updateSummaryStickyMetrics() {
+  const quickLines = document.getElementById("summary-quick-lines");
+  const tableHead = document.querySelector(".summary-table thead");
+  if (quickLines) {
+    document.documentElement.style.setProperty("--quick-lines-height", `${Math.ceil(quickLines.getBoundingClientRect().height)}px`);
+  }
+  if (tableHead) {
+    document.documentElement.style.setProperty("--summary-head-height", `${Math.ceil(tableHead.getBoundingClientRect().height)}px`);
+  }
 }
 
 function summaryStickyTop() {
@@ -343,6 +430,13 @@ function summaryStickyTop() {
   const summaryHeadHeight = parseFloat(styles.getPropertyValue("--summary-head-height")) || 0;
   if (window.matchMedia("(max-width: 820px)").matches) return quickLinesHeight;
   return quickLinesHeight + summaryHeadHeight;
+}
+
+function summaryGroupStickyTop() {
+  const styles = getComputedStyle(document.documentElement);
+  const stickyGap = parseFloat(styles.getPropertyValue("--summary-sticky-gap")) || 0;
+  if (window.matchMedia("(max-width: 820px)").matches) return summaryStickyTop();
+  return summaryStickyTop() + stickyGap;
 }
 
 function sourceHeader(source) {
@@ -358,15 +452,32 @@ function stockDeltaTemplate(stats) {
   return `<small class="stock-delta stock-delta-${tone}">${escapeHtml(label)} vs ayer</small>`;
 }
 
-function rowTemplate(row) {
+function rowTemplate(row, options = {}) {
+  const classes = [
+    "summary-presentation-row",
+    options.grouped ? "summary-presentation-row-grouped" : "",
+    options.continuation ? "summary-presentation-row-continuation" : "",
+  ].filter(Boolean).join(" ");
   return `
-    <tr>
+    <tr class="${classes}">
       <th>${summaryProductTemplate(row)}</th>
       <td class="summary-presentation" data-label="Presentación">${escapeHtml(formatPresentation(row.product))}</td>
       ${state.sources.map((source) => cellTemplate(row.cells[source.id], source)).join("")}
       <td class="summary-total" data-label="Total">${formatInteger(row.total)}</td>
     </tr>
   `;
+}
+
+function summaryProductGroupKey(product) {
+  return [
+    productSummaryName(product),
+    product.color || "",
+    product.pantone || "",
+    product.material || "",
+    product.variant || "",
+    product.brand || "",
+    product.diameter_mm || "",
+  ].join("||");
 }
 
 function groupKey(product) {
@@ -476,17 +587,17 @@ function searchTokens(value) {
 
 function compareProducts(left, right) {
   return [
+    lineLabel(left),
+    left.diameter_mm ? `${left.diameter_mm} mm` : "Sin diámetro",
     brandRank(left.brand),
     left.brand || "",
-    left.diameter_mm ? `${left.diameter_mm} mm` : "Sin diámetro",
-    lineLabel(left),
     left.color || "",
     left.display_name,
   ].join(" ").localeCompare([
+    lineLabel(right),
+    right.diameter_mm ? `${right.diameter_mm} mm` : "Sin diámetro",
     brandRank(right.brand),
     right.brand || "",
-    right.diameter_mm ? `${right.diameter_mm} mm` : "Sin diámetro",
-    lineLabel(right),
     right.color || "",
     right.display_name,
   ].join(" "), "es-AR");
@@ -667,4 +778,31 @@ function escapeAttribute(value) {
 
 function slugText(value) {
   return foldText(value).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+}
+
+function setupBackToTopButton() {
+  const button = document.createElement("button");
+  button.className = "back-to-top";
+  button.type = "button";
+  button.setAttribute("aria-label", "Volver arriba");
+  button.innerHTML = `
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="m6 14 6-6 6 6"></path>
+      <path d="M12 8v12"></path>
+    </svg>
+  `;
+  document.body.append(button);
+
+  const updateVisibility = () => {
+    const visible = window.scrollY > 360;
+    button.classList.toggle("visible", visible);
+    button.tabIndex = visible ? 0 : -1;
+    button.setAttribute("aria-hidden", String(!visible));
+  };
+
+  button.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+  window.addEventListener("scroll", updateVisibility, { passive: true });
+  updateVisibility();
 }

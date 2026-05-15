@@ -11,19 +11,20 @@
   <body>
     <main class="shell">
       <header class="topbar">
-        <div>
-          <p class="eyebrow">AMBA · filamentos 3D</p>
-          <h1>Central de Filamentos</h1>
-        </div>
+        <a class="brand-lockup" href="index.html" aria-label="Central de Filamentos">
+          <span class="brand-mark" aria-hidden="true">CF</span>
+          <span class="brand-copy">
+            <h1>Central de Filamentos</h1>
+            <span id="last-update" class="brand-status">Actualizando...</span>
+          </span>
+        </a>
         <nav class="view-switch" aria-label="Cambiar vista">
           <a class="nav-link active" href="index.html">Catálogo</a>
           <a class="nav-link" href="resumen.html">Resumen</a>
+          <a class="nav-link" href="#site-footer">Proveedores</a>
         </nav>
+        <a id="provider-count" class="provider-pill" href="#site-footer">Proveedores conectados</a>
       </header>
-
-      <section class="status-strip">
-        <span id="last-update">Actualizando...</span>
-      </section>
 
       <section class="filters" aria-label="Filtros">
         <label class="search-field">

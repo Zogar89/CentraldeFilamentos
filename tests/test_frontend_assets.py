@@ -76,13 +76,19 @@ def test_catalog_script_fetches_json_and_supports_required_filters():
     assert "productVisualsTemplate" in js
     assert "productVisualTemplate" in js
     assert "setupImagePreview" in js
+    assert "setupBackToTopButton" in js
     assert "data-preview-src" in js
     assert "thumbnail_url" in js
     assert "const thumbnailUrl = imageProduct.thumbnail_url || imageProduct.image_url" in js
     assert 'loading="lazy"' in js
     assert 'decoding="async"' in js
     assert "positionImagePreview" in js
+    assert "positionTouchImagePreview" in js
+    assert "previewTargetFromEvent" in js
+    assert "touchPreviewOpen" in js
     assert "image-preview" in js
+    assert "back-to-top" in js
+    assert "Volver arriba" in js
     assert "compareImagePresentations" in js
     assert "imagePresentationRank" in js
     assert ".filter((product) => product.image_url)" in js
@@ -119,10 +125,15 @@ def test_catalog_script_fetches_json_and_supports_required_filters():
     assert "compareGroups" in js
     assert "compareProductGroups" in js
     assert "scrollToQuickLine" in js
-    assert "scrollIntoView" in js
+    assert "scrollCatalogTargetIntoView" in js
+    assert "updateCatalogStickyMetrics" in js
+    assert "catalogGroupStickyTop" in js
+    assert "window.scrollTo" in js
     assert "quick-target" in js
     assert "groupTargetId" in js
     assert "slugText" in js
+    assert "group-brand" in js
+    assert "group-diameter" in js
     assert "state.filters.variant = button.dataset.line" not in js
     assert "sin stock online registrado" in js
     assert "offer-main" in js
@@ -132,6 +143,12 @@ def test_catalog_script_fetches_json_and_supports_required_filters():
     assert "El proveedor seguramente no maneja esta variante." not in js
     assert "providerAnchorId" in js
     assert "proveedor-" in js
+    assert "providerInitials" in js
+    assert "providerIconTemplate" in js
+    assert "providerActionTemplate" in js
+    assert "provider-card-head" in js
+    assert "provider-logo" in js
+    assert "provider-stats" in js
     assert "sourceWhatsappUrl" in js
     assert "whatsappMessage" in js
     assert "contactContext" in js
@@ -189,14 +206,28 @@ def test_summary_script_uses_carretes_totals_and_provider_order():
     assert '"Nylon 6"' in js
     assert "renderQuickLines" in js
     assert "scrollToQuickLine" in js
+    assert "scrollSummaryTargetIntoView" in js
+    assert "window.scrollTo" in js
     assert "summaryGroupTargetId" in js
     assert "setupStickyGroupRows" in js
     assert "updateStickyGroupRows" in js
+    assert "updateSummaryStickyMetrics" in js
+    assert "getBoundingClientRect().height" in js
     assert "summaryStickyTop" in js
+    assert "summaryGroupStickyTop" in js
     assert "is-stuck" in js
     assert "renderSiteFooter" in js
+    assert "setupBackToTopButton" in js
+    assert "back-to-top" in js
+    assert "Volver arriba" in js
     assert "footer-grid" in js
     assert "sourceFooter" in js
+    assert "providerInitials" in js
+    assert "providerIconTemplate" in js
+    assert "providerActionTemplate" in js
+    assert "provider-card-head" in js
+    assert "provider-logo" in js
+    assert "provider-stats" in js
     assert "sourceWhatsappUrl" in js
     assert "whatsappMessage" in js
     assert "contactContext" in js
@@ -206,6 +237,11 @@ def test_summary_script_uses_carretes_totals_and_provider_order():
     assert "https://github.com/Zogar89/CentraldeFilamentos/issues/new" in js
     assert "slugText" in js
     assert "groupRows" in js
+    assert "groupSummaryRows" in js
+    assert "summaryProductGroupTemplate" in js
+    assert "summaryProductGroupKey" in js
+    assert "summary-presentation-row-continuation" in js
+    assert "rowspan" not in js
     assert "0*" not in js
     assert "El proveedor seguramente no maneja esta variante" not in js
     assert "A revisar" not in js
@@ -216,6 +252,16 @@ def test_summary_script_uses_carretes_totals_and_provider_order():
     assert "vs ayer" in js
     assert "const stockDelta = stockDeltaTemplate(source.stats || {});" not in js
     assert "total_stock_kg" not in js
+
+
+def test_popular_group_order_keeps_diameters_together():
+    catalog_js = (PUBLIC / "app.js").read_text(encoding="utf-8")
+    summary_js = (PUBLIC / "resumen.js").read_text(encoding="utf-8")
+
+    assert "lineRank(left.line) - lineRank(right.line)\n    || left.diameter.localeCompare(right.diameter" in catalog_js
+    assert "diameterLabel(left).localeCompare(diameterLabel(right)" in catalog_js
+    assert "lineRank(left.line) - lineRank(right.line)\n    || left.diameter.localeCompare(right.diameter" in summary_js
+    assert "lineLabel(left),\n    left.diameter_mm ? `${left.diameter_mm} mm` : \"Sin diámetro\",\n    brandRank(left.brand)" in summary_js
 
 
 def test_internal_vendor_script_uses_feature_flag_and_30_day_history():
@@ -249,6 +295,13 @@ def test_styles_are_compact_and_responsive():
     assert ".group-section" in css
     assert ".group-section.quick-target" in css
     assert ".group-heading" in css
+    assert ".group-brand" in css
+    assert ".group-brand-grilon3" in css
+    assert ".group-brand-3n3" in css
+    assert ".group-diameter" in css
+    assert "--group-accent" in css
+    assert "--catalog-sticky-gap" in css
+    assert '.group-section[data-line="PLA Standard"]' in css
     assert ".quick-line::before" in css
     assert ".quick-line-abs" in css
     assert ".quick-line-boutique" in css
@@ -270,19 +323,34 @@ def test_styles_are_compact_and_responsive():
     assert ".media-presentation" in css
     assert ".color-swatch" in css
     assert ".swatch-pantone" in css
+    assert ".product-visual" in css
+    assert ".product-visual .swatch-pantone" in css
+    assert ".product-media .swatch-pantone" not in css
     assert ".product-media" in css
     assert ".official-product-link" in css
     assert ".image-preview" in css
     assert ".image-preview.visible" in css
+    assert ".image-preview.touch-visible" in css
     assert "cursor: zoom-in" in css
+    assert ".image-preview {\n    display: none" not in css
     assert "scroll-behavior: smooth" in css
+    assert ".back-to-top" in css
+    assert ".back-to-top.visible" in css
     assert ".footer-provider:target" in css
+    assert ".provider-card-head" in css
+    assert ".provider-logo" in css
+    assert ".provider-stats" in css
+    assert ".provider-logo-mundoinsumos" in css
+    assert ".provider-logo-grupo_senz" in css
+    assert ".provider-logo-filamentos3d" in css
     assert ".stock-delta" in css
     assert ".stock-delta-up" in css
     assert ".stock-delta-down" in css
     assert ".footer-meta" in css
     assert ".summary-presentation" in css
     assert ".summary-product" in css
+    assert ".summary-presentation-row-grouped" in css
+    assert ".summary-presentation-row-continuation" in css
     assert ".summary-color-swatch" in css
     assert ".summary-product-name" in css
     assert ".category-sort" in css
@@ -291,7 +359,8 @@ def test_styles_are_compact_and_responsive():
     assert ".summary-group-row.quick-target" in css
     assert ".summary-group-row.is-stuck td" in css
     assert "color: transparent" in css
-    assert "top: calc(var(--quick-lines-height) + var(--summary-head-height))" in css
+    assert "top: calc(var(--quick-lines-height) + var(--summary-head-height) + var(--summary-sticky-gap))" in css
+    assert "--summary-sticky-gap" in css
     assert ".summary-table tbody .summary-group-row th" in css
     assert ".internal-shell" in css
     assert ".vendor-stat-grid" in css

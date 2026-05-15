@@ -11,25 +11,20 @@
   <body>
     <main class="shell">
       <header class="topbar">
-        <div>
-          <p class="eyebrow">Resumen por proveedor</p>
-          <h1>Central de Filamentos</h1>
-        </div>
+        <a class="brand-lockup" href="index.html" aria-label="Central de Filamentos">
+          <span class="brand-mark" aria-hidden="true">CF</span>
+          <span class="brand-copy">
+            <h1>Central de Filamentos</h1>
+            <span id="summary-updated" class="brand-status">Actualizando...</span>
+          </span>
+        </a>
         <nav class="view-switch" aria-label="Cambiar vista">
           <a class="nav-link" href="index.html">Catálogo</a>
           <a class="nav-link active" href="resumen.html">Resumen</a>
+          <a class="nav-link" href="#site-footer">Proveedores</a>
         </nav>
+        <a id="summary-provider-count" class="provider-pill" href="#site-footer">Proveedores conectados</a>
       </header>
-
-      <section class="status-strip">
-        <span id="summary-updated">Actualizando...</span>
-        <div class="category-sort" role="group" aria-label="Orden de categorías">
-          <strong id="summary-count">0 filamentos</strong>
-          <span>Orden</span>
-          <button id="summary-sort-popular" class="soft-button active" type="button" data-category-order="popular">Popularidad</button>
-          <button id="summary-sort-alpha" class="soft-button" type="button" data-category-order="alpha">A-Z</button>
-        </div>
-      </section>
 
       <section class="filters one-line" aria-label="Buscar en resumen">
         <label class="search-field">
@@ -39,6 +34,14 @@
       </section>
       <section id="summary-quick-lines" class="quick-lines" aria-label="Líneas populares"></section>
       <p id="summary-line-help" class="line-help"></p>
+      <section class="result-meta">
+        <strong id="summary-count">0 filamentos</strong>
+        <div class="category-sort" role="group" aria-label="Orden de categorías">
+          <span>Orden</span>
+          <button id="summary-sort-popular" class="soft-button active" type="button" data-category-order="popular">Popularidad</button>
+          <button id="summary-sort-alpha" class="soft-button" type="button" data-category-order="alpha">A-Z</button>
+        </div>
+      </section>
       <section class="table-shell" aria-label="Resumen de stock">
         <div class="table-scroll">
           <table id="summary-table" class="summary-table"></table>
