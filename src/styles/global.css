@@ -258,7 +258,7 @@ input {
   top: 0;
   bottom: 0;
   z-index: 2;
-  width: 22px;
+  width: 12px;
   pointer-events: none;
 }
 
@@ -1664,8 +1664,8 @@ input {
   }
 
   .quick-lines-shell::after {
-    width: 56px;
-    background: linear-gradient(270deg, var(--bg) 16%, color-mix(in srgb, var(--bg) 88%, transparent) 54%, transparent);
+    width: 34px;
+    background: linear-gradient(270deg, var(--bg) 10%, color-mix(in srgb, var(--bg) 84%, transparent) 44%, transparent);
   }
 
   .quick-lines-cue {
