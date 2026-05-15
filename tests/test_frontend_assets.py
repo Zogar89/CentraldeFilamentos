@@ -13,9 +13,14 @@ def test_static_frontend_files_exist_and_are_linked():
     internal = Path("estadisticas.html").read_text(encoding="utf-8")
     flags = json.loads((PUBLIC / "data" / "feature_flags.json").read_text(encoding="utf-8"))
     catalog_view = (SRC / "CatalogApp.svelte").read_text(encoding="utf-8")
+    site_header = (SRC / "components" / "SiteHeader.svelte").read_text(encoding="utf-8")
 
     assert 'type="module" src="/src/catalog.js"' in index
-    assert 'href="resumen.html"' in catalog_view
+    assert 'href: "resumen.html"' in site_header
+    assert 'href: "index.html#site-footer"' in site_header
+    assert "provider-status" in site_header
+    assert "brand-mark" in site_header
+    assert "SiteHeader" in catalog_view
     assert 'type="module" src="/src/summary.js"' in resumen
     assert 'id="merge-brands-toggle"' not in resumen
     assert "Fusionar Grilon3 + 3N3" not in resumen

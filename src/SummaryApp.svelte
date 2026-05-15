@@ -1,6 +1,7 @@
 <script>
   import { onMount } from "svelte";
   import QuickLines from "./components/QuickLines.svelte";
+  import SiteHeader from "./components/SiteHeader.svelte";
   import SiteFooter from "./components/SiteFooter.svelte";
   import {
     brandRank,
@@ -133,16 +134,7 @@
 </script>
 
 <main class="shell">
-  <header class="topbar">
-    <div>
-      <p class="eyebrow">Resumen por proveedor</p>
-      <h1>Central de Filamentos</h1>
-    </div>
-    <nav class="view-switch" aria-label="Cambiar vista">
-      <a class="nav-link" href="index.html">Catálogo</a>
-      <a class="nav-link active" href="resumen.html">Resumen</a>
-    </nav>
-  </header>
+  <SiteHeader active="summary" updatedAt={generatedAt} providerCount={sources.length} subtitle="Resumen por proveedor" />
 
   <section class="status-strip">
     <span id="summary-updated">Última actualización: {formatDate(generatedAt)}</span>

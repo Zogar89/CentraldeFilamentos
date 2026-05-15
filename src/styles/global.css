@@ -47,17 +47,76 @@ a:hover {
   padding: 18px 0 28px;
 }
 
-.topbar {
-  display: flex;
-  align-items: end;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 14px;
+.site-header {
+  display: grid;
+  grid-template-columns: minmax(260px, 1fr) auto minmax(190px, auto);
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 18px;
+  padding: 12px 14px;
+  border: 1px solid color-mix(in srgb, var(--line) 84%, transparent);
+  border-radius: 22px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, .94), rgba(255, 255, 255, .78)),
+    color-mix(in srgb, var(--surface) 88%, var(--surface-soft));
+  box-shadow:
+    0 20px 55px rgba(27, 33, 38, .10),
+    inset 0 1px 0 rgba(255, 255, 255, .85);
+}
+
+.brand-lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.brand-lockup:hover {
+  color: inherit;
+}
+
+.brand-mark {
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background:
+    radial-gradient(circle at 72% 24%, rgba(255, 255, 255, .78), transparent 30%),
+    linear-gradient(135deg, #f36b3d 0%, #f1c743 45%, #00a68a 100%);
+  color: #fff;
+  font-size: 21px;
+  font-weight: 900;
+  letter-spacing: 0;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, .52),
+    0 8px 18px rgba(17, 122, 101, .18);
+}
+
+.brand-copy {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.brand-title {
+  color: var(--text);
+  font-size: 27px;
+  font-weight: 900;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.brand-subtitle,
+.eyebrow {
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 650;
 }
 
 .eyebrow {
   margin: 0 0 4px;
-  color: var(--muted);
   font-size: 12px;
   text-transform: uppercase;
 }
@@ -71,12 +130,11 @@ h1 {
 .view-switch {
   display: inline-flex;
   align-items: center;
-  gap: 3px;
-  padding: 4px;
-  border: 1px solid color-mix(in srgb, var(--line) 86%, black);
-  border-radius: 12px;
-  background: color-mix(in srgb, var(--surface) 86%, var(--surface-soft));
-  box-shadow: 0 1px 2px rgba(0, 0, 0, .04);
+  justify-content: center;
+  gap: 4px;
+  padding: 5px;
+  border-radius: 16px;
+  background: #eceae6;
 }
 
 .nav-link,
@@ -97,13 +155,13 @@ input {
 }
 
 .view-switch .nav-link {
-  min-width: 112px;
-  padding: 12px 16px;
+  min-width: 105px;
+  padding: 13px 16px;
   border: 0;
-  border-radius: 9px;
+  border-radius: 13px;
   background: transparent;
-  color: var(--muted);
-  font-weight: 700;
+  color: #716d67;
+  font-weight: 850;
   text-align: center;
 }
 
@@ -120,9 +178,40 @@ input {
 }
 
 .view-switch .nav-link.active {
-  background: var(--text);
+  background: #11110f;
   color: white;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, .16);
+  box-shadow:
+    0 11px 24px rgba(0, 0, 0, .15),
+    inset 0 0 0 1px rgba(255, 255, 255, .08);
+}
+
+.provider-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 42px;
+  padding: 0 15px;
+  border: 1px solid color-mix(in srgb, var(--line) 88%, black);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .62);
+  color: color-mix(in srgb, var(--muted) 92%, var(--text));
+  font-weight: 800;
+  white-space: nowrap;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .86);
+}
+
+.provider-status:hover {
+  color: var(--text);
+  background: #fff;
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #158b6c;
+  box-shadow: 0 0 0 6px rgba(21, 139, 108, .10);
 }
 
 .status-strip,
@@ -1424,6 +1513,13 @@ input {
     --quick-lines-height: 72px;
   }
 
+  .site-header {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 12px;
+    border-radius: 18px;
+  }
+
   .topbar {
     align-items: start;
     flex-direction: column;
@@ -1440,6 +1536,13 @@ input {
   .view-switch .nav-link {
     min-width: 0;
     width: 100%;
+    padding: 10px 8px;
+  }
+
+  .provider-status {
+    justify-self: stretch;
+    min-height: 36px;
+    font-size: 13px;
   }
 
   .filters {
@@ -1634,6 +1737,29 @@ input {
 @media (max-width: 520px) {
   .shell {
     width: min(100% - 16px, 1180px);
+  }
+
+  .brand-mark {
+    width: 44px;
+    height: 44px;
+    border-radius: 13px;
+    font-size: 19px;
+  }
+
+  .brand-title {
+    font-size: 23px;
+  }
+
+  .brand-subtitle {
+    font-size: 13px;
+  }
+
+  .view-switch {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .view-switch .nav-link {
+    font-size: 13px;
   }
 
   h1 {

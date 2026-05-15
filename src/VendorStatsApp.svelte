@@ -1,5 +1,6 @@
 <script>
   import { onMount } from "svelte";
+  import SiteHeader from "./components/SiteHeader.svelte";
   import { fetchJson, formatDate, formatDay, formatInteger, formatTime } from "./lib/shared.js";
 
   let providers = [];
@@ -126,12 +127,7 @@
 </script>
 
 <main class="internal-shell">
-  <header class="topbar">
-    <div>
-      <p class="eyebrow">Consumo interno</p>
-      <h1>Estadisticas de vendedores</h1>
-    </div>
-  </header>
+  <SiteHeader active="stats" updatedAt={generatedAt} providerCount={providers.length} subtitle="Estadísticas de vendedores" />
 
   <section class="status-strip">
     <span id="vendor-updated">{disabled ? "Feature flag apagado" : `Actualizado: ${formatDate(generatedAt)}`}</span>
