@@ -1,6 +1,6 @@
-# StockCentral
+# Central de Filamentos
 
-StockCentral centraliza stock online de proveedores de filamento 3D del AMBA para que usuarios de impresion 3D encuentren rapido quien tiene el material, color, marca y formato que necesitan.
+Central de Filamentos centraliza stock online de proveedores de filamento 3D del AMBA para que usuarios de impresion 3D encuentren rapido quien tiene el material, color, marca y formato que necesitan.
 
 ## Estado actual
 
@@ -19,9 +19,9 @@ Decisiones principales:
 
 ```bash
 python -m pip install -e ".[dev]"
-python -m pytest -v --basetemp C:\tmp\pytest-stockcentral
-python -m stockcentral.build_data --output public/data/stock.json
-python -m stockcentral.generate_thumbnails --stock-json public/data/stock.json
+python -m pytest -v --basetemp C:\tmp\pytest-centraldefilamentos
+python -m centraldefilamentos.build_data --output public/data/stock.json
+python -m centraldefilamentos.generate_thumbnails --stock-json public/data/stock.json
 python -m http.server 8000 -d public
 ```
 
@@ -40,7 +40,7 @@ python -m pip install -e ".[dev]"
 Ejecutar tests en Windows local:
 
 ```bash
-python -m pytest -v --basetemp C:\tmp\pytest-stockcentral
+python -m pytest -v --basetemp C:\tmp\pytest-centraldefilamentos
 ```
 
 Ejecutar tests en Linux o GitHub Actions:
@@ -52,24 +52,24 @@ python -m pytest -v
 Generar datos para el sitio estatico:
 
 ```bash
-python -m stockcentral.build_data --output public/data/stock.json
-python -m stockcentral.generate_thumbnails --stock-json public/data/stock.json
+python -m centraldefilamentos.build_data --output public/data/stock.json
+python -m centraldefilamentos.generate_thumbnails --stock-json public/data/stock.json
 ```
 
 Actualizar la cache local de metadatos e imagenes oficiales de Grilon3, solo cuando Grilon3 cambie o agregue filamentos:
 
 ```bash
-python -m stockcentral.cache_grilon3_metadata --timeout-seconds 10 --max-workers 8
-python -m stockcentral.build_data --output public/data/stock.json
-python -m stockcentral.generate_thumbnails --stock-json public/data/stock.json
+python -m centraldefilamentos.cache_grilon3_metadata --timeout-seconds 10 --max-workers 8
+python -m centraldefilamentos.build_data --output public/data/stock.json
+python -m centraldefilamentos.generate_thumbnails --stock-json public/data/stock.json
 ```
 
 Si solo hace falta volver a descargar imagenes usando la cache existente, sin leer otra vez las fichas de producto:
 
 ```bash
-python -m stockcentral.cache_grilon3_metadata --images-only --timeout-seconds 20
-python -m stockcentral.build_data --output public/data/stock.json
-python -m stockcentral.generate_thumbnails --stock-json public/data/stock.json
+python -m centraldefilamentos.cache_grilon3_metadata --images-only --timeout-seconds 20
+python -m centraldefilamentos.build_data --output public/data/stock.json
+python -m centraldefilamentos.generate_thumbnails --stock-json public/data/stock.json
 ```
 
 Levantar servidor estatico local:
@@ -84,11 +84,11 @@ El frontend lee `public/data/stock.json`. En produccion, GitHub Actions genera e
 
 `public/data/stock.json` es salida generada. Evitar editarlo a mano: los cambios persistentes van en normalizacion, fuentes o caches de metadata, y luego se regenera con los comandos anteriores.
 
-La cache `stockcentral/data/daily_provider_stock_snapshot.json` se actualiza en la corrida de las 09 hs Argentina. Guarda la captura diaria por proveedor y la captura anterior para mostrar la diferencia de carretes `vs ayer`.
+La cache `centraldefilamentos/data/daily_provider_stock_snapshot.json` se actualiza en la corrida de las 09 hs Argentina. Guarda la captura diaria por proveedor y la captura anterior para mostrar la diferencia de carretes `vs ayer`.
 
-La cache `stockcentral/data/provider_stock_history.json` guarda hasta 30 dias por proveedor para la vista interna de vendedores. Cada dia conserva la captura base de las 09 hs y los chequeos intradia de las demas corridas. La pagina se publica como archivo no enlazado y se puede apagar con `public/data/feature_flags.json` cambiando `vendorStatsEnabled` a `false`.
+La cache `centraldefilamentos/data/provider_stock_history.json` guarda hasta 30 dias por proveedor para la vista interna de vendedores. Cada dia conserva la captura base de las 09 hs y los chequeos intradia de las demas corridas. La pagina se publica como archivo no enlazado y se puede apagar con `public/data/feature_flags.json` cambiando `vendorStatsEnabled` a `false`.
 
-La cache `stockcentral/data/grilon3_metadata.json` se versiona en el repositorio. Guarda datos oficiales como Pantone, SKU, EAN y la ruta local de imagen. Las imagenes oficiales descargadas se versionan en `public/assets/grilon3/`. La actualizacion normal de stock no consulta las fichas individuales de Grilon3 ni descarga imagenes; solo lee esa cache local.
+La cache `centraldefilamentos/data/grilon3_metadata.json` se versiona en el repositorio. Guarda datos oficiales como Pantone, SKU, EAN y la ruta local de imagen. Las imagenes oficiales descargadas se versionan en `public/assets/grilon3/`. La actualizacion normal de stock no consulta las fichas individuales de Grilon3 ni descarga imagenes; solo lee esa cache local.
 
 Las imagenes originales quedan en `public/assets/grilon3/` y `public/assets/filamentos3d/`. El listado usa miniaturas WebP generadas en `public/assets/thumbs/`; el popup de imagen usa la imagen original para ver mejor el color.
 
@@ -96,7 +96,7 @@ Las imagenes originales quedan en `public/assets/grilon3/` y `public/assets/fila
 
 El sitio publicado queda disponible en:
 
-https://zogar89.github.io/StockCentral/
+https://zogar89.github.io/CentraldeFilamentos/
 
 GitHub Pages esta configurado con `build_type: workflow`. El workflow `.github/workflows/pages.yml` se puede correr manualmente con `workflow_dispatch` y tambien corre de lunes a viernes a las 12, 15, 18 y 21 UTC, que corresponden a las 09, 12, 15 y 18 hs de Argentina.
 
@@ -108,8 +108,8 @@ GitHub Pages esta configurado con `build_type: workflow`. El workflow `.github/w
 
 ## Documentacion
 
-- Spec de producto: `docs/superpowers/specs/2026-05-12-stockcentral-design.md`
-- Plan de implementacion: `docs/superpowers/plans/2026-05-12-stockcentral-mvp.md`
+- Spec de producto: `docs/superpowers/specs/2026-05-12-centraldefilamentos-design.md`
+- Plan de implementacion: `docs/superpowers/plans/2026-05-12-centraldefilamentos-mvp.md`
 - Handoff de sesion y preguntas pendientes: `docs/superpowers/session-handoff-2026-05-12.md`
 
 ## Proximo paso

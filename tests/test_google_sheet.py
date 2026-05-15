@@ -1,7 +1,7 @@
 from pathlib import Path
 
-from stockcentral.connectors.google_sheet import build_csv_export_url, parse_sheet_csv
-from stockcentral.providers import SOURCES
+from centraldefilamentos.connectors.google_sheet import build_csv_export_url, parse_sheet_csv
+from centraldefilamentos.providers import SOURCES
 
 
 def test_build_csv_export_url_uses_sheet_id_and_gid():

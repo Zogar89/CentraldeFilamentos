@@ -1,4 +1,4 @@
-from stockcentral.providers import MANUFACTURERS, SOURCES
+from centraldefilamentos.providers import MANUFACTURERS, SOURCES
 
 
 def test_sources_cover_initial_amba_providers():

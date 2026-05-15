@@ -1,4 +1,4 @@
-from stockcentral.models import Offer, ProductGroup, ProviderStats, SourceStatus
+from centraldefilamentos.models import Offer, ProductGroup, ProviderStats, SourceStatus
 
 
 def test_product_group_serializes_for_public_json():

@@ -1,7 +1,7 @@
 from pathlib import Path
 
-from stockcentral.connectors.filamentos3d import fetch_filamentos3d_items, parse_filamentos3d_html
-from stockcentral.providers import SOURCES
+from centraldefilamentos.connectors.filamentos3d import fetch_filamentos3d_items, parse_filamentos3d_html
+from centraldefilamentos.providers import SOURCES
 
 
 FIXTURE_PATH = Path(__file__).parent / "fixtures" / "filamentos3d_stock.html"
@@ -48,7 +48,7 @@ def test_fetch_filamentos3d_items_downloads_source_url(monkeypatch):
         calls.append((url, timeout))
         return Response()
 
-    monkeypatch.setattr("stockcentral.connectors.filamentos3d.httpx.get", fake_get)
+    monkeypatch.setattr("centraldefilamentos.connectors.filamentos3d.httpx.get", fake_get)
 
     items = fetch_filamentos3d_items(source, updated_at, timeout_seconds=7)
 

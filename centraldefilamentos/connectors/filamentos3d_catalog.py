@@ -7,8 +7,8 @@ from urllib.parse import urljoin
 from bs4 import BeautifulSoup, Tag
 import httpx
 
-from stockcentral.models import RawStockItem
-from stockcentral.normalize import build_product_id, normalize_record
+from centraldefilamentos.models import RawStockItem
+from centraldefilamentos.normalize import build_product_id, normalize_record
 
 FILAMENTOS3D_CATEGORY_URLS = {
     "3n3-pla": "https://filamentos3d.com.ar/43-pla-3n3-175mm-1kg",

@@ -1,6 +1,6 @@
 import json
 
-from stockcentral.build_data import (
+from centraldefilamentos.build_data import (
     load_provider_stock_history,
     maybe_update_provider_stock_history,
     write_public_provider_stock_history,

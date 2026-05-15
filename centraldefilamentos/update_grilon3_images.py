@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-from stockcentral.thumbnails import ensure_thumbnail_for_url
+from centraldefilamentos.thumbnails import ensure_thumbnail_for_url
 
 
 IMAGE_KEYS = ("image_remote_url", "image_url")
@@ -83,7 +83,7 @@ def update_stock_payload(
 def main() -> None:
     parser = argparse.ArgumentParser(description="Aplica fotos oficiales nuevas de Grilon3 sin refrescar stock.")
     parser.add_argument("--refreshed-cache", required=True)
-    parser.add_argument("--metadata-cache", default="stockcentral/data/grilon3_metadata.json")
+    parser.add_argument("--metadata-cache", default="centraldefilamentos/data/grilon3_metadata.json")
     parser.add_argument("--stock-json", default="public/data/stock.json")
     args = parser.parse_args()
 

@@ -8,8 +8,8 @@ from urllib.parse import urljoin, urlparse
 
 import requests
 
-from stockcentral.models import NormalizedFields, RawStockItem
-from stockcentral.normalize import build_product_id, normalize_record
+from centraldefilamentos.models import NormalizedFields, RawStockItem
+from centraldefilamentos.normalize import build_product_id, normalize_record
 
 BASE_URL = "https://grilon3.com.ar/productos/"
 SITEMAP_URL = "https://grilon3.com.ar/product-sitemap.xml"

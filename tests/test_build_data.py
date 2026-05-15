@@ -3,8 +3,8 @@ from pathlib import Path
 
 import pytest
 
-from stockcentral.cache_grilon3_metadata import build_grilon3_metadata_cache, download_grilon3_images, load_metadata_cache
-from stockcentral.build_data import (
+from centraldefilamentos.cache_grilon3_metadata import build_grilon3_metadata_cache, download_grilon3_images, load_metadata_cache
+from centraldefilamentos.build_data import (
     build_filamentos3d_enrichments,
     build_grilon3_enrichments,
     build_payload,
@@ -14,11 +14,11 @@ from stockcentral.build_data import (
     load_filamentos3d_metadata,
     write_payload,
 )
-from stockcentral.connectors.grilon3_catalog import CatalogProduct
-from stockcentral.models import RawStockItem
-from stockcentral.providers import MANUFACTURERS, SOURCES
-from stockcentral.thumbnails import apply_thumbnails_to_stock, thumbnail_url_for
-from stockcentral.update_filamentos3d_images import apply_filamentos3d_images
+from centraldefilamentos.connectors.grilon3_catalog import CatalogProduct
+from centraldefilamentos.models import RawStockItem
+from centraldefilamentos.providers import MANUFACTURERS, SOURCES
+from centraldefilamentos.thumbnails import apply_thumbnails_to_stock, thumbnail_url_for
+from centraldefilamentos.update_filamentos3d_images import apply_filamentos3d_images
 
 
 def raw(
@@ -238,7 +238,7 @@ def test_collect_raw_items_keeps_fetching_when_one_source_fails(monkeypatch):
             )
         ]
 
-    monkeypatch.setattr("stockcentral.build_data._fetch_source_items", fake_fetch)
+    monkeypatch.setattr("centraldefilamentos.build_data._fetch_source_items", fake_fetch)
 
     items, errors = collect_raw_items(sources=SOURCES, updated_at="2026-05-12T13:00:00-03:00")
 
@@ -255,7 +255,7 @@ def test_build_grilon3_enrichments_indexes_raw_grilon_products(monkeypatch):
         assert products_url == "https://grilon3.com.ar/productos/"
         return {"pla-negro-175-1000-grilon3": CatalogProduct()}
 
-    monkeypatch.setattr("stockcentral.connectors.grilon3_catalog.fetch_grilon3_catalog", fake_fetch_catalog)
+    monkeypatch.setattr("centraldefilamentos.connectors.grilon3_catalog.fetch_grilon3_catalog", fake_fetch_catalog)
 
     enrichments = build_grilon3_enrichments(
         [
@@ -275,7 +275,7 @@ def test_build_grilon3_enrichments_indexes_raw_grilon_products(monkeypatch):
 
 def test_build_filamentos3d_enrichments_uses_provider_images_for_3n3_only(monkeypatch):
     monkeypatch.setattr(
-        "stockcentral.build_data.load_filamentos3d_metadata",
+        "centraldefilamentos.build_data.load_filamentos3d_metadata",
         lambda: {
             "pla-negro-175-1000-3n3": {
                 "provider_product_url": "https://filamentos3d.com.ar/3n3-negro.html",
@@ -307,7 +307,7 @@ def test_build_filamentos3d_enrichments_uses_provider_images_for_3n3_only(monkey
 
 def test_build_payload_can_render_3n3_provider_image_without_official_link(monkeypatch):
     monkeypatch.setattr(
-        "stockcentral.build_data.load_filamentos3d_metadata",
+        "centraldefilamentos.build_data.load_filamentos3d_metadata",
         lambda: {
             "pla-negro-175-1000-3n3": {
                 "provider_product_url": "https://filamentos3d.com.ar/3n3-negro.html",
@@ -456,7 +456,7 @@ def test_apply_thumbnails_to_stock_generates_webp_and_updates_payload(tmp_path):
 
 def test_build_grilon3_enrichments_uses_local_metadata_cache(monkeypatch):
     monkeypatch.setattr(
-        "stockcentral.build_data.load_grilon3_metadata",
+        "centraldefilamentos.build_data.load_grilon3_metadata",
         lambda: {"pla-negro-grilon3": {"pantone": "Pantone Black", "sku": "M09INE175CJ", "ean": "7798049653037"}},
     )
 
@@ -481,7 +481,7 @@ def test_build_grilon3_enrichments_uses_local_metadata_cache(monkeypatch):
 
 def test_build_grilon3_enrichments_prefers_presentation_specific_metadata(monkeypatch):
     monkeypatch.setattr(
-        "stockcentral.build_data.load_grilon3_metadata",
+        "centraldefilamentos.build_data.load_grilon3_metadata",
         lambda: {
             "pla-azul-grilon3": {
                 "image_url": "assets/grilon3/megafill-large-roll.jpg",
@@ -517,7 +517,7 @@ def test_build_grilon3_enrichments_prefers_presentation_specific_metadata(monkey
 
 def test_build_grilon3_enrichments_uses_unknown_diameter_metadata_before_legacy_megafill(monkeypatch):
     monkeypatch.setattr(
-        "stockcentral.build_data.load_grilon3_metadata",
+        "centraldefilamentos.build_data.load_grilon3_metadata",
         lambda: {
             "pla-azul-grilon3": {
                 "image_url": "assets/grilon3/megafill-large-roll.jpg",
@@ -553,7 +553,7 @@ def test_build_grilon3_enrichments_uses_unknown_diameter_metadata_before_legacy_
 
 def test_build_grilon3_enrichments_does_not_use_megafill_image_for_1kg_product(monkeypatch):
     monkeypatch.setattr(
-        "stockcentral.build_data.load_grilon3_metadata",
+        "centraldefilamentos.build_data.load_grilon3_metadata",
         lambda: {
             "pla-azul-grilon3": {
                 "image_url": "assets/grilon3/megafill-large-roll.jpg",
@@ -610,7 +610,7 @@ def test_build_grilon3_enrichments_rejects_cached_image_from_another_color(
     wrong_image,
 ):
     monkeypatch.setattr(
-        "stockcentral.build_data.load_grilon3_metadata",
+        "centraldefilamentos.build_data.load_grilon3_metadata",
         lambda: {
             cache_key: {
                 "image_url": wrong_image,
@@ -642,7 +642,7 @@ def test_build_grilon3_enrichments_rejects_cached_image_from_another_color(
 
 def test_build_grilon3_enrichments_does_not_apply_roll_images_to_sampler_products(monkeypatch):
     monkeypatch.setattr(
-        "stockcentral.build_data.load_grilon3_metadata",
+        "centraldefilamentos.build_data.load_grilon3_metadata",
         lambda: {
             "product-key": {
                 "manufacturer_product_url": "https://grilon3.com.ar/producto/standard-roll/",
@@ -714,7 +714,7 @@ def test_download_grilon3_images_caches_remote_images_locally(tmp_path, monkeypa
         calls.append((url, timeout))
         return Response()
 
-    monkeypatch.setattr("stockcentral.cache_grilon3_metadata.requests.get", fake_get)
+    monkeypatch.setattr("centraldefilamentos.cache_grilon3_metadata.requests.get", fake_get)
 
     cache = download_grilon3_images(
         {"product-key": {"image_url": "https://grilon3.com.ar/wp-content/uploads/sample-spool.jpg"}},
@@ -746,9 +746,9 @@ def test_build_grilon3_metadata_cache_keeps_duplicate_normalized_titles(monkeypa
         ),
     }
 
-    monkeypatch.setattr("stockcentral.cache_grilon3_metadata.fetch_grilon3_catalog", lambda url: shop_catalog)
-    monkeypatch.setattr("stockcentral.cache_grilon3_metadata.fetch_grilon3_sitemap_catalog", lambda: {})
-    monkeypatch.setattr("stockcentral.cache_grilon3_metadata.enrich_grilon3_catalog_details", lambda catalog, timeout_seconds, max_workers: catalog)
+    monkeypatch.setattr("centraldefilamentos.cache_grilon3_metadata.fetch_grilon3_catalog", lambda url: shop_catalog)
+    monkeypatch.setattr("centraldefilamentos.cache_grilon3_metadata.fetch_grilon3_sitemap_catalog", lambda: {})
+    monkeypatch.setattr("centraldefilamentos.cache_grilon3_metadata.enrich_grilon3_catalog_details", lambda catalog, timeout_seconds, max_workers: catalog)
 
     cache = build_grilon3_metadata_cache()
     urls = {data["manufacturer_product_url"] for data in cache.values()}
@@ -780,9 +780,9 @@ def test_fetch_grilon3_catalog_products_merges_shop_and_sitemap(monkeypatch):
             )
         }
 
-    monkeypatch.setattr("stockcentral.connectors.grilon3_catalog.fetch_grilon3_catalog", fake_shop)
-    monkeypatch.setattr("stockcentral.connectors.grilon3_catalog.fetch_grilon3_sitemap_catalog", fake_sitemap)
-    monkeypatch.setattr("stockcentral.build_data.load_grilon3_metadata", lambda: {})
+    monkeypatch.setattr("centraldefilamentos.connectors.grilon3_catalog.fetch_grilon3_catalog", fake_shop)
+    monkeypatch.setattr("centraldefilamentos.connectors.grilon3_catalog.fetch_grilon3_sitemap_catalog", fake_sitemap)
+    monkeypatch.setattr("centraldefilamentos.build_data.load_grilon3_metadata", lambda: {})
 
     catalog = fetch_grilon3_catalog_products()
 

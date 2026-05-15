@@ -3,7 +3,7 @@ from __future__ import annotations
 import re
 import unicodedata
 
-from stockcentral.models import NormalizedFields, RawStockItem
+from centraldefilamentos.models import NormalizedFields, RawStockItem
 
 MATERIAL_RULES = [
     ("ACETAL-POM", "Acetal"),

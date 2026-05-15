@@ -142,7 +142,7 @@ def test_catalog_script_fetches_json_and_supports_required_filters():
     assert "Creado por Gabriel" in js
     assert "Reportar error" in js
     assert "Sumar proveedor" in js
-    assert "https://github.com/Zogar89/StockCentral/issues/new" in js
+    assert "https://github.com/Zogar89/CentraldeFilamentos/issues/new" in js
     assert "encodeURIComponent" in js
     assert "Rev." not in js
     assert "whatsappLink" not in js
@@ -203,7 +203,7 @@ def test_summary_script_uses_carretes_totals_and_provider_order():
     assert "Creado por Gabriel" in js
     assert "Reportar error" in js
     assert "Sumar proveedor" in js
-    assert "https://github.com/Zogar89/StockCentral/issues/new" in js
+    assert "https://github.com/Zogar89/CentraldeFilamentos/issues/new" in js
     assert "slugText" in js
     assert "groupRows" in js
     assert "0*" not in js

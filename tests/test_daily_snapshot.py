@@ -1,6 +1,6 @@
 import json
 
-from stockcentral.build_data import (
+from centraldefilamentos.build_data import (
     apply_provider_stock_deltas,
     load_daily_provider_stock_snapshot,
     maybe_update_daily_provider_stock_snapshot,

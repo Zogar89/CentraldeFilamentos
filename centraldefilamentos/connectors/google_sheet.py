@@ -6,8 +6,8 @@ import unicodedata
 
 import requests
 
-from stockcentral.models import RawStockItem
-from stockcentral.providers import SourceConfig
+from centraldefilamentos.models import RawStockItem
+from centraldefilamentos.providers import SourceConfig
 
 NAME_COLUMNS = ["producto", "product", "nombre", "descripcion", "descripción", "detalle"]
 STOCK_COLUMNS = ["stock", "stock real", "cantidad", "disponible", "unidades"]

@@ -6,8 +6,8 @@ import unicodedata
 from bs4 import BeautifulSoup
 import httpx
 
-from stockcentral.models import RawStockItem
-from stockcentral.providers import SourceConfig
+from centraldefilamentos.models import RawStockItem
+from centraldefilamentos.providers import SourceConfig
 
 NAME_HEADERS = {"producto", "nombre", "descripcion", "descripción", "detalle"}
 STOCK_HEADERS = {"stock", "cantidad", "disponible", "unidades"}

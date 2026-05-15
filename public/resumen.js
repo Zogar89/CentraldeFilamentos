@@ -56,8 +56,8 @@ const zoneOrder = {
   "Zona Sur": 2,
 };
 
-const siteContactUrl = "https://github.com/Zogar89/StockCentral/issues/new";
-const siteRepoUrl = "https://github.com/Zogar89/StockCentral";
+const siteContactUrl = "https://github.com/Zogar89/CentraldeFilamentos/issues/new";
+const siteRepoUrl = "https://github.com/Zogar89/CentraldeFilamentos";
 
 document.addEventListener("DOMContentLoaded", init);
 
@@ -90,7 +90,7 @@ function renderSiteFooter() {
     </div>
     <section class="footer-meta" aria-label="Información del proyecto">
       <div>
-        <h2>StockCentral</h2>
+        <h2>Central de Filamentos</h2>
         <p>Creado por Gabriel (Zogar89) para impresores 3D del AMBA.</p>
         <p>Si encontrás un error de stock, una foto incorrecta o querés sumar tu proveedor al listado, avisame por GitHub.</p>
       </div>
@@ -134,7 +134,7 @@ function sourceWhatsappUrl(source) {
 function whatsappMessage() {
   const context = contactContext();
   const suffix = context ? ` Estoy buscando ${context}.` : " Quería consultar disponibilidad y precio.";
-  return `Hola, vi su stock publicado en StockCentral.${suffix}`;
+  return `Hola, vi su stock publicado en Central de Filamentos.${suffix}`;
 }
 
 function contactContext() {

@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from stockcentral.connectors.grilon3_catalog import (
+from centraldefilamentos.connectors.grilon3_catalog import (
     enrich_with_grilon3_catalog,
     fetch_grilon3_catalog,
     fetch_grilon3_product_detail,
@@ -9,7 +9,7 @@ from stockcentral.connectors.grilon3_catalog import (
     parse_grilon3_product_detail,
     parse_grilon3_sitemap,
 )
-from stockcentral.models import NormalizedFields
+from centraldefilamentos.models import NormalizedFields
 
 
 FIXTURE_PATH = Path(__file__).parent / "fixtures" / "grilon3_catalog.html"
@@ -174,7 +174,7 @@ def test_fetch_grilon3_product_detail_downloads_product_page(monkeypatch):
         calls.append((url, timeout))
         return Response()
 
-    monkeypatch.setattr("stockcentral.connectors.grilon3_catalog.requests.get", fake_get)
+    monkeypatch.setattr("centraldefilamentos.connectors.grilon3_catalog.requests.get", fake_get)
 
     detail = fetch_grilon3_product_detail("https://grilon3.com.ar/producto/abs-amarillo/", timeout_seconds=7)
 
@@ -185,7 +185,7 @@ def test_fetch_grilon3_product_detail_downloads_product_page(monkeypatch):
 
 
 def test_enrich_grilon3_catalog_details_prefers_product_page_image(monkeypatch):
-    from stockcentral.connectors.grilon3_catalog import CatalogProduct, enrich_grilon3_catalog_details
+    from centraldefilamentos.connectors.grilon3_catalog import CatalogProduct, enrich_grilon3_catalog_details
 
     def fake_detail(product_url, timeout_seconds):
         assert product_url == "https://grilon3.com.ar/producto/pla-negro/"
@@ -196,7 +196,7 @@ def test_enrich_grilon3_catalog_details_prefers_product_page_image(monkeypatch):
             "ean": "7798049653037",
         }
 
-    monkeypatch.setattr("stockcentral.connectors.grilon3_catalog.fetch_grilon3_product_detail", fake_detail)
+    monkeypatch.setattr("centraldefilamentos.connectors.grilon3_catalog.fetch_grilon3_product_detail", fake_detail)
 
     enriched = enrich_grilon3_catalog_details(
         {
@@ -227,7 +227,7 @@ def test_fetch_grilon3_catalog_downloads_products_url(monkeypatch):
         calls.append((url, timeout))
         return Response()
 
-    monkeypatch.setattr("stockcentral.connectors.grilon3_catalog.requests.get", fake_get)
+    monkeypatch.setattr("centraldefilamentos.connectors.grilon3_catalog.requests.get", fake_get)
 
     catalog = fetch_grilon3_catalog("https://grilon3.com.ar/productos/", timeout_seconds=8)
 
@@ -264,7 +264,7 @@ def test_fetch_grilon3_sitemap_catalog_downloads_sitemap(monkeypatch):
         calls.append((url, timeout))
         return Response()
 
-    monkeypatch.setattr("stockcentral.connectors.grilon3_catalog.requests.get", fake_get)
+    monkeypatch.setattr("centraldefilamentos.connectors.grilon3_catalog.requests.get", fake_get)
 
     catalog = fetch_grilon3_sitemap_catalog("https://grilon3.com.ar/product-sitemap.xml", timeout_seconds=9)
 

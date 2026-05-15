@@ -1,8 +1,8 @@
-# StockCentral MVP Implementation Plan
+# Central de Filamentos MVP Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Build the first public StockCentral MVP: a static GitHub Pages catalog fed by Python ingestion and normalization jobs.
+**Goal:** Build the first public Central de Filamentos MVP: a static GitHub Pages catalog fed by Python ingestion and normalization jobs.
 
 **Architecture:** Python downloads provider stock sources, normalizes products, enriches Grilon3 products with official manufacturer links/images, and writes `public/data/stock.json`. The frontend is a static HTML/CSS/JS app that reads that JSON and renders a minimalist Apple-inspired catalog with filters plus a compact pivot-style summary view.
 
@@ -31,15 +31,15 @@ These decisions override older snippets in this plan if there is a conflict:
 
 - Create `pyproject.toml`: Python package metadata, dependencies, pytest config.
 - Create `README.md`: local setup, data build, test and deploy notes.
-- Create `stockcentral/__init__.py`: package marker and version.
-- Create `stockcentral/models.py`: dataclasses and JSON serialization helpers.
-- Create `stockcentral/providers.py`: source and manufacturer configuration.
-- Create `stockcentral/normalize.py`: conservative normalization logic.
-- Create `stockcentral/connectors/__init__.py`: connector exports.
-- Create `stockcentral/connectors/google_sheet.py`: Google Sheets CSV export and parser.
-- Create `stockcentral/connectors/filamentos3d.py`: Filamentos3D HTML parser.
-- Create `stockcentral/connectors/grilon3_catalog.py`: official Grilon3 catalog parser/enricher.
-- Create `stockcentral/build_data.py`: orchestration entrypoint that writes `public/data/stock.json`.
+- Create `centraldefilamentos/__init__.py`: package marker and version.
+- Create `centraldefilamentos/models.py`: dataclasses and JSON serialization helpers.
+- Create `centraldefilamentos/providers.py`: source and manufacturer configuration.
+- Create `centraldefilamentos/normalize.py`: conservative normalization logic.
+- Create `centraldefilamentos/connectors/__init__.py`: connector exports.
+- Create `centraldefilamentos/connectors/google_sheet.py`: Google Sheets CSV export and parser.
+- Create `centraldefilamentos/connectors/filamentos3d.py`: Filamentos3D HTML parser.
+- Create `centraldefilamentos/connectors/grilon3_catalog.py`: official Grilon3 catalog parser/enricher.
+- Create `centraldefilamentos/build_data.py`: orchestration entrypoint that writes `public/data/stock.json`.
 - Create `public/index.html`: static app shell.
 - Create `public/resumen.html`: pivot-style stock summary page.
 - Create `public/styles.css`: minimalist visual system and responsive layout.
@@ -66,8 +66,8 @@ These decisions override older snippets in this plan if there is a conflict:
 **Files:**
 - Create: `pyproject.toml`
 - Create: `README.md`
-- Create: `stockcentral/__init__.py`
-- Create: `stockcentral/models.py`
+- Create: `centraldefilamentos/__init__.py`
+- Create: `centraldefilamentos/models.py`
 - Test: `tests/test_models.py`
 
 - [ ] **Step 1: Create the failing model tests**
@@ -75,7 +75,7 @@ These decisions override older snippets in this plan if there is a conflict:
 Create `tests/test_models.py`:
 
 ```python
-from stockcentral.models import Offer, ProductGroup, ProviderStats, SourceStatus
+from centraldefilamentos.models import Offer, ProductGroup, ProviderStats, SourceStatus
 
 
 def test_product_group_serializes_for_public_json():
@@ -157,7 +157,7 @@ Run:
 pytest tests/test_models.py -v
 ```
 
-Expected: FAIL with `ModuleNotFoundError: No module named 'stockcentral'`.
+Expected: FAIL with `ModuleNotFoundError: No module named 'centraldefilamentos'`.
 
 - [ ] **Step 3: Create project metadata**
 
@@ -169,7 +169,7 @@ requires = ["setuptools>=69"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "stockcentral"
+name = "centraldefilamentos"
 version = "0.1.0"
 description = "Centralizador estatico de stock de filamentos 3D para AMBA"
 readme = "README.md"
@@ -192,16 +192,16 @@ pythonpath = ["."]
 Create `README.md`:
 
 ````markdown
-# StockCentral
+# Central de Filamentos
 
-StockCentral centraliza stock online de proveedores de filamento 3D del AMBA.
+Central de Filamentos centraliza stock online de proveedores de filamento 3D del AMBA.
 
 ## Desarrollo local
 
 ```bash
 python -m pip install -e ".[dev]"
 pytest
-python -m stockcentral.build_data --output public/data/stock.json
+python -m centraldefilamentos.build_data --output public/data/stock.json
 python -m http.server 8000 -d public
 ```
 
@@ -212,7 +212,7 @@ Abrir `http://localhost:8000`.
 El frontend lee `public/data/stock.json`. En produccion, GitHub Actions genera ese archivo y publica `public/` en GitHub Pages.
 ````
 
-Create `stockcentral/__init__.py`:
+Create `centraldefilamentos/__init__.py`:
 
 ```python
 __version__ = "0.1.0"
@@ -220,7 +220,7 @@ __version__ = "0.1.0"
 
 - [ ] **Step 4: Create the dataclasses and serializers**
 
-Create `stockcentral/models.py`:
+Create `centraldefilamentos/models.py`:
 
 ```python
 from __future__ import annotations
@@ -357,7 +357,7 @@ Expected: PASS.
 Run:
 
 ```bash
-git add pyproject.toml README.md stockcentral/__init__.py stockcentral/models.py tests/test_models.py
+git add pyproject.toml README.md centraldefilamentos/__init__.py centraldefilamentos/models.py tests/test_models.py
 git commit -m "chore: scaffold python models"
 ```
 
@@ -366,7 +366,7 @@ git commit -m "chore: scaffold python models"
 ### Task 2: Provider And Manufacturer Configuration
 
 **Files:**
-- Create: `stockcentral/providers.py`
+- Create: `centraldefilamentos/providers.py`
 - Test: `tests/test_providers.py`
 
 - [ ] **Step 1: Write configuration tests**
@@ -374,7 +374,7 @@ git commit -m "chore: scaffold python models"
 Create `tests/test_providers.py`:
 
 ```python
-from stockcentral.providers import MANUFACTURERS, SOURCES
+from centraldefilamentos.providers import MANUFACTURERS, SOURCES
 
 
 def test_sources_cover_initial_amba_providers():
@@ -413,18 +413,18 @@ Run:
 pytest tests/test_providers.py -v
 ```
 
-Expected: FAIL with `ModuleNotFoundError` or `ImportError` for `stockcentral.providers`.
+Expected: FAIL with `ModuleNotFoundError` or `ImportError` for `centraldefilamentos.providers`.
 
 - [ ] **Step 3: Implement source configuration**
 
-Create `stockcentral/providers.py`:
+Create `centraldefilamentos/providers.py`:
 
 ```python
 from __future__ import annotations
 
 from dataclasses import dataclass
 
-from stockcentral.models import ManufacturerInfo
+from centraldefilamentos.models import ManufacturerInfo
 
 
 @dataclass(frozen=True)
@@ -511,7 +511,7 @@ Expected: PASS.
 Run:
 
 ```bash
-git add stockcentral/providers.py tests/test_providers.py
+git add centraldefilamentos/providers.py tests/test_providers.py
 git commit -m "feat: add provider configuration"
 ```
 
@@ -520,7 +520,7 @@ git commit -m "feat: add provider configuration"
 ### Task 3: Conservative Product Normalization
 
 **Files:**
-- Create: `stockcentral/normalize.py`
+- Create: `centraldefilamentos/normalize.py`
 - Test: `tests/test_normalize.py`
 
 - [ ] **Step 1: Write normalization tests**
@@ -528,8 +528,8 @@ git commit -m "feat: add provider configuration"
 Create `tests/test_normalize.py`:
 
 ```python
-from stockcentral.models import RawStockItem
-from stockcentral.normalize import build_product_id, normalize_record
+from centraldefilamentos.models import RawStockItem
+from centraldefilamentos.normalize import build_product_id, normalize_record
 
 
 def raw(name: str, source_id: str = "filamentos3d", brand_hint: str = "") -> RawStockItem:
@@ -592,11 +592,11 @@ Run:
 pytest tests/test_normalize.py -v
 ```
 
-Expected: FAIL with `ModuleNotFoundError` or `ImportError` for `stockcentral.normalize`.
+Expected: FAIL with `ModuleNotFoundError` or `ImportError` for `centraldefilamentos.normalize`.
 
 - [ ] **Step 3: Implement normalization**
 
-Create `stockcentral/normalize.py`:
+Create `centraldefilamentos/normalize.py`:
 
 ```python
 from __future__ import annotations
@@ -604,7 +604,7 @@ from __future__ import annotations
 import re
 import unicodedata
 
-from stockcentral.models import NormalizedFields, RawStockItem
+from centraldefilamentos.models import NormalizedFields, RawStockItem
 
 MATERIALS = ["PLA", "PETG", "ABS", "TPU", "HIPS", "NYLON", "PA"]
 VARIANTS = {
@@ -772,7 +772,7 @@ Expected: PASS.
 Run:
 
 ```bash
-git add stockcentral/normalize.py tests/test_normalize.py
+git add centraldefilamentos/normalize.py tests/test_normalize.py
 git commit -m "feat: add product normalization"
 ```
 
@@ -781,8 +781,8 @@ git commit -m "feat: add product normalization"
 ### Task 4: Google Sheets Connector
 
 **Files:**
-- Create: `stockcentral/connectors/__init__.py`
-- Create: `stockcentral/connectors/google_sheet.py`
+- Create: `centraldefilamentos/connectors/__init__.py`
+- Create: `centraldefilamentos/connectors/google_sheet.py`
 - Create: `tests/fixtures/google_sheet_stock.csv`
 - Test: `tests/test_google_sheet.py`
 
@@ -806,8 +806,8 @@ Create `tests/test_google_sheet.py`:
 ```python
 from pathlib import Path
 
-from stockcentral.connectors.google_sheet import build_csv_export_url, parse_sheet_csv
-from stockcentral.providers import SOURCES
+from centraldefilamentos.connectors.google_sheet import build_csv_export_url, parse_sheet_csv
+from centraldefilamentos.providers import SOURCES
 
 
 def test_build_csv_export_url_uses_sheet_id_and_gid():
@@ -844,13 +844,13 @@ Expected: FAIL with `ModuleNotFoundError` or `ImportError`.
 
 - [ ] **Step 4: Implement Google Sheets connector**
 
-Create `stockcentral/connectors/__init__.py`:
+Create `centraldefilamentos/connectors/__init__.py`:
 
 ```python
-"""Provider connectors for StockCentral."""
+"""Provider connectors for Central de Filamentos."""
 ```
 
-Create `stockcentral/connectors/google_sheet.py`:
+Create `centraldefilamentos/connectors/google_sheet.py`:
 
 ```python
 from __future__ import annotations
@@ -860,8 +860,8 @@ import io
 
 import requests
 
-from stockcentral.models import RawStockItem
-from stockcentral.providers import SourceConfig
+from centraldefilamentos.models import RawStockItem
+from centraldefilamentos.providers import SourceConfig
 
 NAME_COLUMNS = ["producto", "product", "nombre", "descripcion", "descripción", "detalle"]
 STOCK_COLUMNS = ["stock", "cantidad", "disponible", "unidades"]
@@ -957,7 +957,7 @@ Expected: PASS.
 Run:
 
 ```bash
-git add stockcentral/connectors/__init__.py stockcentral/connectors/google_sheet.py tests/fixtures/google_sheet_stock.csv tests/test_google_sheet.py
+git add centraldefilamentos/connectors/__init__.py centraldefilamentos/connectors/google_sheet.py tests/fixtures/google_sheet_stock.csv tests/test_google_sheet.py
 git commit -m "feat: add google sheets stock connector"
 ```
 
@@ -966,7 +966,7 @@ git commit -m "feat: add google sheets stock connector"
 ### Task 5: Filamentos3D HTML Connector
 
 **Files:**
-- Create: `stockcentral/connectors/filamentos3d.py`
+- Create: `centraldefilamentos/connectors/filamentos3d.py`
 - Create: `tests/fixtures/filamentos3d_stock.html`
 - Test: `tests/test_filamentos3d.py`
 
@@ -1010,8 +1010,8 @@ Create `tests/test_filamentos3d.py`:
 ```python
 from pathlib import Path
 
-from stockcentral.connectors.filamentos3d import parse_filamentos3d_html
-from stockcentral.providers import SOURCES
+from centraldefilamentos.connectors.filamentos3d import parse_filamentos3d_html
+from centraldefilamentos.providers import SOURCES
 
 
 def test_parse_filamentos3d_table_rows():
@@ -1039,7 +1039,7 @@ Expected: FAIL with `ModuleNotFoundError` or `ImportError`.
 
 - [ ] **Step 4: Implement the HTML parser**
 
-Create `stockcentral/connectors/filamentos3d.py`:
+Create `centraldefilamentos/connectors/filamentos3d.py`:
 
 ```python
 from __future__ import annotations
@@ -1047,8 +1047,8 @@ from __future__ import annotations
 import requests
 from bs4 import BeautifulSoup
 
-from stockcentral.models import RawStockItem
-from stockcentral.providers import SourceConfig
+from centraldefilamentos.models import RawStockItem
+from centraldefilamentos.providers import SourceConfig
 
 
 def fetch_filamentos3d_items(source: SourceConfig, updated_at: str, timeout_seconds: int = 30) -> list[RawStockItem]:
@@ -1135,7 +1135,7 @@ Expected: PASS.
 Run:
 
 ```bash
-git add stockcentral/connectors/filamentos3d.py tests/fixtures/filamentos3d_stock.html tests/test_filamentos3d.py
+git add centraldefilamentos/connectors/filamentos3d.py tests/fixtures/filamentos3d_stock.html tests/test_filamentos3d.py
 git commit -m "feat: add filamentos3d stock connector"
 ```
 
@@ -1144,7 +1144,7 @@ git commit -m "feat: add filamentos3d stock connector"
 ### Task 6: Grilon3 Manufacturer Catalog Enrichment
 
 **Files:**
-- Create: `stockcentral/connectors/grilon3_catalog.py`
+- Create: `centraldefilamentos/connectors/grilon3_catalog.py`
 - Create: `tests/fixtures/grilon3_catalog.html`
 - Test: `tests/test_grilon3_catalog.py`
 
@@ -1179,8 +1179,8 @@ Create `tests/test_grilon3_catalog.py`:
 ```python
 from pathlib import Path
 
-from stockcentral.connectors.grilon3_catalog import enrich_grilon3_product, parse_grilon3_catalog
-from stockcentral.models import NormalizedFields
+from centraldefilamentos.connectors.grilon3_catalog import enrich_grilon3_product, parse_grilon3_catalog
+from centraldefilamentos.models import NormalizedFields
 
 
 def test_parse_grilon3_catalog_products():
@@ -1243,7 +1243,7 @@ Expected: FAIL with `ModuleNotFoundError` or `ImportError`.
 
 - [ ] **Step 4: Implement Grilon3 catalog parser and enricher**
 
-Create `stockcentral/connectors/grilon3_catalog.py`:
+Create `centraldefilamentos/connectors/grilon3_catalog.py`:
 
 ```python
 from __future__ import annotations
@@ -1255,7 +1255,7 @@ import unicodedata
 import requests
 from bs4 import BeautifulSoup
 
-from stockcentral.models import NormalizedFields
+from centraldefilamentos.models import NormalizedFields
 
 
 @dataclass(frozen=True)
@@ -1349,7 +1349,7 @@ Expected: PASS.
 Run:
 
 ```bash
-git add stockcentral/connectors/grilon3_catalog.py tests/fixtures/grilon3_catalog.html tests/test_grilon3_catalog.py
+git add centraldefilamentos/connectors/grilon3_catalog.py tests/fixtures/grilon3_catalog.html tests/test_grilon3_catalog.py
 git commit -m "feat: enrich grilon3 products"
 ```
 
@@ -1358,7 +1358,7 @@ git commit -m "feat: enrich grilon3 products"
 ### Task 7: Build Public Stock JSON
 
 **Files:**
-- Create: `stockcentral/build_data.py`
+- Create: `centraldefilamentos/build_data.py`
 - Create: `tests/test_build_data.py`
 - Create: `public/data/stock.json`
 
@@ -1370,8 +1370,8 @@ Create `tests/test_build_data.py`:
 import json
 from pathlib import Path
 
-from stockcentral.build_data import build_payload, write_payload
-from stockcentral.models import ProviderStats, RawStockItem, SourceStatus
+from centraldefilamentos.build_data import build_payload, write_payload
+from centraldefilamentos.models import ProviderStats, RawStockItem, SourceStatus
 
 
 def test_build_payload_groups_products_and_preserves_out_of_stock():
@@ -1511,7 +1511,7 @@ Expected: FAIL with `ModuleNotFoundError` or `ImportError`.
 
 - [ ] **Step 3: Implement payload building and CLI**
 
-Create `stockcentral/build_data.py`:
+Create `centraldefilamentos/build_data.py`:
 
 ```python
 from __future__ import annotations
@@ -1523,12 +1523,12 @@ from datetime import datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
-from stockcentral.connectors.filamentos3d import fetch_filamentos3d_items
-from stockcentral.connectors.google_sheet import fetch_sheet_items
-from stockcentral.connectors.grilon3_catalog import enrich_grilon3_product, fetch_grilon3_catalog
-from stockcentral.models import Offer, ProductGroup, ProviderStats, RawStockItem, SourceStatus
-from stockcentral.normalize import build_display_name, build_product_id, normalize_record
-from stockcentral.providers import MANUFACTURERS, SOURCES
+from centraldefilamentos.connectors.filamentos3d import fetch_filamentos3d_items
+from centraldefilamentos.connectors.google_sheet import fetch_sheet_items
+from centraldefilamentos.connectors.grilon3_catalog import enrich_grilon3_product, fetch_grilon3_catalog
+from centraldefilamentos.models import Offer, ProductGroup, ProviderStats, RawStockItem, SourceStatus
+from centraldefilamentos.normalize import build_display_name, build_product_id, normalize_record
+from centraldefilamentos.providers import MANUFACTURERS, SOURCES
 
 
 def main() -> None:
@@ -1854,7 +1854,7 @@ Expected: PASS.
 Run:
 
 ```bash
-git add stockcentral/build_data.py tests/test_build_data.py public/data/stock.json
+git add centraldefilamentos/build_data.py tests/test_build_data.py public/data/stock.json
 git commit -m "feat: build public stock json"
 ```
 
@@ -1886,7 +1886,7 @@ def test_index_loads_styles_script_and_data_app_root():
     assert 'id="app"' in html
     assert 'id="site-footer"' in html
     assert 'href="resumen.html"' in html
-    assert 'StockCentral' in html
+    assert 'Central de Filamentos' in html
 
 
 def test_summary_page_loads_assets_and_table_root():
@@ -1897,7 +1897,7 @@ def test_summary_page_loads_assets_and_table_root():
     assert 'id="summary-table"' in html
     assert 'id="summary-search"' in html
     assert 'href="index.html"' in html
-    assert 'StockCentral' in html
+    assert 'Central de Filamentos' in html
 
 
 def test_frontend_script_fetches_stock_json_and_supports_required_filters():
@@ -1969,7 +1969,7 @@ Create `public/index.html`:
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>StockCentral</title>
+    <title>Central de Filamentos</title>
     <meta name="description" content="Stock centralizado de filamentos 3D para AMBA.">
     <link rel="stylesheet" href="styles.css">
     <script src="app.js" defer></script>
@@ -1979,7 +1979,7 @@ Create `public/index.html`:
       <header class="hero">
         <div>
           <p class="eyebrow">AMBA filament stock</p>
-          <h1>StockCentral</h1>
+          <h1>Central de Filamentos</h1>
           <p class="subtitle">Filamentos disponibles por proveedor, material, color, formato y marca.</p>
         </div>
         <div class="update-card">
@@ -2669,7 +2669,7 @@ Also create `public/resumen.html`:
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>StockCentral Resumen</title>
+    <title>Central de Filamentos Resumen</title>
     <meta name="description" content="Resumen compacto de stock de filamentos por proveedor.">
     <link rel="stylesheet" href="styles.css">
     <script src="resumen.js" defer></script>
@@ -2679,7 +2679,7 @@ Also create `public/resumen.html`:
       <header class="hero">
         <div>
           <p class="eyebrow">AMBA filament stock</p>
-          <h1>StockCentral</h1>
+          <h1>Central de Filamentos</h1>
           <p class="subtitle">Vista compacta por filamento y proveedor.</p>
         </div>
         <div class="update-card">
@@ -3011,7 +3011,7 @@ jobs:
       - name: Run tests
         run: pytest -v
       - name: Build stock data
-        run: python -m stockcentral.build_data --output public/data/stock.json
+        run: python -m centraldefilamentos.build_data --output public/data/stock.json
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Upload Pages artifact
@@ -3063,16 +3063,16 @@ git commit -m "ci: add tests and pages deployment"
 Modify `README.md` to:
 
 ````markdown
-# StockCentral
+# Central de Filamentos
 
-StockCentral centraliza stock online de proveedores de filamento 3D del AMBA.
+Central de Filamentos centraliza stock online de proveedores de filamento 3D del AMBA.
 
 ## Desarrollo local
 
 ```bash
 python -m pip install -e ".[dev]"
 pytest
-python -m stockcentral.build_data --output public/data/stock.json
+python -m centraldefilamentos.build_data --output public/data/stock.json
 python -m http.server 8000 -d public
 ```
 
@@ -3100,7 +3100,7 @@ Run:
 
 ```bash
 pytest -v
-python -m stockcentral.build_data --output public/data/stock.json
+python -m centraldefilamentos.build_data --output public/data/stock.json
 python -m http.server 8000 -d public
 ```
 

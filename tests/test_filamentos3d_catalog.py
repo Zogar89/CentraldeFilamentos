@@ -1,7 +1,7 @@
 from pathlib import Path
 
-from stockcentral.cache_filamentos3d_metadata import download_filamentos3d_images
-from stockcentral.connectors.filamentos3d_catalog import (
+from centraldefilamentos.cache_filamentos3d_metadata import download_filamentos3d_images
+from centraldefilamentos.connectors.filamentos3d_catalog import (
     ProviderCatalogProduct,
     parse_filamentos3d_category,
     parse_filamentos3d_product_detail,
@@ -119,7 +119,7 @@ def test_download_filamentos3d_images_caches_provider_images_locally(tmp_path, m
         calls.append((url, timeout, follow_redirects))
         return Response()
 
-    monkeypatch.setattr("stockcentral.cache_filamentos3d_metadata.httpx.get", fake_get)
+    monkeypatch.setattr("centraldefilamentos.cache_filamentos3d_metadata.httpx.get", fake_get)
 
     cache = download_filamentos3d_images(
         {

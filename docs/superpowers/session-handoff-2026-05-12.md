@@ -1,15 +1,15 @@
-# StockCentral - Handoff de sesion
+# Central de Filamentos - Handoff de sesion
 
 Fecha: 2026-05-12
 
 ## Estado actual
 
-- Repo publico creado: `https://github.com/Zogar89/StockCentral`.
-- Rama de trabajo: `codex/stockcentral-mvp-foundation`.
+- Repo publico creado: `https://github.com/Zogar89/CentraldeFilamentos`.
+- Rama de trabajo: `codex/centraldefilamentos-mvp-foundation`.
 - Ya existe scaffold Python con modelos, configuracion de proveedores, normalizacion conservadora y conector CSV para Google Sheets.
 - Tests actuales relevantes pasan para modelos, proveedores, normalizacion y Google Sheets.
 - El frontend estatico, build completo, scraper Filamentos3D, enriquecimiento/cache de imagenes Grilon3 y workflows de GitHub Actions siguen pendientes.
-- GitHub Pages esta activado con GitHub Actions como source. URL reservada: `https://zogar89.github.io/StockCentral/`.
+- GitHub Pages esta activado con GitHub Actions como source. URL reservada: `https://zogar89.github.io/CentraldeFilamentos/`.
 - La URL todavia no sirve la app final porque falta crear el workflow de Pages y el frontend/public build.
 
 ## Decisiones tomadas
@@ -38,7 +38,7 @@ Fecha: 2026-05-12
 - Diseno minimalista estilo Apple como inspiracion: claro, compacto, rapido, sin copiar marca ni assets.
 - Footer con fuentes, contactos disponibles, ultima actualizacion y estadisticas por proveedor en carretes.
 - Boton de WhatsApp por proveedor/oferta con mensaje prearmado es una buena idea para implementar.
-- El repositorio puede cambiar de nombre en el futuro, pero por ahora se sigue con `StockCentral`.
+- El repositorio y el producto quedaron renombrados como `Central de Filamentos` / `CentraldeFilamentos`.
 
 ## Contactos oficiales encontrados
 
@@ -48,18 +48,18 @@ Fecha: 2026-05-12
 
 ## Archivos importantes
 
-- `docs/superpowers/specs/2026-05-12-stockcentral-design.md`: especificacion de producto.
-- `docs/superpowers/plans/2026-05-12-stockcentral-mvp.md`: plan ejecutable task-by-task para implementar el MVP.
+- `docs/superpowers/specs/2026-05-12-centraldefilamentos-design.md`: especificacion de producto.
+- `docs/superpowers/plans/2026-05-12-centraldefilamentos-mvp.md`: plan ejecutable task-by-task para implementar el MVP.
 - `docs/superpowers/session-handoff-2026-05-12.md`: este handoff.
-- `stockcentral/providers.py`: configuracion de fuentes, gids y contactos.
-- `stockcentral/connectors/google_sheet.py`: export/parsing CSV de Google Sheets.
+- `centraldefilamentos/providers.py`: configuracion de fuentes, gids y contactos.
+- `centraldefilamentos/connectors/google_sheet.py`: export/parsing CSV de Google Sheets.
 - `tests/test_google_sheet.py`: fixtures y cobertura de parsing defensivo de sheets.
 
 ## Preguntas abiertas
 
 - Ver si conviene sugerir variantes cercanas cuando no hay stock exacto del color/material.
 - Definir cuando aparezcan datos de Zona Norte/otros proveedores si se agrega filtro por zona o se mantiene solo como etiqueta.
-- Confirmar mas adelante si el nombre publico queda `StockCentral` o se renombra el repo/producto.
+- Revisar si hace falta actualizar enlaces externos que todavia apunten al nombre viejo del proyecto.
 
 ## Proximo paso sugerido
 

@@ -1,10 +1,10 @@
-# StockCentral - Diseno de MVP
+# Central de Filamentos - Diseno de MVP
 
 Fecha: 2026-05-12
 
 ## Resumen
 
-StockCentral sera una aplicacion web publica para usuarios de impresion 3D del AMBA. Su objetivo es centralizar el stock online de distintos proveedores de filamento para que una persona pueda encontrar rapidamente que proveedor tiene el material, color, formato o marca que necesita.
+Central de Filamentos sera una aplicacion web publica para usuarios de impresion 3D del AMBA. Su objetivo es centralizar el stock online de distintos proveedores de filamento para que una persona pueda encontrar rapidamente que proveedor tiene el material, color, formato o marca que necesita.
 
 El MVP sera un sitio estatico servido con GitHub Pages. Python correra en GitHub Actions para leer fuentes externas, normalizar datos y generar un archivo JSON publico que consume el frontend.
 

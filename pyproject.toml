@@ -3,7 +3,7 @@ requires = ["setuptools>=69"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "stockcentral"
+name = "centraldefilamentos"
 version = "0.1.0"
 description = "Centralizador estatico de stock de filamentos 3D para AMBA"
 readme = "README.md"
@@ -22,7 +22,7 @@ dev = [
 ]
 
 [tool.setuptools.packages.find]
-include = ["stockcentral*"]
+include = ["centraldefilamentos*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

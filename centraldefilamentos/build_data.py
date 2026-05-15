@@ -10,7 +10,7 @@ from pathlib import Path
 from typing import Mapping
 from zoneinfo import ZoneInfo
 
-from stockcentral.models import (
+from centraldefilamentos.models import (
     ManufacturerInfo,
     Offer,
     ProductGroup,
@@ -19,14 +19,14 @@ from stockcentral.models import (
     SourceStatus,
     StockStatus,
 )
-from stockcentral.normalize import COLOR_RULES, build_display_name, build_product_id, normalize_record
-from stockcentral.providers import MANUFACTURERS, SOURCES, SourceConfig
-from stockcentral.thumbnails import thumbnail_url_for
+from centraldefilamentos.normalize import COLOR_RULES, build_display_name, build_product_id, normalize_record
+from centraldefilamentos.providers import MANUFACTURERS, SOURCES, SourceConfig
+from centraldefilamentos.thumbnails import thumbnail_url_for
 
-GRILON3_METADATA_CACHE = Path("stockcentral/data/grilon3_metadata.json")
-FILAMENTOS3D_METADATA_CACHE = Path("stockcentral/data/filamentos3d_metadata.json")
-DAILY_PROVIDER_STOCK_SNAPSHOT = Path("stockcentral/data/daily_provider_stock_snapshot.json")
-PROVIDER_STOCK_HISTORY = Path("stockcentral/data/provider_stock_history.json")
+GRILON3_METADATA_CACHE = Path("centraldefilamentos/data/grilon3_metadata.json")
+FILAMENTOS3D_METADATA_CACHE = Path("centraldefilamentos/data/filamentos3d_metadata.json")
+DAILY_PROVIDER_STOCK_SNAPSHOT = Path("centraldefilamentos/data/daily_provider_stock_snapshot.json")
+PROVIDER_STOCK_HISTORY = Path("centraldefilamentos/data/provider_stock_history.json")
 PUBLIC_PROVIDER_STOCK_HISTORY = Path("public/data/provider_stock_history.json")
 
 ZONE_ORDER = {
@@ -290,7 +290,7 @@ def build_grilon3_enrichments(
     raw_items: list[RawStockItem],
     catalog: Mapping[str, object] | None = None,
 ) -> dict[str, dict[str, str]]:
-    from stockcentral.connectors.grilon3_catalog import enrich_with_grilon3_catalog, fetch_grilon3_catalog
+    from centraldefilamentos.connectors.grilon3_catalog import enrich_with_grilon3_catalog, fetch_grilon3_catalog
 
     catalog = fetch_grilon3_catalog(MANUFACTURERS["grilon3"].products_url) if catalog is None else catalog
     metadata = load_grilon3_metadata()
@@ -352,7 +352,7 @@ def _is_sampler_or_3d_pen_item(item: RawStockItem) -> bool:
 
 
 def fetch_grilon3_catalog_products() -> dict[str, object]:
-    from stockcentral.connectors.grilon3_catalog import apply_grilon3_metadata, fetch_grilon3_catalog, fetch_grilon3_sitemap_catalog
+    from centraldefilamentos.connectors.grilon3_catalog import apply_grilon3_metadata, fetch_grilon3_catalog, fetch_grilon3_sitemap_catalog
 
     catalog = fetch_grilon3_catalog(MANUFACTURERS["grilon3"].products_url)
     try:
@@ -502,7 +502,7 @@ def _slug(value: str) -> str:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Build public StockCentral JSON data.")
+    parser = argparse.ArgumentParser(description="Build public Central de Filamentos JSON data.")
     parser.add_argument("--output", default="public/data/stock.json")
     parser.add_argument("--daily-snapshot", default=str(DAILY_PROVIDER_STOCK_SNAPSHOT))
     parser.add_argument("--provider-history", default=str(PROVIDER_STOCK_HISTORY))
@@ -602,11 +602,11 @@ def _product_from_group(product_id: str, data: Mapping[str, object]) -> ProductG
 
 def _fetch_source_items(source: SourceConfig, updated_at: str) -> list[RawStockItem]:
     if source.connector == "google_sheet":
-        from stockcentral.connectors.google_sheet import fetch_sheet_items
+        from centraldefilamentos.connectors.google_sheet import fetch_sheet_items
 
         return fetch_sheet_items(source, updated_at)
     if source.connector == "filamentos3d":
-        from stockcentral.connectors.filamentos3d import fetch_filamentos3d_items
+        from centraldefilamentos.connectors.filamentos3d import fetch_filamentos3d_items
 
         return fetch_filamentos3d_items(source, updated_at)
     raise ValueError(f"Unknown connector for {source.id}: {source.connector}")

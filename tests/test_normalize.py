@@ -1,7 +1,7 @@
 import pytest
 
-from stockcentral.models import RawStockItem
-from stockcentral.normalize import build_display_name, build_product_id, normalize_record
+from centraldefilamentos.models import RawStockItem
+from centraldefilamentos.normalize import build_display_name, build_product_id, normalize_record
 
 
 def raw(name: str, source_id: str = "filamentos3d", brand_hint: str = "") -> RawStockItem:

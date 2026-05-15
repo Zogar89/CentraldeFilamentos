@@ -4,8 +4,8 @@ import argparse
 import json
 from pathlib import Path
 
-from stockcentral.build_data import FILAMENTOS3D_METADATA_CACHE, load_filamentos3d_metadata
-from stockcentral.thumbnails import ensure_thumbnail_for_url
+from centraldefilamentos.build_data import FILAMENTOS3D_METADATA_CACHE, load_filamentos3d_metadata
+from centraldefilamentos.thumbnails import ensure_thumbnail_for_url
 
 DEFAULT_STOCK_PATH = Path("public/data/stock.json")
 
