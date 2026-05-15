@@ -21,6 +21,10 @@ jobs:
   thumbnails:
     name: Generate and publish thumbnails
     runs-on: ubuntu-latest
+    env:
+      GIT_CONFIG_COUNT: 1
+      GIT_CONFIG_KEY_0: init.defaultBranch
+      GIT_CONFIG_VALUE_0: master
 
     steps:
       - name: Checkout
@@ -61,7 +65,13 @@ jobs:
           set -euo pipefail
           pages_dir="$RUNNER_TEMP/gh-pages"
           repo_url="https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
-          git clone --depth 1 --branch gh-pages "$repo_url" "$pages_dir"
+          if git ls-remote --exit-code --heads origin gh-pages >/dev/null 2>&1; then
+            git clone --depth 1 --branch gh-pages "$repo_url" "$pages_dir"
+          else
+            git init "$pages_dir"
+            git -C "$pages_dir" checkout -b gh-pages
+            git -C "$pages_dir" remote add origin "$repo_url"
+          fi
           rm -rf "$pages_dir/assets"
           mkdir -p "$pages_dir/data"
           cp -a public/assets "$pages_dir/assets"
