@@ -1095,6 +1095,10 @@ input {
   border-top: 1px solid #c9d2df;
 }
 
+.summary-group-row {
+  scroll-margin-top: calc(var(--quick-lines-height) + var(--summary-head-height));
+}
+
 .summary-table .summary-group-row th:first-child,
 .summary-table .summary-group-row td:first-child {
   background: #e9eef5;
