@@ -39,6 +39,24 @@ export function dataUrl(path) {
   return `${import.meta.env.BASE_URL}${path}`;
 }
 
+const localDateTimeOptions = {
+  dateStyle: "short",
+  timeStyle: "short",
+  timeZone: "America/Argentina/Buenos_Aires",
+  hour12: false,
+};
+
+const localDayOptions = {
+  dateStyle: "short",
+  timeZone: "America/Argentina/Buenos_Aires",
+};
+
+const localTimeOptions = {
+  timeStyle: "short",
+  timeZone: "America/Argentina/Buenos_Aires",
+  hour12: false,
+};
+
 export async function fetchJson(path, fallback = {}, options = {}) {
   try {
     const url = new URL(dataUrl(path), window.location.origin);
@@ -53,17 +71,17 @@ export async function fetchJson(path, fallback = {}, options = {}) {
 
 export function formatDate(value) {
   if (!value) return "Sin datos";
-  return new Intl.DateTimeFormat("es-AR", { dateStyle: "short", timeStyle: "short", timeZone: "America/Argentina/Buenos_Aires" }).format(new Date(value));
+  return new Intl.DateTimeFormat("es-AR", localDateTimeOptions).format(new Date(value));
 }
 
 export function formatDay(value) {
   if (!value) return "";
-  return new Intl.DateTimeFormat("es-AR", { dateStyle: "short", timeZone: "America/Argentina/Buenos_Aires" }).format(new Date(`${value}T09:00:00-03:00`));
+  return new Intl.DateTimeFormat("es-AR", localDayOptions).format(new Date(`${value}T09:00:00-03:00`));
 }
 
 export function formatTime(value) {
   if (!value) return "";
-  return new Intl.DateTimeFormat("es-AR", { timeStyle: "short", timeZone: "America/Argentina/Buenos_Aires" }).format(new Date(value));
+  return new Intl.DateTimeFormat("es-AR", localTimeOptions).format(new Date(value));
 }
 
 export function formatInteger(value) {
