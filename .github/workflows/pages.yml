@@ -2,12 +2,12 @@ name: GitHub Pages
 
 on:
   workflow_dispatch:
-  schedule:
-    # Dias habiles 09, 12, 15 y 18 hs Argentina (UTC-3).
-    - cron: "0 12,15,18,21 * * 1-5"
+  push:
+    branches:
+      - master
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
@@ -28,6 +28,10 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+          cache: pip
+
+      - name: Install Python dependencies
+        run: python -m pip install -e .
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -35,29 +39,8 @@ jobs:
           node-version: "24"
           cache: npm
 
-      - name: Install dependencies
-        run: python -m pip install -e ".[dev]"
-
       - name: Install frontend dependencies
         run: npm ci
-
-      - name: Run tests
-        run: python -m pytest -v
-
-      - name: Build stock data
-        run: python -m centraldefilamentos.build_data --output public/data/stock.json
-
-      - name: Persist daily snapshot
-        run: |
-          if [ -z "$(git status --porcelain -- centraldefilamentos/data/daily_provider_stock_snapshot.json centraldefilamentos/data/provider_stock_history.json)" ]; then
-            echo "No daily snapshot or provider history changes"
-            exit 0
-          fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add centraldefilamentos/data/daily_provider_stock_snapshot.json centraldefilamentos/data/provider_stock_history.json
-          git commit -m "Update daily provider stock history"
-          git push
 
       - name: Generate thumbnails
         run: python -m centraldefilamentos.generate_thumbnails --stock-json public/data/stock.json

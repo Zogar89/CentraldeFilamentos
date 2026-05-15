@@ -1,0 +1,55 @@
+name: Capture Stock Data
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Dias habiles 09, 12, 15 y 18 hs Argentina (UTC-3).
+    - cron: "0 12,15,18,21 * * 1-5"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: data-capture
+  cancel-in-progress: false
+
+jobs:
+  capture:
+    name: Capture stock data
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install scraper dependencies
+        run: python -m pip install -e .
+
+      - name: Build stock data
+        run: python -m centraldefilamentos.build_data --output public/data/stock.json
+
+      - name: Commit captured data
+        run: |
+          DATA_FILES="
+          centraldefilamentos/data/daily_provider_stock_snapshot.json
+          centraldefilamentos/data/provider_stock_history.json
+          public/data/build_business_log.json
+          public/data/build_technical_log.json
+          public/data/provider_stock_history.json
+          public/data/stock.json
+          "
+          if [ -z "$(git status --porcelain -- $DATA_FILES)" ]; then
+            echo "No stock data changes"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add $DATA_FILES
+          git commit -m "Update stock data"
+          git push
