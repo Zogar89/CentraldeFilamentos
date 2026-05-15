@@ -211,6 +211,9 @@ def test_internal_vendor_svelte_uses_feature_flag_and_30_day_history():
     assert "data/feature_flags.json" in js
     assert "data/provider_stock_history.json" in js
     assert "data/build_business_log.json" in js
+    assert "noCache" in js
+    assert "cache: options.noCache ? \"no-store\" : \"default\"" in js
+    assert "url.searchParams.set(\"v\"" in js
     assert "vendorStatsEnabled" in js
     assert "build-health" in js
     assert "last_good_sources" in js

@@ -39,9 +39,11 @@ export function dataUrl(path) {
   return `${import.meta.env.BASE_URL}${path}`;
 }
 
-export async function fetchJson(path, fallback = {}) {
+export async function fetchJson(path, fallback = {}, options = {}) {
   try {
-    const response = await fetch(dataUrl(path));
+    const url = new URL(dataUrl(path), window.location.origin);
+    if (options.noCache) url.searchParams.set("v", String(Date.now()));
+    const response = await fetch(url, { cache: options.noCache ? "no-store" : "default" });
     if (!response.ok) return fallback;
     return await response.json();
   } catch {

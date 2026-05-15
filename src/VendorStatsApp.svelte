@@ -9,13 +9,13 @@
   let disabled = false;
 
   onMount(async () => {
-    const flags = await fetchJson("data/feature_flags.json", {});
+    const flags = await fetchJson("data/feature_flags.json", {}, { noCache: true });
     if (!flags.vendorStatsEnabled) {
       disabled = true;
       return;
     }
-    const history = await fetchJson("data/provider_stock_history.json", { providers: [], days: [] });
-    health = await fetchJson("data/build_business_log.json", null);
+    const history = await fetchJson("data/provider_stock_history.json", { providers: [], days: [] }, { noCache: true });
+    health = await fetchJson("data/build_business_log.json", null, { noCache: true });
     providers = history.providers || [];
     days = (history.days || []).slice(-30);
     generatedAt = history.generated_at || "";
