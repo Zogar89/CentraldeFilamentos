@@ -211,16 +211,16 @@ def test_write_public_provider_stock_history_includes_provider_names_and_last_30
     history = {
         "days": [
             {
-                "date": f"2026-04-{day:02d}",
-                "captured_at": f"2026-04-{day:02d}T09:00:00-03:00",
+                "date": f"2026-05-{day:02d}",
+                "captured_at": f"2026-05-{day:02d}T09:00:00-03:00",
                 "providers": {"mundoinsumos": day, "filamentos3d": day + 10},
                 "checks": [
                     {
-                        "captured_at": f"2026-04-{day:02d}T09:00:00-03:00",
+                        "captured_at": f"2026-05-{day:02d}T09:00:00-03:00",
                         "providers": {"mundoinsumos": day, "filamentos3d": day + 10},
                     },
                     {
-                        "captured_at": f"2026-04-{day:02d}T12:00:00-03:00",
+                        "captured_at": f"2026-05-{day:02d}T12:00:00-03:00",
                         "providers": {"mundoinsumos": day + 1, "filamentos3d": day + 11},
                     },
                 ],
@@ -239,21 +239,21 @@ def test_write_public_provider_stock_history_includes_provider_names_and_last_30
     write_public_provider_stock_history(history, payload, output_path, max_days=30)
 
     public_history = json.loads(output_path.read_text(encoding="utf-8"))
-    assert public_history["generated_at"] == "2026-05-01T12:10:00-03:00"
+    assert public_history["generated_at"] == "2026-05-31T12:00:00-03:00"
     assert public_history["providers"] == [
         {"id": "mundoinsumos", "name": "MundoInsumos", "zone": "Zona Norte"},
         {"id": "filamentos3d", "name": "Filamentos3D", "zone": "Zona Sur"},
     ]
     assert len(public_history["days"]) == 30
-    assert public_history["days"][0]["date"] == "2026-04-02"
-    assert public_history["days"][-1]["date"] == "2026-04-31"
+    assert public_history["days"][0]["date"] == "2026-05-02"
+    assert public_history["days"][-1]["date"] == "2026-05-31"
     assert public_history["days"][-1]["checks"] == [
         {
-            "captured_at": "2026-04-31T09:00:00-03:00",
+            "captured_at": "2026-05-31T09:00:00-03:00",
             "providers": {"mundoinsumos": 31, "filamentos3d": 41},
         },
         {
-            "captured_at": "2026-04-31T12:00:00-03:00",
+            "captured_at": "2026-05-31T12:00:00-03:00",
             "providers": {"mundoinsumos": 32, "filamentos3d": 42},
         },
     ]

@@ -498,10 +498,11 @@ def write_public_provider_stock_history(
     max_days: int = 30,
 ) -> None:
     path = Path(output_path)
+    days = _trim_history_days(_history_days(history), max_days)
     public_payload = {
-        "generated_at": str(payload.get("generated_at", "")),
+        "generated_at": _latest_history_capture_at(days) or str(payload.get("generated_at", "")),
         "providers": _provider_metadata_from_payload(payload),
-        "days": _trim_history_days(_history_days(history), max_days),
+        "days": days,
     }
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(
@@ -1095,6 +1096,22 @@ def _history_days(history: Mapping[str, object]) -> list[dict[str, object]]:
 def _trim_history_days(days: list[dict[str, object]], max_days: int) -> list[dict[str, object]]:
     sorted_days = sorted(days, key=lambda day: str(day.get("date", "")))
     return sorted_days[-max_days:]
+
+
+def _latest_history_capture_at(days: list[dict[str, object]]) -> str:
+    latest: datetime | None = None
+    latest_value = ""
+    for day in days:
+        candidates = [str(day.get("captured_at", ""))]
+        candidates.extend(str(check.get("captured_at", "")) for check in _history_checks(day))
+        for value in candidates:
+            parsed = _parse_datetime(value)
+            if parsed is None:
+                continue
+            if latest is None or parsed > latest:
+                latest = parsed
+                latest_value = value
+    return latest_value
 
 
 def _normalize_history_day(day: Mapping[str, object]) -> dict[str, object]:
