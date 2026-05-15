@@ -85,6 +85,8 @@ def test_catalog_svelte_fetches_json_and_supports_required_filters():
     assert "baseColorFor" in js
     assert "foldText" in js
     assert "matchesSearchTerms" in js
+    assert "setFilter" in js
+    assert "filters, categoryOrder, products.filter" in js
     assert "matchesSearchToken" in js
     assert "searchTokens" in js
     assert 'term === "pla"' in js
@@ -163,6 +165,7 @@ def test_summary_svelte_uses_carretes_totals_and_provider_order():
     assert "brandsLabel" not in js
     assert "Grilon3 + 3N3" not in js
     assert "matchesSearchTerms" in js
+    assert "query, rows.filter" in js
     assert "matchesSearchToken" in js
     assert "searchTokens" in js
     assert 'term === "pla"' in js

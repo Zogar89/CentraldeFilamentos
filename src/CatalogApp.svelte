@@ -24,7 +24,7 @@
     slugText,
   } from "./lib/shared.js";
 
-  const filters = {
+  let filters = {
     query: "",
     material: "",
     variant: "",
@@ -50,8 +50,8 @@
     generatedAt = payload.generated_at || "";
   });
 
-  $: filteredProducts = products.filter(matchesFilters).sort(compareProducts);
-  $: groups = groupProducts(filteredProducts);
+  $: filteredProducts = (filters, categoryOrder, products.filter(matchesFilters).sort(compareProducts));
+  $: groups = (categoryOrder, groupProducts(filteredProducts));
   $: lineOptions = lineValues();
   $: availableLines = lineValues();
   $: contactContext = [
@@ -87,6 +87,15 @@
     if (filters.provider && !(product.offers || []).some((offer) => offer.provider_name === filters.provider)) return false;
     if (filters.stock !== "all" && !(product.offers || []).some((offer) => offer.stock_status === filters.stock)) return false;
     return true;
+  }
+
+  function setFilter(name, value) {
+    filters = { ...filters, [name]: value };
+  }
+
+  function setVariantFilter(value) {
+    setFilter("variant", value);
+    lineHelp = value ? (lineMeta[value]?.help || "") : "";
   }
 
   function groupProducts(items) {
@@ -233,16 +242,16 @@
   <section class="filters" aria-label="Filtros">
     <label class="search-field">
       <span>Buscar</span>
-      <input id="search-input" type="search" bind:value={filters.query} placeholder="PLA negro, PETG, Grilon3...">
+      <input id="search-input" type="search" value={filters.query} on:input={(event) => setFilter("query", event.currentTarget.value)} placeholder="PLA negro, PETG, Grilon3...">
     </label>
-    <select id="material-filter" bind:value={filters.material}><option value="">Material</option>{#each valuesFor("material") as value}<option value={value}>{value}</option>{/each}</select>
-    <select id="variant-filter" bind:value={filters.variant} on:change={() => lineHelp = filters.variant ? (lineMeta[filters.variant]?.help || "") : ""}><option value="">Línea</option>{#each lineOptions as value}<option value={value}>{lineOptionLabel(value)}</option>{/each}</select>
-    <select id="color-filter" bind:value={filters.color}><option value="">Color</option>{#each valuesFor("color") as value}<option value={value}>{value}</option>{/each}</select>
-    <select id="diameter-filter" bind:value={filters.diameter}><option value="">Diámetro</option>{#each valuesFor("diameter_mm") as value}<option value={String(value)}>{value} mm</option>{/each}</select>
-    <select id="weight-filter" bind:value={filters.weight}><option value="">Peso</option>{#each valuesFor("weight_g") as value}<option value={String(value)}>{Number(value) / 1000} kg</option>{/each}</select>
-    <select id="brand-filter" bind:value={filters.brand}><option value="">Marca</option>{#each valuesFor("brand") as value}<option value={value}>{value}</option>{/each}</select>
-    <select id="provider-filter" bind:value={filters.provider}><option value="">Proveedor</option>{#each providerValues() as value}<option value={value}>{value}</option>{/each}</select>
-    <select id="stock-filter" bind:value={filters.stock}>
+    <select id="material-filter" value={filters.material} on:change={(event) => setFilter("material", event.currentTarget.value)}><option value="">Material</option>{#each valuesFor("material") as value}<option value={value}>{value}</option>{/each}</select>
+    <select id="variant-filter" value={filters.variant} on:change={(event) => setVariantFilter(event.currentTarget.value)}><option value="">Línea</option>{#each lineOptions as value}<option value={value}>{lineOptionLabel(value)}</option>{/each}</select>
+    <select id="color-filter" value={filters.color} on:change={(event) => setFilter("color", event.currentTarget.value)}><option value="">Color</option>{#each valuesFor("color") as value}<option value={value}>{value}</option>{/each}</select>
+    <select id="diameter-filter" value={filters.diameter} on:change={(event) => setFilter("diameter", event.currentTarget.value)}><option value="">Diámetro</option>{#each valuesFor("diameter_mm") as value}<option value={String(value)}>{value} mm</option>{/each}</select>
+    <select id="weight-filter" value={filters.weight} on:change={(event) => setFilter("weight", event.currentTarget.value)}><option value="">Peso</option>{#each valuesFor("weight_g") as value}<option value={String(value)}>{Number(value) / 1000} kg</option>{/each}</select>
+    <select id="brand-filter" value={filters.brand} on:change={(event) => setFilter("brand", event.currentTarget.value)}><option value="">Marca</option>{#each valuesFor("brand") as value}<option value={value}>{value}</option>{/each}</select>
+    <select id="provider-filter" value={filters.provider} on:change={(event) => setFilter("provider", event.currentTarget.value)}><option value="">Proveedor</option>{#each providerValues() as value}<option value={value}>{value}</option>{/each}</select>
+    <select id="stock-filter" value={filters.stock} on:change={(event) => setFilter("stock", event.currentTarget.value)}>
       <option value="all">Todos</option>
       <option value="in_stock">Con stock</option>
       <option value="out_of_stock">Sin stock</option>

@@ -45,10 +45,10 @@
     updateStickyGroupRows();
   });
 
-  $: visibleRows = rows.filter(matchesQuery);
+  $: visibleRows = (query, rows.filter(matchesQuery));
   $: providerTotals = totalsForRows(visibleRows);
   $: grandTotal = Object.values(providerTotals).reduce((sum, value) => sum + value, 0);
-  $: groupedRows = groupRows(visibleRows);
+  $: groupedRows = (categoryOrder, groupRows(visibleRows));
   $: availableLines = [...new Set(products.map(lineLabel).filter(Boolean))];
 
   function buildRows() {
