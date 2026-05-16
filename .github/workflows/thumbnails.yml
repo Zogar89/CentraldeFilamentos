@@ -72,9 +72,10 @@ jobs:
             git -C "$pages_dir" checkout -b gh-pages
             git -C "$pages_dir" remote add origin "$repo_url"
           fi
-          rm -rf "$pages_dir/assets"
+          mkdir -p "$pages_dir/assets"
+          rm -rf "$pages_dir/assets/filamentos3d" "$pages_dir/assets/grilon3" "$pages_dir/assets/thumbs"
           mkdir -p "$pages_dir/data"
-          cp -a public/assets "$pages_dir/assets"
+          cp -a public/assets/. "$pages_dir/assets/"
           cp public/data/stock.json "$pages_dir/data/stock.json"
           git -C "$pages_dir" config user.name "github-actions[bot]"
           git -C "$pages_dir" config user.email "41898282+github-actions[bot]@users.noreply.github.com"
