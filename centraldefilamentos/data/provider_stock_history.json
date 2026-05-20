@@ -195,6 +195,25 @@
         "grupo_senz": 9454,
         "mundoinsumos": 6199
       }
+    },
+    {
+      "captured_at": "2026-05-20T10:05:04-03:00",
+      "checks": [
+        {
+          "captured_at": "2026-05-20T10:05:04-03:00",
+          "providers": {
+            "filamentos3d": 12021,
+            "grupo_senz": 9454,
+            "mundoinsumos": 9513
+          }
+        }
+      ],
+      "date": "2026-05-20",
+      "providers": {
+        "filamentos3d": 12021,
+        "grupo_senz": 9454,
+        "mundoinsumos": 9513
+      }
     }
   ]
 }
