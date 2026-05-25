@@ -1,11 +1,8 @@
 {
   "checks": [
     {
-      "failed_sources": [
-        "filamentos3d"
-      ],
       "name": "source_errors",
-      "status": "failed"
+      "status": "passed"
     },
     {
       "name": "enrichment",
@@ -17,56 +14,33 @@
     },
     {
       "name": "non_empty_catalog",
-      "product_count": 271,
+      "product_count": 351,
       "status": "passed"
     },
     {
-      "drop_ratio": 0.2279,
+      "drop_ratio": 0.0,
       "name": "product_count_drop",
       "status": "passed"
-    },
-    {
-      "current": 0,
-      "drop_ratio": 1.0,
-      "max_drop_ratio": 0.6,
-      "name": "provider_stock_drop",
-      "previous": 13887,
-      "source_id": "filamentos3d",
-      "status": "failed"
     }
   ],
   "events": [
     {
-      "code": "source_error",
-      "level": "error",
-      "message": "[Errno 101] Network is unreachable",
-      "source_id": "filamentos3d"
-    },
-    {
-      "code": "provider_stock_drop",
-      "level": "error",
-      "message": "filamentos3d stock dropped from 13887 to 0.",
-      "source_id": "filamentos3d"
+      "code": "publish_ok",
+      "level": "info",
+      "message": "Build quality checks passed."
     }
   ],
-  "generated_at": "2026-05-25T13:01:07-03:00",
-  "last_good_sources": {
-    "filamentos3d": {
-      "generated_at": "2026-05-25T10:20:25-03:00",
-      "name": "Filamentos3D",
-      "product_count": 316,
-      "total_stock_units": 13887
-    }
-  },
+  "generated_at": "2026-05-25T15:41:36-03:00",
+  "last_good_sources": {},
   "metrics": {
     "current": {
-      "product_count": 271,
+      "product_count": 351,
       "sources": {
         "filamentos3d": {
           "name": "Filamentos3D",
-          "product_count": 0,
-          "status": "error",
-          "total_stock_units": 0
+          "product_count": 316,
+          "status": "ok",
+          "total_stock_units": 13841
         },
         "grupo_senz": {
           "name": "Grupo Senz",
@@ -81,7 +55,7 @@
           "total_stock_units": 12975
         }
       },
-      "total_stock_units": 23638
+      "total_stock_units": 37479
     },
     "previous": {
       "product_count": 351,
@@ -108,7 +82,7 @@
       "total_stock_units": 37525
     }
   },
-  "should_publish": false,
-  "status": "blocked",
-  "summary": "Publicacion bloqueada por datos incompletos o sospechosos."
+  "should_publish": true,
+  "status": "ok",
+  "summary": "Publicacion habilitada. No se detectaron errores criticos."
 }
