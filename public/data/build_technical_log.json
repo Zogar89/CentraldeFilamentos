@@ -1,11 +1,8 @@
 {
   "checks": [
     {
-      "failed_sources": [
-        "filamentos3d"
-      ],
       "name": "source_errors",
-      "status": "failed"
+      "status": "passed"
     },
     {
       "name": "enrichment",
@@ -17,56 +14,33 @@
     },
     {
       "name": "non_empty_catalog",
-      "product_count": 271,
+      "product_count": 370,
       "status": "passed"
     },
     {
-      "drop_ratio": 0.2636,
+      "drop_ratio": 0.0,
       "name": "product_count_drop",
       "status": "passed"
-    },
-    {
-      "current": 0,
-      "drop_ratio": 1.0,
-      "max_drop_ratio": 0.6,
-      "name": "provider_stock_drop",
-      "previous": 11588,
-      "source_id": "filamentos3d",
-      "status": "failed"
     }
   ],
   "events": [
     {
-      "code": "source_error",
-      "level": "error",
-      "message": "[Errno 101] Network is unreachable",
-      "source_id": "filamentos3d"
-    },
-    {
-      "code": "provider_stock_drop",
-      "level": "error",
-      "message": "filamentos3d stock dropped from 11588 to 0.",
-      "source_id": "filamentos3d"
+      "code": "publish_ok",
+      "level": "info",
+      "message": "Build quality checks passed."
     }
   ],
-  "generated_at": "2026-06-08T10:39:24-03:00",
-  "last_good_sources": {
-    "filamentos3d": {
-      "generated_at": "2026-06-05T13:03:29-03:00",
-      "name": "Filamentos3D",
-      "product_count": 323,
-      "total_stock_units": 11588
-    }
-  },
+  "generated_at": "2026-06-08T13:27:04-03:00",
+  "last_good_sources": {},
   "metrics": {
     "current": {
-      "product_count": 271,
+      "product_count": 370,
       "sources": {
         "filamentos3d": {
           "name": "Filamentos3D",
-          "product_count": 0,
-          "status": "error",
-          "total_stock_units": 0
+          "product_count": 323,
+          "status": "ok",
+          "total_stock_units": 11166
         },
         "grupo_senz": {
           "name": "Grupo Senz",
@@ -76,12 +50,12 @@
         },
         "mundoinsumos": {
           "name": "MundoInsumos",
-          "product_count": 220,
+          "product_count": 233,
           "status": "ok",
-          "total_stock_units": 12906
+          "total_stock_units": 17245
         }
       },
-      "total_stock_units": 22373
+      "total_stock_units": 37878
     },
     "previous": {
       "product_count": 368,
@@ -108,7 +82,7 @@
       "total_stock_units": 31681
     }
   },
-  "should_publish": false,
-  "status": "blocked",
-  "summary": "Publicacion bloqueada por datos incompletos o sospechosos."
+  "should_publish": true,
+  "status": "ok",
+  "summary": "Publicacion habilitada. No se detectaron errores criticos."
 }
