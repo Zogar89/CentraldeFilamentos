@@ -43,14 +43,22 @@ Estas reglas no alcanzan para publicar sin supervision, pero explican que hace h
 
 ## Propuesta de pagina local human-in-the-loop
 
-Pendiente de implementar con aprobacion previa. La idea es una pagina local de curacion que no publique nada automaticamente:
+La herramienta local vive en `tools/image-curation/` y se levanta con:
+
+```bash
+npm run curate-images
+```
+
+La pagina no publica nada automaticamente:
 
 - Buscar producto por nombre o `product_id`.
-- Mostrar imagen actual, metadata actual y productos sentinela.
-- Cargar hasta 3 candidatos por URL puntual.
-- Mostrar cada candidato con vista previa, fuente, URL remota, nombre de archivo y dimensiones.
-- Elegir una opcion con un boton claro.
-- Generar un patch local chico, revisable, sin tocar otros productos.
-- Dejar registro de quien eligio la imagen y de que URL salio.
+- Mostrar todos los productos ordenados de forma parecida al catalogo principal.
+- Mostrar la imagen actual de cada producto para detectar rapidamente fotos malas o faltantes.
+- Capturar automaticamente hasta 3 candidatos por producto, usando solo la URL puntual guardada en el stock.
+- Permitir URL manual de pagina o foto directa cuando las candidatas no sirven.
+- Guardar candidatas en `.image-curation/candidates.json`, que esta ignorado por git.
+- Guardar decisiones humanas en `.image-curation/selections.json`, que esta ignorado por git.
+- No descargar ni versionar banco de fotos candidatas.
+- No tocar `public/assets`, `public/data/stock.json` ni caches productivas.
 
 El objetivo de esa pagina es que la decision visual sea humana y que el asistente solo haga la parte mecanica: descargar, generar miniatura, aplicar el patch y publicar.

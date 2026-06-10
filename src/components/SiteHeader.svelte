@@ -5,16 +5,31 @@
   export let updatedAt = "";
   export let providerCount = 0;
   export let subtitle = "";
+  export let stockAlerts = [];
+  export let onDismissStockAlerts = () => {};
 
   $: updatedLabel = updatedAt ? `Actualizado: ${formatDate(updatedAt)}` : subtitle;
   $: providerLabel = providerCount === 1 ? "1 proveedor conectado" : `${providerCount || 0} proveedores conectados`;
+  $: firstStockAlert = stockAlerts[0];
+  $: stockAlertDetail = stockAlerts.length === 1
+    ? stockAlertLabel(firstStockAlert)
+    : firstStockAlert
+      ? `${stockAlertLabel(firstStockAlert)} y ${stockAlerts.length - 1} más`
+      : "";
 
   const navItems = [
     { id: "catalog", label: "Catálogo", href: "index.html" },
     { id: "summary", label: "Resumen", href: "resumen.html" },
-    { id: "stats", label: "Estadísticas", href: "estadisticas.html" },
     { id: "providers", label: "Proveedores", href: "index.html#site-footer" },
   ];
+
+  function stockAlertLabel(alert) {
+    if (!alert) return "";
+    const stockChange = Number(alert.previousQuantity) < Number(alert.quantity)
+      ? ` (${Number(alert.previousQuantity)} -> ${Number(alert.quantity)} carretes)`
+      : "";
+    return `${alert.productName} en ${alert.providerName}${stockChange}`;
+  }
 </script>
 
 <header class="site-header">
@@ -38,4 +53,15 @@
     <span class="status-dot" aria-hidden="true"></span>
     <span>{providerLabel}</span>
   </a>
+
+  {#if stockAlerts.length}
+    <section class="stock-alert-banner" aria-live="polite">
+      <div>
+        <strong>Tus filamentos esperados volvieron</strong>
+        <span>{stockAlertDetail}</span>
+      </div>
+      <a href={firstStockAlert.href}>Ver</a>
+      <button type="button" on:click={onDismissStockAlerts}>Visto</button>
+    </section>
+  {/if}
 </header>

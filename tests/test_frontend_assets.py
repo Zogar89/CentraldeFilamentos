@@ -18,6 +18,7 @@ def test_static_frontend_files_exist_and_are_linked():
     assert 'type="module" src="/src/catalog.js"' in index
     assert 'href: "resumen.html"' in site_header
     assert 'href: "index.html#site-footer"' in site_header
+    assert 'href: "estadisticas.html"' not in site_header
     assert "provider-status" in site_header
     assert "brand-mark" in site_header
     assert "SiteHeader" in catalog_view
@@ -42,8 +43,10 @@ def test_catalog_svelte_fetches_json_and_supports_required_filters():
     view = (SRC / "CatalogApp.svelte").read_text(encoding="utf-8")
     shared = (SRC / "lib" / "shared.js").read_text(encoding="utf-8")
     footer = (SRC / "components" / "SiteFooter.svelte").read_text(encoding="utf-8")
+    site_header = (SRC / "components" / "SiteHeader.svelte").read_text(encoding="utf-8")
     quick_lines = (SRC / "components" / "QuickLines.svelte").read_text(encoding="utf-8")
-    js = view + shared + footer + quick_lines
+    subscriptions = (SRC / "lib" / "stockSubscriptions.js").read_text(encoding="utf-8")
+    js = view + shared + footer + site_header + quick_lines + subscriptions
 
     assert "data/stock.json" in js
     for filter_id in [
@@ -74,7 +77,7 @@ def test_catalog_svelte_fetches_json_and_supports_required_filters():
     assert "samplerLengthLabel" in js
     assert "groupBaseProducts" in js
     assert "official-product-link" in js
-    assert "Página oficial" in js
+    assert "Abrir página oficial" in js
     assert "data-preview-src" in js
     assert "thumbnail_url" in js
     assert 'loading="lazy"' in js
@@ -128,11 +131,34 @@ def test_catalog_svelte_fetches_json_and_supports_required_filters():
     assert "offer-main" in js
     assert "providerTitle" in js
     assert "Sin cantidad" in js
+    assert "stockSubscriptionsStorageKey" in js
+    assert "centraldefilamentos.stockSubscriptions.v1" in js
+    assert "loadStockSubscriptions" in js
+    assert "saveStockSubscriptions" in js
+    assert "subscriptionKey" in js
+    assert "stockSignature" in js
+    assert "stockAlerts" in js
+    assert "increasedStock" in js
+    assert "currentQuantity > previousQuantity" in js
+    assert "previousQuantity" in js
+    assert "stockAlertLabel" in js
+    assert "Tus filamentos esperados volvieron" in site_header
+    assert "stock-alert-banner" in site_header
+    assert "stock-watch-button" in js
+    assert "Avisarme si sube o vuelve el stock" in js
+    assert "Seguir cambios de stock" in js
+    assert "Dejar de seguir cambios de stock" in js
+    assert "reconcileStockSubscriptions" in js
+    assert "dismissStockAlerts" in js
+    assert "stockWatchTargetId" in js
     assert "0*" not in js
     assert "El proveedor seguramente no maneja esta variante." not in js
     assert "providerAnchorId" in js
     assert "proveedor-" in js
     assert "sourceWhatsappUrl" in js
+    assert "mapsHref" in js
+    assert "www.google.com/maps/search" in js
+    assert "footer-detail-link" in js
     assert "contactContext" in js
     assert "stockDelta" in js
     assert "stock_delta_units" in js
@@ -275,6 +301,9 @@ def test_styles_are_compact_and_responsive():
     assert "scroll-margin-top" in css
     assert "repeat(auto-fit, minmax(320px, 1fr))" in css
     assert ".offer-main" in css
+    assert ".stock-alert-banner" in css
+    assert ".stock-watch-button" in css
+    assert ".offer:target" in css
     assert ".presentation-list" in css
     assert ".presentation-row" in css
     assert ".chips" not in css
@@ -294,6 +323,7 @@ def test_styles_are_compact_and_responsive():
     assert "scroll-behavior: smooth" in css
     assert ".footer-provider:target" in css
     assert ".stock-delta" in css
+    assert ".footer-provider-stock" in css
     assert ".stock-delta-up" in css
     assert ".stock-delta-down" in css
     assert ".footer-meta" in css

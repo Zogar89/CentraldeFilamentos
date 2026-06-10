@@ -90,6 +90,15 @@ Levantar servidor estatico local:
 npm run dev
 ```
 
+Levantar la herramienta local de curacion de imagenes:
+
+```bash
+npm run curate-images
+```
+
+Esta herramienta no publica ni modifica datos productivos. Guarda la seleccion humana en `.image-curation/selection.json`, carpeta ignorada por git.
+Tambien guarda el cache local de candidatas en `.image-curation/candidates.json` y las decisiones por producto en `.image-curation/selections.json`.
+
 Previsualizar el build final como lo recibe GitHub Pages:
 
 ```bash

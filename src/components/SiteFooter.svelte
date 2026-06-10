@@ -26,6 +26,10 @@
   function phoneHref(phone) {
     return `tel:${String(phone || "").replace(/[^\d+]/g, "")}`;
   }
+
+  function mapsHref(address) {
+    return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
+  }
 </script>
 
 <footer id="site-footer" class="site-footer">
@@ -48,18 +52,21 @@
         </header>
 
         <div class="footer-provider-stats" aria-label={`Stock de ${source.name}`}>
-          <span><strong>{formatInteger(stats.total_stock_units || 0)}</strong><small>carretes</small></span>
+          <span class="footer-provider-stock">
+            <strong>{formatInteger(stats.total_stock_units || 0)}</strong>
+            <small>carretes</small>
+            {#if delta}
+              <span class={`stock-delta stock-delta-${delta.tone}`}>{delta.label}<small>vs ayer</small></span>
+            {/if}
+          </span>
           <span><strong>{formatInteger(stats.product_count || 0)}</strong><small>productos</small></span>
-          {#if delta}
-            <span class={`stock-delta stock-delta-${delta.tone}`}>{delta.label}<small>vs ayer</small></span>
-          {/if}
         </div>
 
         <div class="footer-provider-details">
           {#if source.address}
             <p>
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 21v-7h6v7"/></svg>
-              <span>{source.address}</span>
+              <a class="footer-detail-link" href={mapsHref(source.address)} target="_blank" rel="noopener" aria-label={`Abrir dirección de ${source.name} en Google Maps`}>{source.address}</a>
             </p>
           {/if}
           <p>

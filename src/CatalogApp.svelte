@@ -4,6 +4,12 @@
   import SiteHeader from "./components/SiteHeader.svelte";
   import SiteFooter from "./components/SiteFooter.svelte";
   import {
+    loadStockSubscriptions,
+    saveStockSubscriptions,
+    stockSignature,
+    subscriptionKey,
+  } from "./lib/stockSubscriptions.js";
+  import {
     brandRank,
     colorSwatchLabel,
     colorSwatchStyle,
@@ -43,14 +49,19 @@
   let categoryOrder = "popular";
   let lineHelp = "";
   let preview = null;
+  let stockSubscriptions = [];
+  let stockAlerts = [];
 
   onMount(async () => {
     const payload = await fetchJson("data/stock.json", { products: [], sources: [] });
     products = payload.products || [];
     sources = payload.sources || [];
     generatedAt = payload.generated_at || "";
+    stockSubscriptions = loadStockSubscriptions();
+    reconcileStockSubscriptions();
   });
 
+  $: subscribedKeys = new Set(stockSubscriptions.map((item) => item.key));
   $: filteredProducts = (filters, categoryOrder, products.filter(matchesFilters).sort(compareProducts));
   $: groups = (categoryOrder, groupProducts(filteredProducts));
   $: lineOptions = (products, lineValues());
@@ -251,14 +262,116 @@
   function providerTitle(offer) {
     return `${offer.provider_name} · ${offer.provider_zone}`;
   }
+
+  function isSubscribed(product, offer) {
+    return subscribedKeys.has(subscriptionKey(product, offer));
+  }
+
+  function toggleStockSubscription(product, offer) {
+    const key = subscriptionKey(product, offer);
+    const existing = stockSubscriptions.find((item) => item.key === key);
+    if (existing) {
+      stockSubscriptions = stockSubscriptions.filter((item) => item.key !== key);
+      stockAlerts = stockAlerts.filter((item) => item.key !== key);
+    } else {
+      stockSubscriptions = [
+        ...stockSubscriptions,
+        {
+          key,
+          productId: product.id,
+          sourceId: offer.source_id || offer.provider_name,
+          productName: productBaseName(product),
+          providerName: offer.provider_name,
+          presentation: formatPresentation(product),
+          subscribedAt: new Date().toISOString(),
+          lastStockStatus: offer.stock_status || "unknown",
+          lastStockQuantity: Number(offer.stock_quantity || 0),
+          lastStockSignature: stockSignature(offer),
+          acknowledgedAt: "",
+        },
+      ];
+    }
+    saveStockSubscriptions(stockSubscriptions);
+  }
+
+  function reconcileStockSubscriptions() {
+    const alerts = [];
+    const nextSubscriptions = stockSubscriptions.map((subscription) => {
+      const match = findSubscribedOffer(subscription);
+      if (!match) return subscription;
+
+      const { product, offer } = match;
+      const signature = stockSignature(offer);
+      const currentQuantity = Number(offer.stock_quantity || 0);
+      const previousQuantity = Number(subscription.lastStockQuantity || 0);
+      const cameBack = offer.stock_status === "in_stock" && subscription.lastStockStatus !== "in_stock";
+      const increasedStock = offer.stock_status === "in_stock" && currentQuantity > previousQuantity;
+      if (cameBack || increasedStock) {
+        alerts.push({
+          key: subscription.key,
+          productName: productBaseName(product),
+          providerName: offer.provider_name,
+          quantity: currentQuantity,
+          previousQuantity,
+          href: `#${stockWatchTargetId(product, offer)}`,
+        });
+        return subscription;
+      }
+
+      return {
+        ...subscription,
+        productName: productBaseName(product),
+        providerName: offer.provider_name,
+        presentation: formatPresentation(product),
+        lastStockStatus: offer.stock_status || "unknown",
+        lastStockQuantity: currentQuantity,
+        lastStockSignature: signature,
+      };
+    });
+
+    stockSubscriptions = nextSubscriptions;
+    stockAlerts = alerts;
+    saveStockSubscriptions(nextSubscriptions);
+  }
+
+  function findSubscribedOffer(subscription) {
+    const product = products.find((item) => item.id === subscription.productId);
+    if (!product) return null;
+
+    const offer = (product.offers || []).find((item) => (item.source_id || item.provider_name) === subscription.sourceId);
+    if (!offer) return null;
+    return { product, offer };
+  }
+
+  function dismissStockAlerts() {
+    if (!stockAlerts.length) return;
+    const alertKeys = new Set(stockAlerts.map((item) => item.key));
+    stockSubscriptions = stockSubscriptions.map((subscription) => {
+      if (!alertKeys.has(subscription.key)) return subscription;
+      const match = findSubscribedOffer(subscription);
+      if (!match) return subscription;
+      return {
+        ...subscription,
+        productName: productBaseName(match.product),
+        providerName: match.offer.provider_name,
+        presentation: formatPresentation(match.product),
+        lastStockStatus: match.offer.stock_status || "unknown",
+        lastStockQuantity: Number(match.offer.stock_quantity || 0),
+        lastStockSignature: stockSignature(match.offer),
+        acknowledgedAt: new Date().toISOString(),
+      };
+    });
+    stockAlerts = [];
+    saveStockSubscriptions(stockSubscriptions);
+  }
+
+  function stockWatchTargetId(product, offer) {
+    return `stock-watch-${slugText([product.id, offer.source_id || offer.provider_name].join(" "))}`;
+  }
 </script>
 
 <main class="shell">
-  <SiteHeader active="catalog" updatedAt={generatedAt} providerCount={sources.length} subtitle="AMBA · filamentos 3D" />
-
-  <section class="status-strip">
-    <span id="last-update">Última actualización: {formatDate(generatedAt)}</span>
-  </section>
+  <SiteHeader active="catalog" updatedAt={generatedAt} providerCount={sources.length} subtitle="AMBA · filamentos 3D" {stockAlerts} onDismissStockAlerts={dismissStockAlerts} />
 
   <section class="filters" aria-label="Filtros">
     <label class="search-field">
@@ -326,7 +439,12 @@
                   <h2>
                     <span>{productBaseName(product)}</span>
                     {#if product.manufacturer_product_url}
-                      <a class="official-product-link" href={product.manufacturer_product_url} target="_blank" rel="noopener" aria-label={`Abrir página oficial de ${productBaseName(product)}`} title="Página oficial">↗</a>
+                      <a class="official-product-link" href={product.manufacturer_product_url} target="_blank" rel="noopener" aria-label={`Abrir página oficial de ${productBaseName(product)}`} title="Abrir página oficial">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="M7 17 17 7"></path>
+                          <path d="M9 7h8v8"></path>
+                        </svg>
+                      </a>
                     {/if}
                   </h2>
                 </div>
@@ -337,10 +455,24 @@
                       <div class="offers">
                         {#if (presentation.offers || []).length}
                           {#each presentation.offers as offer}
-                            <div class="offer" title={providerTitle(offer)}>
+                            <div class="offer" id={stockWatchTargetId(presentation, offer)} title={providerTitle(offer)}>
                               <div class="offer-main">
                                 <a href={`#${providerAnchorId(offer.source_id)}`} title={providerTitle(offer)}>{offer.provider_name}</a>
                                 <strong class={offer.stock_status === "in_stock" ? "stock-in" : "stock-out"}>{offer.stock_status === "in_stock" ? `${offer.stock_quantity} carretes` : "0"}</strong>
+                                <button
+                                  class="stock-watch-button"
+                                  class:active={isSubscribed(presentation, offer)}
+                                  type="button"
+                                  aria-pressed={isSubscribed(presentation, offer)}
+                                  aria-label={`${isSubscribed(presentation, offer) ? "Dejar de seguir cambios de stock" : "Seguir cambios de stock"} de ${productBaseName(presentation)} en ${offer.provider_name}`}
+                                  title={isSubscribed(presentation, offer) ? "Dejar de seguir cambios de stock" : "Avisarme si sube o vuelve el stock"}
+                                  on:click={() => toggleStockSubscription(presentation, offer)}
+                                >
+                                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path>
+                                    <path d="M10 21h4"></path>
+                                  </svg>
+                                </button>
                               </div>
                               <small>{offer.original_name}</small>
                             </div>
