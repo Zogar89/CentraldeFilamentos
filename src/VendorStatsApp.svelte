@@ -127,7 +127,7 @@
 </script>
 
 <main class="internal-shell">
-  <SiteHeader active="stats" updatedAt={generatedAt} providerCount={providers.length} subtitle="Estadísticas de vendedores" />
+  <SiteHeader active="stats" updatedAt={generatedAt} subtitle="Estadísticas de vendedores" />
 
   <section class="status-strip">
     <span id="vendor-updated">{disabled ? "Feature flag apagado" : `Actualizado: ${formatDate(generatedAt)}`}</span>

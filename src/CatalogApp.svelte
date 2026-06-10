@@ -371,7 +371,7 @@
 </script>
 
 <main class="shell">
-  <SiteHeader active="catalog" updatedAt={generatedAt} providerCount={sources.length} subtitle="AMBA · filamentos 3D" {stockAlerts} onDismissStockAlerts={dismissStockAlerts} />
+  <SiteHeader active="catalog" updatedAt={generatedAt} subtitle="AMBA · filamentos 3D" {stockAlerts} onDismissStockAlerts={dismissStockAlerts} />
 
   <section class="filters" aria-label="Filtros">
     <label class="search-field">

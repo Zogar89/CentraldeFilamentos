@@ -134,7 +134,7 @@
 </script>
 
 <main class="shell">
-  <SiteHeader active="summary" updatedAt={generatedAt} providerCount={sources.length} subtitle="Resumen por proveedor" />
+  <SiteHeader active="summary" updatedAt={generatedAt} subtitle="Resumen por proveedor" />
 
   <section class="status-strip">
     <span id="summary-updated">Última actualización: {formatDate(generatedAt)}</span>

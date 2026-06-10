@@ -19,7 +19,7 @@ def test_static_frontend_files_exist_and_are_linked():
     assert 'href: "resumen.html"' in site_header
     assert 'href: "index.html#site-footer"' in site_header
     assert 'href: "estadisticas.html"' not in site_header
-    assert "provider-status" in site_header
+    assert "provider-status" not in site_header
     assert "brand-mark" in site_header
     assert "SiteHeader" in catalog_view
     assert 'type="module" src="/src/summary.js"' in resumen

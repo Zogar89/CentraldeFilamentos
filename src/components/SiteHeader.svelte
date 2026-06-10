@@ -3,13 +3,11 @@
 
   export let active = "catalog";
   export let updatedAt = "";
-  export let providerCount = 0;
   export let subtitle = "";
   export let stockAlerts = [];
   export let onDismissStockAlerts = () => {};
 
   $: updatedLabel = updatedAt ? `Actualizado: ${formatDate(updatedAt)}` : subtitle;
-  $: providerLabel = providerCount === 1 ? "1 proveedor conectado" : `${providerCount || 0} proveedores conectados`;
   $: firstStockAlert = stockAlerts[0];
   $: stockAlertDetail = stockAlerts.length === 1
     ? stockAlertLabel(firstStockAlert)
@@ -48,11 +46,6 @@
       <a class="nav-link" class:active={active === item.id} href={item.href}>{item.label}</a>
     {/each}
   </nav>
-
-  <a class="provider-status" href="index.html#site-footer" aria-label={providerLabel}>
-    <span class="status-dot" aria-hidden="true"></span>
-    <span>{providerLabel}</span>
-  </a>
 
   {#if stockAlerts.length}
     <section class="stock-alert-banner" aria-live="polite">
