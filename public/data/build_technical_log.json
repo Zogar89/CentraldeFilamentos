@@ -49,7 +49,7 @@
       "source_id": "filamentos3d"
     }
   ],
-  "generated_at": "2026-06-15T16:27:14-03:00",
+  "generated_at": "2026-06-15T18:56:36-03:00",
   "last_good_sources": {
     "filamentos3d": {
       "generated_at": "2026-06-15T13:42:52-03:00",
@@ -78,10 +78,10 @@
           "name": "MundoInsumos",
           "product_count": 233,
           "status": "ok",
-          "total_stock_units": 16377
+          "total_stock_units": 14857
         }
       },
-      "total_stock_units": 26516
+      "total_stock_units": 24996
     },
     "previous": {
       "product_count": 370,
