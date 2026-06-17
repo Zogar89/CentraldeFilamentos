@@ -1,8 +1,11 @@
 {
   "checks": [
     {
+      "failed_sources": [
+        "filamentos3d"
+      ],
       "name": "source_errors",
-      "status": "passed"
+      "status": "failed"
     },
     {
       "name": "enrichment",
@@ -14,26 +17,73 @@
     },
     {
       "name": "non_empty_catalog",
-      "product_count": 370,
+      "product_count": 276,
       "status": "passed"
     },
     {
-      "drop_ratio": 0.0,
+      "drop_ratio": 0.2541,
       "name": "product_count_drop",
       "status": "passed"
+    },
+    {
+      "current": 0,
+      "drop_ratio": 1.0,
+      "max_drop_ratio": 0.6,
+      "name": "provider_stock_drop",
+      "previous": 10935,
+      "source_id": "filamentos3d",
+      "status": "failed"
     }
   ],
   "events": [
     {
-      "code": "publish_ok",
-      "level": "info",
-      "message": "Build quality checks passed."
+      "code": "source_error",
+      "level": "error",
+      "message": "[Errno 101] Network is unreachable",
+      "source_id": "filamentos3d"
+    },
+    {
+      "code": "provider_stock_drop",
+      "level": "error",
+      "message": "filamentos3d stock dropped from 10935 to 0.",
+      "source_id": "filamentos3d"
     }
   ],
-  "generated_at": "2026-06-17T10:26:16-03:00",
-  "last_good_sources": {},
+  "generated_at": "2026-06-17T13:21:45-03:00",
+  "last_good_sources": {
+    "filamentos3d": {
+      "generated_at": "2026-06-17T10:26:16-03:00",
+      "name": "Filamentos3D",
+      "product_count": 323,
+      "total_stock_units": 10935
+    }
+  },
   "metrics": {
     "current": {
+      "product_count": 276,
+      "sources": {
+        "filamentos3d": {
+          "name": "Filamentos3D",
+          "product_count": 0,
+          "status": "error",
+          "total_stock_units": 0
+        },
+        "grupo_senz": {
+          "name": "Grupo Senz",
+          "product_count": 234,
+          "status": "ok",
+          "total_stock_units": 10138
+        },
+        "mundoinsumos": {
+          "name": "MundoInsumos",
+          "product_count": 233,
+          "status": "ok",
+          "total_stock_units": 13477
+        }
+      },
+      "total_stock_units": 23615
+    },
+    "previous": {
       "product_count": 370,
       "sources": {
         "filamentos3d": {
@@ -56,33 +106,9 @@
         }
       },
       "total_stock_units": 35860
-    },
-    "previous": {
-      "product_count": 370,
-      "sources": {
-        "filamentos3d": {
-          "name": "Filamentos3D",
-          "product_count": 323,
-          "status": "ok",
-          "total_stock_units": 11115
-        },
-        "grupo_senz": {
-          "name": "Grupo Senz",
-          "product_count": 234,
-          "status": "ok",
-          "total_stock_units": 10139
-        },
-        "mundoinsumos": {
-          "name": "MundoInsumos",
-          "product_count": 233,
-          "status": "ok",
-          "total_stock_units": 14786
-        }
-      },
-      "total_stock_units": 36040
     }
   },
-  "should_publish": true,
-  "status": "ok",
-  "summary": "Publicacion habilitada. No se detectaron errores criticos."
+  "should_publish": false,
+  "status": "blocked",
+  "summary": "Publicacion bloqueada por datos incompletos o sospechosos."
 }
