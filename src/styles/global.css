@@ -953,15 +953,15 @@ input {
 .footer-provider {
   display: grid;
   gap: 12px;
-  color: var(--muted);
+  color: color-mix(in srgb, var(--provider-accent, var(--accent)) 22%, var(--muted));
   scroll-margin-top: 16px;
   border-radius: 8px;
   padding: 14px;
-  border: 1px solid color-mix(in srgb, var(--provider-accent, var(--accent)) 18%, var(--line));
+  border: 1px solid color-mix(in srgb, var(--provider-accent, var(--accent)) 42%, var(--line));
   background:
-    linear-gradient(135deg, color-mix(in srgb, var(--provider-accent, var(--accent)) 10%, transparent), transparent 38%),
-    var(--surface);
-  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.05);
+    linear-gradient(135deg, color-mix(in srgb, var(--provider-accent, var(--accent)) 24%, transparent), transparent 48%),
+    color-mix(in srgb, var(--provider-accent, var(--accent)) 9%, var(--surface));
+  box-shadow: 0 16px 34px color-mix(in srgb, var(--provider-accent, var(--accent)) 16%, transparent);
 }
 
 .footer-provider:target {
@@ -994,7 +994,7 @@ input {
 
 .footer-provider h3 {
   margin: 0;
-  color: var(--text);
+  color: color-mix(in srgb, var(--provider-accent, var(--accent)) 34%, var(--text));
   font-size: 15px;
 }
 
@@ -1039,9 +1039,9 @@ input {
 .footer-provider-stats > span {
   min-width: 0;
   padding: 8px 9px;
-  border: 1px solid color-mix(in srgb, var(--line) 76%, transparent);
+  border: 1px solid color-mix(in srgb, var(--provider-accent, var(--accent)) 24%, var(--line));
   border-radius: 8px;
-  background: color-mix(in srgb, var(--soft) 58%, white);
+  background: color-mix(in srgb, var(--provider-accent, var(--accent)) 8%, white);
 }
 
 .footer-provider-stats strong,
