@@ -22,7 +22,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 ### Phase 1: Quote List Foundation
 
-**Goal**: Usuarios pueden armar una lista local de compra/cotizacion desde el catalogo, con cantidades claras, datos del item y framing no-commerce.
+**Goal:** As a maker, I want to build a local quote list from the catalog, so that I can plan filament purchases.
 **Mode:** mvp
 **Depends on**: Nothing (first phase)
 **Requirements**: LIST-01, LIST-02, LIST-03, LIST-04, LIST-05, ITEM-01, ITEM-02, ITEM-03, PERS-01, PERS-02, DISC-01
