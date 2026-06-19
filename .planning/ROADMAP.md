@@ -30,7 +30,11 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. Cada item visible conserva material, color, marca, diametro, cantidad y codigo de articulo cuando el catalogo lo provee.
   4. Usuario ve cuando un dato clave falta o debe confirmarse con el proveedor.
   5. Usuario ve que la lista se guarda automaticamente solo en este navegador/dispositivo y que StockCentral no vende ni procesa pedidos.
-**Plans**: TBD
+**Plans**: 3 plans
+Plans:
+- [ ] 01-01-PLAN.md — Crear el slice inicial de agregar presentaciones a Lista de cotizacion con autosave local.
+- [ ] 01-02-PLAN.md — Completar cantidades en carretes, controles rapidos, quitar/limpiar y badges de item.
+- [ ] 01-03-PLAN.md — Cerrar responsive desktop/mobile, reconciliacion, storage fallback y notices local-only/no-commerce.
 **UI hint**: yes
 
 ### Phase 2: Portability And Import/Export Resilience
