@@ -183,12 +183,16 @@ def test_quote_list_source_contract_covers_foundation():
     catalog = read_source(SRC / "CatalogApp.svelte")
     quote_list = read_source(SRC / "lib" / "quoteList.js")
     quote_panel = read_source(SRC / "components" / "QuoteListPanel.svelte")
-    quote_sources = quote_list + quote_panel
+    quote_item = read_source(SRC / "components" / "QuoteListItem.svelte")
+    quote_quantity = read_source(SRC / "components" / "QuoteQuantityControl.svelte")
+    quote_sources = quote_list + quote_panel + quote_item + quote_quantity
     js = catalog + quote_sources
 
     for path in [
         SRC / "lib" / "quoteList.js",
         SRC / "components" / "QuoteListPanel.svelte",
+        SRC / "components" / "QuoteListItem.svelte",
+        SRC / "components" / "QuoteQuantityControl.svelte",
     ]:
         assert path.exists(), f"Missing quote-list artifact: {path}"
 
@@ -200,9 +204,18 @@ def test_quote_list_source_contract_covers_foundation():
         "saveQuoteList",
         "normalizeQuoteList",
         "snapshotQuoteItem",
+        "reconcileQuoteList",
+        "clampQuoteQuantity",
         "quoteQuantityLabel",
         "QuoteListPanel",
+        "QuoteListItem",
+        "QuoteQuantityControl",
         "addQuoteItem",
+        "saveQuoteListState",
+        "setQuoteItemQuantity",
+        "removeQuoteItem",
+        "clearQuoteList",
+        "toggleQuoteControls",
         "presentation-row",
         "productId",
         "sku",
@@ -220,11 +233,32 @@ def test_quote_list_source_contract_covers_foundation():
     for copy in [
         "Agregar 1 carrete a la lista de cotizacion",
         "+1",
+        "+6",
+        "+12",
         "Lista de cotizacion",
         "Usa esta lista para planificar tu compra. Confirma stock y precio final con cada proveedor.",
         "StockCentral no vende productos ni procesa pedidos.",
+        "Controles rapidos",
+        "Ocultar controles rapidos",
+        "sin codigo",
+        "sin diametro",
+        "sin presentacion",
+        "confirmar dato",
+        "confirmar stock",
+        "Limpiar lista",
+        "¿Vaciar la lista de cotizacion? Se quitaran todos los filamentos guardados en este navegador.",
     ]:
         assert copy in js
+
+    for control_token in [
+        'aria-label="Restar 1 carrete"',
+        'type="number"',
+        'aria-label="Cantidad de carretes"',
+        'aria-label="Sumar 1 carrete"',
+        'aria-label="Sumar 6 carretes"',
+        'aria-label="Sumar 12 carretes"',
+    ]:
+        assert control_token in quote_quantity
 
     assert "carrete" in quote_sources
     assert "carretes" in quote_sources
