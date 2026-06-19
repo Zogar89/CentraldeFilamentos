@@ -65,8 +65,11 @@
   let quoteStorageWarning = "";
   let quoteReconcileNotice = "";
   let quoteDrawerOpen = false;
+  let quoteListReadOnly = false;
+  let preservedQuotePayload = null;
   const quoteStorageWarningCopy = "No pudimos guardar la lista en este navegador. La podes usar durante esta sesion, pero se puede perder al cerrar la pagina.";
   const quoteCatalogWarningCopy = "No pudimos actualizar el catalogo; conservamos tu lista guardada.";
+  const quoteSchemaWarningCopy = "La lista guardada usa una version mas nueva. La conservamos sin cambios para no perder datos.";
   const quoteRemovedNoticeTemplate = "Quitamos {count} item(s) que ya no aparecen en el catalogo publicado.";
 
   onMount(async () => {
@@ -80,6 +83,8 @@
     stockSubscriptions = loadStockSubscriptions();
     reconcileStockSubscriptions();
     const quoteList = loadQuoteList();
+    quoteListReadOnly = quoteList.readOnly;
+    preservedQuotePayload = quoteList.preservedPayload;
     quoteSettings = quoteList.settings;
     const reconciledQuoteList = initializeQuoteList(quoteList, catalogResult);
     quoteItems = reconciledQuoteList.items;
@@ -89,7 +94,7 @@
     quoteStorageWarning = catalogResult.ok
       ? (quoteList.storageAvailable ? "" : quoteStorageWarningCopy)
       : quoteCatalogWarningCopy;
-    if (quoteList.resetReason === "schema") quoteStorageWarning = "La lista guardada tenia un formato incompatible y la reiniciamos para evitar datos rotos.";
+    if (quoteListReadOnly) quoteStorageWarning = quoteSchemaWarningCopy;
     if (reconciledQuoteList.shouldSave) {
       saveQuoteListState(quoteItems, quoteSettings);
     }
@@ -339,8 +344,15 @@
   function saveQuoteListState(nextItems, nextSettings = quoteSettings) {
     quoteItems = nextItems;
     quoteSettings = nextSettings;
-    const result = saveQuoteList({ items: quoteItems, settings: quoteSettings });
-    quoteStorageWarning = result.ok ? "" : quoteStorageWarningCopy;
+    const result = saveQuoteList({
+      items: quoteItems,
+      settings: quoteSettings,
+      readOnly: quoteListReadOnly,
+      preservedPayload: preservedQuotePayload,
+    });
+    quoteStorageWarning = result.blocked
+      ? quoteSchemaWarningCopy
+      : (result.ok ? "" : quoteStorageWarningCopy);
     if (!quoteItems.length) closeQuoteDrawer();
   }
 
@@ -463,6 +475,10 @@
 
 <main class="shell">
   <SiteHeader active="catalog" updatedAt={generatedAt} subtitle="AMBA · filamentos 3D" {stockAlerts} onDismissStockAlerts={dismissStockAlerts} />
+
+  {#if quoteListReadOnly}
+    <p class="line-help quote-list-warning" role="status">{quoteSchemaWarningCopy}</p>
+  {/if}
 
   <section class="filters" aria-label="Filtros">
     <label class="search-field">

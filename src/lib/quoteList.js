@@ -23,7 +23,20 @@ export function clampQuoteQuantity(value) {
 }
 
 export function normalizeQuoteList(payload) {
-  if (!payload || payload.schemaVersion !== quoteListSchemaVersion || !Array.isArray(payload.items)) {
+  if (payload && payload.schemaVersion !== quoteListSchemaVersion) {
+    return {
+      schemaVersion: payload.schemaVersion,
+      items: [],
+      settings: { ...defaultSettings },
+      storageAvailable: true,
+      resetReason: "schema",
+      saveError: "",
+      readOnly: true,
+      preservedPayload: payload,
+    };
+  }
+
+  if (!payload || !Array.isArray(payload.items)) {
     return {
       schemaVersion: quoteListSchemaVersion,
       items: [],
@@ -31,6 +44,8 @@ export function normalizeQuoteList(payload) {
       storageAvailable: true,
       resetReason: payload ? "schema" : "",
       saveError: "",
+      readOnly: false,
+      preservedPayload: null,
     };
   }
 
@@ -71,6 +86,8 @@ export function normalizeQuoteList(payload) {
     storageAvailable: true,
     resetReason: "",
     saveError: "",
+    readOnly: false,
+    preservedPayload: null,
   };
 }
 
@@ -88,6 +105,16 @@ export function loadQuoteList() {
 }
 
 export function saveQuoteList(state) {
+  if (state?.readOnly) {
+    return {
+      ok: false,
+      blocked: true,
+      storageAvailable: true,
+      saveError: "schema",
+      payload: state.preservedPayload,
+    };
+  }
+
   const payload = normalizeQuoteList({
     schemaVersion: quoteListSchemaVersion,
     items: state?.items || [],
@@ -157,6 +184,18 @@ export function reconcileQuoteList(items, products) {
 
 export function initializeQuoteList(quoteList, catalogResult) {
   const current = quoteList || normalizeQuoteList(null);
+  if (current.readOnly) {
+    return {
+      items: current.items,
+      settings: current.settings,
+      removedCount: 0,
+      shouldSave: false,
+      catalogAvailable: Boolean(catalogResult?.ok),
+      readOnly: true,
+      preservedPayload: current.preservedPayload,
+    };
+  }
+
   if (!catalogResult?.ok) {
     return {
       items: current.items,
