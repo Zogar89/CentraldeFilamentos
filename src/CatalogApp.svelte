@@ -1,6 +1,7 @@
 <script>
   import { onMount } from "svelte";
   import QuickLines from "./components/QuickLines.svelte";
+  import QuoteListDrawer from "./components/QuoteListDrawer.svelte";
   import QuoteListPanel from "./components/QuoteListPanel.svelte";
   import SiteHeader from "./components/SiteHeader.svelte";
   import SiteFooter from "./components/SiteFooter.svelte";
@@ -63,6 +64,9 @@
   let quoteSettings = { showQuickControls: false };
   let quoteStorageWarning = "";
   let quoteReconcileNotice = "";
+  let quoteDrawerOpen = false;
+  const quoteStorageWarningCopy = "No pudimos guardar la lista en este navegador. La podes usar durante esta sesion, pero se puede perder al cerrar la pagina.";
+  const quoteRemovedNoticeTemplate = "Quitamos {count} item(s) que ya no aparecen en el catalogo publicado.";
 
   onMount(async () => {
     const payload = await fetchJson("data/stock.json", { products: [], sources: [] });
@@ -76,10 +80,11 @@
     const reconciledQuoteList = reconcileQuoteList(quoteList.items, products);
     quoteItems = reconciledQuoteList.items;
     quoteReconcileNotice = reconciledQuoteList.removedCount
-      ? `Quitamos ${reconciledQuoteList.removedCount} item(s) que ya no aparecen en el catalogo publicado.`
+      ? quoteRemovedNoticeTemplate.replace("{count}", reconciledQuoteList.removedCount)
       : "";
-    quoteStorageWarning = quoteList.storageAvailable ? "" : "No pudimos guardar la lista en este navegador. La podes usar durante esta sesion, pero se puede perder al cerrar la pagina.";
-    if (quoteList.items.length !== quoteItems.length || reconciledQuoteList.removedCount) {
+    quoteStorageWarning = quoteList.storageAvailable ? "" : quoteStorageWarningCopy;
+    if (quoteList.resetReason === "schema") quoteStorageWarning = "La lista guardada tenia un formato incompatible y la reiniciamos para evitar datos rotos.";
+    if (quoteList.items.length !== quoteItems.length || reconciledQuoteList.removedCount || quoteList.resetReason) {
       saveQuoteListState(quoteItems, quoteSettings);
     }
   });
@@ -329,7 +334,8 @@
     quoteItems = nextItems;
     quoteSettings = nextSettings;
     const result = saveQuoteList({ items: quoteItems, settings: quoteSettings });
-    quoteStorageWarning = result.ok ? "" : "No pudimos guardar la lista en este navegador. La podes usar durante esta sesion, pero se puede perder al cerrar la pagina.";
+    quoteStorageWarning = result.ok ? "" : quoteStorageWarningCopy;
+    if (!quoteItems.length) closeQuoteDrawer();
   }
 
   function setQuoteItemQuantity(productId, quantity) {
@@ -359,6 +365,18 @@
       ...quoteSettings,
       showQuickControls: !quoteSettings.showQuickControls,
     });
+  }
+
+  function openQuoteDrawer() {
+    if (quoteItems.length) quoteDrawerOpen = true;
+  }
+
+  function closeQuoteDrawer() {
+    quoteDrawerOpen = false;
+  }
+
+  function handleQuoteDrawerKeydown(event) {
+    if (event.key === "Escape" && quoteDrawerOpen) closeQuoteDrawer();
   }
 
   function reconcileStockSubscriptions() {
@@ -474,7 +492,7 @@
     </div>
   </div>
 
-  <div class:quote-layout={quoteItems.length > 0}>
+  <div class:quote-list-layout-active={quoteItems.length > 0}>
     <section id="product-list" class="product-list">
       {#each groups as group}
         <section class="group-section" id={groupTargetId(group)} data-line={group.line}>
@@ -564,19 +582,49 @@
     </section>
 
     {#if quoteItems.length > 0}
-      <QuoteListPanel
-        items={quoteItems}
-        showQuickControls={quoteSettings.showQuickControls}
-        storageWarning={quoteStorageWarning}
-        reconcileNotice={quoteReconcileNotice}
-        onToggleControls={toggleQuoteControls}
-        onSetQuantity={setQuoteItemQuantity}
-        onRemoveItem={removeQuoteItem}
-        onClearList={clearQuoteList}
-      />
+      <div class="quote-list-side-panel">
+        <QuoteListPanel
+          items={quoteItems}
+          showQuickControls={quoteSettings.showQuickControls}
+          storageWarning={quoteStorageWarning}
+          reconcileNotice={quoteReconcileNotice}
+          onToggleControls={toggleQuoteControls}
+          onSetQuantity={setQuoteItemQuantity}
+          onRemoveItem={removeQuoteItem}
+          onClearList={clearQuoteList}
+        />
+      </div>
     {/if}
   </div>
 </main>
+
+{#if quoteItems.length > 0}
+  <button class="quote-floating-button" type="button" aria-label={`Abrir lista de cotizacion con ${quoteItems.length} item(s)`} on:click={openQuoteDrawer}>
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M8 6h11"></path>
+      <path d="M8 12h11"></path>
+      <path d="M8 18h11"></path>
+      <path d="m3 6 1 1 2-2"></path>
+      <path d="m3 12 1 1 2-2"></path>
+      <path d="m3 18 1 1 2-2"></path>
+    </svg>
+    <span>{quoteItems.length}</span>
+  </button>
+{/if}
+
+<QuoteListDrawer
+  open={quoteDrawerOpen && quoteItems.length > 0}
+  items={quoteItems}
+  showQuickControls={quoteSettings.showQuickControls}
+  storageWarning={quoteStorageWarning}
+  reconcileNotice={quoteReconcileNotice}
+  onClose={closeQuoteDrawer}
+  onToggleControls={toggleQuoteControls}
+  onSetQuantity={setQuoteItemQuantity}
+  onRemoveItem={removeQuoteItem}
+  onClearList={clearQuoteList}
+  {handleQuoteDrawerKeydown}
+/>
 
 <SiteFooter {sources} {contactContext} />
 

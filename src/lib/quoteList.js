@@ -28,7 +28,9 @@ export function normalizeQuoteList(payload) {
       schemaVersion: quoteListSchemaVersion,
       items: [],
       settings: { ...defaultSettings },
+      storageAvailable: true,
       resetReason: payload ? "schema" : "",
+      saveError: "",
     };
   }
 
@@ -66,20 +68,22 @@ export function normalizeQuoteList(payload) {
       ...(payload.settings && typeof payload.settings === "object" ? payload.settings : {}),
       showQuickControls: Boolean(payload.settings?.showQuickControls),
     },
+    storageAvailable: true,
     resetReason: "",
+    saveError: "",
   };
 }
 
 export function loadQuoteList() {
   if (typeof localStorage === "undefined") {
-    return { ...normalizeQuoteList(null), storageAvailable: false, error: "unavailable" };
+    return { ...normalizeQuoteList(null), storageAvailable: false, resetReason: "storage", saveError: "unavailable" };
   }
 
   try {
     const raw = localStorage.getItem(quoteListStorageKey);
-    return { ...normalizeQuoteList(raw ? JSON.parse(raw) : null), storageAvailable: true, error: "" };
+    return { ...normalizeQuoteList(raw ? JSON.parse(raw) : null), storageAvailable: true, saveError: "" };
   } catch {
-    return { ...normalizeQuoteList(null), storageAvailable: false, error: "read" };
+    return { ...normalizeQuoteList(null), storageAvailable: false, resetReason: "storage", saveError: "read" };
   }
 }
 
@@ -91,14 +95,14 @@ export function saveQuoteList(state) {
   });
 
   if (typeof localStorage === "undefined") {
-    return { ok: false, storageAvailable: false, error: "unavailable", payload };
+    return { ok: false, storageAvailable: false, saveError: "unavailable", payload };
   }
 
   try {
     localStorage.setItem(quoteListStorageKey, JSON.stringify(payload));
-    return { ok: true, storageAvailable: true, error: "", payload };
+    return { ok: true, storageAvailable: true, saveError: "", payload };
   } catch {
-    return { ok: false, storageAvailable: false, error: "write", payload };
+    return { ok: false, storageAvailable: false, saveError: "write", payload };
   }
 }
 
@@ -141,5 +145,12 @@ export function reconcileQuoteList(items, products) {
     nextItems.push(snapshotQuoteItem(product, item.quantity));
   }
 
-  return { items: nextItems, removedCount };
+  return {
+    items: nextItems,
+    settings: { ...defaultSettings },
+    storageAvailable: true,
+    resetReason: "",
+    saveError: "",
+    removedCount,
+  };
 }
