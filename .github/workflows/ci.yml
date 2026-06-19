@@ -41,5 +41,8 @@ jobs:
       - name: Run tests
         run: python -m pytest -v
 
+      - name: Test quote-list behavior
+        run: npm run test:quote-list
+
       - name: Build frontend
         run: npm run build
