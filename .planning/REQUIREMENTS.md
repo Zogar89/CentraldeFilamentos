@@ -24,7 +24,7 @@ Requirements for the quote-list milestone. Each maps to roadmap phases.
 ### Persistencia
 
 - [x] **PERS-01**: La lista se guarda automaticamente en este navegador/dispositivo.
-- [ ] **PERS-02**: La UI avisa que la lista local no se sincroniza y puede no estar disponible desde otra PC/navegador.
+- [x] **PERS-02**: La UI avisa que la lista local no se sincroniza y puede no estar disponible desde otra PC/navegador.
 - [ ] **PERS-03**: Usuario puede exportar la lista como archivo.
 - [ ] **PERS-04**: Usuario puede importar una lista exportada.
 - [ ] **PERS-05**: La importacion valida formato/version y evita romper la lista actual.
@@ -91,7 +91,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | ITEM-02 | Phase 1 | Complete |
 | ITEM-03 | Phase 1 | Complete |
 | PERS-01 | Phase 1 | Complete |
-| PERS-02 | Phase 1 | Pending |
+| PERS-02 | Phase 1 | Complete |
 | PERS-03 | Phase 2 | Pending |
 | PERS-04 | Phase 2 | Pending |
 | PERS-05 | Phase 2 | Pending |
