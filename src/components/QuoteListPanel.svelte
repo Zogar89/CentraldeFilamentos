@@ -30,7 +30,7 @@
     <div class="quote-list-total">
       <strong class="quote-list-count">{quoteQuantityLabel(itemCount)}</strong>
       {#if dozenCount}
-        <small>{dozenCount} {dozenCount === "1" ? "docena" : "docenas"}</small>
+        <small title="Los carretes suelen venir agrupados en cajas de 12 unidades.">{dozenCount} {dozenCount === "1" ? "docena" : "docenas"}</small>
       {/if}
     </div>
   </header>

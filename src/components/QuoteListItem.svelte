@@ -2,7 +2,6 @@
   import {
     quoteItemCode,
     quoteItemMissingBadges,
-    quoteQuantityLabel,
   } from "../lib/quoteList.js";
   import { colorSwatchLabel, colorSwatchStyle, dataUrl } from "../lib/shared.js";
   import QuoteQuantityControl from "./QuoteQuantityControl.svelte";
@@ -36,9 +35,9 @@
       {/if}
     </div>
     <div class="quote-list-item-quantity-summary">
-      <strong>{quoteQuantityLabel(item.quantity)}</strong>
+      <strong>{Number(item.quantity || 0)} u.</strong>
       {#if dozenCount}
-        <small class="quote-list-item-dozens">{dozenCount} {dozenCount === "1" ? "docena" : "docenas"}</small>
+        <small class="quote-list-item-dozens" title="Los carretes suelen venir agrupados en cajas de 12 unidades.">{dozenCount} {dozenCount === "1" ? "docena" : "docenas"}</small>
       {/if}
     </div>
   </div>
