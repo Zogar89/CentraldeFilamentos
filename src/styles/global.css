@@ -486,12 +486,14 @@ input {
 }
 
 .quote-list-side-panel {
+  position: sticky;
+  top: calc(var(--quick-lines-height) + 18px);
+  align-self: start;
   min-width: 0;
 }
 
 .quote-list-panel {
-  position: sticky;
-  top: calc(var(--quick-lines-height) + 18px);
+  position: static;
   display: grid;
   gap: 12px;
   max-height: calc(100vh - var(--quick-lines-height) - 36px);
