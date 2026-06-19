@@ -7,8 +7,8 @@
   import SiteFooter from "./components/SiteFooter.svelte";
   import {
     clampQuoteQuantity,
+    initializeQuoteList,
     loadQuoteList,
-    reconcileQuoteList,
     saveQuoteList,
     snapshotQuoteItem,
   } from "./lib/quoteList.js";
@@ -66,25 +66,31 @@
   let quoteReconcileNotice = "";
   let quoteDrawerOpen = false;
   const quoteStorageWarningCopy = "No pudimos guardar la lista en este navegador. La podes usar durante esta sesion, pero se puede perder al cerrar la pagina.";
+  const quoteCatalogWarningCopy = "No pudimos actualizar el catalogo; conservamos tu lista guardada.";
   const quoteRemovedNoticeTemplate = "Quitamos {count} item(s) que ya no aparecen en el catalogo publicado.";
 
   onMount(async () => {
-    const payload = await fetchJson("data/stock.json", { products: [], sources: [] });
-    products = payload.products || [];
-    sources = payload.sources || [];
-    generatedAt = payload.generated_at || "";
+    const payload = await fetchJson("data/stock.json", null);
+    const catalogResult = payload && Array.isArray(payload.products)
+      ? { ok: true, products: payload.products }
+      : { ok: false, products: [] };
+    products = catalogResult.products;
+    sources = Array.isArray(payload?.sources) ? payload.sources : [];
+    generatedAt = payload?.generated_at || "";
     stockSubscriptions = loadStockSubscriptions();
     reconcileStockSubscriptions();
     const quoteList = loadQuoteList();
     quoteSettings = quoteList.settings;
-    const reconciledQuoteList = reconcileQuoteList(quoteList.items, products);
+    const reconciledQuoteList = initializeQuoteList(quoteList, catalogResult);
     quoteItems = reconciledQuoteList.items;
     quoteReconcileNotice = reconciledQuoteList.removedCount
       ? quoteRemovedNoticeTemplate.replace("{count}", reconciledQuoteList.removedCount)
       : "";
-    quoteStorageWarning = quoteList.storageAvailable ? "" : quoteStorageWarningCopy;
+    quoteStorageWarning = catalogResult.ok
+      ? (quoteList.storageAvailable ? "" : quoteStorageWarningCopy)
+      : quoteCatalogWarningCopy;
     if (quoteList.resetReason === "schema") quoteStorageWarning = "La lista guardada tenia un formato incompatible y la reiniciamos para evitar datos rotos.";
-    if (quoteList.items.length !== quoteItems.length || reconciledQuoteList.removedCount || quoteList.resetReason) {
+    if (reconciledQuoteList.shouldSave) {
       saveQuoteListState(quoteItems, quoteSettings);
     }
   });

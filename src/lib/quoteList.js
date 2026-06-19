@@ -154,3 +154,24 @@ export function reconcileQuoteList(items, products) {
     removedCount,
   };
 }
+
+export function initializeQuoteList(quoteList, catalogResult) {
+  const current = quoteList || normalizeQuoteList(null);
+  if (!catalogResult?.ok) {
+    return {
+      items: current.items,
+      settings: current.settings,
+      removedCount: 0,
+      shouldSave: false,
+      catalogAvailable: false,
+    };
+  }
+
+  const reconciled = reconcileQuoteList(current.items, catalogResult.products);
+  return {
+    ...reconciled,
+    settings: current.settings,
+    shouldSave: reconciled.removedCount > 0,
+    catalogAvailable: true,
+  };
+}
