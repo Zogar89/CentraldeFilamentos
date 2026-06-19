@@ -1,8 +1,14 @@
 <script>
   import { onMount } from "svelte";
   import QuickLines from "./components/QuickLines.svelte";
+  import QuoteListPanel from "./components/QuoteListPanel.svelte";
   import SiteHeader from "./components/SiteHeader.svelte";
   import SiteFooter from "./components/SiteFooter.svelte";
+  import {
+    loadQuoteList,
+    saveQuoteList,
+    snapshotQuoteItem,
+  } from "./lib/quoteList.js";
   import {
     loadStockSubscriptions,
     saveStockSubscriptions,
@@ -51,6 +57,9 @@
   let preview = null;
   let stockSubscriptions = [];
   let stockAlerts = [];
+  let quoteItems = [];
+  let quoteSettings = {};
+  let quoteStorageWarning = "";
 
   onMount(async () => {
     const payload = await fetchJson("data/stock.json", { products: [], sources: [] });
@@ -59,6 +68,10 @@
     generatedAt = payload.generated_at || "";
     stockSubscriptions = loadStockSubscriptions();
     reconcileStockSubscriptions();
+    const quoteList = loadQuoteList();
+    quoteItems = quoteList.items;
+    quoteSettings = quoteList.settings;
+    quoteStorageWarning = quoteList.storageAvailable ? "" : "No pudimos guardar la lista en este navegador. La podes usar durante esta sesion, pero se puede perder al cerrar la pagina.";
   });
 
   $: subscribedKeys = new Set(stockSubscriptions.map((item) => item.key));
@@ -294,6 +307,21 @@
     saveStockSubscriptions(stockSubscriptions);
   }
 
+  function addQuoteItem(product) {
+    const existing = quoteItems.find((item) => item.productId === product.id);
+    const nextItems = existing
+      ? quoteItems.map((item) => item.productId === product.id ? snapshotQuoteItem(product, Number(item.quantity || 0) + 1) : item)
+      : [...quoteItems, snapshotQuoteItem(product, 1)];
+    saveQuoteListState(nextItems);
+  }
+
+  function saveQuoteListState(nextItems, nextSettings = quoteSettings) {
+    quoteItems = nextItems;
+    quoteSettings = nextSettings;
+    const result = saveQuoteList({ items: quoteItems, settings: quoteSettings });
+    quoteStorageWarning = result.ok ? "" : "No pudimos guardar la lista en este navegador. La podes usar durante esta sesion, pero se puede perder al cerrar la pagina.";
+  }
+
   function reconcileStockSubscriptions() {
     const alerts = [];
     const nextSubscriptions = stockSubscriptions.map((subscription) => {
@@ -407,90 +435,99 @@
     </div>
   </div>
 
-  <section id="product-list" class="product-list">
-    {#each groups as group}
-      <section class="group-section" id={groupTargetId(group)} data-line={group.line}>
-        <header class="group-heading">
-          <span>{group.brand}</span>
-          <span>{group.diameter}</span>
-          <strong>{group.line}</strong>
-        </header>
-        <div class="group-products">
-          {#each groupBaseProducts(group.products) as card}
-            {@const product = card.products[0]}
-            {@const visual = productVisual(product, card.products)}
-            <article class="product-row">
-              <div class={`product-visuals${card.products.filter((item) => item.image_url).length > 1 ? " multi-image" : ""}`}>
-                {#if visual.image_url}
-                  <button class="product-image product-media" type="button" data-preview-src={assetPath(visual.image_url)} data-preview-title={[visual.color || "Sin color", visual.pantone, formatPresentation(visual)].filter(Boolean).join(" · ")} aria-label={`Ampliar imagen de ${productBaseName(visual)}`} on:click={() => openImagePreview(visual)} on:pointerenter={(event) => showPreview(event, visual)} on:pointermove={movePreview} on:pointerleave={hideHoverPreview}>
-                    <img src={assetPath(visual.thumbnail_url || visual.image_url)} alt={productBaseName(visual)} loading="lazy" decoding="async">
-                  </button>
-                {:else}
-                  <div class="product-image color-swatch" style={colorSwatchStyle(product)} role="img" aria-label={[product.color || "Sin color", product.pantone].filter(Boolean).join(" · ")} title={[product.color || "Sin color", product.pantone].filter(Boolean).join(" · ")}>
-                    <span>{colorSwatchLabel(product.color)}</span>
+  <div class:quote-layout={quoteItems.length > 0}>
+    <section id="product-list" class="product-list">
+      {#each groups as group}
+        <section class="group-section" id={groupTargetId(group)} data-line={group.line}>
+          <header class="group-heading">
+            <span>{group.brand}</span>
+            <span>{group.diameter}</span>
+            <strong>{group.line}</strong>
+          </header>
+          <div class="group-products">
+            {#each groupBaseProducts(group.products) as card}
+              {@const product = card.products[0]}
+              {@const visual = productVisual(product, card.products)}
+              <article class="product-row">
+                <div class={`product-visuals${card.products.filter((item) => item.image_url).length > 1 ? " multi-image" : ""}`}>
+                  {#if visual.image_url}
+                    <button class="product-image product-media" type="button" data-preview-src={assetPath(visual.image_url)} data-preview-title={[visual.color || "Sin color", visual.pantone, formatPresentation(visual)].filter(Boolean).join(" · ")} aria-label={`Ampliar imagen de ${productBaseName(visual)}`} on:click={() => openImagePreview(visual)} on:pointerenter={(event) => showPreview(event, visual)} on:pointermove={movePreview} on:pointerleave={hideHoverPreview}>
+                      <img src={assetPath(visual.thumbnail_url || visual.image_url)} alt={productBaseName(visual)} loading="lazy" decoding="async">
+                    </button>
+                  {:else}
+                    <div class="product-image color-swatch" style={colorSwatchStyle(product)} role="img" aria-label={[product.color || "Sin color", product.pantone].filter(Boolean).join(" · ")} title={[product.color || "Sin color", product.pantone].filter(Boolean).join(" · ")}>
+                      <span>{colorSwatchLabel(product.color)}</span>
+                    </div>
+                  {/if}
+                  {#if visual.pantone || product.pantone}
+                    <small class="swatch-pantone media-pantone">{pantoneSwatchLabel(visual.pantone || product.pantone)}</small>
+                  {/if}
+                </div>
+                <div>
+                  <div class="product-head">
+                    <h2>
+                      <span>{productBaseName(product)}</span>
+                      {#if product.manufacturer_product_url}
+                        <a class="official-product-link" href={product.manufacturer_product_url} target="_blank" rel="noopener" aria-label={`Abrir página oficial de ${productBaseName(product)}`} title="Abrir página oficial">
+                          <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M7 17 17 7"></path>
+                            <path d="M9 7h8v8"></path>
+                          </svg>
+                        </a>
+                      {/if}
+                    </h2>
                   </div>
-                {/if}
-                {#if visual.pantone || product.pantone}
-                  <small class="swatch-pantone media-pantone">{pantoneSwatchLabel(visual.pantone || product.pantone)}</small>
-                {/if}
-              </div>
-              <div>
-                <div class="product-head">
-                  <h2>
-                    <span>{productBaseName(product)}</span>
-                    {#if product.manufacturer_product_url}
-                      <a class="official-product-link" href={product.manufacturer_product_url} target="_blank" rel="noopener" aria-label={`Abrir página oficial de ${productBaseName(product)}`} title="Abrir página oficial">
-                        <svg viewBox="0 0 24 24" aria-hidden="true">
-                          <path d="M7 17 17 7"></path>
-                          <path d="M9 7h8v8"></path>
-                        </svg>
-                      </a>
-                    {/if}
-                  </h2>
-                </div>
-                <div class="presentation-list">
-                  {#each card.products as presentation}
-                    <section class="presentation-row">
-                      <header><strong>{formatPresentation(presentation) || "Presentación sin dato"}</strong></header>
-                      <div class="offers">
-                        {#if (presentation.offers || []).length}
-                          {#each presentation.offers as offer}
-                            <div class="offer" id={stockWatchTargetId(presentation, offer)} title={providerTitle(offer)}>
-                              <div class="offer-main">
-                                <a href={`#${providerAnchorId(offer.source_id)}`} title={providerTitle(offer)}>{offer.provider_name}</a>
-                                <strong class={offer.stock_status === "in_stock" ? "stock-in" : "stock-out"}>{offer.stock_status === "in_stock" ? `${offer.stock_quantity} carretes` : "0"}</strong>
-                                <button
-                                  class="stock-watch-button"
-                                  class:active={isSubscribed(presentation, offer)}
-                                  type="button"
-                                  aria-pressed={isSubscribed(presentation, offer)}
-                                  aria-label={`${isSubscribed(presentation, offer) ? "Dejar de seguir cambios de stock" : "Seguir cambios de stock"} de ${productBaseName(presentation)} en ${offer.provider_name}`}
-                                  title={isSubscribed(presentation, offer) ? "Dejar de seguir cambios de stock" : "Avisarme si sube o vuelve el stock"}
-                                  on:click={() => toggleStockSubscription(presentation, offer)}
-                                >
-                                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                                    <path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path>
-                                    <path d="M10 21h4"></path>
-                                  </svg>
-                                </button>
+                  <div class="presentation-list">
+                    {#each card.products as presentation}
+                      <section class="presentation-row">
+                        <header>
+                          <strong>{formatPresentation(presentation) || "Presentación sin dato"}</strong>
+                          <button class="quote-add-button" type="button" aria-label="Agregar 1 carrete a la lista de cotizacion" on:click={() => addQuoteItem(presentation)}>+1</button>
+                        </header>
+                        <div class="offers">
+                          {#if (presentation.offers || []).length}
+                            {#each presentation.offers as offer}
+                              <div class="offer" id={stockWatchTargetId(presentation, offer)} title={providerTitle(offer)}>
+                                <div class="offer-main">
+                                  <a href={`#${providerAnchorId(offer.source_id)}`} title={providerTitle(offer)}>{offer.provider_name}</a>
+                                  <strong class={offer.stock_status === "in_stock" ? "stock-in" : "stock-out"}>{offer.stock_status === "in_stock" ? `${offer.stock_quantity} carretes` : "0"}</strong>
+                                  <button
+                                    class="stock-watch-button"
+                                    class:active={isSubscribed(presentation, offer)}
+                                    type="button"
+                                    aria-pressed={isSubscribed(presentation, offer)}
+                                    aria-label={`${isSubscribed(presentation, offer) ? "Dejar de seguir cambios de stock" : "Seguir cambios de stock"} de ${productBaseName(presentation)} en ${offer.provider_name}`}
+                                    title={isSubscribed(presentation, offer) ? "Dejar de seguir cambios de stock" : "Avisarme si sube o vuelve el stock"}
+                                    on:click={() => toggleStockSubscription(presentation, offer)}
+                                  >
+                                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                                      <path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path>
+                                      <path d="M10 21h4"></path>
+                                    </svg>
+                                  </button>
+                                </div>
+                                <small>{offer.original_name}</small>
                               </div>
-                              <small>{offer.original_name}</small>
-                            </div>
-                          {/each}
-                        {:else}
-                          <div class="offer stock-out">0 · sin stock online registrado</div>
-                        {/if}
-                      </div>
-                    </section>
-                  {/each}
+                            {/each}
+                          {:else}
+                            <div class="offer stock-out">0 · sin stock online registrado</div>
+                          {/if}
+                        </div>
+                      </section>
+                    {/each}
+                  </div>
                 </div>
-              </div>
-            </article>
-          {/each}
-        </div>
-      </section>
-    {/each}
-  </section>
+              </article>
+            {/each}
+          </div>
+        </section>
+      {/each}
+    </section>
+
+    {#if quoteItems.length > 0}
+      <QuoteListPanel items={quoteItems} storageWarning={quoteStorageWarning} />
+    {/if}
+  </div>
 </main>
 
 <SiteFooter {sources} {contactContext} />

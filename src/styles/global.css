@@ -478,6 +478,112 @@ input {
   gap: 14px;
 }
 
+.quote-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 360px);
+  align-items: start;
+  gap: 18px;
+}
+
+.quote-list-panel {
+  position: sticky;
+  top: calc(var(--quick-lines-height) + 18px);
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: 0 18px 44px rgba(27, 33, 38, .10);
+}
+
+.quote-list-header {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.quote-list-header h2 {
+  margin: 2px 0 0;
+  font-size: 17px;
+  line-height: 1.2;
+}
+
+.quote-list-kicker,
+.quote-list-notices p,
+.quote-list-item span,
+.quote-list-item small {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.quote-list-kicker {
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.quote-list-count {
+  white-space: nowrap;
+  border-radius: 999px;
+  padding: 5px 9px;
+  background: color-mix(in srgb, var(--accent) 12%, var(--surface));
+  color: var(--accent);
+  font-size: 13px;
+}
+
+.quote-list-notices,
+.quote-list-items {
+  display: grid;
+  gap: 8px;
+}
+
+.quote-list-notices p {
+  margin: 0;
+  padding: 8px;
+  border-radius: 8px;
+  background: var(--surface-soft);
+  line-height: 1.4;
+}
+
+.quote-list-notices .quote-list-warning {
+  border-left: 3px solid var(--warn);
+  color: var(--text);
+}
+
+.quote-list-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--surface) 78%, var(--surface-soft));
+}
+
+.quote-list-item div {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.quote-list-item strong,
+.quote-list-item span,
+.quote-list-item small {
+  min-width: 0;
+}
+
+.quote-list-item em {
+  width: fit-content;
+  border-radius: 999px;
+  padding: 2px 7px;
+  background: color-mix(in srgb, var(--warn) 12%, var(--surface));
+  color: var(--warn);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+}
+
 .group-section {
   display: grid;
   gap: 8px;
@@ -814,6 +920,25 @@ input {
 .presentation-row header strong {
   color: var(--text);
   font-size: 13px;
+}
+
+.quote-add-button {
+  min-width: 34px;
+  min-height: 28px;
+  border: 1px solid color-mix(in srgb, var(--accent) 36%, var(--line));
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--accent) 10%, var(--surface));
+  color: var(--accent);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.quote-add-button:hover,
+.quote-add-button:focus-visible {
+  background: var(--accent);
+  color: white;
 }
 
 .offer,
@@ -1772,6 +1897,14 @@ input {
 
   .stock-alert-banner span {
     white-space: normal;
+  }
+
+  .quote-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .quote-list-panel {
+    position: static;
   }
 
   .filters {

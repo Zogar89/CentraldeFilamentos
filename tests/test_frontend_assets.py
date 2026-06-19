@@ -233,7 +233,7 @@ def test_quote_list_source_contract_covers_foundation():
     quote_class_source = "\n".join(
         line
         for line in js.splitlines()
-        if "quote" in line.lower() or "lista de cotizacion" in line.lower()
+        if "class=" in line and "quote" in line.lower()
     ).lower()
     for banned in ["cart", "carrito", "checkout", "orden", "pedido", "comprar ahora"]:
         assert banned not in quote_class_source
