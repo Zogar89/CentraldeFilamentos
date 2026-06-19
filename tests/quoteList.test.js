@@ -5,6 +5,7 @@ import {
   initializeQuoteList,
   loadQuoteList,
   normalizeQuoteList,
+  nextBoxQuantity,
   quoteItemCode,
   quoteItemMissingBadges,
   quoteListSchemaVersion,
@@ -158,4 +159,11 @@ test("an original provider name does not hide a missing article code", () => {
 
   assert.equal(quoteItemCode(item), "");
   assert.deepEqual(quoteItemMissingBadges(item), ["sin codigo"]);
+});
+
+test("box shortcut completes the next multiple of twelve", () => {
+  assert.equal(nextBoxQuantity(1), 12);
+  assert.equal(nextBoxQuantity(11), 12);
+  assert.equal(nextBoxQuantity(12), 24);
+  assert.equal(nextBoxQuantity(13), 24);
 });

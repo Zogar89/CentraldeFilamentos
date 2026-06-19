@@ -22,6 +22,12 @@ export function clampQuoteQuantity(value) {
   return next;
 }
 
+export function nextBoxQuantity(value, boxSize = 12) {
+  const quantity = clampQuoteQuantity(value);
+  const size = Math.max(1, Math.floor(Number(boxSize)) || 12);
+  return (Math.floor(quantity / size) + 1) * size;
+}
+
 export function quoteItemCode(item) {
   return item?.articleCode || item?.sku || item?.ean || "";
 }
@@ -85,6 +91,8 @@ export function normalizeQuoteList(payload) {
       ean: item.ean || "",
       articleCode: item.articleCode || item.article_code || "",
       originalName: item.originalName || item.original_name || "",
+      thumbnailUrl: item.thumbnailUrl || item.thumbnail_url || "",
+      imageUrl: item.imageUrl || item.image_url || "",
       hasOnlineStock: Boolean(item.hasOnlineStock),
       quantity: clampQuoteQuantity(item.quantity),
     }));
@@ -163,6 +171,8 @@ export function snapshotQuoteItem(product, quantity = 1) {
     ean: product?.ean || "",
     articleCode: product?.article_code || product?.article || "",
     originalName: firstOffer.original_name || "",
+    thumbnailUrl: product?.thumbnail_url || "",
+    imageUrl: product?.image_url || "",
     hasOnlineStock: (product?.offers || []).some((offer) => offer.stock_status === "in_stock" && Number(offer.stock_quantity || 0) > 0),
     quantity: clampQuoteQuantity(quantity),
   };

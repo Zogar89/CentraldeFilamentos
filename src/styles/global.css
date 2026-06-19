@@ -599,17 +599,11 @@ input {
   line-height: 1.2;
 }
 
-.quote-list-kicker,
 .quote-list-notices p,
 .quote-list-item span,
 .quote-list-item small {
   color: var(--muted);
   font-size: 13px;
-}
-
-.quote-list-kicker {
-  font-weight: 700;
-  text-transform: uppercase;
 }
 
 .quote-list-count {
@@ -674,6 +668,45 @@ input {
   line-height: 1.4;
 }
 
+.quote-list-info {
+  border-radius: 8px;
+  background: var(--surface-soft);
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.quote-list-info summary {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px;
+  color: var(--text);
+  font-weight: 700;
+  cursor: pointer;
+  list-style: none;
+}
+
+.quote-list-info summary::-webkit-details-marker {
+  display: none;
+}
+
+.quote-list-info summary span {
+  display: inline-grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, var(--line));
+  border-radius: 50%;
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.quote-list-info p {
+  padding-top: 0;
+  background: transparent;
+}
+
 .quote-list-notices .quote-list-warning {
   border-left: 3px solid var(--warn);
   color: var(--text);
@@ -681,12 +714,41 @@ input {
 
 .quote-list-item {
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
+  grid-template-columns: 48px minmax(0, 1fr);
   gap: 12px;
   padding: 10px;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: color-mix(in srgb, var(--surface) 78%, var(--surface-soft));
+}
+
+.quote-list-item-visual,
+.quote-list-item-visual img,
+.quote-list-color {
+  width: 48px;
+  height: 48px;
+  border-radius: 6px;
+}
+
+.quote-list-item-visual {
+  grid-row: 1;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.quote-list-item-visual img {
+  display: block;
+  object-fit: contain;
+}
+
+.quote-list-color {
+  display: grid;
+  place-items: center;
+  color: rgba(255, 255, 255, .94);
+  font-size: 12px;
+  font-weight: 900;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, .55);
 }
 
 .quote-list-item-main,
@@ -716,6 +778,7 @@ input {
 }
 
 .quote-list-item-quantity {
+  grid-column: 1 / -1;
   align-items: start;
 }
 
@@ -765,11 +828,16 @@ input {
 
 .quote-quantity-control {
   display: grid;
-  grid-template-columns: 34px minmax(54px, 66px) 34px 40px 46px;
+  grid-template-columns: 34px minmax(54px, 66px) 34px 40px minmax(72px, auto);
   align-items: center;
   gap: 4px;
   width: fit-content;
   max-width: 100%;
+}
+
+.quote-quantity-control .quote-box-button {
+  padding: 0 8px;
+  white-space: nowrap;
 }
 
 .quote-quantity-control button,

@@ -4,6 +4,7 @@
     quoteItemMissingBadges,
     quoteQuantityLabel,
   } from "../lib/quoteList.js";
+  import { colorSwatchLabel, colorSwatchStyle, dataUrl } from "../lib/shared.js";
   import QuoteQuantityControl from "./QuoteQuantityControl.svelte";
 
   export let item;
@@ -21,6 +22,15 @@
 </script>
 
 <article class="quote-list-item">
+  <div class="quote-list-item-visual">
+    {#if item?.thumbnailUrl || item?.imageUrl}
+      <img src={dataUrl(item.thumbnailUrl || item.imageUrl)} alt="" loading="lazy" decoding="async">
+    {:else}
+      <span class="quote-list-color" style={colorSwatchStyle(item)} aria-label={item?.color || "Color a confirmar"}>
+        {colorSwatchLabel(item?.color) || "?"}
+      </span>
+    {/if}
+  </div>
   <div class="quote-list-item-main">
     <div class="quote-list-item-title">
       <strong>{item.productName || item.displayName || "Filamento"}</strong>
