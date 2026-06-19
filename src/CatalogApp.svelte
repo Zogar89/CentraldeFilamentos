@@ -580,7 +580,15 @@
 
   <div class="result-meta">
     <strong id="result-count">{filteredProducts.length} productos</strong>
-    <button class="soft-button quote-import-entry" type="button" on:click={openQuoteImportPicker}>Importar lista</button>
+    <div class="quote-import-entry">
+      <button class="soft-button" type="button" on:click={openQuoteImportPicker}>Importar lista</button>
+      <button
+        type="button"
+        class="quote-import-help-tip"
+        aria-label="Importa una lista exportada para recuperarla o llevarla desde otra PC o navegador."
+        data-tooltip="Importa una lista exportada para recuperarla o llevarla desde otra PC o navegador."
+      >?</button>
+    </div>
     <div class="category-sort" role="group" aria-label="Orden de categorías">
       <span>Orden</span>
       <button id="sort-popular" class:active={categoryOrder === "popular"} class="soft-button" type="button" data-category-order="popular" on:click={() => categoryOrder = "popular"}>Popularidad</button>

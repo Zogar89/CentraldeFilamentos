@@ -752,10 +752,59 @@ input {
 }
 
 .quote-import-entry {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 5px;
   margin-left: auto;
+}
+
+.quote-import-entry .soft-button {
   min-height: 30px;
   padding: 5px 9px;
   font-size: 12px;
+}
+
+.quote-import-help-tip {
+  display: inline-grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border: 1px solid color-mix(in srgb, var(--accent) 36%, var(--line));
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--accent);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 850;
+  cursor: help;
+}
+
+.quote-import-help-tip::after {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 8px);
+  z-index: 20;
+  width: min(260px, 78vw);
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--text);
+  color: white;
+  content: attr(data-tooltip);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.35;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(4px);
+  transition: opacity 140ms ease, transform 140ms ease;
+}
+
+.quote-import-help-tip:hover::after,
+.quote-import-help-tip:focus-visible::after {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .quote-import-input {
