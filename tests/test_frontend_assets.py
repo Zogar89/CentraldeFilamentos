@@ -176,6 +176,69 @@ def test_catalog_svelte_fetches_json_and_supports_required_filters():
     assert "product.pantone ? chip(product.pantone)" not in js
 
 
+def test_quote_list_source_contract_covers_foundation():
+    def read_source(path):
+        return path.read_text(encoding="utf-8") if path.exists() else ""
+
+    catalog = read_source(SRC / "CatalogApp.svelte")
+    quote_list = read_source(SRC / "lib" / "quoteList.js")
+    quote_panel = read_source(SRC / "components" / "QuoteListPanel.svelte")
+    quote_sources = quote_list + quote_panel
+    js = catalog + quote_sources
+
+    for path in [
+        SRC / "lib" / "quoteList.js",
+        SRC / "components" / "QuoteListPanel.svelte",
+    ]:
+        assert path.exists(), f"Missing quote-list artifact: {path}"
+
+    for identifier in [
+        "quoteListStorageKey",
+        "centraldefilamentos.quoteList.v1",
+        "quoteListSchemaVersion",
+        "loadQuoteList",
+        "saveQuoteList",
+        "normalizeQuoteList",
+        "snapshotQuoteItem",
+        "quoteQuantityLabel",
+        "QuoteListPanel",
+        "addQuoteItem",
+        "presentation-row",
+        "productId",
+        "sku",
+        "ean",
+        "originalName",
+        "material",
+        "color",
+        "brand",
+        "diameterMm",
+        "presentation",
+        "quantity",
+    ]:
+        assert identifier in js
+
+    for copy in [
+        "Agregar 1 carrete a la lista de cotizacion",
+        "+1",
+        "Lista de cotizacion",
+        "Usa esta lista para planificar tu compra. Confirma stock y precio final con cada proveedor.",
+        "StockCentral no vende productos ni procesa pedidos.",
+    ]:
+        assert copy in js
+
+    assert "carrete" in quote_sources
+    assert "carretes" in quote_sources
+    assert "kg" not in quote_sources.lower()
+
+    quote_class_source = "\n".join(
+        line
+        for line in js.splitlines()
+        if "quote" in line.lower() or "lista de cotizacion" in line.lower()
+    ).lower()
+    for banned in ["cart", "carrito", "checkout", "orden", "pedido", "comprar ahora"]:
+        assert banned not in quote_class_source
+
+
 def test_summary_svelte_uses_carretes_totals_and_provider_order():
     view = (SRC / "SummaryApp.svelte").read_text(encoding="utf-8")
     shared = (SRC / "lib" / "shared.js").read_text(encoding="utf-8")
