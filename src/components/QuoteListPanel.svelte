@@ -12,6 +12,9 @@
   export let onClearList = () => {};
 
   $: itemCount = items.reduce((total, item) => total + Number(item.quantity || 0), 0);
+  $: dozenCount = itemCount >= 12
+    ? new Intl.NumberFormat("es-AR", { maximumFractionDigits: 1 }).format(itemCount / 12)
+    : "";
 </script>
 
 <aside class="quote-list-panel" aria-label="Lista de cotizacion">
@@ -19,7 +22,12 @@
     <div>
       <h2>Lista de cotizacion</h2>
     </div>
-    <strong class="quote-list-count">{quoteQuantityLabel(itemCount)}</strong>
+    <div class="quote-list-total">
+      <strong class="quote-list-count">{quoteQuantityLabel(itemCount)}</strong>
+      {#if dozenCount}
+        <small>{dozenCount} {dozenCount === "1" ? "docena" : "docenas"}</small>
+      {/if}
+    </div>
   </header>
 
   <div class="quote-list-notices">

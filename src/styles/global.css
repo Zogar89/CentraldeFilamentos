@@ -615,6 +615,18 @@ input {
   font-size: 13px;
 }
 
+.quote-list-total {
+  display: grid;
+  justify-items: end;
+  gap: 3px;
+}
+
+.quote-list-total small {
+  color: color-mix(in srgb, var(--accent) 58%, var(--muted));
+  font-size: 11px;
+  font-weight: 700;
+}
+
 .quote-list-notices,
 .quote-list-items,
 .quote-list-actions {
@@ -828,7 +840,7 @@ input {
 
 .quote-quantity-control {
   display: grid;
-  grid-template-columns: 34px minmax(54px, 66px) 34px 40px minmax(72px, auto);
+  grid-template-columns: 34px minmax(54px, 66px) 34px minmax(72px, auto);
   align-items: center;
   gap: 4px;
   width: fit-content;

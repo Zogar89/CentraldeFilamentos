@@ -233,11 +233,10 @@ def test_quote_list_source_contract_covers_foundation():
     for copy in [
         "Agregar 1 carrete a la lista de cotizacion",
         "+1",
-        "+6",
-        "+12",
+        "Caja x12",
         "Lista de cotizacion",
-        "Usa esta lista para planificar tu compra. Confirma stock y precio final con cada proveedor.",
-        "StockCentral no vende productos ni procesa pedidos.",
+        "Guardada en este dispositivo",
+        "StockCentral no vende ni procesa pedidos.",
         "Controles rapidos",
         "Ocultar controles rapidos",
         "sin codigo",
@@ -255,8 +254,7 @@ def test_quote_list_source_contract_covers_foundation():
         'type="number"',
         'aria-label="Cantidad de carretes"',
         'aria-label="Sumar 1 carrete"',
-        'aria-label="Sumar 6 carretes"',
-        'aria-label="Sumar 12 carretes"',
+        'aria-label="Completar siguiente caja de 12 carretes"',
     ]:
         assert control_token in quote_quantity
 
@@ -305,8 +303,8 @@ def test_quote_list_styles_contract_covers_panel_and_controls():
 
     for copy in [
         "No pudimos guardar la lista en este navegador. La podes usar durante esta sesion, pero se puede perder al cerrar la pagina.",
-        "Se guarda solo en este navegador/dispositivo. No se sincroniza con otra PC o navegador.",
-        "StockCentral no vende productos ni procesa pedidos.",
+        "No se sincroniza con otra PC.",
+        "StockCentral no vende ni procesa pedidos.",
         "Quitamos {count} item(s) que ya no aparecen en el catalogo publicado.",
     ]:
         assert copy in quote_sources

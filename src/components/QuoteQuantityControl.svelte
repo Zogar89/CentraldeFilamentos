@@ -25,6 +25,5 @@
   <button type="button" aria-label="Restar 1 carrete" on:click={() => changeBy(-1)}>-</button>
   <input type="number" min="1" step="1" inputmode="numeric" aria-label="Cantidad de carretes" value={value} on:input={handleInput}>
   <button type="button" aria-label="Sumar 1 carrete" on:click={() => changeBy(1)}>+</button>
-  <button type="button" aria-label="Sumar 6 carretes" on:click={() => changeBy(6)}>+6</button>
   <button type="button" class="quote-box-button" aria-label="Completar siguiente caja de 12 carretes" title="Completar caja de 12" on:click={() => onChange(nextBoxQuantity(value))}>Caja x12</button>
 </div>
