@@ -11,15 +11,15 @@ Requirements for the quote-list milestone. Each maps to roadmap phases.
 
 - [x] **LIST-01**: Usuario puede agregar un filamento a la lista desde el catalogo.
 - [x] **LIST-02**: Usuario puede ver la lista como herramienta de compra/cotizacion, no como carrito.
-- [ ] **LIST-03**: Usuario puede editar cantidad en kg por item.
-- [ ] **LIST-04**: Usuario puede sumar rapido `+1 kg` y `+12 kg`.
-- [ ] **LIST-05**: Usuario puede quitar items y limpiar la lista.
+- [x] **LIST-03**: Usuario puede editar cantidad en kg por item.
+- [x] **LIST-04**: Usuario puede sumar rapido `+1 kg` y `+12 kg`.
+- [x] **LIST-05**: Usuario puede quitar items y limpiar la lista.
 
 ### Datos Del Item
 
 - [x] **ITEM-01**: Cada item conserva material, color, marca, diametro y cantidad.
 - [x] **ITEM-02**: Cada item conserva codigo de articulo cuando el catalogo lo provee.
-- [ ] **ITEM-03**: La UI indica cuando algun dato clave no esta disponible o debe confirmarse.
+- [x] **ITEM-03**: La UI indica cuando algun dato clave no esta disponible o debe confirmarse.
 
 ### Persistencia
 
@@ -84,12 +84,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 |-------------|-------|--------|
 | LIST-01 | Phase 1 | Complete |
 | LIST-02 | Phase 1 | Complete |
-| LIST-03 | Phase 1 | Pending |
-| LIST-04 | Phase 1 | Pending |
-| LIST-05 | Phase 1 | Pending |
+| LIST-03 | Phase 1 | Complete |
+| LIST-04 | Phase 1 | Complete |
+| LIST-05 | Phase 1 | Complete |
 | ITEM-01 | Phase 1 | Complete |
 | ITEM-02 | Phase 1 | Complete |
-| ITEM-03 | Phase 1 | Pending |
+| ITEM-03 | Phase 1 | Complete |
 | PERS-01 | Phase 1 | Complete |
 | PERS-02 | Phase 1 | Pending |
 | PERS-03 | Phase 2 | Pending |
