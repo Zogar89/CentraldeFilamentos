@@ -15,7 +15,7 @@ const defaultSettings = {
 
 export function quoteQuantityLabel(quantity) {
   const value = clampQuoteQuantity(quantity);
-  return `${value} ${value === 1 ? "carrete" : "carretes"}`;
+  return `${value} ${value === 1 ? "unidad" : "unidades"}`;
 }
 
 export function clampQuoteQuantity(value) {

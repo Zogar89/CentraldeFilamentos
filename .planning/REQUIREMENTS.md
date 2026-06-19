@@ -11,8 +11,8 @@ Requirements for the quote-list milestone. Each maps to roadmap phases.
 
 - [x] **LIST-01**: Usuario puede agregar un filamento a la lista desde el catalogo.
 - [x] **LIST-02**: Usuario puede ver la lista como herramienta de compra/cotizacion, no como carrito.
-- [x] **LIST-03**: Usuario puede editar la cantidad entera de carretes por item.
-- [x] **LIST-04**: Usuario puede sumar rapido `+1`, `+6` y `+12` carretes.
+- [x] **LIST-03**: Usuario puede editar la cantidad entera de unidades por item.
+- [x] **LIST-04**: Usuario puede sumar `+1` unidad o completar una caja de `12` unidades.
 - [x] **LIST-05**: Usuario puede quitar items y limpiar la lista.
 
 ### Datos Del Item

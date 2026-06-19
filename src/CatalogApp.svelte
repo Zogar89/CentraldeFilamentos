@@ -643,7 +643,7 @@
                       <section class="presentation-row">
                         <header>
                           <strong>{formatPresentation(presentation) || "Presentación sin dato"}</strong>
-                          <button class="quote-add-button" type="button" aria-label="Agregar 1 carrete a la lista de cotizacion" on:click={() => addQuoteItem(presentation)}>+1</button>
+                          <button class="quote-add-button" type="button" aria-label="Agregar 1 unidad a la lista de cotizacion" on:click={() => addQuoteItem(presentation)}>+1</button>
                         </header>
                         <div class="offers">
                           {#if (presentation.offers || []).length}

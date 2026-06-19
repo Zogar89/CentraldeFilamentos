@@ -47,7 +47,7 @@ test("provider message includes only covered items", () => {
   const message = providerQuoteMessage(north);
 
   assert.match(message, /PLA NEGRO CAJA/);
-  assert.match(message, /12 carretes/);
+  assert.match(message, /12 unidades/);
   assert.doesNotMatch(message, /PETG Rojo/);
   assert.match(message, /cotizacion y disponibilidad/);
 });

@@ -84,7 +84,7 @@
               <span aria-hidden="true">{entry.covered ? "✓" : "–"}</span>
               <div>
                 <strong>{entry.item.productName || entry.item.displayName}</strong>
-                <small>{entry.covered ? `${entry.stockQuantity} disponibles · solicita ${entry.requestedQuantity}` : `No cubre ${entry.requestedQuantity} carrete(s)`}</small>
+                <small>{entry.covered ? `${entry.stockQuantity} disponibles · solicita ${entry.requestedQuantity}` : `No cubre ${entry.requestedQuantity} unidad(es)`}</small>
               </div>
             </li>
           {/each}

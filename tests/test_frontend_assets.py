@@ -231,7 +231,7 @@ def test_quote_list_source_contract_covers_foundation():
         assert identifier in js
 
     for copy in [
-        "Agregar 1 carrete a la lista de cotizacion",
+        "Agregar 1 unidad a la lista de cotizacion",
         "+1",
         "Caja x12",
         "Lista de cotizacion",
@@ -250,16 +250,16 @@ def test_quote_list_source_contract_covers_foundation():
         assert copy in js
 
     for control_token in [
-        'aria-label="Restar 1 carrete"',
+        'aria-label="Restar 1 unidad"',
         'type="number"',
-        'aria-label="Cantidad de carretes"',
-        'aria-label="Sumar 1 carrete"',
-        'aria-label="Completar siguiente caja de 12 carretes"',
+        'aria-label="Cantidad de unidades"',
+        'aria-label="Sumar 1 unidad"',
+        'aria-label="Completar siguiente caja de 12 unidades"',
     ]:
         assert control_token in quote_quantity
 
-    assert "carrete" in quote_sources
-    assert "carretes" in quote_sources
+    assert "unidad" in quote_sources
+    assert "unidades" in quote_sources
     assert "kg" not in quote_sources.lower()
 
     quote_class_source = "\n".join(
