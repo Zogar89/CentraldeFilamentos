@@ -34,11 +34,11 @@ Decimal phases appear between their surrounding integers in numeric order.
   4. Usuario ve cuando un dato clave falta o debe confirmarse con el proveedor.
   5. Usuario ve que la lista se guarda automaticamente solo en este navegador/dispositivo y que StockCentral no vende ni procesa pedidos.
 
-**Plans**: 3 plans
+**Plans**: 1/3 plans executed
 Plans:
 **Wave 1**
 
-- [ ] 01-01-PLAN.md — Crear el slice inicial de agregar presentaciones a Lista de cotizacion con autosave local.
+- [x] 01-01-PLAN.md — Crear el slice inicial de agregar presentaciones a Lista de cotizacion con autosave local.
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
@@ -111,7 +111,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Quote List Foundation | 0/TBD | Not started | - |
+| 1. Quote List Foundation | 1/3 | In Progress|  |
 | 2. Portability And Import/Export Resilience | 0/TBD | Not started | - |
 | 3. Provider Coverage Semantics | 0/TBD | Not started | - |
 | 4. WhatsApp Quote Flow | 0/TBD | Not started | - |

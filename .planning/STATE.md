@@ -5,15 +5,15 @@ milestone_name: milestone
 current_phase: 1
 current_phase_name: Quote List Foundation
 status: executing
-stopped_at: Phase 1 context gathered
-last_updated: "2026-06-19T09:48:59.385Z"
+stopped_at: Completed 01-01-PLAN.md
+last_updated: "2026-06-19T09:56:34.229Z"
 last_activity: 2026-06-19
 last_activity_desc: Roadmap created for the quote-list milestone in MVP mode.
 progress:
   total_phases: 4
   completed_phases: 0
-  total_plans: 0
-  completed_plans: 0
+  total_plans: 3
+  completed_plans: 1
   percent: 0
 ---
 
@@ -58,6 +58,7 @@ Progress: [----------] 0%
 - Trend: -
 
 *Updated after each plan completion*
+| Phase 01 P01 | 4min | 2 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -70,6 +71,8 @@ Recent decisions affecting current work:
 - [Milestone]: Keep StockCentral browser-only and static: no backend persistence, accounts, checkout, orders or cloud sync.
 - [Milestone]: WhatsApp provider messages include only covered items.
 - [Milestone]: v2 refinements stay outside the v1 roadmap unless promoted to approved requirements.
+- [Phase 01]: Use product.id as the quote-list reconciliation key; SKU/EAN/article values remain snapshot fields.
+- [Phase 01]: Keep the visible feature framed as Lista de cotizacion with checklist/list controls, not commerce controls.
 
 ### Pending Todos
 
@@ -89,6 +92,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-06-19T06:03:33.770Z
-Stopped at: Phase 1 context gathered
-Resume file: .planning/phases/01-quote-list-foundation/01-CONTEXT.md
+Last session: 2026-06-19T09:56:34.096Z
+Stopped at: Completed 01-01-PLAN.md
+Resume file: None
