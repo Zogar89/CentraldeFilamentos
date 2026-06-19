@@ -521,6 +521,7 @@ input {
   font-weight: 850;
   box-shadow: 0 14px 38px rgba(27, 33, 38, .28);
   cursor: pointer;
+  animation: quote-list-arrive 560ms cubic-bezier(.2, .9, .25, 1.25) both;
 }
 
 .quote-floating-button svg {
@@ -531,6 +532,7 @@ input {
   stroke-width: 2.1;
   stroke-linecap: round;
   stroke-linejoin: round;
+  animation: quote-list-icon-pulse 760ms 180ms ease-out both;
 }
 
 .quote-list-backdrop {
@@ -557,8 +559,13 @@ input {
 
 .quote-list-drawer .quote-list-panel {
   position: static;
+  padding-top: 16px;
   border: 0;
   box-shadow: none;
+}
+
+.quote-list-drawer .quote-list-header {
+  padding-right: 34px;
 }
 
 .quote-list-drawer-close {
@@ -621,10 +628,15 @@ input {
   gap: 3px;
 }
 
-.quote-list-total small {
+.quote-list-total small,
+.quote-list-item-dozens {
   color: color-mix(in srgb, var(--accent) 58%, var(--muted));
   font-size: 11px;
   font-weight: 700;
+}
+
+.quote-list-item-dozens {
+  margin-top: -3px;
 }
 
 .quote-list-notices,
@@ -2542,8 +2554,34 @@ input {
   }
 }
 
+@keyframes quote-list-arrive {
+  0% {
+    transform: translateY(14px) scale(.78);
+    opacity: 0;
+  }
+  72% {
+    transform: translateY(-3px) scale(1.04);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes quote-list-icon-pulse {
+  0% { transform: scale(.7) rotate(-8deg); }
+  58% { transform: scale(1.2) rotate(4deg); }
+  100% { transform: scale(1) rotate(0); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .quick-lines-cue {
+    animation: none;
+  }
+
+  .quote-floating-button,
+  .quote-floating-button svg {
     animation: none;
   }
 }

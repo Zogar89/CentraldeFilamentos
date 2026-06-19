@@ -19,6 +19,9 @@
     item?.color || "confirmar dato",
   ];
   $: missingBadges = quoteItemMissingBadges(item);
+  $: dozenCount = Number(item?.quantity || 0) >= 12
+    ? new Intl.NumberFormat("es-AR", { maximumFractionDigits: 1 }).format(Number(item.quantity) / 12)
+    : "";
 </script>
 
 <article class="quote-list-item">
@@ -47,6 +50,9 @@
 
   <div class="quote-list-item-quantity">
     <strong>{quoteQuantityLabel(item.quantity)}</strong>
+    {#if dozenCount}
+      <small class="quote-list-item-dozens">{dozenCount} {dozenCount === "1" ? "docena" : "docenas"}</small>
+    {/if}
     {#if showControls}
       <QuoteQuantityControl quantity={item.quantity} {onChange} {onRemove} />
     {/if}
