@@ -25,14 +25,22 @@
 </script>
 
 <article class="quote-list-item">
-  <div class="quote-list-item-visual">
-    {#if item?.thumbnailUrl || item?.imageUrl}
-      <img src={dataUrl(item.thumbnailUrl || item.imageUrl)} alt="" loading="lazy" decoding="async">
-    {:else}
-      <span class="quote-list-color" style={colorSwatchStyle(item)} aria-label={item?.color || "Color a confirmar"}>
-        {colorSwatchLabel(item?.color) || "?"}
-      </span>
-    {/if}
+  <div class="quote-list-item-visual-column">
+    <div class="quote-list-item-visual">
+      {#if item?.thumbnailUrl || item?.imageUrl}
+        <img src={dataUrl(item.thumbnailUrl || item.imageUrl)} alt="" loading="lazy" decoding="async">
+      {:else}
+        <span class="quote-list-color" style={colorSwatchStyle(item)} aria-label={item?.color || "Color a confirmar"}>
+          {colorSwatchLabel(item?.color) || "?"}
+        </span>
+      {/if}
+    </div>
+    <div class="quote-list-item-quantity-summary">
+      <strong>{quoteQuantityLabel(item.quantity)}</strong>
+      {#if dozenCount}
+        <small class="quote-list-item-dozens">{dozenCount} {dozenCount === "1" ? "docena" : "docenas"}</small>
+      {/if}
+    </div>
   </div>
   <div class="quote-list-item-main">
     <div class="quote-list-item-title">
@@ -48,15 +56,9 @@
     </div>
   </div>
 
-  <div class="quote-list-item-quantity">
-    <div class="quote-list-item-quantity-summary">
-      <strong>{quoteQuantityLabel(item.quantity)}</strong>
-      {#if dozenCount}
-        <small class="quote-list-item-dozens">{dozenCount} {dozenCount === "1" ? "docena" : "docenas"}</small>
-      {/if}
-    </div>
-    {#if showControls}
+  {#if showControls}
+    <div class="quote-list-item-quantity">
       <QuoteQuantityControl quantity={item.quantity} {onChange} {onRemove} />
-    {/if}
-  </div>
+    </div>
+  {/if}
 </article>

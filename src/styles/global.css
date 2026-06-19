@@ -1091,7 +1091,7 @@ input {
 
 .quote-list-item {
   display: grid;
-  grid-template-columns: 48px minmax(0, 1fr);
+  grid-template-columns: 64px minmax(0, 1fr);
   gap: 12px;
   padding: 10px;
   border: 1px solid var(--line);
@@ -1108,10 +1108,17 @@ input {
 }
 
 .quote-list-item-visual {
-  grid-row: 1;
   overflow: hidden;
   border: 1px solid var(--line);
   background: var(--surface);
+}
+
+.quote-list-item-visual-column {
+  display: grid;
+  align-content: start;
+  justify-items: center;
+  gap: 5px;
+  width: 64px;
 }
 
 .quote-list-item-visual img {
@@ -1161,15 +1168,17 @@ input {
 }
 
 .quote-list-item-quantity-summary {
-  display: flex;
-  align-items: baseline;
-  gap: 7px;
+  display: grid;
+  justify-items: center;
+  gap: 1px;
+  text-align: center;
 }
 
 .quote-list-item-quantity-summary > strong {
   color: var(--accent);
-  font-size: 13px;
+  font-size: 11px;
   white-space: nowrap;
+  line-height: 1.15;
 }
 
 .quote-list-remove {
