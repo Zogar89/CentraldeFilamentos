@@ -120,6 +120,7 @@ Use `carrete` / `carretes` for quantity everywhere in the quote-list UI. Do not 
 | Add behavior | Tapping `+1` adds the presentation as `1 carrete`; if already present, increment by 1. Do not ask for provider selection in Phase 1. |
 | Active list mode | After the first item exists, enable list mode: desktop panel appears; mobile floating checklist/list button appears with count; presentation rows may show richer quantity controls. |
 | Desktop layout | When the list has items and viewport is desktop, render a right-side panel beside the catalog. Keep the catalog readable; panel width must be 320-360px and sticky within the viewport below the header/quick-line area. |
+| Primary focal point | After the first item is added, the quote-list title/count area in the side panel or drawer anchors the workflow; product presentation rows remain secondary entry points. |
 | Mobile layout | Use a fixed floating checklist/list button with item count. Tapping opens a bottom drawer with a visible drag/header area and close control. Do not use cart, bag, checkout, or full-screen modal metaphors. |
 | Quantity controls | Use `- / editable integer / + / +6 / +12`. Minimum is 1. Decrementing below 1 removes the item. Editable input accepts whole integers only and clamps/normalizes invalid values. |
 | Remove item | Provide an explicit remove icon/button per item in the panel/drawer. It removes immediately with no confirmation; clearing the whole list requires confirmation. |
