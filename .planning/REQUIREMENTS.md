@@ -82,37 +82,37 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| LIST-01 | TBD | Pending |
-| LIST-02 | TBD | Pending |
-| LIST-03 | TBD | Pending |
-| LIST-04 | TBD | Pending |
-| LIST-05 | TBD | Pending |
-| ITEM-01 | TBD | Pending |
-| ITEM-02 | TBD | Pending |
-| ITEM-03 | TBD | Pending |
-| PERS-01 | TBD | Pending |
-| PERS-02 | TBD | Pending |
-| PERS-03 | TBD | Pending |
-| PERS-04 | TBD | Pending |
-| PERS-05 | TBD | Pending |
-| COV-01 | TBD | Pending |
-| COV-02 | TBD | Pending |
-| COV-03 | TBD | Pending |
-| COV-04 | TBD | Pending |
-| MSG-01 | TBD | Pending |
-| MSG-02 | TBD | Pending |
-| MSG-03 | TBD | Pending |
-| MSG-04 | TBD | Pending |
-| MSG-05 | TBD | Pending |
-| MSG-06 | TBD | Pending |
-| DISC-01 | TBD | Pending |
-| DISC-02 | TBD | Pending |
+| LIST-01 | Phase 1 | Pending |
+| LIST-02 | Phase 1 | Pending |
+| LIST-03 | Phase 1 | Pending |
+| LIST-04 | Phase 1 | Pending |
+| LIST-05 | Phase 1 | Pending |
+| ITEM-01 | Phase 1 | Pending |
+| ITEM-02 | Phase 1 | Pending |
+| ITEM-03 | Phase 1 | Pending |
+| PERS-01 | Phase 1 | Pending |
+| PERS-02 | Phase 1 | Pending |
+| PERS-03 | Phase 2 | Pending |
+| PERS-04 | Phase 2 | Pending |
+| PERS-05 | Phase 2 | Pending |
+| COV-01 | Phase 3 | Pending |
+| COV-02 | Phase 3 | Pending |
+| COV-03 | Phase 3 | Pending |
+| COV-04 | Phase 3 | Pending |
+| MSG-01 | Phase 4 | Pending |
+| MSG-02 | Phase 4 | Pending |
+| MSG-03 | Phase 4 | Pending |
+| MSG-04 | Phase 4 | Pending |
+| MSG-05 | Phase 4 | Pending |
+| MSG-06 | Phase 4 | Pending |
+| DISC-01 | Phase 1 | Pending |
+| DISC-02 | Phase 4 | Pending |
 
 **Coverage:**
 - v1 requirements: 25 total
-- Mapped to phases: 0
-- Unmapped: 25
+- Mapped to phases: 25
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-06-19*
-*Last updated: 2026-06-19 after initial definition*
+*Last updated: 2026-06-19 after roadmap creation*
