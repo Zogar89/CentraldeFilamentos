@@ -753,6 +753,9 @@ input {
 
 .quote-import-entry {
   margin-left: auto;
+  min-height: 30px;
+  padding: 5px 9px;
+  font-size: 12px;
 }
 
 .quote-import-input {
