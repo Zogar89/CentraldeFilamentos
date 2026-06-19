@@ -1,8 +1,11 @@
 <script>
   import { quoteQuantityLabel } from "../lib/quoteList.js";
   import QuoteListItem from "./QuoteListItem.svelte";
+  import QuoteProviderCoverage from "./QuoteProviderCoverage.svelte";
 
   export let items = [];
+  export let products = [];
+  export let sources = [];
   export let showQuickControls = false;
   export let storageWarning = "";
   export let reconcileNotice = "";
@@ -66,4 +69,6 @@
       />
     {/each}
   </div>
+
+  <QuoteProviderCoverage {items} {products} {sources} />
 </aside>

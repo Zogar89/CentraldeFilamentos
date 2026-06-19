@@ -4,6 +4,8 @@
 
   export let open = false;
   export let items = [];
+  export let products = [];
+  export let sources = [];
   export let showQuickControls = false;
   export let storageWarning = "";
   export let reconcileNotice = "";
@@ -100,6 +102,8 @@
       <button class="quote-list-drawer-close" type="button" aria-label="Cerrar lista de cotizacion" on:click={onClose} bind:this={closeButton}>×</button>
       <QuoteListPanel
         {items}
+        {products}
+        {sources}
         {showQuickControls}
         {storageWarning}
         {reconcileNotice}

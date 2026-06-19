@@ -689,6 +689,8 @@
       <div class="quote-list-side-panel">
         <QuoteListPanel
           items={quoteItems}
+          {products}
+          {sources}
           showQuickControls={quoteSettings.showQuickControls}
           storageWarning={quoteStorageWarning}
           reconcileNotice={quoteReconcileNotice}
@@ -721,6 +723,8 @@
 <QuoteListDrawer
   open={quoteDrawerOpen && quoteItems.length > 0}
   items={quoteItems}
+  {products}
+  {sources}
   showQuickControls={quoteSettings.showQuickControls}
   storageWarning={quoteStorageWarning}
   reconcileNotice={quoteReconcileNotice}
