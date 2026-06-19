@@ -22,6 +22,20 @@ export function clampQuoteQuantity(value) {
   return next;
 }
 
+export function quoteItemCode(item) {
+  return item?.articleCode || item?.sku || item?.ean || "";
+}
+
+export function quoteItemMissingBadges(item) {
+  return [
+    quoteItemCode(item) ? "" : "sin codigo",
+    item?.diameterMm ? "" : "sin diametro",
+    item?.presentation ? "" : "sin presentacion",
+    item?.line || item?.material ? "" : "confirmar dato",
+    item?.hasOnlineStock ? "" : "confirmar stock",
+  ].filter(Boolean);
+}
+
 export function normalizeQuoteList(payload) {
   if (payload && payload.schemaVersion !== quoteListSchemaVersion) {
     return {

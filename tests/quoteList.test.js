@@ -5,6 +5,8 @@ import {
   initializeQuoteList,
   loadQuoteList,
   normalizeQuoteList,
+  quoteItemCode,
+  quoteItemMissingBadges,
   quoteListSchemaVersion,
   quoteListStorageKey,
   saveQuoteList,
@@ -143,4 +145,17 @@ test("quantity changes persist as normalized whole-spool values", () => {
   assert.equal(result.ok, true);
   assert.equal(storage.writes(), 1);
   assert.equal(persisted.items[0].quantity, 6);
+});
+
+test("an original provider name does not hide a missing article code", () => {
+  const item = {
+    originalName: "GRILON3 PLA NEGRO 1.75 MM X 1 KG",
+    diameterMm: 1.75,
+    presentation: "1 kg",
+    material: "PLA",
+    hasOnlineStock: true,
+  };
+
+  assert.equal(quoteItemCode(item), "");
+  assert.deepEqual(quoteItemMissingBadges(item), ["sin codigo"]);
 });

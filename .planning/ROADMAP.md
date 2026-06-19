@@ -29,7 +29,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Success Criteria** (what must be TRUE):
 
   1. Usuario puede agregar un filamento desde el catalogo y verlo en una lista presentada como herramienta de compra/cotizacion, no como carrito.
-  2. Usuario puede editar la cantidad en kg, sumar rapido +1 kg o +12 kg, quitar items y limpiar la lista.
+  2. Usuario puede editar la cantidad entera de carretes, sumar rapido +1, +6 o +12, quitar items y limpiar la lista.
   3. Cada item visible conserva material, color, marca, diametro, cantidad y codigo de articulo cuando el catalogo lo provee.
   4. Usuario ve cuando un dato clave falta o debe confirmarse con el proveedor.
   5. Usuario ve que la lista se guarda automaticamente solo en este navegador/dispositivo y que StockCentral no vende ni procesa pedidos.

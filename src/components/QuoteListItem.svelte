@@ -1,5 +1,9 @@
 <script>
-  import { quoteQuantityLabel } from "../lib/quoteList.js";
+  import {
+    quoteItemCode,
+    quoteItemMissingBadges,
+    quoteQuantityLabel,
+  } from "../lib/quoteList.js";
   import QuoteQuantityControl from "./QuoteQuantityControl.svelte";
 
   export let item;
@@ -7,19 +11,13 @@
   export let onChange = () => {};
   export let onRemove = () => {};
 
-  $: code = item?.articleCode || item?.sku || item?.ean || item?.originalName || "";
+  $: code = quoteItemCode(item);
   $: metadata = [
     item?.brand || "sin marca",
     item?.line || item?.material || "confirmar dato",
     item?.color || "confirmar dato",
   ];
-  $: missingBadges = [
-    code ? "" : "sin codigo",
-    item?.diameterMm ? "" : "sin diametro",
-    item?.presentation ? "" : "sin presentacion",
-    item?.line || item?.material ? "" : "confirmar dato",
-    item?.hasOnlineStock ? "" : "confirmar stock",
-  ].filter(Boolean);
+  $: missingBadges = quoteItemMissingBadges(item);
 </script>
 
 <article class="quote-list-item">
