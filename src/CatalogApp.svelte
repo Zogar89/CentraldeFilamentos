@@ -5,7 +5,9 @@
   import SiteHeader from "./components/SiteHeader.svelte";
   import SiteFooter from "./components/SiteFooter.svelte";
   import {
+    clampQuoteQuantity,
     loadQuoteList,
+    reconcileQuoteList,
     saveQuoteList,
     snapshotQuoteItem,
   } from "./lib/quoteList.js";
@@ -58,8 +60,9 @@
   let stockSubscriptions = [];
   let stockAlerts = [];
   let quoteItems = [];
-  let quoteSettings = {};
+  let quoteSettings = { showQuickControls: false };
   let quoteStorageWarning = "";
+  let quoteReconcileNotice = "";
 
   onMount(async () => {
     const payload = await fetchJson("data/stock.json", { products: [], sources: [] });
@@ -69,9 +72,16 @@
     stockSubscriptions = loadStockSubscriptions();
     reconcileStockSubscriptions();
     const quoteList = loadQuoteList();
-    quoteItems = quoteList.items;
     quoteSettings = quoteList.settings;
+    const reconciledQuoteList = reconcileQuoteList(quoteList.items, products);
+    quoteItems = reconciledQuoteList.items;
+    quoteReconcileNotice = reconciledQuoteList.removedCount
+      ? `Quitamos ${reconciledQuoteList.removedCount} item(s) que ya no aparecen en el catalogo publicado.`
+      : "";
     quoteStorageWarning = quoteList.storageAvailable ? "" : "No pudimos guardar la lista en este navegador. La podes usar durante esta sesion, pero se puede perder al cerrar la pagina.";
+    if (quoteList.items.length !== quoteItems.length || reconciledQuoteList.removedCount) {
+      saveQuoteListState(quoteItems, quoteSettings);
+    }
   });
 
   $: subscribedKeys = new Set(stockSubscriptions.map((item) => item.key));
@@ -322,6 +332,35 @@
     quoteStorageWarning = result.ok ? "" : "No pudimos guardar la lista en este navegador. La podes usar durante esta sesion, pero se puede perder al cerrar la pagina.";
   }
 
+  function setQuoteItemQuantity(productId, quantity) {
+    const product = products.find((item) => item.id === productId);
+    const nextQuantity = clampQuoteQuantity(quantity);
+    const nextItems = quoteItems.map((item) => {
+      if (item.productId !== productId) return item;
+      return product
+        ? snapshotQuoteItem(product, nextQuantity)
+        : { ...item, quantity: nextQuantity };
+    });
+    saveQuoteListState(nextItems);
+  }
+
+  function removeQuoteItem(productId) {
+    saveQuoteListState(quoteItems.filter((item) => item.productId !== productId));
+  }
+
+  function clearQuoteList() {
+    if (!window.confirm("¿Vaciar la lista de cotizacion? Se quitaran todos los filamentos guardados en este navegador.")) return;
+    quoteReconcileNotice = "";
+    saveQuoteListState([]);
+  }
+
+  function toggleQuoteControls() {
+    saveQuoteListState(quoteItems, {
+      ...quoteSettings,
+      showQuickControls: !quoteSettings.showQuickControls,
+    });
+  }
+
   function reconcileStockSubscriptions() {
     const alerts = [];
     const nextSubscriptions = stockSubscriptions.map((subscription) => {
@@ -525,7 +564,16 @@
     </section>
 
     {#if quoteItems.length > 0}
-      <QuoteListPanel items={quoteItems} storageWarning={quoteStorageWarning} />
+      <QuoteListPanel
+        items={quoteItems}
+        showQuickControls={quoteSettings.showQuickControls}
+        storageWarning={quoteStorageWarning}
+        reconcileNotice={quoteReconcileNotice}
+        onToggleControls={toggleQuoteControls}
+        onSetQuantity={setQuoteItemQuantity}
+        onRemoveItem={removeQuoteItem}
+        onClearList={clearQuoteList}
+      />
     {/if}
   </div>
 </main>

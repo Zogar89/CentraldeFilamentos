@@ -1,8 +1,15 @@
 <script>
   import { quoteQuantityLabel } from "../lib/quoteList.js";
+  import QuoteListItem from "./QuoteListItem.svelte";
 
   export let items = [];
+  export let showQuickControls = false;
   export let storageWarning = "";
+  export let reconcileNotice = "";
+  export let onToggleControls = () => {};
+  export let onSetQuantity = () => {};
+  export let onRemoveItem = () => {};
+  export let onClearList = () => {};
 
   $: itemCount = items.reduce((total, item) => total + Number(item.quantity || 0), 0);
 </script>
@@ -23,21 +30,26 @@
     {#if storageWarning}
       <p class="quote-list-warning" aria-live="polite">{storageWarning}</p>
     {/if}
+    {#if reconcileNotice}
+      <p class="quote-list-warning" aria-live="polite">{reconcileNotice}</p>
+    {/if}
+  </div>
+
+  <div class="quote-list-actions">
+    <button type="button" class="quote-list-toggle" aria-pressed={showQuickControls} on:click={onToggleControls}>
+      {showQuickControls ? "Ocultar controles rapidos" : "Controles rapidos"}
+    </button>
+    <button type="button" class="quote-list-clear" on:click={onClearList}>Limpiar lista</button>
   </div>
 
   <div class="quote-list-items">
     {#each items as item}
-      <article class="quote-list-item">
-        <div>
-          <strong>{item.productName}</strong>
-          <span>{[item.brand, item.line, item.color].filter(Boolean).join(" · ")}</span>
-          <small>{[item.diameterMm ? `${item.diameterMm} mm` : "sin diametro", item.presentation || "sin presentacion", item.sku || item.ean || item.articleCode || "sin codigo"].join(" · ")}</small>
-          {#if !item.hasOnlineStock}
-            <em>confirmar stock</em>
-          {/if}
-        </div>
-        <strong>{quoteQuantityLabel(item.quantity)}</strong>
-      </article>
+      <QuoteListItem
+        {item}
+        showControls={showQuickControls}
+        onChange={(quantity) => onSetQuantity(item.productId, quantity)}
+        onRemove={() => onRemoveItem(item.productId)}
+      />
     {/each}
   </div>
 </aside>

@@ -533,9 +533,48 @@ input {
 }
 
 .quote-list-notices,
-.quote-list-items {
+.quote-list-items,
+.quote-list-actions {
   display: grid;
   gap: 8px;
+}
+
+.quote-list-actions {
+  grid-template-columns: 1fr auto;
+  align-items: center;
+}
+
+.quote-list-toggle,
+.quote-list-clear {
+  min-height: 36px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.quote-list-toggle {
+  color: var(--accent);
+}
+
+.quote-list-clear {
+  color: var(--warn);
+}
+
+.quote-list-toggle:hover,
+.quote-list-toggle:focus-visible {
+  border-color: color-mix(in srgb, var(--accent) 42%, var(--line));
+  background: color-mix(in srgb, var(--accent) 8%, var(--surface));
+}
+
+.quote-list-clear:hover,
+.quote-list-clear:focus-visible {
+  border-color: color-mix(in srgb, var(--warn) 42%, var(--line));
+  background: color-mix(in srgb, var(--warn) 8%, var(--surface));
 }
 
 .quote-list-notices p {
@@ -553,18 +592,26 @@ input {
 
 .quote-list-item {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 10px;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
   padding: 10px;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: color-mix(in srgb, var(--surface) 78%, var(--surface-soft));
 }
 
-.quote-list-item div {
+.quote-list-item-main,
+.quote-list-item-quantity {
   display: grid;
-  gap: 3px;
+  gap: 6px;
   min-width: 0;
+}
+
+.quote-list-item-title {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 28px;
+  align-items: start;
+  gap: 8px;
 }
 
 .quote-list-item strong,
@@ -573,7 +620,50 @@ input {
   min-width: 0;
 }
 
-.quote-list-item em {
+.quote-list-item-title strong,
+.quote-list-item span,
+.quote-list-item small {
+  overflow-wrap: anywhere;
+}
+
+.quote-list-item-quantity {
+  align-items: start;
+}
+
+.quote-list-item-quantity > strong {
+  color: var(--accent);
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.quote-list-remove {
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border: 1px solid color-mix(in srgb, var(--line) 82%, transparent);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--muted);
+  font: inherit;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.quote-list-remove:hover,
+.quote-list-remove:focus-visible {
+  border-color: color-mix(in srgb, var(--warn) 42%, var(--line));
+  color: var(--warn);
+}
+
+.quote-list-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.quote-list-badge {
   width: fit-content;
   border-radius: 999px;
   padding: 2px 7px;
@@ -582,6 +672,42 @@ input {
   font-size: 12px;
   font-style: normal;
   font-weight: 700;
+}
+
+.quote-quantity-control {
+  display: grid;
+  grid-template-columns: 34px minmax(54px, 66px) 34px 40px 46px;
+  align-items: center;
+  gap: 4px;
+  width: fit-content;
+  max-width: 100%;
+}
+
+.quote-quantity-control button,
+.quote-quantity-control input {
+  min-width: 0;
+  height: 34px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.quote-quantity-control button {
+  cursor: pointer;
+}
+
+.quote-quantity-control button:hover,
+.quote-quantity-control button:focus-visible,
+.quote-quantity-control input:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--accent) 42%, transparent);
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 .group-section {
@@ -2213,6 +2339,20 @@ input {
 
   .product-image {
     width: 56px;
+  }
+
+  .quote-list-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .quote-quantity-control {
+    grid-template-columns: 42px minmax(58px, 1fr) 42px;
+    width: 100%;
+  }
+
+  .quote-quantity-control button:nth-of-type(3),
+  .quote-quantity-control button:nth-of-type(4) {
+    grid-column: span 1;
   }
 }
 

@@ -64,6 +64,7 @@ export function normalizeQuoteList(payload) {
     settings: {
       ...defaultSettings,
       ...(payload.settings && typeof payload.settings === "object" ? payload.settings : {}),
+      showQuickControls: Boolean(payload.settings?.showQuickControls),
     },
     resetReason: "",
   };
@@ -120,4 +121,25 @@ export function snapshotQuoteItem(product, quantity = 1) {
     hasOnlineStock: (product?.offers || []).some((offer) => offer.stock_status === "in_stock" && Number(offer.stock_quantity || 0) > 0),
     quantity: clampQuoteQuantity(quantity),
   };
+}
+
+export function reconcileQuoteList(items, products) {
+  const productById = new Map((products || []).map((product) => [product.id, product]));
+  const nextItems = [];
+  let removedCount = 0;
+
+  for (const item of normalizeQuoteList({
+    schemaVersion: quoteListSchemaVersion,
+    items,
+    settings: defaultSettings,
+  }).items) {
+    const product = productById.get(item.productId);
+    if (!product) {
+      removedCount += 1;
+      continue;
+    }
+    nextItems.push(snapshotQuoteItem(product, item.quantity));
+  }
+
+  return { items: nextItems, removedCount };
 }
