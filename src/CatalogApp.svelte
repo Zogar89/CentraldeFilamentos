@@ -7,9 +7,12 @@
   import SiteFooter from "./components/SiteFooter.svelte";
   import {
     clampQuoteQuantity,
+    combineQuoteListItems,
     initializeQuoteList,
     loadQuoteList,
+    previewQuoteListImport,
     saveQuoteList,
+    serializeQuoteListExport,
     snapshotQuoteItem,
   } from "./lib/quoteList.js";
   import {
@@ -67,6 +70,10 @@
   let quoteDrawerOpen = false;
   let quoteListReadOnly = false;
   let preservedQuotePayload = null;
+  let quoteImportInput;
+  let quoteImportPreview = null;
+  let quoteImportError = "";
+  let quoteImportFileName = "";
   const quoteStorageWarningCopy = "No pudimos guardar la lista en este navegador. La podes usar durante esta sesion, pero se puede perder al cerrar la pagina.";
   const quoteCatalogWarningCopy = "No pudimos actualizar el catalogo; conservamos tu lista guardada.";
   const quoteSchemaWarningCopy = "La lista guardada usa una version mas nueva. La conservamos sin cambios para no perder datos.";
@@ -378,6 +385,68 @@
     saveQuoteListState([]);
   }
 
+  function exportQuoteList() {
+    if (!quoteItems.length || quoteListReadOnly) return;
+    const blob = new Blob([
+      serializeQuoteListExport({ items: quoteItems, settings: quoteSettings }),
+    ], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `stockcentral-lista-${new Date().toISOString().slice(0, 10)}.json`;
+    document.body.append(link);
+    link.click();
+    link.remove();
+    window.setTimeout(() => URL.revokeObjectURL(url), 0);
+  }
+
+  function openQuoteImportPicker() {
+    quoteImportError = "";
+    quoteImportInput?.click();
+  }
+
+  async function handleQuoteImportFile(event) {
+    const file = event.currentTarget.files?.[0];
+    event.currentTarget.value = "";
+    if (!file) return;
+    quoteImportFileName = file.name;
+    if (file.size > 2_000_000) {
+      quoteImportPreview = null;
+      quoteImportError = "El archivo es demasiado grande para una lista de cotizacion.";
+      return;
+    }
+    const previewResult = previewQuoteListImport(await file.text(), products);
+    if (!previewResult.ok) {
+      quoteImportPreview = null;
+      quoteImportError = previewResult.error;
+      return;
+    }
+    quoteImportError = "";
+    quoteImportPreview = previewResult;
+  }
+
+  function applyQuoteImport(mode) {
+    if (!quoteImportPreview || quoteListReadOnly) {
+      quoteImportError = quoteSchemaWarningCopy;
+      return;
+    }
+    const importedItems = quoteImportPreview.items;
+    const nextItems = mode === "combine"
+      ? combineQuoteListItems(quoteItems, importedItems)
+      : importedItems;
+    const nextSettings = mode === "replace" ? quoteImportPreview.settings : quoteSettings;
+    const skipped = quoteImportPreview.skippedCount;
+    quoteReconcileNotice = `Importamos ${quoteImportPreview.validCount} item(s)${skipped ? ` y descartamos ${skipped}` : ""}.`;
+    saveQuoteListState(nextItems, nextSettings);
+    closeQuoteImport();
+  }
+
+  function closeQuoteImport() {
+    quoteImportPreview = null;
+    quoteImportError = "";
+    quoteImportFileName = "";
+  }
+
   function toggleQuoteControls() {
     saveQuoteListState(quoteItems, {
       ...quoteSettings,
@@ -394,6 +463,10 @@
   }
 
   function handleQuoteDrawerKeydown(event) {
+    if (event.key === "Escape" && (quoteImportPreview || quoteImportError)) {
+      closeQuoteImport();
+      return;
+    }
     if (event.key === "Escape" && quoteDrawerOpen) closeQuoteDrawer();
   }
 
@@ -507,6 +580,7 @@
 
   <div class="result-meta">
     <strong id="result-count">{filteredProducts.length} productos</strong>
+    <button class="soft-button quote-import-entry" type="button" on:click={openQuoteImportPicker}>Importar lista</button>
     <div class="category-sort" role="group" aria-label="Orden de categorías">
       <span>Orden</span>
       <button id="sort-popular" class:active={categoryOrder === "popular"} class="soft-button" type="button" data-category-order="popular" on:click={() => categoryOrder = "popular"}>Popularidad</button>
@@ -614,6 +688,8 @@
           onSetQuantity={setQuoteItemQuantity}
           onRemoveItem={removeQuoteItem}
           onClearList={clearQuoteList}
+          onExportList={exportQuoteList}
+          onImportList={openQuoteImportPicker}
         />
       </div>
     {/if}
@@ -645,8 +721,36 @@
   onSetQuantity={setQuoteItemQuantity}
   onRemoveItem={removeQuoteItem}
   onClearList={clearQuoteList}
+  onExportList={exportQuoteList}
+  onImportList={openQuoteImportPicker}
   {handleQuoteDrawerKeydown}
 />
+
+<input class="quote-import-input" type="file" accept=".json,application/json" bind:this={quoteImportInput} on:change={handleQuoteImportFile}>
+
+{#if quoteImportPreview || quoteImportError}
+  <div class="quote-import-backdrop" role="presentation" on:click={(event) => event.target === event.currentTarget && closeQuoteImport()}>
+    <div class="quote-import-dialog" role="dialog" aria-modal="true" aria-labelledby="quote-import-title" tabindex="-1">
+      <button class="quote-import-close" type="button" aria-label="Cerrar importacion" on:click={closeQuoteImport}>×</button>
+      <h2 id="quote-import-title">Importar lista</h2>
+      <small>{quoteImportFileName}</small>
+      {#if quoteImportError}
+        <p class="quote-import-error" aria-live="polite">{quoteImportError}</p>
+        <button class="soft-button" type="button" on:click={openQuoteImportPicker}>Elegir otro archivo</button>
+      {:else}
+        <p><strong>{quoteImportPreview.validCount}</strong> item(s) listos para importar.</p>
+        {#if quoteImportPreview.skippedCount}
+          <p>{quoteImportPreview.skippedCount} item(s) se descartaran porque no son validos o ya no existen.</p>
+        {/if}
+        <p class="quote-import-help">Combinar conserva tus otros items; si un producto se repite, usa la cantidad importada.</p>
+        <div class="quote-import-actions">
+          <button class="primary-button" type="button" on:click={() => applyQuoteImport("combine")}>Combinar</button>
+          <button class="soft-button" type="button" on:click={() => applyQuoteImport("replace")}>Reemplazar</button>
+        </div>
+      {/if}
+    </div>
+  </div>
+{/if}
 
 <SiteFooter {sources} {contactContext} />
 

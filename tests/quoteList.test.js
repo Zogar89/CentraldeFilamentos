@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { afterEach, test } from "node:test";
 
 import {
+  combineQuoteListItems,
   initializeQuoteList,
   loadQuoteList,
   normalizeQuoteList,
@@ -11,6 +12,8 @@ import {
   quoteListSchemaVersion,
   quoteListStorageKey,
   saveQuoteList,
+  serializeQuoteListExport,
+  previewQuoteListImport,
 } from "../src/lib/quoteList.js";
 
 function createStorage(initialValue = null, { failWrite = false } = {}) {
@@ -166,4 +169,43 @@ test("box shortcut completes the next multiple of twelve", () => {
   assert.equal(nextBoxQuantity(11), 12);
   assert.equal(nextBoxQuantity(12), 24);
   assert.equal(nextBoxQuantity(13), 24);
+});
+
+test("export and import preserve valid items through the catalog", () => {
+  const exported = serializeQuoteListExport({
+    items: [{ productId: "pla-negro", quantity: 12 }],
+    settings: { showQuickControls: true },
+  }, "2026-06-19T12:00:00Z");
+  const preview = previewQuoteListImport(exported, [{
+    id: "pla-negro",
+    display_name: "PLA Negro 1 kg",
+    material: "PLA",
+    variant: "PLA Standard",
+    color: "Negro",
+    brand: "Grilon3",
+    diameter_mm: 1.75,
+    weight_g: 1000,
+    offers: [],
+  }]);
+
+  assert.equal(preview.ok, true);
+  assert.equal(preview.validCount, 1);
+  assert.equal(preview.items[0].quantity, 12);
+  assert.equal(preview.items[0].color, "Negro");
+});
+
+test("invalid imports do not produce replacement items", () => {
+  assert.equal(previewQuoteListImport("not-json", []).ok, false);
+  assert.equal(previewQuoteListImport(JSON.stringify({ items: [] }), []).ok, false);
+});
+
+test("combine keeps local-only items and imported duplicates win", () => {
+  const combined = combineQuoteListItems(
+    [{ productId: "local", quantity: 2 }, { productId: "shared", quantity: 1 }],
+    [{ productId: "shared", quantity: 12 }, { productId: "new", quantity: 3 }],
+  );
+
+  assert.deepEqual(combined.map((item) => [item.productId, item.quantity]), [
+    ["local", 2], ["shared", 12], ["new", 3],
+  ]);
 });

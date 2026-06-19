@@ -6,6 +6,8 @@ import {
 
 export const quoteListStorageKey = "centraldefilamentos.quoteList.v1";
 export const quoteListSchemaVersion = 1;
+export const quoteListExportKind = "centraldefilamentos.quote-list";
+export const quoteListExportVersion = 1;
 
 const defaultSettings = {
   showQuickControls: false,
@@ -153,6 +155,69 @@ export function saveQuoteList(state) {
   } catch {
     return { ok: false, storageAvailable: false, saveError: "write", payload };
   }
+}
+
+export function serializeQuoteListExport(state, exportedAt = new Date().toISOString()) {
+  const normalized = normalizeQuoteList({
+    schemaVersion: quoteListSchemaVersion,
+    items: state?.items || [],
+    settings: state?.settings || defaultSettings,
+  });
+  return JSON.stringify({
+    kind: quoteListExportKind,
+    exportVersion: quoteListExportVersion,
+    exportedAt,
+    schemaVersion: quoteListSchemaVersion,
+    items: normalized.items,
+    settings: normalized.settings,
+  }, null, 2);
+}
+
+export function previewQuoteListImport(raw, products) {
+  let payload;
+  try {
+    payload = typeof raw === "string" ? JSON.parse(raw) : raw;
+  } catch {
+    return { ok: false, error: "El archivo no contiene JSON valido." };
+  }
+
+  if (!payload || payload.kind !== quoteListExportKind) {
+    return { ok: false, error: "El archivo no es una lista exportada por StockCentral." };
+  }
+  if (payload.exportVersion !== quoteListExportVersion || payload.schemaVersion !== quoteListSchemaVersion) {
+    return { ok: false, error: "La version del archivo no es compatible con esta aplicacion." };
+  }
+  if (!Array.isArray(payload.items)) {
+    return { ok: false, error: "El archivo no contiene un listado de items valido." };
+  }
+
+  const normalized = normalizeQuoteList(payload);
+  const reconciled = reconcileQuoteList(normalized.items, products || []);
+  const malformedCount = Math.max(0, payload.items.length - normalized.items.length);
+  const skippedCount = malformedCount + reconciled.removedCount;
+  if (!reconciled.items.length) {
+    return {
+      ok: false,
+      error: "No encontramos items vigentes para importar.",
+      sourceCount: payload.items.length,
+      skippedCount,
+    };
+  }
+  return {
+    ok: true,
+    items: reconciled.items,
+    settings: normalized.settings,
+    sourceCount: payload.items.length,
+    validCount: reconciled.items.length,
+    skippedCount,
+    exportedAt: payload.exportedAt || "",
+  };
+}
+
+export function combineQuoteListItems(currentItems, importedItems) {
+  const combined = new Map((currentItems || []).map((item) => [item.productId, item]));
+  for (const item of importedItems || []) combined.set(item.productId, item);
+  return [...combined.values()];
 }
 
 export function snapshotQuoteItem(product, quantity = 1) {

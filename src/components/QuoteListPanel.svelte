@@ -10,6 +10,8 @@
   export let onSetQuantity = () => {};
   export let onRemoveItem = () => {};
   export let onClearList = () => {};
+  export let onExportList = () => {};
+  export let onImportList = () => {};
 
   $: itemCount = items.reduce((total, item) => total + Number(item.quantity || 0), 0);
   $: dozenCount = itemCount >= 12
@@ -34,6 +36,10 @@
     <details class="quote-list-info">
       <summary><span aria-hidden="true">i</span> Guardada en este dispositivo</summary>
       <p>Usala para planificar y confirma stock y precio con el proveedor. No se sincroniza con otra PC. StockCentral no vende ni procesa pedidos.</p>
+      <div class="quote-portability-actions">
+        <button type="button" on:click={onExportList}>Exportar JSON</button>
+        <button type="button" on:click={onImportList}>Importar lista</button>
+      </div>
     </details>
     {#if storageWarning}
       <p class="quote-list-warning" aria-live="polite">{storageWarning}</p>

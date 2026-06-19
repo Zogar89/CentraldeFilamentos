@@ -731,6 +731,110 @@ input {
   background: transparent;
 }
 
+.quote-portability-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 0 8px 8px;
+}
+
+.quote-portability-actions button {
+  min-height: 30px;
+  padding: 0 9px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--accent);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.quote-import-entry {
+  margin-left: auto;
+}
+
+.quote-import-input {
+  display: none;
+}
+
+.quote-import-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: rgba(27, 33, 38, .42);
+}
+
+.quote-import-dialog {
+  position: relative;
+  display: grid;
+  gap: 10px;
+  width: min(100%, 460px);
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: 0 22px 64px rgba(27, 33, 38, .24);
+}
+
+.quote-import-dialog h2,
+.quote-import-dialog p {
+  margin: 0;
+}
+
+.quote-import-dialog > small,
+.quote-import-help {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.quote-import-close {
+  position: absolute;
+  top: 9px;
+  right: 9px;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--muted);
+  font: inherit;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.quote-import-error {
+  padding: 9px;
+  border-left: 3px solid var(--warn);
+  background: color-mix(in srgb, var(--warn) 8%, var(--surface));
+}
+
+.quote-import-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.quote-import-actions button {
+  min-height: 38px;
+}
+
+.quote-import-actions .primary-button {
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  background: var(--accent);
+  color: white;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
 .quote-list-notices .quote-list-warning {
   border-left: 3px solid var(--warn);
   color: var(--text);

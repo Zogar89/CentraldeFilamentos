@@ -12,6 +12,8 @@
   export let onSetQuantity = () => {};
   export let onRemoveItem = () => {};
   export let onClearList = () => {};
+  export let onExportList = () => {};
+  export let onImportList = () => {};
   export let handleQuoteDrawerKeydown = () => {};
 
   let dialogElement;
@@ -105,6 +107,8 @@
         {onSetQuantity}
         {onRemoveItem}
         {onClearList}
+        {onExportList}
+        {onImportList}
       />
     </div>
   </div>
