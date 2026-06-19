@@ -273,6 +273,51 @@ def test_quote_list_source_contract_covers_foundation():
         assert banned not in quote_class_source
 
 
+def test_quote_list_styles_contract_covers_panel_and_controls():
+    def read_source(path):
+        return path.read_text(encoding="utf-8") if path.exists() else ""
+
+    catalog = read_source(SRC / "CatalogApp.svelte")
+    quote_list = read_source(SRC / "lib" / "quoteList.js")
+    quote_panel = read_source(SRC / "components" / "QuoteListPanel.svelte")
+    quote_drawer = read_source(SRC / "components" / "QuoteListDrawer.svelte")
+    css = read_source(SRC / "styles" / "global.css")
+    quote_sources = catalog + quote_list + quote_panel + quote_drawer
+
+    assert (SRC / "components" / "QuoteListDrawer.svelte").exists()
+    for identifier in [
+        "QuoteListDrawer",
+        "quote-floating-button",
+        "quote-list-drawer",
+        "quote-list-backdrop",
+        "quote-list-panel",
+        "quote-list-layout-active",
+        "openQuoteDrawer",
+        "closeQuoteDrawer",
+        "handleQuoteDrawerKeydown",
+        "reconcileQuoteList",
+        "removedCount",
+        "resetReason",
+        "storageAvailable",
+        "saveError",
+    ]:
+        assert identifier in quote_sources + css
+
+    for copy in [
+        "No pudimos guardar la lista en este navegador. La podes usar durante esta sesion, pero se puede perder al cerrar la pagina.",
+        "Se guarda solo en este navegador/dispositivo. No se sincroniza con otra PC o navegador.",
+        "StockCentral no vende productos ni procesa pedidos.",
+        "Quitamos {count} item(s) que ya no aparecen en el catalogo publicado.",
+    ]:
+        assert copy in quote_sources
+
+    assert "@media (max-width: 820px)" in css
+    assert "@media (max-width: 520px)" in css
+    assert "position: fixed" in css
+    assert "bottom:" in css
+    assert "minmax(320px, 360px)" in css
+
+
 def test_summary_svelte_uses_carretes_totals_and_provider_order():
     view = (SRC / "SummaryApp.svelte").read_text(encoding="utf-8")
     shared = (SRC / "lib" / "shared.js").read_text(encoding="utf-8")
