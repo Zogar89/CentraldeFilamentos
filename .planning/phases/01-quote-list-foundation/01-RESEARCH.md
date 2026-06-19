@@ -367,17 +367,15 @@ export function reconcileQuoteList(items, products) {
 |---|-------|---------|---------------|
 | A1 | A new Svelte store/state library is unnecessary for this page-local list. [ASSUMED] | Standard Stack | If list complexity grows unexpectedly, planner may need a shared store abstraction later. |
 
-## Open Questions
+## Open Questions (RESOLVED)
 
-1. **Exact component split**
-   - What we know: Context leaves component split to planner and codebase allows shared components under `src/components/`. [VERIFIED: CONTEXT.md + STRUCTURE.md]
-   - What's unclear: Whether planner prefers one `QuoteListPanel` reused by drawer and desktop, or separate desktop/mobile components. [ASSUMED]
-   - Recommendation: Use shared content components plus thin desktop/mobile shells. [ASSUMED]
+1. **Exact component split — RESOLVED**
+   - Resolution: Use `src/lib/quoteList.js` for persistence/reconciliation helpers, `QuoteListPanel.svelte` as the shared list content shell, `QuoteListItem.svelte` for item metadata/badges, `QuoteQuantityControl.svelte` for quantity editing, and `QuoteListDrawer.svelte` as the thin mobile shell. `CatalogApp.svelte` owns page state and callbacks. [RESOLVED: 01-01-PLAN.md + 01-02-PLAN.md + 01-03-PLAN.md]
+   - Rationale: This follows the pattern map: shared JS helpers mirror `stockSubscriptions.js`; content components mirror `SiteHeader`/`SiteFooter` prop-driven components; quantity controls mirror `QuickLines`; drawer shell mirrors the existing preview modal pattern without mixing provider logic into quote-list state. [VERIFIED: 01-PATTERNS.md]
 
-2. **Focus-trap strictness for mobile drawer**
-   - What we know: ARIA modal semantics require focus/background behavior if marked modal. [CITED: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-modal]
-   - What's unclear: Whether planner will implement a full focus trap in Phase 1 or use a non-modal bottom sheet with close/Escape/backdrop and no `aria-modal`. [ASSUMED]
-   - Recommendation: If using `role="dialog" aria-modal="true"`, plan focus trap/return and background inert behavior; otherwise omit `aria-modal`. [CITED: https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/]
+2. **Focus-trap strictness for mobile drawer — RESOLVED**
+   - Resolution: Phase 1 implements a bottom drawer with close button, Escape close, backdrop close, focus return to the floating list button, and background scroll control. If implementation uses `role="dialog" aria-modal="true"`, it must include the corresponding focus/background behavior; otherwise it must omit `aria-modal`. [RESOLVED: 01-03-PLAN.md]
+   - Rationale: This keeps the drawer accessible enough for the phase without relying on ARIA alone or introducing a broader modal framework. [CITED: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-modal]
 
 ## Environment Availability
 
