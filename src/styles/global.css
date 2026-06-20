@@ -13,10 +13,26 @@
   --warn: #a15c00;
   --quick-lines-height: 43px;
   --summary-head-height: 37px;
+  --motion-fast: 140ms;
+  --motion-base: 190ms;
+  --motion-panel: 260ms;
+  --motion-ease: cubic-bezier(.2, .78, .22, 1);
 }
 
 * {
   box-sizing: border-box;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 html {
@@ -39,6 +55,36 @@ a {
 
 a:hover {
   color: var(--accent);
+}
+
+:where(a, button, input, select, textarea, summary):focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--accent) 48%, white);
+  outline-offset: 2px;
+}
+
+main:focus {
+  outline: none;
+}
+
+.skip-link {
+  position: fixed;
+  top: 8px;
+  left: 12px;
+  z-index: 100;
+  min-height: 40px;
+  padding: 9px 13px;
+  border: 2px solid var(--accent);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 800;
+  box-shadow: 0 10px 28px rgba(27, 33, 38, .18);
+  transform: translateY(-160%);
+  transition: transform var(--motion-fast) ease;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
 }
 
 .shell {
@@ -435,6 +481,95 @@ input {
   border-radius: 8px;
 }
 
+.more-filters-button {
+  display: none;
+  min-height: 38px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface-soft);
+  color: var(--accent);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.active-filters {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.active-filters::-webkit-scrollbar {
+  display: none;
+}
+
+.active-filters button {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 30px;
+  max-width: 220px;
+  padding: 4px 8px;
+  border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--line));
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 7%, var(--surface));
+  color: var(--text);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.active-filters button span:first-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.active-filters button span:last-child {
+  color: var(--accent);
+  font-size: 16px;
+  line-height: 1;
+}
+
+.active-filters .clear-filter-chips {
+  border-color: rgba(0, 0, 0, 0);
+  background: transparent;
+  color: var(--accent);
+  font-weight: 750;
+}
+
+.catalog-empty-state {
+  display: grid;
+  justify-items: start;
+  gap: 7px;
+  padding: 28px;
+  border: 1px dashed color-mix(in srgb, var(--accent) 30%, var(--line));
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--accent) 4%, var(--surface));
+}
+
+.catalog-empty-state span {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.catalog-empty-state button {
+  min-height: 36px;
+  padding: 0 12px;
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  background: var(--accent);
+  color: white;
+  font: inherit;
+  font-weight: 750;
+  cursor: pointer;
+}
+
 .line-help {
   margin: 4px 2px 10px;
   color: var(--muted);
@@ -505,6 +640,145 @@ input {
   box-shadow: 0 18px 44px rgba(27, 33, 38, .10);
 }
 
+.quote-workflow-tabs {
+  position: sticky;
+  top: -14px;
+  z-index: 4;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 4px;
+  margin: 0 -2px;
+  padding: 2px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--surface-soft) 88%, var(--surface));
+  box-shadow: 0 8px 16px color-mix(in srgb, var(--text) 5%, transparent);
+}
+
+.quote-workflow-tabs button {
+  min-width: 0;
+  min-height: 36px;
+  padding: 0 6px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 750;
+  cursor: pointer;
+  transition: background-color 160ms ease, color 160ms ease, box-shadow 160ms ease;
+}
+
+.quote-workflow-tabs button.active {
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: 0 2px 8px rgba(27, 33, 38, .10);
+}
+
+.quote-workflow-view {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+  animation: quote-workflow-enter var(--motion-base) var(--motion-ease) both;
+}
+
+.quote-list-toolbar,
+.quote-workflow-footer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 7px;
+}
+
+.quote-list-menu {
+  position: relative;
+}
+
+.quote-list-menu summary,
+.quote-workflow-footer > button,
+.quote-workflow-primary {
+  display: inline-grid;
+  place-items: center;
+  min-height: 36px;
+  padding: 0 10px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--surface);
+  color: var(--accent);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 800;
+  text-align: center;
+  cursor: pointer;
+}
+
+.quote-list-menu summary {
+  list-style: none;
+}
+
+.quote-list-menu summary::-webkit-details-marker {
+  display: none;
+}
+
+.quote-list-menu[open] > div {
+  position: absolute;
+  top: calc(100% + 5px);
+  right: 0;
+  z-index: 8;
+  display: grid;
+  width: 154px;
+  padding: 5px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: 0 14px 34px rgba(27, 33, 38, .18);
+}
+
+.quote-list-menu button {
+  min-height: 34px;
+  padding: 0 8px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-size: 12px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.quote-list-menu button:hover,
+.quote-list-menu button:focus-visible {
+  background: var(--surface-soft);
+}
+
+.quote-list-menu button.danger {
+  color: var(--warn);
+}
+
+.quote-workflow-primary {
+  width: 100%;
+  min-height: 40px;
+  border-color: var(--accent);
+  background: var(--accent);
+  color: white;
+}
+
+.quote-workflow-footer .quote-workflow-primary {
+  width: auto;
+}
+
+.quote-workflow-tabs button:active,
+.quote-workflow-primary:active,
+.quote-list-toggle:active,
+.quote-list-menu summary:active,
+.quote-provider-matrix button:active,
+.quote-message-actions button:active,
+.quote-message-actions a:active {
+  transform: translateY(1px) scale(.99);
+}
+
 .quote-floating-button {
   position: fixed;
   right: 14px;
@@ -539,6 +813,13 @@ input {
   animation: quote-list-icon-pulse 760ms 180ms ease-out both;
 }
 
+.quote-floating-count {
+  min-width: 1.2em;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  animation: quote-count-pop 320ms var(--motion-ease) both;
+}
+
 .quote-list-backdrop {
   position: fixed;
   inset: 0;
@@ -547,6 +828,7 @@ input {
   align-items: end;
   padding: 0 10px 10px;
   background: rgba(27, 33, 38, .34);
+  animation: quote-backdrop-enter var(--motion-panel) ease-out both;
 }
 
 .quote-list-drawer {
@@ -559,6 +841,7 @@ input {
   border-radius: 8px 8px 0 0;
   background: var(--surface);
   box-shadow: 0 -18px 48px rgba(27, 33, 38, .24);
+  animation: quote-drawer-enter var(--motion-panel) var(--motion-ease) both;
 }
 
 .quote-list-drawer .quote-list-panel {
@@ -938,10 +1221,84 @@ input {
   cursor: pointer;
 }
 
+.quote-copy-general.confirmed,
+.quote-message-actions button.confirmed {
+  border-color: color-mix(in srgb, var(--ok) 48%, var(--line));
+  background: color-mix(in srgb, var(--ok) 10%, var(--surface));
+  color: var(--ok);
+  animation: quote-confirm-pop 260ms var(--motion-ease) both;
+}
+
 .quote-provider-tabs {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 4px;
+}
+
+.quote-provider-matrix {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 5px;
+}
+
+.quote-provider-matrix button {
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  gap: 2px;
+  min-width: 0;
+  min-height: 72px;
+  padding: 8px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--surface-soft);
+  color: var(--muted);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: transform 150ms ease, border-color 150ms ease, background-color 150ms ease;
+}
+
+.quote-provider-matrix button:hover {
+  transform: translateY(-1px);
+}
+
+.quote-provider-matrix button.active {
+  border-color: color-mix(in srgb, var(--accent) 48%, var(--line));
+  background: color-mix(in srgb, var(--accent) 8%, var(--surface));
+}
+
+.quote-provider-matrix button.complete {
+  border-color: color-mix(in srgb, var(--ok) 34%, var(--line));
+}
+
+.quote-provider-matrix span,
+.quote-provider-matrix strong,
+.quote-provider-matrix small {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.quote-provider-matrix span {
+  color: var(--text);
+  font-size: 10px;
+  font-weight: 750;
+}
+
+.quote-provider-matrix strong {
+  color: var(--accent);
+  font-size: 14px;
+}
+
+.quote-provider-matrix button.complete strong {
+  color: var(--ok);
+}
+
+.quote-provider-matrix small {
+  font-size: 9px;
 }
 
 .quote-provider-tabs button {
@@ -996,6 +1353,38 @@ input {
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+.quote-provider-missing {
+  display: grid;
+  gap: 3px;
+  padding: 9px;
+  border-left: 3px solid color-mix(in srgb, var(--warn) 62%, var(--line));
+  border-radius: 0 7px 7px 0;
+  background: color-mix(in srgb, var(--warn) 7%, var(--surface));
+}
+
+.quote-provider-complete {
+  margin: 0;
+  padding: 10px;
+  border-left: 3px solid var(--ok);
+  border-radius: 0 7px 7px 0;
+  background: color-mix(in srgb, var(--ok) 7%, var(--surface));
+  color: color-mix(in srgb, var(--ok) 80%, var(--text));
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.quote-provider-detail {
+  border-top: 1px solid color-mix(in srgb, var(--line) 72%, transparent);
+  padding-top: 7px;
+}
+
+.quote-provider-detail summary {
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 750;
+  cursor: pointer;
 }
 
 .quote-provider-items li {
@@ -1103,6 +1492,10 @@ input {
   border: 1px solid var(--line);
   border-radius: 8px;
   background: color-mix(in srgb, var(--surface) 78%, var(--surface-soft));
+}
+
+.quote-list-item-motion {
+  min-width: 0;
 }
 
 .quote-list-item-visual,
@@ -1236,8 +1629,16 @@ input {
 }
 
 .quote-quantity-control .quote-box-button {
+  min-width: 76px;
   padding: 0 8px;
   white-space: nowrap;
+}
+
+.quote-quantity-control .quote-box-button.confirmed {
+  border-color: color-mix(in srgb, var(--ok) 44%, var(--line));
+  background: color-mix(in srgb, var(--ok) 9%, var(--surface));
+  color: var(--ok);
+  animation: quote-confirm-pop 260ms var(--motion-ease) both;
 }
 
 .quote-quantity-control button,
@@ -1257,6 +1658,31 @@ input {
 
 .quote-quantity-control button {
   cursor: pointer;
+  box-shadow:
+    0 2px 0 color-mix(in srgb, var(--line) 78%, var(--text)),
+    0 4px 8px rgba(27, 33, 38, .07),
+    inset 0 1px 0 rgba(255, 255, 255, .92);
+  transform: translateY(-1px);
+  transition: transform var(--motion-fast) ease, box-shadow var(--motion-fast) ease, border-color var(--motion-fast) ease, background-color var(--motion-fast) ease, color var(--motion-fast) ease;
+}
+
+.quote-quantity-control input {
+  box-shadow: inset 0 2px 5px rgba(27, 33, 38, .07);
+}
+
+.quote-quantity-control button:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 3px 0 color-mix(in srgb, var(--accent) 22%, var(--line)),
+    0 6px 11px rgba(27, 33, 38, .09),
+    inset 0 1px 0 rgba(255, 255, 255, .96);
+}
+
+.quote-quantity-control button:active {
+  transform: translateY(1px) scale(.97);
+  box-shadow:
+    0 0 0 color-mix(in srgb, var(--line) 78%, var(--text)),
+    inset 0 2px 5px rgba(27, 33, 38, .15);
 }
 
 .quote-quantity-control button:hover,
@@ -1606,7 +2032,7 @@ input {
 }
 
 .quote-add-button {
-  min-width: 34px;
+  min-width: 42px;
   min-height: 28px;
   border: 1px solid color-mix(in srgb, var(--accent) 36%, var(--line));
   border-radius: 8px;
@@ -1616,12 +2042,25 @@ input {
   font-size: 13px;
   font-weight: 700;
   cursor: pointer;
+  font-variant-numeric: tabular-nums;
+  transition: transform var(--motion-fast) ease, background-color var(--motion-fast) ease, border-color var(--motion-fast) ease, color var(--motion-fast) ease;
 }
 
 .quote-add-button:hover,
 .quote-add-button:focus-visible {
   background: var(--accent);
   color: white;
+}
+
+.quote-add-button:active {
+  transform: translateY(1px) scale(.96);
+}
+
+.quote-add-button.confirmed {
+  border-color: color-mix(in srgb, var(--ok) 48%, var(--line));
+  background: color-mix(in srgb, var(--ok) 10%, var(--surface));
+  color: var(--ok);
+  animation: quote-confirm-pop 260ms var(--motion-ease) both;
 }
 
 .offer,
@@ -1671,40 +2110,58 @@ input {
   display: inline-grid;
   place-items: center;
   align-self: center;
-  width: 16px;
-  height: 16px;
+  width: 24px;
+  height: 24px;
   padding: 0;
-  border: 0;
+  border: 1px solid color-mix(in srgb, var(--line) 82%, var(--surface));
   border-radius: 999px;
-  background: transparent;
+  background: var(--surface);
   color: color-mix(in srgb, var(--muted) 78%, var(--surface));
   cursor: pointer;
-  transition: transform 140ms ease, background 140ms ease, color 140ms ease, border-color 140ms ease;
+  box-shadow:
+    0 2px 0 color-mix(in srgb, var(--line) 82%, var(--text)),
+    0 4px 9px rgba(27, 33, 38, .08),
+    inset 0 1px 0 rgba(255, 255, 255, .88);
+  transform: translateY(-1px);
+  transition: transform var(--motion-fast) ease, background var(--motion-fast) ease, color var(--motion-fast) ease, border-color var(--motion-fast) ease, box-shadow var(--motion-fast) ease;
 }
 
 .stock-watch-button:hover {
   background: color-mix(in srgb, var(--warn) 8%, transparent);
   color: var(--warn);
+  transform: translateY(-2px);
 }
 
 .stock-watch-button:active {
-  transform: translateY(1px);
+  transform: translateY(1px) scale(.96);
+  box-shadow:
+    0 0 0 color-mix(in srgb, var(--line) 82%, var(--text)),
+    inset 0 2px 4px rgba(27, 33, 38, .13);
 }
 
 .stock-watch-button.active {
   background: color-mix(in srgb, var(--warn) 16%, white);
   color: color-mix(in srgb, var(--warn) 82%, var(--text));
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--warn) 22%, transparent);
+  box-shadow:
+    0 2px 0 color-mix(in srgb, var(--warn) 28%, var(--line)),
+    0 4px 9px rgba(27, 33, 38, .08),
+    inset 0 0 0 1px color-mix(in srgb, var(--warn) 22%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, .82);
 }
 
 .stock-watch-button svg {
-  width: 12px;
-  height: 12px;
+  width: 14px;
+  height: 14px;
   fill: none;
   stroke: currentColor;
   stroke-width: 2.2;
   stroke-linecap: round;
   stroke-linejoin: round;
+}
+
+.stock-watch-button svg.bell-ringing {
+  transform-origin: 50% 18%;
+  animation: stock-bell-ring 460ms cubic-bezier(.3, .7, .35, 1) both;
 }
 
 .offer small {
@@ -1745,11 +2202,11 @@ input {
 }
 
 .site-footer {
-  border-top: 1px solid color-mix(in srgb, var(--line) 78%, transparent);
+  border-top: 1px solid color-mix(in srgb, var(--accent) 28%, var(--line));
   padding: 24px max(12px, calc((100% - 1180px) / 2)) 30px;
   background:
-    linear-gradient(180deg, color-mix(in srgb, var(--soft) 46%, transparent), transparent 44%),
-    color-mix(in srgb, var(--background) 94%, white);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.76), rgba(255, 255, 255, 0) 34%),
+    linear-gradient(135deg, #e8f6ef 0%, #fff4d8 52%, #e8f1ff 100%);
 }
 
 .footer-grid {
@@ -2872,8 +3329,30 @@ input {
   }
 
   .filters {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
     position: static;
+  }
+
+  .filters .search-field {
+    grid-column: 1 / -1;
+  }
+
+  .filters .filter-secondary {
+    display: none;
+  }
+
+  .filters.show-more-filters .filter-secondary {
+    display: block;
+    animation: filter-control-enter var(--motion-base) var(--motion-ease) both;
+  }
+
+  .more-filters-button {
+    display: block;
+  }
+
+  .active-filters {
+    margin-inline: -2px;
+    padding-inline: 2px;
   }
 
   .product-row {
@@ -2906,15 +3385,129 @@ input {
     grid-template-columns: 1fr;
   }
 
+  .quote-workflow-tabs button,
+  .quote-list-toolbar button,
+  .quote-list-menu summary,
+  .quote-workflow-footer > button,
+  .quote-workflow-primary {
+    min-height: 42px;
+  }
+
+  .quote-list-drawer-close,
+  .quote-list-remove {
+    width: 40px;
+    height: 40px;
+  }
+
+  .quote-import-help-tip,
+  .official-product-link {
+    width: 32px;
+    height: 32px;
+  }
+
+  .stock-watch-button {
+    width: 34px;
+    height: 34px;
+  }
+
+  .stock-watch-button svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .quote-add-button {
+    min-width: 40px;
+    min-height: 36px;
+  }
+
+  .quote-provider-matrix {
+    grid-template-columns: 1fr;
+  }
+
+  .quote-provider-matrix button {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    min-height: 54px;
+  }
+
+  .quote-provider-matrix button small {
+    grid-column: 1 / -1;
+  }
+
   .quote-quantity-control {
-    grid-template-columns: 36px minmax(54px, 1fr) 36px;
+    grid-template-columns: 40px minmax(54px, 1fr) 40px;
     width: 100%;
+  }
+
+  .quote-quantity-control button,
+  .quote-quantity-control input {
+    height: 40px;
   }
 
   .quote-quantity-control button:nth-of-type(3),
   .quote-quantity-control button:nth-of-type(4) {
     grid-column: span 1;
   }
+}
+
+@keyframes filter-control-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes quote-workflow-enter {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes quote-confirm-pop {
+  0% { transform: scale(.94); }
+  62% { transform: scale(1.04); }
+  100% { transform: scale(1); }
+}
+
+@keyframes quote-count-pop {
+  0% { transform: scale(.78); opacity: .56; }
+  65% { transform: scale(1.18); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes quote-backdrop-enter {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes quote-drawer-enter {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes stock-bell-ring {
+  0% { transform: rotate(0); }
+  18% { transform: rotate(16deg); }
+  38% { transform: rotate(-13deg); }
+  57% { transform: rotate(9deg); }
+  74% { transform: rotate(-6deg); }
+  88% { transform: rotate(3deg); }
+  100% { transform: rotate(0); }
 }
 
 @keyframes quick-lines-cue-nudge {
@@ -2959,6 +3552,28 @@ input {
   .quote-floating-button,
   .quote-floating-button svg {
     animation: none;
+  }
+
+  .filters.show-more-filters .filter-secondary,
+  .quote-workflow-view,
+  .quote-floating-count,
+  .quote-list-backdrop,
+  .quote-list-drawer,
+  .quote-copy-general.confirmed,
+  .quote-message-actions button.confirmed,
+  .quote-quantity-control .quote-box-button.confirmed,
+  .quote-add-button.confirmed {
+    animation: none;
+  }
+
+  .stock-watch-button svg.bell-ringing {
+    animation: none;
+  }
+
+  .quote-workflow-tabs button,
+  .quote-add-button,
+  .quote-provider-matrix button {
+    transition-duration: .01ms;
   }
 }
 

@@ -30,6 +30,8 @@
   }
 </script>
 
+<a class="skip-link" href="#main-content">Saltar al contenido</a>
+
 <header class="site-header">
   <a class="brand-lockup" href="index.html" aria-label="Ir al catálogo">
     <span class="brand-mark" aria-hidden="true">CF</span>

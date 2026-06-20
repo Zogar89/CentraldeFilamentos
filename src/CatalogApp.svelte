@@ -1,5 +1,5 @@
 <script>
-  import { onMount } from "svelte";
+  import { onDestroy, onMount } from "svelte";
   import QuickLines from "./components/QuickLines.svelte";
   import QuoteListDrawer from "./components/QuoteListDrawer.svelte";
   import QuoteListPanel from "./components/QuoteListPanel.svelte";
@@ -54,6 +54,7 @@
     provider: "",
     stock: "all",
   };
+  let showMoreFilters = false;
 
   let products = [];
   let sources = [];
@@ -74,6 +75,12 @@
   let quoteImportPreview = null;
   let quoteImportError = "";
   let quoteImportFileName = "";
+  let quoteAddFeedback = {};
+  let quoteFeedbackMessage = "";
+  let quotePulseKey = 0;
+  const quoteFeedbackTimers = new Map();
+  let stockWatchFeedback = {};
+  const stockWatchFeedbackTimers = new Map();
   const quoteStorageWarningCopy = "No pudimos guardar la lista en este navegador. La podes usar durante esta sesion, pero se puede perder al cerrar la pagina.";
   const quoteCatalogWarningCopy = "No pudimos actualizar el catalogo; conservamos tu lista guardada.";
   const quoteSchemaWarningCopy = "La lista guardada usa una version mas nueva. La conservamos sin cambios para no perder datos.";
@@ -107,6 +114,11 @@
     }
   });
 
+  onDestroy(() => {
+    quoteFeedbackTimers.forEach((timer) => window.clearTimeout(timer));
+    stockWatchFeedbackTimers.forEach((timer) => window.clearTimeout(timer));
+  });
+
   $: subscribedKeys = new Set(stockSubscriptions.map((item) => item.key));
   $: filteredProducts = (filters, categoryOrder, products.filter(matchesFilters).sort(compareProducts));
   $: groups = (categoryOrder, groupProducts(filteredProducts));
@@ -118,6 +130,31 @@
   $: weightOptions = (products, valuesFor("weight_g"));
   $: brandOptions = (products, valuesFor("brand"));
   $: providerOptions = (products, providerValues());
+  $: secondaryFilterCount = [
+    filters.variant,
+    filters.diameter,
+    filters.weight,
+    filters.brand,
+    filters.stock !== "all" ? filters.stock : "",
+  ].filter(Boolean).length;
+  $: activeFilterChips = [
+    filters.query ? { key: "query", label: `Buscar: ${filters.query}` } : null,
+    filters.material ? { key: "material", label: filters.material } : null,
+    filters.color ? { key: "color", label: filters.color } : null,
+    filters.provider ? { key: "provider", label: filters.provider } : null,
+    filters.variant ? { key: "variant", label: lineOptionLabel(filters.variant) } : null,
+    filters.diameter ? { key: "diameter", label: `${filters.diameter} mm` } : null,
+    filters.weight ? { key: "weight", label: formatWeightLabel(filters.weight) } : null,
+    filters.brand ? { key: "brand", label: filters.brand } : null,
+    filters.stock !== "all" ? {
+      key: "stock",
+      label: {
+        in_stock: "Con stock",
+        out_of_stock: "Sin stock",
+        unknown: "Sin cantidad",
+      }[filters.stock],
+    } : null,
+  ].filter(Boolean);
   $: contactContext = [
     filters.query ? `"${filters.query}"` : "",
     filters.material,
@@ -160,6 +197,30 @@
   function setVariantFilter(value) {
     setFilter("variant", value);
     lineHelp = value ? (lineMeta[value]?.help || "") : "";
+  }
+
+  function clearFilter(name) {
+    if (name === "variant") {
+      setVariantFilter("");
+      return;
+    }
+    setFilter(name, name === "stock" ? "all" : "");
+  }
+
+  function clearAllFilters() {
+    filters = {
+      query: "",
+      material: "",
+      variant: "",
+      color: "",
+      diameter: "",
+      weight: "",
+      brand: "",
+      provider: "",
+      stock: "all",
+    };
+    lineHelp = "";
+    showMoreFilters = false;
   }
 
   function groupProducts(items) {
@@ -338,14 +399,50 @@
       ];
     }
     saveStockSubscriptions(stockSubscriptions);
+    showStockWatchFeedback(key);
+  }
+
+  function showStockWatchFeedback(key) {
+    window.clearTimeout(stockWatchFeedbackTimers.get(key));
+    stockWatchFeedback = {
+      ...stockWatchFeedback,
+      [key]: Number(stockWatchFeedback[key] || 0) + 1,
+    };
+    stockWatchFeedbackTimers.set(key, window.setTimeout(() => {
+      const nextFeedback = { ...stockWatchFeedback };
+      delete nextFeedback[key];
+      stockWatchFeedback = nextFeedback;
+      stockWatchFeedbackTimers.delete(key);
+    }, 520));
   }
 
   function addQuoteItem(product) {
     const existing = quoteItems.find((item) => item.productId === product.id);
+    const nextQuantity = Number(existing?.quantity || 0) + 1;
     const nextItems = existing
-      ? quoteItems.map((item) => item.productId === product.id ? snapshotQuoteItem(product, Number(item.quantity || 0) + 1) : item)
+      ? quoteItems.map((item) => item.productId === product.id ? snapshotQuoteItem(product, nextQuantity) : item)
       : [...quoteItems, snapshotQuoteItem(product, 1)];
     saveQuoteListState(nextItems);
+    showQuoteAddFeedback(product, nextQuantity);
+  }
+
+  function showQuoteAddFeedback(product, quantity) {
+    const productId = product.id;
+    window.clearTimeout(quoteFeedbackTimers.get(productId));
+    quoteAddFeedback = { ...quoteAddFeedback, [productId]: quantity };
+    quoteFeedbackMessage = `${productBaseName(product)} agregado. ${quantity} unidad(es) en la lista.`;
+    quotePulseKey += 1;
+    quoteFeedbackTimers.set(productId, window.setTimeout(() => {
+      const nextFeedback = { ...quoteAddFeedback };
+      delete nextFeedback[productId];
+      quoteAddFeedback = nextFeedback;
+      quoteFeedbackTimers.delete(productId);
+    }, 850));
+  }
+
+  function pulseQuoteList(message) {
+    quotePulseKey += 1;
+    quoteFeedbackMessage = message;
   }
 
   function saveQuoteListState(nextItems, nextSettings = quoteSettings) {
@@ -373,10 +470,12 @@
         : { ...item, quantity: nextQuantity };
     });
     saveQuoteListState(nextItems);
+    pulseQuoteList(`Cantidad actualizada a ${nextQuantity} unidad(es).`);
   }
 
   function removeQuoteItem(productId) {
     saveQuoteListState(quoteItems.filter((item) => item.productId !== productId));
+    pulseQuoteList("Producto quitado de la lista.");
   }
 
   function clearQuoteList() {
@@ -546,32 +645,49 @@
   }
 </script>
 
-<main class="shell">
+<main id="main-content" class="shell" tabindex="-1">
   <SiteHeader active="catalog" updatedAt={generatedAt} subtitle="AMBA · filamentos 3D" {stockAlerts} onDismissStockAlerts={dismissStockAlerts} />
+  <p class="sr-only" aria-live="polite">{quoteFeedbackMessage}</p>
 
   {#if quoteListReadOnly}
     <p class="line-help quote-list-warning" role="status">{quoteSchemaWarningCopy}</p>
   {/if}
 
-  <section class="filters" aria-label="Filtros">
+  <section class="filters" class:show-more-filters={showMoreFilters} aria-label="Filtros">
     <label class="search-field">
       <span>Buscar</span>
       <input id="search-input" type="search" value={filters.query} on:input={(event) => setFilter("query", event.currentTarget.value)} placeholder="PLA negro, PETG, Grilon3...">
     </label>
-    <select id="material-filter" value={filters.material} on:change={(event) => setFilter("material", event.currentTarget.value)}><option value="">Material</option>{#each materialOptions as value}<option value={value}>{value}</option>{/each}</select>
-    <select id="variant-filter" value={filters.variant} on:change={(event) => setVariantFilter(event.currentTarget.value)}><option value="">Línea</option>{#each lineOptions as value}<option value={value}>{lineOptionLabel(value)}</option>{/each}</select>
-    <select id="color-filter" value={filters.color} on:change={(event) => setFilter("color", event.currentTarget.value)}><option value="">Color</option>{#each colorOptions as value}<option value={value}>{value}</option>{/each}</select>
-    <select id="diameter-filter" value={filters.diameter} on:change={(event) => setFilter("diameter", event.currentTarget.value)}><option value="">Diámetro</option>{#each diameterOptions as value}<option value={String(value)}>{value} mm</option>{/each}</select>
-    <select id="weight-filter" value={filters.weight} on:change={(event) => setFilter("weight", event.currentTarget.value)}><option value="">Peso</option>{#each weightOptions as value}<option value={String(value)}>{Number(value) / 1000} kg</option>{/each}</select>
-    <select id="brand-filter" value={filters.brand} on:change={(event) => setFilter("brand", event.currentTarget.value)}><option value="">Marca</option>{#each brandOptions as value}<option value={value}>{value}</option>{/each}</select>
-    <select id="provider-filter" value={filters.provider} on:change={(event) => setFilter("provider", event.currentTarget.value)}><option value="">Proveedor</option>{#each providerOptions as value}<option value={value}>{value}</option>{/each}</select>
-    <select id="stock-filter" value={filters.stock} on:change={(event) => setFilter("stock", event.currentTarget.value)}>
+    <select id="material-filter" aria-label="Filtrar por material" value={filters.material} on:change={(event) => setFilter("material", event.currentTarget.value)}><option value="">Material</option>{#each materialOptions as value}<option value={value}>{value}</option>{/each}</select>
+    <select id="color-filter" aria-label="Filtrar por color" value={filters.color} on:change={(event) => setFilter("color", event.currentTarget.value)}><option value="">Color</option>{#each colorOptions as value}<option value={value}>{value}</option>{/each}</select>
+    <select id="provider-filter" aria-label="Filtrar por proveedor" value={filters.provider} on:change={(event) => setFilter("provider", event.currentTarget.value)}><option value="">Proveedor</option>{#each providerOptions as value}<option value={value}>{value}</option>{/each}</select>
+    <button class="more-filters-button" type="button" aria-expanded={showMoreFilters} on:click={() => showMoreFilters = !showMoreFilters}>
+      {showMoreFilters ? "Menos filtros" : "Mas filtros"}{secondaryFilterCount ? ` · ${secondaryFilterCount}` : ""}
+    </button>
+    <select class="filter-secondary" id="variant-filter" aria-label="Filtrar por linea" value={filters.variant} on:change={(event) => setVariantFilter(event.currentTarget.value)}><option value="">Línea</option>{#each lineOptions as value}<option value={value}>{lineOptionLabel(value)}</option>{/each}</select>
+    <select class="filter-secondary" id="diameter-filter" aria-label="Filtrar por diametro" value={filters.diameter} on:change={(event) => setFilter("diameter", event.currentTarget.value)}><option value="">Diámetro</option>{#each diameterOptions as value}<option value={String(value)}>{value} mm</option>{/each}</select>
+    <select class="filter-secondary" id="weight-filter" aria-label="Filtrar por peso" value={filters.weight} on:change={(event) => setFilter("weight", event.currentTarget.value)}><option value="">Peso</option>{#each weightOptions as value}<option value={String(value)}>{Number(value) / 1000} kg</option>{/each}</select>
+    <select class="filter-secondary" id="brand-filter" aria-label="Filtrar por marca" value={filters.brand} on:change={(event) => setFilter("brand", event.currentTarget.value)}><option value="">Marca</option>{#each brandOptions as value}<option value={value}>{value}</option>{/each}</select>
+    <select class="filter-secondary" id="stock-filter" aria-label="Filtrar por disponibilidad" value={filters.stock} on:change={(event) => setFilter("stock", event.currentTarget.value)}>
       <option value="all">Todos</option>
       <option value="in_stock">Con stock</option>
       <option value="out_of_stock">Sin stock</option>
       <option value="unknown">Sin cantidad</option>
     </select>
   </section>
+
+  {#if activeFilterChips.length}
+    <div class="active-filters" aria-label="Filtros activos">
+      {#each activeFilterChips as chip}
+        <button type="button" on:click={() => clearFilter(chip.key)} aria-label={`Quitar filtro ${chip.label}`}>
+          <span>{chip.label}</span><span aria-hidden="true">×</span>
+        </button>
+      {/each}
+      {#if activeFilterChips.length > 1}
+        <button type="button" class="clear-filter-chips" on:click={clearAllFilters}>Limpiar</button>
+      {/if}
+    </div>
+  {/if}
 
   <section class="quick-lines-shell" aria-label="Líneas populares">
     <QuickLines id="quick-lines" available={availableLines} bind:help={lineHelp} targetSelector=".group-section" />
@@ -598,6 +714,13 @@
 
   <div class:quote-list-layout-active={quoteItems.length > 0}>
     <section id="product-list" class="product-list">
+      {#if !groups.length}
+        <div class="catalog-empty-state" role="status">
+          <strong>No encontramos filamentos con esos filtros</strong>
+          <span>Proba quitando algun filtro para ampliar los resultados.</span>
+          <button type="button" on:click={clearAllFilters}>Limpiar filtros</button>
+        </div>
+      {/if}
       {#each groups as group}
         <section class="group-section" id={groupTargetId(group)} data-line={group.line}>
           <header class="group-heading">
@@ -640,14 +763,22 @@
                   </div>
                   <div class="presentation-list">
                     {#each card.products as presentation}
+                      {@const addFeedback = quoteAddFeedback[presentation.id]}
                       <section class="presentation-row">
                         <header>
                           <strong>{formatPresentation(presentation) || "Presentación sin dato"}</strong>
-                          <button class="quote-add-button" type="button" aria-label="Agregar 1 unidad a la lista de cotizacion" on:click={() => addQuoteItem(presentation)}>+1</button>
+                          <button
+                            class="quote-add-button"
+                            class:confirmed={Boolean(addFeedback)}
+                            type="button"
+                            aria-label="Agregar 1 unidad a la lista de cotizacion"
+                            on:click={() => addQuoteItem(presentation)}
+                          >{addFeedback ? `✓ ${addFeedback}` : "+1"}</button>
                         </header>
                         <div class="offers">
                           {#if (presentation.offers || []).length}
                             {#each presentation.offers as offer}
+                              {@const watchFeedbackKey = subscriptionKey(presentation, offer)}
                               <div class="offer" id={stockWatchTargetId(presentation, offer)} title={providerTitle(offer)}>
                                 <div class="offer-main">
                                   <a href={`#${providerAnchorId(offer.source_id)}`} title={providerTitle(offer)}>{offer.provider_name}</a>
@@ -661,10 +792,12 @@
                                     title={isSubscribed(presentation, offer) ? "Dejar de seguir cambios de stock" : "Avisarme si sube o vuelve el stock"}
                                     on:click={() => toggleStockSubscription(presentation, offer)}
                                   >
-                                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                                      <path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path>
-                                      <path d="M10 21h4"></path>
-                                    </svg>
+                                    {#key stockWatchFeedback[watchFeedbackKey] || 0}
+                                      <svg class:bell-ringing={Boolean(stockWatchFeedback[watchFeedbackKey])} viewBox="0 0 24 24" aria-hidden="true">
+                                        <path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path>
+                                        <path d="M10 21h4"></path>
+                                      </svg>
+                                    {/key}
                                   </button>
                                 </div>
                                 <small>{offer.original_name}</small>
@@ -716,7 +849,9 @@
       <path d="m3 12 1 1 2-2"></path>
       <path d="m3 18 1 1 2-2"></path>
     </svg>
-    <span>{quoteItems.length}</span>
+    {#key quotePulseKey}
+      <span class="quote-floating-count">{quoteItems.length}</span>
+    {/key}
   </button>
 {/if}
 

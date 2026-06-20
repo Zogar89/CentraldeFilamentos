@@ -133,7 +133,7 @@
 
 </script>
 
-<main class="shell">
+<main id="main-content" class="shell" tabindex="-1">
   <SiteHeader active="summary" updatedAt={generatedAt} subtitle="Resumen por proveedor" />
 
   <section class="status-strip">

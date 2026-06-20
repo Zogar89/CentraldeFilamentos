@@ -126,7 +126,7 @@
   }
 </script>
 
-<main class="internal-shell">
+<main id="main-content" class="internal-shell" tabindex="-1">
   <SiteHeader active="stats" updatedAt={generatedAt} subtitle="Estadísticas de vendedores" />
 
   <section class="status-strip">
