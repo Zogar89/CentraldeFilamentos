@@ -1080,6 +1080,25 @@
         "grupo_senz": 10267,
         "mundoinsumos": 12411
       }
+    },
+    {
+      "captured_at": "2026-06-22T11:02:53-03:00",
+      "checks": [
+        {
+          "captured_at": "2026-06-22T11:02:53-03:00",
+          "providers": {
+            "filamentos3d": 13892,
+            "grupo_senz": 10267,
+            "mundoinsumos": 9365
+          }
+        }
+      ],
+      "date": "2026-06-22",
+      "providers": {
+        "filamentos3d": 13892,
+        "grupo_senz": 10267,
+        "mundoinsumos": 9365
+      }
     }
   ]
 }
