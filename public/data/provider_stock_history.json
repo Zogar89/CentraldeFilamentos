@@ -1150,6 +1150,14 @@
             "grupo_senz": 8275,
             "mundoinsumos": 8808
           }
+        },
+        {
+          "captured_at": "2026-06-23T18:38:25-03:00",
+          "providers": {
+            "filamentos3d": 13151,
+            "grupo_senz": 8275,
+            "mundoinsumos": 8808
+          }
         }
       ],
       "date": "2026-06-23",
@@ -1160,7 +1168,7 @@
       }
     }
   ],
-  "generated_at": "2026-06-23T15:51:00-03:00",
+  "generated_at": "2026-06-23T18:38:25-03:00",
   "providers": [
     {
       "id": "mundoinsumos",
