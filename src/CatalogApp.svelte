@@ -646,7 +646,7 @@
 </script>
 
 <main id="main-content" class="shell" tabindex="-1">
-  <SiteHeader active="catalog" updatedAt={generatedAt} subtitle="AMBA · filamentos 3D" {stockAlerts} onDismissStockAlerts={dismissStockAlerts} />
+  <SiteHeader active="catalog" updatedAt={generatedAt} subtitle="AMBA · filamentos 3D" showCatalogHelp {stockAlerts} onDismissStockAlerts={dismissStockAlerts} />
   <p class="sr-only" aria-live="polite">{quoteFeedbackMessage}</p>
 
   {#if quoteListReadOnly}

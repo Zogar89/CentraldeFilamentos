@@ -4,6 +4,7 @@
   export let active = "catalog";
   export let updatedAt = "";
   export let subtitle = "";
+  export let showCatalogHelp = false;
   export let stockAlerts = [];
   export let onDismissStockAlerts = () => {};
 
@@ -60,3 +61,22 @@
     </section>
   {/if}
 </header>
+
+{#if showCatalogHelp}
+  <section class="catalog-guide" aria-label="Cómo usar el catálogo">
+    <p class="catalog-guide-purpose">Encontrá filamentos disponibles, armá tu lista y consultá cotización directamente a cada proveedor.</p>
+    <div class="catalog-guide-item">
+      <span class="catalog-guide-control catalog-guide-add" aria-hidden="true">+1</span>
+      <span>Agrega una unidad a tu lista de cotización.</span>
+    </div>
+    <div class="catalog-guide-item">
+      <span class="catalog-guide-control catalog-guide-bell" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path>
+          <path d="M10 21h4"></path>
+        </svg>
+      </span>
+      <span>Seguí ese filamento y te avisamos al volver al sitio si aumentó o reapareció el stock.</span>
+    </div>
+  </section>
+{/if}
