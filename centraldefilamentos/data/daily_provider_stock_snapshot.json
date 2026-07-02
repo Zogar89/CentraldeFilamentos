@@ -1,14 +1,14 @@
 {
-  "captured_at": "2026-06-30T09:51:01-03:00",
-  "previous_captured_at": "2026-06-25T09:56:42-03:00",
+  "captured_at": "2026-07-02T09:46:26-03:00",
+  "previous_captured_at": "2026-06-30T09:51:01-03:00",
   "previous_providers": {
-    "filamentos3d": 12684,
-    "grupo_senz": 8275,
-    "mundoinsumos": 10114
-  },
-  "providers": {
     "filamentos3d": 12211,
     "grupo_senz": 7490,
     "mundoinsumos": 7663
+  },
+  "providers": {
+    "filamentos3d": 11315,
+    "grupo_senz": 7278,
+    "mundoinsumos": 9810
   }
 }
