@@ -30,7 +30,7 @@
       "message": "Build quality checks passed."
     }
   ],
-  "generated_at": "2026-07-08T19:11:14-03:00",
+  "generated_at": "2026-07-09T12:18:27-03:00",
   "last_good_sources": {},
   "metrics": {
     "current": {
@@ -64,7 +64,7 @@
           "name": "Filamentos3D",
           "product_count": 323,
           "status": "ok",
-          "total_stock_units": 9748
+          "total_stock_units": 9736
         },
         "grupo_senz": {
           "name": "Grupo Senz",
@@ -79,7 +79,7 @@
           "total_stock_units": 7724
         }
       },
-      "total_stock_units": 25311
+      "total_stock_units": 25299
     }
   },
   "should_publish": true,
