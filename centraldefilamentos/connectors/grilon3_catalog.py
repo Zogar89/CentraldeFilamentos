@@ -28,10 +28,54 @@ class CatalogProduct:
     ean: str = ""
 
 
+@dataclass(frozen=True)
+class CatalogPage:
+    products: tuple[CatalogProduct, ...]
+    pagination_urls: tuple[str, ...]
+    reported_total: int | None
+
+
 def fetch_grilon3_catalog(products_url: str = BASE_URL, timeout_seconds: int = 30) -> dict[str, CatalogProduct]:
     response = requests.get(products_url, timeout=timeout_seconds)
     response.raise_for_status()
     return parse_grilon3_catalog(response.text, base_url=products_url)
+
+
+def fetch_grilon3_active_catalog(
+    products_url: str = BASE_URL,
+    timeout_seconds: int = 30,
+) -> tuple[dict[str, CatalogProduct], int | None]:
+    response = requests.get(products_url, timeout=timeout_seconds)
+    response.raise_for_status()
+    first_page = parse_grilon3_catalog_page(response.text, base_url=products_url)
+
+    pages = [first_page]
+    for page_url in first_page.pagination_urls:
+        response = requests.get(page_url, timeout=timeout_seconds)
+        response.raise_for_status()
+        pages.append(parse_grilon3_catalog_page(response.text, base_url=page_url))
+
+    catalog: dict[str, CatalogProduct] = {}
+    seen_urls: set[str] = set()
+    for page in pages:
+        for product in page.products:
+            canonical_url = _canonical_product_url(product.product_url)
+            if canonical_url in seen_urls:
+                continue
+            seen_urls.add(canonical_url)
+            canonical_product = CatalogProduct(
+                product_id=product.product_id,
+                title=product.title,
+                product_url=canonical_url,
+                image_url=product.image_url,
+                pantone=product.pantone,
+                sku=product.sku,
+                ean=product.ean,
+            )
+            key = _unique_catalog_key(catalog, product.product_id, canonical_url)
+            catalog[key] = canonical_product
+
+    return catalog, first_page.reported_total
 
 
 def fetch_grilon3_sitemap_catalog(sitemap_url: str = SITEMAP_URL, timeout_seconds: int = 30) -> dict[str, CatalogProduct]:
@@ -145,8 +189,19 @@ def parse_grilon3_product_detail(html_text: str, base_url: str = BASE_URL) -> di
 
 
 def parse_grilon3_catalog(html_text: str, base_url: str = BASE_URL) -> dict[str, CatalogProduct]:
-    links = _ProductLinkParser.parse(html_text, base_url)
+    page = parse_grilon3_catalog_page(html_text, base_url)
     catalog: dict[str, CatalogProduct] = {}
+
+    for product in page.products:
+        catalog[_unique_catalog_key(catalog, product.product_id, product.product_url)] = product
+
+    return catalog
+
+
+def parse_grilon3_catalog_page(html_text: str, base_url: str = BASE_URL) -> CatalogPage:
+    links = _ProductLinkParser.parse(html_text, base_url)
+    metadata = _CatalogPageMetadataParser.parse(html_text, base_url)
+    products: list[CatalogProduct] = []
 
     for link in links:
         title = _clean_text(link["title"])
@@ -166,7 +221,7 @@ def parse_grilon3_catalog(html_text: str, base_url: str = BASE_URL) -> dict[str,
         product_id = build_product_id(fields)
         if fields.brand != "Grilon3" or fields.material == "Sin clasificar" or fields.color == "Sin color":
             continue
-        catalog[_unique_catalog_key(catalog, product_id, link["product_url"])] = CatalogProduct(
+        products.append(CatalogProduct(
             product_id=product_id,
             title=title,
             product_url=link["product_url"],
@@ -174,9 +229,13 @@ def parse_grilon3_catalog(html_text: str, base_url: str = BASE_URL) -> dict[str,
             pantone="",
             sku="",
             ean="",
-        )
+        ))
 
-    return catalog
+    return CatalogPage(
+        products=tuple(products),
+        pagination_urls=metadata["pagination_urls"],
+        reported_total=metadata["reported_total"],
+    )
 
 
 def parse_grilon3_sitemap(xml_text: str) -> dict[str, CatalogProduct]:
@@ -219,6 +278,10 @@ def _unique_catalog_key(catalog: dict[str, CatalogProduct], product_id: str, pro
         return product_id
     suffix = re.sub(r"[^a-z0-9]+", "-", product_url.rstrip("/").rsplit("/", 1)[-1].lower()).strip("-")
     return f"{product_id}-{suffix}"
+
+
+def _canonical_product_url(product_url: str) -> str:
+    return product_url.rstrip("/") + "/"
 
 
 def enrich_with_grilon3_catalog(
@@ -287,6 +350,40 @@ class _ProductLinkParser(HTMLParser):
     def handle_data(self, data: str) -> None:
         if self._current is not None:
             self._text_stack.append(data)
+
+
+class _CatalogPageMetadataParser(HTMLParser):
+    def __init__(self, base_url: str) -> None:
+        super().__init__()
+        self.base_url = base_url
+        self.pagination_urls: list[str] = []
+        self.visible_text: list[str] = []
+
+    @classmethod
+    def parse(cls, html_text: str, base_url: str) -> dict[str, tuple[str, ...] | int | None]:
+        parser = cls(base_url)
+        parser.feed(html_text)
+        text = _clean_text(" ".join(parser.visible_text))
+        total_match = re.search(r"\bde\s+([0-9][0-9.,]*)\s+resultados?\b", text, flags=re.IGNORECASE)
+        reported_total = None
+        if total_match:
+            reported_total = int(re.sub(r"[^0-9]", "", total_match.group(1)))
+        return {
+            "pagination_urls": tuple(dict.fromkeys(parser.pagination_urls)),
+            "reported_total": reported_total,
+        }
+
+    def handle_starttag(self, tag: str, attrs) -> None:
+        if tag != "a":
+            return
+        attributes = dict(attrs)
+        classes = set((attributes.get("class") or "").split())
+        href = attributes.get("href", "")
+        if "page-numbers" in classes and href:
+            self.pagination_urls.append(urljoin(self.base_url, href))
+
+    def handle_data(self, data: str) -> None:
+        self.visible_text.append(data)
 
 
 class _ProductDetailParser(HTMLParser):

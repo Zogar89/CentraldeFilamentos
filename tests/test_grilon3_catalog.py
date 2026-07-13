@@ -2,10 +2,12 @@ from pathlib import Path
 
 from centraldefilamentos.connectors.grilon3_catalog import (
     enrich_with_grilon3_catalog,
+    fetch_grilon3_active_catalog,
     fetch_grilon3_catalog,
     fetch_grilon3_product_detail,
     fetch_grilon3_sitemap_catalog,
     parse_grilon3_catalog,
+    parse_grilon3_catalog_page,
     parse_grilon3_product_detail,
     parse_grilon3_sitemap,
 )
@@ -66,6 +68,73 @@ def test_parse_grilon3_catalog_keeps_distinct_urls_that_normalize_equal():
         "https://grilon3.com.ar/producto/filamento-3d-pla-amarillo/",
         "https://grilon3.com.ar/producto/megafill-pla-amarillo/",
     }
+
+
+def test_parse_grilon3_catalog_page_extracts_pagination_and_reported_total():
+    html = """
+    <html><body>
+      <p class="woocommerce-result-count">Mostrando 1â€“12 de 167 resultados</p>
+      <a href="/producto/pla-negro/">
+        <img src="/wp-content/uploads/pla-negro.jpg" alt="PLA Negro Grilon3 1 kg">
+      </a>
+      <a class="page-numbers" href="/productos/page/2/">2</a>
+      <a class="next page-numbers" href="/productos/page/2/">Siguiente</a>
+    </body></html>
+    """
+
+    page = parse_grilon3_catalog_page(html, base_url="https://grilon3.com.ar/productos/")
+
+    assert page.reported_total == 167
+    assert page.pagination_urls == ("https://grilon3.com.ar/productos/page/2/",)
+    assert tuple(product.product_url for product in page.products) == (
+        "https://grilon3.com.ar/producto/pla-negro/",
+    )
+
+
+def test_fetch_grilon3_active_catalog_deduplicates_canonical_urls_across_pagination(monkeypatch):
+    pages = {
+        "https://grilon3.com.ar/productos/": """
+          <p class="woocommerce-result-count">Mostrando 1-2 de 167 resultados</p>
+          <a href="/producto/pla-negro"><img alt="PLA Negro Grilon3 1 kg"></a>
+          <a class="page-numbers" href="/productos/page/2/">2</a>
+        """,
+        "https://grilon3.com.ar/productos/page/2/": """
+          <a href="https://grilon3.com.ar/producto/pla-negro/">
+            <img alt="PLA Negro Grilon3 1 kg">
+          </a>
+          <a href="/producto/pla-amarillo/">
+            <img alt="PLA Amarillo Grilon3 1 kg">
+          </a>
+        """,
+    }
+    calls = []
+
+    class Response:
+        def __init__(self, text):
+            self.text = text
+
+        def raise_for_status(self):
+            calls.append("raise_for_status")
+
+    def fake_get(url, timeout):
+        calls.append((url, timeout))
+        return Response(pages[url])
+
+    monkeypatch.setattr("centraldefilamentos.connectors.grilon3_catalog.requests.get", fake_get)
+
+    catalog, reported_total = fetch_grilon3_active_catalog(timeout_seconds=6)
+
+    assert reported_total == 167
+    assert {product.product_url for product in catalog.values()} == {
+        "https://grilon3.com.ar/producto/pla-negro/",
+        "https://grilon3.com.ar/producto/pla-amarillo/",
+    }
+    assert calls == [
+        ("https://grilon3.com.ar/productos/", 6),
+        "raise_for_status",
+        ("https://grilon3.com.ar/productos/page/2/", 6),
+        "raise_for_status",
+    ]
 
 
 def test_enrich_with_grilon3_catalog_matches_only_confident_grilon3_products():
