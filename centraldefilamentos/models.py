@@ -30,6 +30,8 @@ class NormalizedFields:
     weight_g: int | None
     brand: str
     manufacturer_name: str
+    subrange: str = ""
+    finish: str = ""
 
 
 @dataclass(frozen=True)

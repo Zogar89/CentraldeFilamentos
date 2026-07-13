@@ -66,6 +66,74 @@ def test_product_id_includes_brand_and_format():
     assert build_product_id(fields) == "pla-pla-silk-azul-175-1000-grilon3"
 
 
+@pytest.mark.parametrize(
+    ("name", "expected_subrange", "expected_finish"),
+    [
+        ("GRILON3 PLA NEGRO 1.75 MM X 1 KG", "Standard", ""),
+        ("GRILON3 ASTRA DARK 1.75 MM X 1 KG", "Astra", "Glitter"),
+        ("GRILON3 PLA SILK AZUL 1.75 MM X 1 KG", "Silk", "Brillo metálico"),
+        ("GRILON3 PLA WOOD NOGAL 1.75 MM X 1 KG", "Wood", "Madera"),
+        ("GRILON3 BOUTIQUE PERLA 1.75 MM X 1 KG", "Boutique", ""),
+        ("GRILON3 PLA 850 NARANJA 1.75 MM X 1 KG", "PLA 850", ""),
+        ("GRILON3 PLA 870 VERDE 1.75 MM X 1 KG", "PLA 870", ""),
+        ("GRILON3 PLA ZETA ROBY 1.75 MM X 1 KG", "Zeta", ""),
+        ("GRILON3 PETG CLEAR AZUL 1.75 MM X 1 KG", "", ""),
+    ],
+)
+def test_classifies_explicit_pla_commercial_subranges(
+    name, expected_subrange, expected_finish
+):
+    fields = normalize_record(raw(name, brand_hint="Grilon3"))
+
+    assert (fields.subrange, fields.finish) == (expected_subrange, expected_finish)
+
+
+def test_keeps_unmapped_pla_variant_as_subrange_without_inferred_finish():
+    fields = normalize_record(raw("3N3 PLA+ ROJO 1.75 MM X 1 KG"))
+
+    assert (fields.subrange, fields.finish) == ("PLA+", "")
+
+
+@pytest.mark.parametrize(
+    ("name", "expected_id"),
+    [
+        ("GRILON3 PLA NEGRO 1.75 MM X 1 KG", "pla-negro-175-1000-grilon3"),
+        (
+            "GRILON3 ASTRA DARK 1.75 MM X 1 KG",
+            "pla-pla-astra-dark-175-1000-grilon3",
+        ),
+        (
+            "GRILON3 PLA SILK AZUL 1.75 MM X 1 KG",
+            "pla-pla-silk-azul-175-1000-grilon3",
+        ),
+        (
+            "GRILON3 PLA WOOD NOGAL 1.75 MM X 1 KG",
+            "pla-pla-wood-nogal-175-1000-grilon3",
+        ),
+        (
+            "GRILON3 BOUTIQUE PERLA 1.75 MM X 1 KG",
+            "pla-pla-boutique-perla-175-1000-grilon3",
+        ),
+        (
+            "GRILON3 PLA 850 NARANJA 1.75 MM X 1 KG",
+            "pla-pla-850-naranja-175-1000-grilon3",
+        ),
+        (
+            "GRILON3 PLA 870 VERDE 1.75 MM X 1 KG",
+            "pla-pla-870-verde-175-1000-grilon3",
+        ),
+        (
+            "GRILON3 PLA ZETA ROBY 1.75 MM X 1 KG",
+            "pla-pla-zeta-roby-175-1000-grilon3",
+        ),
+    ],
+)
+def test_pla_subrange_fields_do_not_change_historical_product_ids(name, expected_id):
+    fields = normalize_record(raw(name, brand_hint="Grilon3"))
+
+    assert build_product_id(fields) == expected_id
+
+
 def test_normalizes_grilon3_official_lines():
     astra = normalize_record(raw("GRILON3 ASTRA DARK 1.75 MM X 1 KG", brand_hint="Grilon3"))
     boutique = normalize_record(raw("MEGAFILL GRILON3 BOUTIQUE PERLA 1.75 MM X 4 KG", brand_hint="Grilon3"))
