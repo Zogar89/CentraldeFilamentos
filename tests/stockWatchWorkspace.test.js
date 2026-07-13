@@ -140,8 +140,42 @@ test("confirmed out of stock returning to four creates one exact alert", () => {
     providerName: NORTE.provider_name,
     quantity: 4,
     previousQuantity: 0,
+    href: "#stock-watch-pla-negro-1kg-norte",
   });
   assert.equal(storage.writes(), 0);
+});
+
+test("confirmed in-stock zero increasing to four creates an alert", () => {
+  const storage = memoryStorage(JSON.stringify([
+    storedSubscription({ status: "in_stock", quantity: 0 }),
+  ]));
+
+  const workspace = createStockWatchWorkspace({ products: [PRODUCT], storage });
+
+  assert.equal(get(workspace.state).alerts.length, 1);
+  assert.equal(get(workspace.state).alerts[0].previousQuantity, 0);
+  assert.equal(get(workspace.state).alerts[0].quantity, 4);
+});
+
+test("alert href targets the exact stable product-provider stock-watch anchor", () => {
+  const product = {
+    ...PRODUCT,
+    id: "pla-silk-azul-175-1000-grilon3",
+    offers: [{ ...NORTE, source_id: "filamentos-norte" }],
+  };
+  const subscription = storedSubscription({ status: "out_of_stock", quantity: 0 });
+  subscription.key = `${product.id}::filamentos-norte`;
+  subscription.productId = product.id;
+  subscription.sourceId = "filamentos-norte";
+  const workspace = createStockWatchWorkspace({
+    products: [product],
+    storage: memoryStorage(JSON.stringify([subscription])),
+  });
+
+  assert.equal(
+    get(workspace.state).alerts[0].href,
+    "#stock-watch-pla-silk-azul-175-1000-grilon3-filamentos-norte",
+  );
 });
 
 test("known positive increase alerts but a decrease only updates observation", () => {

@@ -6,6 +6,7 @@ import {
   stockSignature,
   subscriptionKey,
 } from "./stockSubscriptions.js";
+import { slugText } from "./shared.js";
 
 function offerSourceId(offer) {
   return offer?.source_id || offer?.provider_name || "";
@@ -25,6 +26,10 @@ function presentation(product) {
   const weight = Number(product?.weight_g);
   if (!Number.isFinite(weight) || weight <= 0) return "";
   return weight % 1000 === 0 ? `${weight / 1000} kg` : `${weight} g`;
+}
+
+function stockWatchTargetId(product, offer) {
+  return `stock-watch-${slugText([product.id, offerSourceId(offer)].join(" "))}`;
 }
 
 function observedSubscription(subscription, product, offer, acknowledgedAt = subscription.acknowledgedAt) {
@@ -54,11 +59,10 @@ function alertFor(subscription, product, offer) {
   const previousQuantity = Number(subscription.lastStockQuantity || 0);
   const currentIsPositive = offer.stock_status === "in_stock" && currentQuantity > 0;
   const returnedAfterConfirmedOut = currentIsPositive && subscription.lastStockStatus === "out_of_stock";
-  const knownPositiveIncrease = currentIsPositive
+  const confirmedQuantityIncrease = currentIsPositive
     && subscription.lastStockStatus === "in_stock"
-    && previousQuantity > 0
     && currentQuantity > previousQuantity;
-  if (!returnedAfterConfirmedOut && !knownPositiveIncrease) return null;
+  if (!returnedAfterConfirmedOut && !confirmedQuantityIncrease) return null;
   return {
     key: subscription.key,
     productId: product.id,
@@ -67,6 +71,7 @@ function alertFor(subscription, product, offer) {
     providerName: offer.provider_name || subscription.providerName,
     quantity: currentQuantity,
     previousQuantity,
+    href: `#${stockWatchTargetId(product, offer)}`,
   };
 }
 
