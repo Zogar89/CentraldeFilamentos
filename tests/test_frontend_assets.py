@@ -416,7 +416,12 @@ def test_summary_organizes_materials_and_preserves_pla_subrange_detail():
 
 def test_summary_labels_support_current_and_legacy_stock_payloads():
     script = """
-      import { finishLabel, subrangeLabel } from "./src/lib/shared.js";
+      import { finishLabel, lineVariantDisambiguator, subrangeLabel } from "./src/lib/shared.js";
+      const sampler = (material, variant) => ({
+        material,
+        variant,
+        offers: [{ original_name: `SAMPLER ${variant} X 10 M` }],
+      });
       const labels = [
         subrangeLabel({ material: "PLA", subrange: "Astra", variant: "PLA Astra" }),
         subrangeLabel({ material: "PLA", variant: "PLA Astra" }),
@@ -424,6 +429,12 @@ def test_summary_labels_support_current_and_legacy_stock_payloads():
         subrangeLabel({ material: "PETG", variant: "PETG Clear" }),
         finishLabel({ finish: "Glitter" }),
         finishLabel({}),
+        lineVariantDisambiguator(sampler("PLA", "PLA Silk")),
+        lineVariantDisambiguator(sampler("PLA", "PLA Astra")),
+        lineVariantDisambiguator(sampler("PLA", "PLA Wood")),
+        lineVariantDisambiguator(sampler("Nylon", "Nylon 6")),
+        lineVariantDisambiguator(sampler("Nylon", "Nylon 12")),
+        lineVariantDisambiguator({ material: "PLA", variant: "PLA Silk", offers: [] }),
       ];
       process.stdout.write(JSON.stringify(labels));
     """
@@ -434,7 +445,22 @@ def test_summary_labels_support_current_and_legacy_stock_payloads():
         text=True,
     )
 
-    assert json.loads(result.stdout) == ["Astra", "Astra", "Standard", "", "Glitter", ""]
+    assert json.loads(result.stdout) == [
+        "Astra", "Astra", "Standard", "", "Glitter", "",
+        "Silk", "Astra", "Wood", "Nylon 6", "Nylon 12", "",
+    ]
+
+
+def test_summary_sampler_headings_show_collapsed_legacy_variants():
+    view = (SRC / "SummaryApp.svelte").read_text(encoding="utf-8")
+
+    assert "lineVariantDisambiguator" in view
+    group_title = view[view.index("function groupTitle(product)"):view.index("function groupMaterialSections(groups)")]
+    assert "const variantDisambiguator = lineVariantDisambiguator(product);" in group_title
+    assert "const compactLine = lineLabel(product);" in group_title
+    assert "variantDisambiguator || subrangeLabel(product)" in group_title
+    assert "variantDisambiguator ? compactLine" in group_title
+    assert "compactLine, variantDisambiguator" in group_title
 
 
 def test_internal_vendor_svelte_uses_feature_flag_and_30_day_history():

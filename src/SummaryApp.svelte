@@ -13,6 +13,7 @@
     formatPresentation,
     lineLabel,
     lineRank,
+    lineVariantDisambiguator,
     matchesSearchTerms,
     slugText,
     stockDelta,
@@ -113,10 +114,13 @@
   }
 
   function groupTitle(product) {
+    const compactLine = lineLabel(product);
+    const variantDisambiguator = lineVariantDisambiguator(product);
     if (product.material === "PLA") {
-      return [subrangeLabel(product), product.brand || "Sin marca", product.diameter_mm ? `${product.diameter_mm} mm` : "Sin diámetro"].filter(Boolean).join(" · ");
+      const presentationContext = variantDisambiguator ? compactLine : (compactLine === "Sampler / lápiz 3D" ? compactLine : "");
+      return [variantDisambiguator || subrangeLabel(product), presentationContext, product.brand || "Sin marca", product.diameter_mm ? `${product.diameter_mm} mm` : "Sin diámetro"].filter(Boolean).join(" · ");
     }
-    return [product.brand || "Sin marca", product.diameter_mm ? `${product.diameter_mm} mm` : "Sin diámetro", lineLabel(product)].filter(Boolean).join(" · ");
+    return [product.brand || "Sin marca", product.diameter_mm ? `${product.diameter_mm} mm` : "Sin diámetro", compactLine, variantDisambiguator].filter(Boolean).join(" · ");
   }
 
   function groupMaterialSections(groups) {

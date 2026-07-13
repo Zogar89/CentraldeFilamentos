@@ -109,6 +109,12 @@ export function finishLabel(product) {
   return product?.finish || "";
 }
 
+export function lineVariantDisambiguator(product) {
+  const variant = product?.variant || "";
+  if (!variant || !isSamplerProduct(product) || lineLabel(product) === variant) return "";
+  return product?.material === "PLA" ? variant.replace(/^PLA\s+/, "") : variant;
+}
+
 export function lineOptionLabel(line) {
   return lineMeta[line]?.label || line;
 }
