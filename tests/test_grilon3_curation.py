@@ -235,6 +235,8 @@ def test_dry_run_reports_exact_changes_without_writes_or_downloads(tmp_path, mon
         "metadata_changes": plan["metadata_changes"],
         "selection_changes": plan["selection_changes"],
         "asset_changes": plan["asset_changes"],
+        "metadata": plan["metadata"],
+        "selections": plan["selections"],
     }
     assert sorted(str(path.relative_to(tmp_path)) for path in tmp_path.rglob("*")) == before
 
@@ -333,6 +335,41 @@ def test_successful_apply_writes_deterministic_json_assets_and_thumbnail(tmp_pat
     thumbnail = tmp_path / "public" / "assets" / "thumbs" / "grilon3" / (Path(applied["image_url"]).stem + ".webp")
     assert thumbnail.is_file() and thumbnail.stat().st_size > 0
     assert not list(tmp_path.rglob(".grilon3-apply-*"))
+
+
+def test_apply_persists_only_validated_canonical_payload_when_plan_uses_www_aliases(tmp_path, monkeypatch):
+    metadata_path, selections_path, assets = production_paths(tmp_path)
+    plan = build_apply_plan(scan(product()), reviews(), {}, {})
+    selection = plan["selections"]["selections"].pop(PRODUCT_URL)
+    alias_product_url = "https://www.grilon3.com.ar/producto/pla-negro"
+    alias_image_url = "https://www.grilon3.com.ar/wp-content/uploads/pla-negro-angle.jpg"
+    selection["product_url"] = alias_product_url
+    selection["selected_image_remote_url"] = alias_image_url
+    plan["selections"]["selections"][alias_product_url] = selection
+    plan["metadata"]["pla-negro-175-1000-grilon3"]["manufacturer_product_url"] = alias_product_url
+    monkeypatch.setattr(
+        "centraldefilamentos.apply_grilon3_curation._download_image_bytes",
+        lambda _: png_bytes(),
+    )
+
+    report = apply_grilon3_plan(
+        plan,
+        apply=True,
+        metadata_path=metadata_path,
+        selections_path=selections_path,
+        assets_dir=assets,
+    )
+
+    persisted_metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+    persisted_selections = json.loads(selections_path.read_text(encoding="utf-8"))
+    approved = persisted_selections["selections"][PRODUCT_URL]
+    assert list(persisted_selections["selections"]) == [PRODUCT_URL]
+    assert approved["product_url"] == PRODUCT_URL
+    assert approved["selected_image_remote_url"] == IMAGE_URL
+    assert persisted_metadata["pla-negro-175-1000-grilon3"]["manufacturer_product_url"] == PRODUCT_URL
+    assert persisted_metadata["pla-negro-175-1000-grilon3"]["image_remote_url"] == IMAGE_URL
+    assert report["metadata"] == persisted_metadata
+    assert report["selections"] == persisted_selections
 
 
 @pytest.mark.parametrize("failure", ["second-download", "thumbnail"])

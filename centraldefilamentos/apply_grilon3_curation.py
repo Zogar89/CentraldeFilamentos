@@ -129,7 +129,9 @@ def apply_grilon3_plan(
         "mode": "apply" if apply else "dry-run",
         "metadata_changes": plan.get("metadata_changes", []),
         "selection_changes": plan.get("selection_changes", []),
-        "asset_changes": plan.get("asset_changes", []),
+        "asset_changes": asset_changes,
+        "metadata": metadata,
+        "selections": selections,
     }
     if not apply:
         return report
@@ -257,6 +259,7 @@ def _validate_apply_plan(
         raise ValueError(f"Falta asset requerido por seleccion aprobada: {missing[0]}")
 
     context_product_ids: set[str] = set()
+    normalized_metadata: dict[str, dict[str, str]] = {}
     for product_url, product_context in context.items():
         product_id = product_context["product_id"]
         if product_id in context_product_ids:
@@ -267,21 +270,36 @@ def _validate_apply_plan(
             raise ValueError(f"Falta metadata para {product_id}")
         if _canonical_product_url(product_metadata.get("manufacturer_product_url")) != product_url:
             raise ValueError(f"Metadata y product_url no coinciden: {product_id}")
+        normalized_product_metadata = dict(product_metadata)
+        normalized_product_metadata["manufacturer_product_url"] = product_url
         selection = validated_selections.get(product_url)
         if selection is None:
             if product_metadata.get("image_url") or product_metadata.get("image_remote_url"):
                 raise ValueError(f"Producto sin galeria no puede publicar imagen: {product_url}")
+            normalized_product_metadata.pop("image_url", None)
+            normalized_product_metadata.pop("image_remote_url", None)
+            normalized_metadata[product_id] = normalized_product_metadata
             continue
         asset = asset_by_product[product_url]
         if product_metadata.get("image_remote_url") != selection["selected_image_remote_url"]:
             raise ValueError(f"Metadata y seleccion no coinciden: {product_url}")
         if product_metadata.get("image_url") != asset["image_url"]:
             raise ValueError(f"Metadata y asset no coinciden: {product_url}")
+        normalized_product_metadata["image_remote_url"] = selection["selected_image_remote_url"]
+        normalized_product_metadata["image_url"] = asset["image_url"]
+        normalized_metadata[product_id] = normalized_product_metadata
     if set(metadata) != context_product_ids:
         raise ValueError("Metadata contiene productos fuera del contexto revisado")
 
     ordered_assets = [asset_by_product[url] for url in sorted(asset_by_product)]
-    return metadata, selections_payload, validated_selections, ordered_assets
+    normalized_selections: dict[str, object] = {
+        "version": SELECTIONS_VERSION,
+        "selections": {
+            product_url: validated_selections[product_url]
+            for product_url in sorted(validated_selections)
+        },
+    }
+    return normalized_metadata, normalized_selections, validated_selections, ordered_assets
 
 
 def _review_context(value: object) -> dict[str, dict[str, object]]:
