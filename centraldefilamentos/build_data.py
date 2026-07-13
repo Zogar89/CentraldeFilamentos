@@ -634,7 +634,7 @@ def load_grilon3_metadata(path: str | Path = GRILON3_METADATA_CACHE) -> dict[str
             continue
         clean = {
             key: str(data.get(key, ""))
-            for key in ["manufacturer_product_url", "pantone", "sku", "ean", "image_url"]
+            for key in ["manufacturer_product_url", "pantone", "sku", "ean", "image_url", "image_remote_url"]
             if data.get(key)
         }
         if clean:

@@ -149,6 +149,10 @@ def _asset_filename(remote_url: str) -> str:
     return f"{stem}-{digest}{suffix}"
 
 
+def grilon3_asset_filename(remote_url: str) -> str:
+    return _asset_filename(remote_url)
+
+
 def _is_remote_url(value: str) -> bool:
     return value.startswith("http://") or value.startswith("https://")
 
