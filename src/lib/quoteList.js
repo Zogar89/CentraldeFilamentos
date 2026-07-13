@@ -117,20 +117,30 @@ export function normalizeQuoteList(payload) {
   };
 }
 
-export function loadQuoteList(storage = globalThis.localStorage) {
-  if (!storage || typeof storage.getItem !== "function") {
+export function resolveQuoteListStorage(storage) {
+  if (storage !== undefined) return storage;
+  try {
+    return globalThis.localStorage;
+  } catch {
+    return undefined;
+  }
+}
+
+export function loadQuoteList(storage) {
+  const resolvedStorage = resolveQuoteListStorage(storage);
+  if (!resolvedStorage || typeof resolvedStorage.getItem !== "function") {
     return { ...normalizeQuoteList(null), storageAvailable: false, resetReason: "storage", saveError: "unavailable" };
   }
 
   try {
-    const raw = storage.getItem(quoteListStorageKey);
+    const raw = resolvedStorage.getItem(quoteListStorageKey);
     return { ...normalizeQuoteList(raw ? JSON.parse(raw) : null), storageAvailable: true, saveError: "" };
   } catch {
     return { ...normalizeQuoteList(null), storageAvailable: false, resetReason: "storage", saveError: "read" };
   }
 }
 
-export function saveQuoteList(state, storage = globalThis.localStorage) {
+export function saveQuoteList(state, storage) {
   if (state?.readOnly) {
     return {
       ok: false,
@@ -152,12 +162,13 @@ export function saveQuoteList(state, storage = globalThis.localStorage) {
     settings: normalized.settings,
   };
 
-  if (!storage || typeof storage.setItem !== "function") {
+  const resolvedStorage = resolveQuoteListStorage(storage);
+  if (!resolvedStorage || typeof resolvedStorage.setItem !== "function") {
     return { ok: false, storageAvailable: false, saveError: "unavailable", payload };
   }
 
   try {
-    storage.setItem(quoteListStorageKey, JSON.stringify(payload));
+    resolvedStorage.setItem(quoteListStorageKey, JSON.stringify(payload));
     return { ok: true, storageAvailable: true, saveError: "", payload };
   } catch {
     return { ok: false, storageAvailable: false, saveError: "write", payload };

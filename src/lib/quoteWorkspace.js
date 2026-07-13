@@ -27,7 +27,7 @@ function normalizedWorkspaceState(items, settings) {
 export function createQuoteWorkspace({
   products = [],
   catalogAvailable = false,
-  storage = globalThis.localStorage,
+  storage,
 } = {}) {
   const productById = new Map(products.map((product) => [product.id, product]));
   const loaded = loadQuoteList(storage);

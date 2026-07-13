@@ -16,6 +16,8 @@ import {
   previewQuoteListImport,
 } from "../src/lib/quoteList.js";
 
+const originalLocalStorageDescriptor = Object.getOwnPropertyDescriptor(globalThis, "localStorage");
+
 function createStorage(initialValue = null, { failWrite = false } = {}) {
   let value = initialValue;
   let writes = 0;
@@ -43,8 +45,26 @@ function storedState(items, settings = { showQuickControls: false }) {
   });
 }
 
+function installThrowingLocalStorage(t) {
+  const descriptor = Object.getOwnPropertyDescriptor(globalThis, "localStorage");
+  Object.defineProperty(globalThis, "localStorage", {
+    configurable: true,
+    get() {
+      throw new DOMException("Access denied", "SecurityError");
+    },
+  });
+  t.after(() => {
+    if (descriptor) Object.defineProperty(globalThis, "localStorage", descriptor);
+    else delete globalThis.localStorage;
+  });
+}
+
 afterEach(() => {
-  delete globalThis.localStorage;
+  if (originalLocalStorageDescriptor) {
+    Object.defineProperty(globalThis, "localStorage", originalLocalStorageDescriptor);
+  } else {
+    delete globalThis.localStorage;
+  }
 });
 
 test("a failed catalog load preserves the local quote list without writing", () => {
@@ -102,6 +122,24 @@ test("normalization removes duplicate products and keeps the first quantity", ()
 
   assert.equal(normalized.items.length, 1);
   assert.equal(normalized.items[0].quantity, 2);
+});
+
+test("omitted storage captures a throwing global localStorage getter", (t) => {
+  installThrowingLocalStorage(t);
+
+  let loaded;
+  let saved;
+  assert.doesNotThrow(() => {
+    loaded = loadQuoteList();
+    saved = saveQuoteList({ items: [{ productId: "pla-negro", quantity: 2 }] });
+  });
+
+  assert.equal(loaded.storageAvailable, false);
+  assert.equal(loaded.saveError, "unavailable");
+  assert.equal(saved.ok, false);
+  assert.equal(saved.storageAvailable, false);
+  assert.equal(saved.saveError, "unavailable");
+  assert.equal(saved.payload.items[0].quantity, 2);
 });
 
 test("quick controls default true when a legacy payload omits the setting", () => {

@@ -51,6 +51,20 @@ function memoryStorage(initialValue = null, { failRead = false, failWrite = fals
   };
 }
 
+function installThrowingLocalStorage(t) {
+  const descriptor = Object.getOwnPropertyDescriptor(globalThis, "localStorage");
+  Object.defineProperty(globalThis, "localStorage", {
+    configurable: true,
+    get() {
+      throw new DOMException("Access denied", "SecurityError");
+    },
+  });
+  t.after(() => {
+    if (descriptor) Object.defineProperty(globalThis, "localStorage", descriptor);
+    else delete globalThis.localStorage;
+  });
+}
+
 test("preserves an existing v1 item and addProduct writes one increment", () => {
   const storage = memoryStorage(quotePayload([{ productId: PRODUCT.id, quantity: 1 }]));
   const workspace = createQuoteWorkspace({ products: [PRODUCT], catalogAvailable: true, storage });
@@ -201,6 +215,26 @@ test("read failures surface a warning and leave an empty usable workspace", () =
 
   const state = get(workspace.state);
   assert.equal(state.items.length, 0);
+  assert.notEqual(state.storageWarning, "");
+  assert.equal(state.readOnly, false);
+});
+
+test("a throwing global localStorage getter leaves the workspace usable", (t) => {
+  installThrowingLocalStorage(t);
+
+  let workspace;
+  assert.doesNotThrow(() => {
+    workspace = createQuoteWorkspace({ products: [PRODUCT], catalogAvailable: true });
+  });
+  assert.doesNotThrow(() => {
+    workspace.addProduct(PRODUCT);
+    workspace.toggleQuickControls();
+    workspace.clear();
+  });
+
+  const state = get(workspace.state);
+  assert.equal(state.items.length, 0);
+  assert.equal(state.settings.showQuickControls, false);
   assert.notEqual(state.storageWarning, "");
   assert.equal(state.readOnly, false);
 });
