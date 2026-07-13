@@ -4,10 +4,11 @@ import argparse
 from datetime import datetime
 import json
 from pathlib import Path
+import re
 import shutil
 import tempfile
 from typing import Mapping, Sequence
-from urllib.parse import urlparse
+from urllib.parse import urlsplit, urlunsplit
 
 import requests
 
@@ -36,13 +37,14 @@ def build_apply_plan(
     products = scan_data.get("products")
     if not isinstance(products, list):
         raise ValueError("El scan debe contener una lista products")
-    review_data = _mapping(reviews, "revisiones")
+    review_data = _canonical_review_mapping(reviews)
     current_metadata = _metadata_mapping(existing_metadata)
     current_selections = _selection_records(existing_selections)
 
     proposed_metadata: dict[str, dict[str, str]] = {}
     proposed_selections: dict[str, dict[str, str]] = {}
     asset_changes: list[dict[str, str]] = []
+    review_context: dict[str, dict[str, object]] = {}
     seen_urls: set[str] = set()
     seen_product_ids: set[str] = set()
 
@@ -57,6 +59,13 @@ def build_apply_plan(
             raise ValueError(f"product_id duplicado o conflictivo: {product_id}")
         seen_product_ids.add(product_id)
         gallery = _gallery(product.get("gallery_image_urls"))
+        fingerprint = _fingerprint(product.get("gallery_fingerprint"), "scan")
+        review_context[product_url] = {
+            "product_id": product_id,
+            "product_url": product_url,
+            "gallery_image_urls": gallery,
+            "gallery_fingerprint": fingerprint,
+        }
 
         metadata = dict(current_metadata.get(product_id, {}))
         metadata.update({
@@ -67,7 +76,6 @@ def build_apply_plan(
         })
 
         if gallery:
-            fingerprint = _fingerprint(product.get("gallery_fingerprint"), "scan")
             raw_review = review_data.get(product_url)
             if raw_review is None:
                 raise ValueError(f"revision pendiente para {product_url}")
@@ -77,17 +85,12 @@ def build_apply_plan(
             local_url = f"assets/grilon3/{filename}"
             metadata["image_remote_url"] = selected["selected_image_remote_url"]
             metadata["image_url"] = local_url
-            previous = current_selections.get(product_url, {})
-            if (
-                previous.get("selected_image_remote_url") != selected["selected_image_remote_url"]
-                or current_metadata.get(product_id, {}).get("image_url") != local_url
-            ):
-                asset_changes.append({
-                    "product_url": product_url,
-                    "remote_url": selected["selected_image_remote_url"],
-                    "image_url": local_url,
-                    "thumbnail_url": thumbnail_url_for(local_url),
-                })
+            asset_changes.append({
+                "product_url": product_url,
+                "remote_url": selected["selected_image_remote_url"],
+                "image_url": local_url,
+                "thumbnail_url": thumbnail_url_for(local_url),
+            })
         else:
             metadata.pop("image_remote_url", None)
             metadata.pop("image_url", None)
@@ -106,6 +109,7 @@ def build_apply_plan(
         "version": 1,
         "metadata": proposed_metadata,
         "selections": selection_payload,
+        "review_context": review_context,
         "metadata_changes": _changes(current_metadata, proposed_metadata),
         "selection_changes": _changes(current_selections, proposed_selections),
         "asset_changes": sorted(asset_changes, key=lambda item: item["product_url"]),
@@ -120,6 +124,7 @@ def apply_grilon3_plan(
     selections_path: str | Path,
     assets_dir: str | Path,
 ) -> dict[str, object]:
+    metadata, selections, approved_selections, asset_changes = _validate_apply_plan(plan)
     report = {
         "mode": "apply" if apply else "dry-run",
         "metadata_changes": plan.get("metadata_changes", []),
@@ -128,15 +133,6 @@ def apply_grilon3_plan(
     }
     if not apply:
         return report
-
-    metadata = _metadata_mapping(plan.get("metadata"))
-    selections = _mapping(plan.get("selections"), "selections del plan")
-    if selections.get("version") != SELECTIONS_VERSION:
-        raise ValueError("version invalida del manifiesto de selecciones")
-    approved_selections = _selection_records(selections)
-    asset_changes = plan.get("asset_changes")
-    if not isinstance(asset_changes, list):
-        raise ValueError("asset_changes debe ser una lista")
 
     metadata_target = Path(metadata_path)
     selections_target = Path(selections_path)
@@ -147,6 +143,7 @@ def apply_grilon3_plan(
     staged_public = staging / "public"
     replacements: list[tuple[Path, Path]] = []
 
+    primary_error: BaseException | None = None
     try:
         for raw_change in asset_changes:
             change = _mapping(raw_change, "cambio de asset")
@@ -182,10 +179,128 @@ def apply_grilon3_plan(
             (selections_stage, selections_target),
         ])
         _commit_replacements(replacements)
+    except BaseException as exc:
+        primary_error = exc
+        raise
     finally:
-        shutil.rmtree(staging, ignore_errors=True)
+        try:
+            _cleanup_staging(staging)
+        except Exception as cleanup_error:
+            if primary_error is None:
+                raise
+            primary_error.add_note(f"Tambien fallo la limpieza de staging: {cleanup_error}")
 
     return report
+
+
+def _validate_apply_plan(
+    plan: Mapping[str, object],
+) -> tuple[dict[str, dict[str, str]], dict, dict[str, dict[str, str]], list[dict[str, str]]]:
+    plan_data = _mapping(plan, "plan")
+    if plan_data.get("version") != 1:
+        raise ValueError("version invalida del plan de apply")
+    for changes_key in ("metadata_changes", "selection_changes"):
+        if not isinstance(plan_data.get(changes_key), list):
+            raise ValueError(f"{changes_key} debe ser una lista")
+    metadata = _metadata_mapping(plan_data.get("metadata"))
+    selections_payload = _mapping(plan_data.get("selections"), "selections del plan")
+    if selections_payload.get("version") != SELECTIONS_VERSION:
+        raise ValueError("version invalida del manifiesto de selecciones")
+    selections = _selection_records(selections_payload)
+    context = _review_context(plan_data.get("review_context"))
+
+    validated_selections: dict[str, dict[str, str]] = {}
+    for product_url, raw_selection in selections.items():
+        product_context = context.get(product_url)
+        if product_context is None:
+            raise ValueError(f"Seleccion sin contexto de galeria actual: {product_url}")
+        gallery = product_context["gallery_image_urls"]
+        if not gallery:
+            raise ValueError(f"Seleccion para producto sin galeria: {product_url}")
+        validated_selections[product_url] = _validated_review(
+            product_url,
+            gallery,
+            product_context["gallery_fingerprint"],
+            raw_selection,
+        )
+
+    raw_asset_changes = plan_data.get("asset_changes")
+    if not isinstance(raw_asset_changes, list):
+        raise ValueError("asset_changes debe ser una lista")
+    asset_by_product: dict[str, dict[str, str]] = {}
+    for raw_change in raw_asset_changes:
+        change = _mapping(raw_change, "cambio de asset")
+        product_url = _canonical_product_url(change.get("product_url"))
+        if product_url in asset_by_product:
+            raise ValueError(f"asset duplicado o conflictivo: {product_url}")
+        selection = validated_selections.get(product_url)
+        if selection is None:
+            raise ValueError(f"asset sin seleccion aprobada: {product_url}")
+        remote_url = _official_image_url(change.get("remote_url"))
+        if remote_url != selection["selected_image_remote_url"]:
+            raise ValueError(f"asset no coincide con seleccion aprobada: {product_url}")
+        image_url = _required_string(change.get("image_url"), "image_url")
+        expected_image_url = f"assets/grilon3/{grilon3_asset_filename(remote_url)}"
+        if image_url != expected_image_url:
+            raise ValueError(f"asset local inconsistente: {product_url}")
+        thumb_url = _required_string(change.get("thumbnail_url"), "thumbnail_url")
+        if thumb_url != thumbnail_url_for(image_url):
+            raise ValueError(f"thumbnail inconsistente: {product_url}")
+        asset_by_product[product_url] = {
+            "product_url": product_url,
+            "remote_url": remote_url,
+            "image_url": image_url,
+            "thumbnail_url": thumb_url,
+        }
+    if set(asset_by_product) != set(validated_selections):
+        missing = sorted(set(validated_selections) - set(asset_by_product))
+        raise ValueError(f"Falta asset requerido por seleccion aprobada: {missing[0]}")
+
+    context_product_ids: set[str] = set()
+    for product_url, product_context in context.items():
+        product_id = product_context["product_id"]
+        if product_id in context_product_ids:
+            raise ValueError(f"product_id duplicado o conflictivo: {product_id}")
+        context_product_ids.add(product_id)
+        product_metadata = metadata.get(product_id)
+        if product_metadata is None:
+            raise ValueError(f"Falta metadata para {product_id}")
+        if _canonical_product_url(product_metadata.get("manufacturer_product_url")) != product_url:
+            raise ValueError(f"Metadata y product_url no coinciden: {product_id}")
+        selection = validated_selections.get(product_url)
+        if selection is None:
+            if product_metadata.get("image_url") or product_metadata.get("image_remote_url"):
+                raise ValueError(f"Producto sin galeria no puede publicar imagen: {product_url}")
+            continue
+        asset = asset_by_product[product_url]
+        if product_metadata.get("image_remote_url") != selection["selected_image_remote_url"]:
+            raise ValueError(f"Metadata y seleccion no coinciden: {product_url}")
+        if product_metadata.get("image_url") != asset["image_url"]:
+            raise ValueError(f"Metadata y asset no coinciden: {product_url}")
+    if set(metadata) != context_product_ids:
+        raise ValueError("Metadata contiene productos fuera del contexto revisado")
+
+    ordered_assets = [asset_by_product[url] for url in sorted(asset_by_product)]
+    return metadata, selections_payload, validated_selections, ordered_assets
+
+
+def _review_context(value: object) -> dict[str, dict[str, object]]:
+    mapping = _mapping(value, "review_context")
+    context: dict[str, dict[str, object]] = {}
+    for raw_key, raw_context in mapping.items():
+        product_url = _canonical_product_url(raw_key)
+        if product_url in context:
+            raise ValueError(f"Contexto duplicado o conflictivo: {product_url}")
+        data = _mapping(raw_context, f"contexto {raw_key}")
+        if _canonical_product_url(data.get("product_url")) != product_url:
+            raise ValueError(f"Key y product_url no coinciden: {product_url}")
+        context[product_url] = {
+            "product_id": _required_string(data.get("product_id"), "product_id"),
+            "product_url": product_url,
+            "gallery_image_urls": _gallery(data.get("gallery_image_urls")),
+            "gallery_fingerprint": _fingerprint(data.get("gallery_fingerprint"), "contexto"),
+        }
+    return context
 
 
 def _commit_replacements(replacements: list[tuple[Path, Path]]) -> None:
@@ -204,7 +319,7 @@ def _commit_replacements(replacements: list[tuple[Path, Path]]) -> None:
             with handle:
                 handle.write(source.read_bytes())
                 handle.flush()
-            temp_path.replace(target)
+            _replace_path(temp_path, target)
             sibling_temps.remove(temp_path)
             committed.append(target)
     except Exception:
@@ -232,6 +347,14 @@ def _replace_bytes(target: Path, value: bytes) -> None:
         temp_path.replace(target)
     finally:
         temp_path.unlink(missing_ok=True)
+
+
+def _replace_path(source: Path, target: Path) -> Path:
+    return source.replace(target)
+
+
+def _cleanup_staging(staging: Path) -> None:
+    shutil.rmtree(staging)
 
 
 def _download_image_bytes(remote_url: str, timeout_seconds: int = 12) -> bytes:
@@ -286,21 +409,49 @@ def _gallery(value: object) -> list[str]:
 
 
 def _canonical_product_url(value: object) -> str:
-    url = _required_string(value, "product_url").strip().rstrip("/") + "/"
-    parsed = urlparse(url)
-    if parsed.scheme != "https" or parsed.hostname not in {"grilon3.com.ar", "www.grilon3.com.ar"}:
-        raise ValueError(f"URL de producto Grilon3 inválida: {url}")
-    if not parsed.path.startswith("/producto/"):
-        raise ValueError(f"URL de producto Grilon3 inválida: {url}")
-    return url
+    raw_url = _required_string(value, "product_url")
+    parsed = _strict_official_url(raw_url, "producto")
+    path = parsed.path.rstrip("/")
+    match = re.fullmatch(r"/producto/([a-z0-9]+(?:-[a-z0-9]+)*)", path)
+    if not match:
+        raise ValueError(f"URL de producto Grilon3 invalida: {raw_url}")
+    return f"https://grilon3.com.ar/producto/{match.group(1)}/"
 
 
 def _official_image_url(value: object) -> str:
-    url = _required_string(value, "URL de imagen")
-    parsed = urlparse(url)
-    if parsed.scheme != "https" or parsed.hostname not in {"grilon3.com.ar", "www.grilon3.com.ar"}:
-        raise ValueError(f"URL de imagen oficial invalida: {url}")
-    return url
+    raw_url = _required_string(value, "URL de imagen")
+    try:
+        parsed = _strict_official_url(raw_url, "imagen")
+    except ValueError as exc:
+        raise ValueError(f"URL de imagen oficial invalida: {raw_url}") from exc
+    if not parsed.path.startswith("/") or parsed.path.endswith("/"):
+        raise ValueError(f"URL de imagen oficial invalida: {raw_url}")
+    return urlunsplit(("https", "grilon3.com.ar", parsed.path, "", ""))
+
+
+def _strict_official_url(raw_url: str, kind: str):
+    try:
+        parsed = urlsplit(raw_url)
+        port = parsed.port
+    except ValueError as exc:
+        raise ValueError(f"URL de {kind} Grilon3 invalida: {raw_url}") from exc
+    host = (parsed.hostname or "").lower()
+    if (
+        parsed.scheme != "https"
+        or host not in {"grilon3.com.ar", "www.grilon3.com.ar"}
+        or parsed.username is not None
+        or parsed.password is not None
+        or port is not None
+        or parsed.query
+        or parsed.fragment
+        or "?" in raw_url
+        or "#" in raw_url
+        or "%" in parsed.path
+        or "\\" in parsed.path
+        or any(segment in {".", ".."} for segment in parsed.path.split("/"))
+    ):
+        raise ValueError(f"URL de {kind} Grilon3 invalida: {raw_url}")
+    return parsed
 
 
 def _fingerprint(value: object, source: str) -> str:
@@ -324,8 +475,25 @@ def _metadata_mapping(value: object) -> dict[str, dict[str, str]]:
     clean: dict[str, dict[str, str]] = {}
     for key, raw_data in mapping.items():
         data = _mapping(raw_data, f"metadata {key}")
-        clean[str(key)] = {str(field): str(field_value) for field, field_value in data.items()}
+        product_id = _required_string(key, "product_id de metadata")
+        clean_data: dict[str, str] = {}
+        for field, field_value in data.items():
+            if not isinstance(field, str) or not isinstance(field_value, str):
+                raise ValueError(f"metadata {product_id}.{field} debe ser texto")
+            clean_data[field] = field_value
+        clean[product_id] = clean_data
     return clean
+
+
+def _canonical_review_mapping(value: object) -> dict[str, object]:
+    mapping = _mapping(value, "revisiones")
+    reviews: dict[str, object] = {}
+    for raw_key, review in mapping.items():
+        product_url = _canonical_product_url(raw_key)
+        if product_url in reviews:
+            raise ValueError(f"Revision duplicada o conflictiva: {product_url}")
+        reviews[product_url] = review
+    return reviews
 
 
 def _selection_records(value: object) -> dict[str, dict[str, str]]:

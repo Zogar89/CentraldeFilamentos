@@ -172,6 +172,47 @@ def test_non_official_image_host_is_rejected():
         )
 
 
+def test_product_url_canonicalizes_www_and_trailing_slash():
+    www_url = "https://www.grilon3.com.ar/producto/pla-negro"
+    canonical_review = review(product_url=www_url)
+    plan = build_apply_plan(
+        scan(product(product_url=www_url)),
+        {www_url: canonical_review},
+        {},
+        {},
+    )
+
+    assert list(plan["selections"]["selections"]) == [PRODUCT_URL]
+    assert plan["metadata"]["pla-negro-175-1000-grilon3"]["manufacturer_product_url"] == PRODUCT_URL
+
+
+@pytest.mark.parametrize(
+    "bad_url",
+    [
+        "https://grilon3.com.ar/producto/pla-negro/?preview=1",
+        "https://grilon3.com.ar/producto/pla-negro/?",
+        "https://grilon3.com.ar/producto/pla-negro/#gallery",
+        "https://grilon3.com.ar/producto/pla-negro/#",
+        "https://grilon3.com.ar./producto/pla-negro/",
+        "https://user@grilon3.com.ar/producto/pla-negro/",
+        "https://grilon3.com.ar:443/producto/pla-negro/",
+        "https://grilon3.com.ar/producto/../admin/",
+        "https://grilon3.com.ar/producto/pla-negro/extra/",
+        "https://grilon3.com.ar/producto/pla%2Dnegro/",
+        "https://grilon3.com.ar/PRODUCTO/pla-negro/",
+    ],
+)
+def test_product_url_rejects_query_fragment_and_ambiguous_paths(bad_url):
+    with pytest.raises(ValueError, match="URL de producto"):
+        build_apply_plan(scan(product(product_url=bad_url)), {}, {}, {})
+
+
+def test_canonical_product_aliases_are_detected_as_duplicates():
+    alias = product(product_url="https://www.grilon3.com.ar/producto/pla-negro")
+    with pytest.raises(ValueError, match="duplicado|conflictivo"):
+        build_apply_plan(scan(product(), alias), reviews(), {}, {})
+
+
 def test_dry_run_reports_exact_changes_without_writes_or_downloads(tmp_path, monkeypatch):
     metadata, selections, assets = production_paths(tmp_path)
     before = sorted(str(path.relative_to(tmp_path)) for path in tmp_path.rglob("*"))
@@ -209,6 +250,53 @@ def test_apply_rejects_asset_change_not_backed_by_approved_selection(tmp_path, m
     )
 
     with pytest.raises(ValueError, match="seleccion aprobada"):
+        apply_grilon3_plan(
+            plan,
+            apply=True,
+            metadata_path=metadata,
+            selections_path=selections,
+            assets_dir=assets,
+        )
+
+
+@pytest.mark.parametrize(
+    ("mutate", "message"),
+    [
+        (lambda plan: plan.update(version=2), "version"),
+        (
+            lambda plan: plan["selections"]["selections"][PRODUCT_URL].update(selection_reason="automatic"),
+            "motivo",
+        ),
+        (
+            lambda plan: plan["selections"]["selections"][PRODUCT_URL].update(gallery_fingerprint="b" * 64),
+            "fingerprint",
+        ),
+        (
+            lambda plan: plan["selections"]["selections"][PRODUCT_URL].update(reviewed_at="ayer"),
+            "reviewed_at",
+        ),
+        (
+            lambda plan: plan["selections"]["selections"][PRODUCT_URL].update(selected_image_remote_url=SECOND_URL),
+            "galeria|asset",
+        ),
+        (lambda plan: plan.update(asset_changes=[]), "asset"),
+        (lambda plan: plan.update(metadata_changes=None), "metadata_changes"),
+        (
+            lambda plan: plan["metadata"]["pla-negro-175-1000-grilon3"].update(sku=["not", "text"]),
+            "metadata|sku",
+        ),
+    ],
+)
+def test_apply_revalidates_untrusted_plan_before_downloading(tmp_path, monkeypatch, mutate, message):
+    metadata, selections, assets = production_paths(tmp_path)
+    plan = build_apply_plan(scan(product()), reviews(), {}, {})
+    mutate(plan)
+    monkeypatch.setattr(
+        "centraldefilamentos.apply_grilon3_curation._download_image_bytes",
+        lambda _: pytest.fail("invalid plan must fail before download"),
+    )
+
+    with pytest.raises(ValueError, match=message):
         apply_grilon3_plan(
             plan,
             apply=True,
@@ -298,6 +386,74 @@ def test_apply_failure_preserves_every_production_file_byte_for_byte(tmp_path, m
     assert {path: path.read_bytes() for path in original} == original
     assert sorted(path.name for path in assets.iterdir()) == ["approved-old.png"]
     assert not list(tmp_path.rglob(".grilon3-apply-*"))
+
+
+def test_commit_failure_after_partial_replacements_rolls_back_every_file(tmp_path, monkeypatch):
+    metadata, selections, assets = production_paths(tmp_path)
+    plan = build_apply_plan(scan(product()), reviews(), {}, {})
+    image_url = plan["asset_changes"][0]["image_url"]
+    thumb_url = plan["asset_changes"][0]["thumbnail_url"]
+    image_path = tmp_path / "public" / image_url
+    thumb_path = tmp_path / "public" / thumb_url
+    thumb_path.parent.mkdir(parents=True)
+    metadata.write_bytes(b'{"old":"metadata"}\n')
+    selections.write_bytes(b'{"version":1,"selections":{}}\n')
+    image_path.write_bytes(b"old-image")
+    thumb_path.write_bytes(b"old-thumb")
+    original = {path: path.read_bytes() for path in [metadata, selections, image_path, thumb_path]}
+    monkeypatch.setattr(
+        "centraldefilamentos.apply_grilon3_curation._download_image_bytes",
+        lambda _: png_bytes(),
+    )
+    real_replace = Path.replace
+    calls = 0
+
+    def fail_third_replace(source, target):
+        nonlocal calls
+        calls += 1
+        if calls == 3:
+            raise OSError("simulated commit failure")
+        return real_replace(source, target)
+
+    monkeypatch.setattr("centraldefilamentos.apply_grilon3_curation._replace_path", fail_third_replace)
+
+    with pytest.raises(OSError, match="simulated commit failure"):
+        apply_grilon3_plan(
+            plan,
+            apply=True,
+            metadata_path=metadata,
+            selections_path=selections,
+            assets_dir=assets,
+        )
+
+    assert calls >= 3
+    assert {path: path.read_bytes() for path in original} == original
+    assert not list(tmp_path.rglob("*.tmp"))
+    assert not list(tmp_path.rglob(".grilon3-apply-*"))
+
+
+def test_cleanup_failure_preserves_primary_error_and_reports_cleanup(tmp_path, monkeypatch):
+    metadata, selections, assets = production_paths(tmp_path)
+    plan = build_apply_plan(scan(product()), reviews(), {}, {})
+    monkeypatch.setattr(
+        "centraldefilamentos.apply_grilon3_curation._download_image_bytes",
+        lambda _: (_ for _ in ()).throw(RuntimeError("primary download failure")),
+    )
+    monkeypatch.setattr(
+        "centraldefilamentos.apply_grilon3_curation._cleanup_staging",
+        lambda _: (_ for _ in ()).throw(OSError("cleanup failure")),
+    )
+
+    with pytest.raises(RuntimeError, match="primary download failure") as captured:
+        apply_grilon3_plan(
+            plan,
+            apply=True,
+            metadata_path=metadata,
+            selections_path=selections,
+            assets_dir=assets,
+        )
+
+    assert any("limpieza" in note and "cleanup failure" in note for note in captured.value.__notes__)
 
 
 def test_build_data_consumes_versioned_approved_metadata_without_scratch(tmp_path, monkeypatch):
