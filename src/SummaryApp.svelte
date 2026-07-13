@@ -8,6 +8,7 @@
     colorSwatchStyle,
     fetchJson,
     formatDate,
+    finishLabel,
     formatInteger,
     formatPresentation,
     lineLabel,
@@ -15,6 +16,7 @@
     matchesSearchTerms,
     slugText,
     stockDelta,
+    subrangeLabel,
     zoneOrder,
   } from "./lib/shared.js";
 
@@ -38,6 +40,7 @@
   $: providerTotals = totalsForRows(visibleRows);
   $: grandTotal = Object.values(providerTotals).reduce((sum, value) => sum + value, 0);
   $: groupedRows = (categoryOrder, groupRows(visibleRows));
+  $: materialSections = groupMaterialSections(groupedRows);
   $: availableLines = (products, [...new Set(products.map(lineLabel).filter(Boolean))]);
 
   function buildRows() {
@@ -73,7 +76,11 @@
       const key = groupKey(row.product);
       if (!groups.has(key)) {
         groups.set(key, {
+          key,
           title: groupTitle(row.product),
+          material: row.product.material || "Sin clasificar",
+          subrange: subrangeLabel(row.product),
+          finish: finishLabel(row.product),
           brand: row.product.brand || "Sin marca",
           diameter: row.product.diameter_mm ? `${row.product.diameter_mm} mm` : "Sin diámetro",
           line: lineLabel(row.product),
@@ -93,11 +100,34 @@
   }
 
   function groupKey(product) {
-    return [brandRank(product.brand), product.brand || "Sin marca", product.diameter_mm ? `${product.diameter_mm} mm` : "Sin diámetro", lineLabel(product)].join("||");
+    return [
+      product.material || "Sin clasificar",
+      subrangeLabel(product),
+      finishLabel(product),
+      brandRank(product.brand),
+      product.brand || "Sin marca",
+      product.diameter_mm ? `${product.diameter_mm} mm` : "Sin diámetro",
+      lineLabel(product),
+      product.variant || "",
+    ].join("||");
   }
 
   function groupTitle(product) {
+    if (product.material === "PLA") {
+      return [subrangeLabel(product), product.brand || "Sin marca", product.diameter_mm ? `${product.diameter_mm} mm` : "Sin diámetro"].filter(Boolean).join(" · ");
+    }
     return [product.brand || "Sin marca", product.diameter_mm ? `${product.diameter_mm} mm` : "Sin diámetro", lineLabel(product)].filter(Boolean).join(" · ");
+  }
+
+  function groupMaterialSections(groups) {
+    const sections = new Map();
+    groups.forEach((group) => {
+      if (!sections.has(group.material)) {
+        sections.set(group.material, { material: group.material, groups: [] });
+      }
+      sections.get(group.material).groups.push(group);
+    });
+    return [...sections.values()];
   }
 
   function compareGroups(left, right) {
@@ -118,7 +148,7 @@
 
   function matchesQuery(row) {
     if (!query) return true;
-    return matchesSearchTerms(query.toLowerCase().trim(), [row.product.display_name, row.product.material, row.product.variant, row.product.color, row.product.pantone, row.product.brand]);
+    return matchesSearchTerms(query.toLowerCase().trim(), [row.product.display_name, row.product.material, row.product.variant, row.product.subrange, row.product.finish, row.product.color, row.product.pantone, row.product.brand]);
   }
 
   function productSummaryName(product) {
@@ -128,7 +158,7 @@
   }
 
   function summaryGroupTargetId(group) {
-    return `resumen-linea-${slugText(group.title)}`;
+    return `resumen-linea-${slugText(group.key)}`;
   }
 
 </script>
@@ -171,41 +201,49 @@
         </tr>
       </thead>
       <tbody>
-        {#each groupedRows as group}
-          <tr class="summary-group-row" id={summaryGroupTargetId(group)} data-line={group.line}>
-            <th>
-              {group.title}
-              <span class="summary-mobile-totals" aria-hidden="true">
-                {#each sources as source}<span><b>{source.name}</b> {formatInteger(group.totals[source.id])}</span>{/each}
-                <span class="summary-mobile-total"><b>Total</b> {formatInteger(group.total)}</span>
-              </span>
-            </th>
-            <td class="summary-presentation" data-label="Presentación"></td>
-            {#each sources as source}<td data-label={source.name}>{formatInteger(group.totals[source.id])}</td>{/each}
-            <td class="summary-total" data-label="Total">{formatInteger(group.total)}</td>
+        {#each materialSections as section}
+          <tr class="summary-material-row">
+            <th colspan={sources.length + 3}><h2>{section.material}</h2></th>
           </tr>
-          {#each group.rows as row}
-            <tr>
+          {#each section.groups as group}
+            <tr class="summary-group-row" id={summaryGroupTargetId(group)} data-line={group.line}>
               <th>
-                <span class="summary-product">
-                  <span class="summary-color-swatch" style={colorSwatchStyle(row.product)} title={[row.product.color || "Sin color", row.product.pantone].filter(Boolean).join(" · ")} aria-label={[row.product.color || "Sin color", row.product.pantone].filter(Boolean).join(" · ")}></span>
-                  <span class="summary-product-name">
-                    {#if row.product.manufacturer_product_url}
-                      <a href={row.product.manufacturer_product_url} target="_blank" rel="noopener">{productSummaryName(row.product)}</a>
-                    {:else}
-                      {productSummaryName(row.product)}
-                    {/if}
-                    {#if row.product.pantone}<small>{row.product.pantone}</small>{/if}
-                  </span>
+                <span class="summary-group-heading">
+                  <h3>{group.title}</h3>
+                  {#if group.finish}<small class="summary-group-finish">{group.finish}</small>{/if}
+                </span>
+                <span class="summary-mobile-totals" aria-hidden="true">
+                  {#each sources as source}<span><b>{source.name}</b> {formatInteger(group.totals[source.id])}</span>{/each}
+                  <span class="summary-mobile-total"><b>Total</b> {formatInteger(group.total)}</span>
                 </span>
               </th>
-              <td class="summary-presentation" data-label="Presentación">{formatPresentation(row.product)}</td>
-              {#each sources as source}
-                {@const cell = row.cells[source.id]}
-                <td class={cell?.units > 0 ? "stock-in" : "stock-out"} data-label={source.name}>{formatInteger(cell?.units || 0)}</td>
-              {/each}
-              <td class="summary-total" data-label="Total">{formatInteger(row.total)}</td>
+              <td class="summary-presentation" data-label="Presentación"></td>
+              {#each sources as source}<td data-label={source.name}>{formatInteger(group.totals[source.id])}</td>{/each}
+              <td class="summary-total" data-label="Total">{formatInteger(group.total)}</td>
             </tr>
+            {#each group.rows as row}
+              <tr>
+                <th>
+                  <span class="summary-product">
+                    <span class="summary-color-swatch" style={colorSwatchStyle(row.product)} title={[row.product.color || "Sin color", row.product.pantone].filter(Boolean).join(" · ")} aria-label={[row.product.color || "Sin color", row.product.pantone].filter(Boolean).join(" · ")}></span>
+                    <span class="summary-product-name">
+                      {#if row.product.manufacturer_product_url}
+                        <a href={row.product.manufacturer_product_url} target="_blank" rel="noopener">{productSummaryName(row.product)}</a>
+                      {:else}
+                        {productSummaryName(row.product)}
+                      {/if}
+                      {#if row.product.pantone}<small>{row.product.pantone}</small>{/if}
+                    </span>
+                  </span>
+                </th>
+                <td class="summary-presentation" data-label="Presentación">{formatPresentation(row.product)}</td>
+                {#each sources as source}
+                  {@const cell = row.cells[source.id]}
+                  <td class={cell?.units > 0 ? "stock-in" : "stock-out"} data-label={source.name}>{formatInteger(cell?.units || 0)}</td>
+                {/each}
+                <td class="summary-total" data-label="Total">{formatInteger(row.total)}</td>
+              </tr>
+            {/each}
           {/each}
         {/each}
       </tbody>

@@ -1,4 +1,5 @@
 import json
+import subprocess
 from collections import Counter
 from pathlib import Path
 
@@ -381,6 +382,61 @@ def test_summary_svelte_uses_carretes_totals_and_provider_order():
     assert "total_stock_kg" not in js
 
 
+def test_summary_organizes_materials_and_preserves_pla_subrange_detail():
+    view = (SRC / "SummaryApp.svelte").read_text(encoding="utf-8")
+    shared = (SRC / "lib" / "shared.js").read_text(encoding="utf-8")
+
+    assert "export function subrangeLabel(product)" in shared
+    assert "if (product?.subrange) return product.subrange;" in shared
+    assert 'if (product?.material !== "PLA") return "";' in shared
+    assert 'lineLabel(product).replace(/^PLA\\s+/, "") || "Standard"' in shared
+    assert "export function finishLabel(product)" in shared
+    assert 'return product?.finish || "";' in shared
+
+    assert "materialSections" in view
+    assert "groupMaterialSections" in view
+    assert "summary-material-row" in view
+    assert "section.material" in view
+    assert "subrange: subrangeLabel(row.product)" in view
+    assert "finish: finishLabel(row.product)" in view
+    assert "group.finish" in view
+    assert "summary-group-finish" in view
+
+    group_key = view[view.index("function groupKey(product)"):view.index("function groupTitle(product)")]
+    assert "subrangeLabel(product)" in group_key
+    assert "finishLabel(product)" in group_key
+    assert "product.brand" in group_key
+    assert "product.diameter_mm" in group_key
+    assert "lineLabel(product)" in group_key
+    assert "product.variant" in group_key
+
+    assert 'data-line={group.line}' in view
+    assert 'targetSelector=".summary-group-row"' in view
+
+
+def test_summary_labels_support_current_and_legacy_stock_payloads():
+    script = """
+      import { finishLabel, subrangeLabel } from "./src/lib/shared.js";
+      const labels = [
+        subrangeLabel({ material: "PLA", subrange: "Astra", variant: "PLA Astra" }),
+        subrangeLabel({ material: "PLA", variant: "PLA Astra" }),
+        subrangeLabel({ material: "PLA", variant: null }),
+        subrangeLabel({ material: "PETG", variant: "PETG Clear" }),
+        finishLabel({ finish: "Glitter" }),
+        finishLabel({}),
+      ];
+      process.stdout.write(JSON.stringify(labels));
+    """
+    result = subprocess.run(
+        ["node", "--input-type=module", "--eval", script],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+
+    assert json.loads(result.stdout) == ["Astra", "Astra", "Standard", "", "Glitter", ""]
+
+
 def test_internal_vendor_svelte_uses_feature_flag_and_30_day_history():
     js = (SRC / "VendorStatsApp.svelte").read_text(encoding="utf-8") + (SRC / "lib" / "shared.js").read_text(encoding="utf-8")
 
@@ -475,6 +531,10 @@ def test_styles_are_compact_and_responsive():
     assert ".soft-button.active" in css
     assert ".summary-group-row" in css
     assert ".summary-group-row.quick-target" in css
+    assert ".summary-material-row" in css
+    assert ".summary-material-row h2" in css
+    assert ".summary-group-heading h3" in css
+    assert ".summary-group-finish" in css
     assert ".summary-group-row.is-stuck td" not in css
     assert "color: transparent" not in css
     assert "top: calc(var(--quick-lines-height) + var(--summary-head-height))" in css

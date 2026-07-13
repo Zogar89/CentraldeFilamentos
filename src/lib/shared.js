@@ -99,6 +99,16 @@ export function lineLabel(product) {
   return product.variant || product.material || "Sin clasificar";
 }
 
+export function subrangeLabel(product) {
+  if (product?.subrange) return product.subrange;
+  if (product?.material !== "PLA") return "";
+  return lineLabel(product).replace(/^PLA\s+/, "") || "Standard";
+}
+
+export function finishLabel(product) {
+  return product?.finish || "";
+}
+
 export function lineOptionLabel(line) {
   return lineMeta[line]?.label || line;
 }

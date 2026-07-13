@@ -2954,8 +2954,40 @@ input {
   border-top: 1px solid #c9d2df;
 }
 
+.summary-material-row th,
+.summary-table .summary-material-row th:first-child {
+  padding: 22px 10px 8px;
+  border-bottom: 1px solid color-mix(in srgb, var(--line) 84%, transparent);
+  background: var(--surface);
+  text-align: left;
+}
+
+.summary-material-row h2 {
+  margin: 0;
+  color: var(--text);
+  font-size: 18px;
+  line-height: 1.2;
+}
+
 .summary-group-row {
   scroll-margin-top: calc(var(--quick-lines-height) + var(--summary-head-height));
+}
+
+.summary-group-heading {
+  display: grid;
+  gap: 2px;
+}
+
+.summary-group-heading h3 {
+  margin: 0;
+  font: inherit;
+}
+
+.summary-group-finish {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.25;
 }
 
 .summary-table .summary-group-row th:first-child,
@@ -3258,6 +3290,27 @@ input {
     margin-bottom: 8px;
   }
 
+  .summary-table tbody .summary-material-row {
+    margin: 18px 0 0;
+    padding: 0 0 7px;
+    border: 0;
+    border-bottom: 1px solid var(--line);
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .summary-table tbody .summary-material-row th,
+  .summary-table .summary-material-row th:first-child {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+  }
+
+  .summary-material-row h2 {
+    font-size: 17px;
+  }
+
   .summary-table tbody tr:not(.summary-group-row) td,
   .summary-table tfoot td,
   .summary-table tfoot th {
@@ -3314,6 +3367,17 @@ input {
     color: var(--text);
     font-size: 12px;
     line-height: 1.2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .summary-group-heading {
+    min-width: 0;
+  }
+
+  .summary-group-heading h3,
+  .summary-group-finish {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
