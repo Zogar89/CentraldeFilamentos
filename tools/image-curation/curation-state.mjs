@@ -45,6 +45,12 @@ export function reviewStatus(product, review) {
     return "without-gallery";
   }
   if (!review || typeof review !== "object") return "pending";
+  if (typeof product.gallery_fingerprint !== "string"
+      || !product.gallery_fingerprint.trim()
+      || typeof review.gallery_fingerprint !== "string"
+      || !review.gallery_fingerprint.trim()) {
+    return "pending";
+  }
   if (review.gallery_fingerprint !== product.gallery_fingerprint) return "stale";
   try {
     validateReview(product, review);

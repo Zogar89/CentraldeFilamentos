@@ -102,6 +102,15 @@ test("reviewStatus reports stale when the official gallery fingerprint changed",
   assert.equal(reviewStatus(product, validReview({ gallery_fingerprint: "old-fingerprint" })), "stale");
 });
 
+test("reviewStatus keeps reviews with absent or malformed fingerprints pending", () => {
+  const { gallery_fingerprint: _omitted, ...withoutFingerprint } = validReview();
+
+  assert.equal(reviewStatus(product, withoutFingerprint), "pending");
+  assert.equal(reviewStatus(product, validReview({ gallery_fingerprint: null })), "pending");
+  assert.equal(reviewStatus(product, validReview({ gallery_fingerprint: "" })), "pending");
+  assert.equal(reviewStatus(product, validReview({ gallery_fingerprint: 123 })), "pending");
+});
+
 test("reviewStatus reports pending, reviewed, and without-gallery", () => {
   assert.equal(reviewStatus(product, null), "pending");
   assert.equal(reviewStatus(product, validReview()), "reviewed");
