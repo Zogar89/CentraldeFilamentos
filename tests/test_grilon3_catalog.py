@@ -156,58 +156,73 @@ def test_enrich_with_grilon3_catalog_matches_only_confident_grilon3_products():
     assert unknown == {"manufacturer_product_url": "", "image_url": "", "image_source": "", "pantone": "", "sku": "", "ean": ""}
 
 
-def test_parse_grilon3_product_detail_extracts_pantone_and_image():
+def test_parse_grilon3_product_detail_preserves_official_gallery_and_fields():
     html = """
     <html><body>
-      <img src="/wp-content/uploads/abs-amarillo.jpg" alt="Filamento Grilon3 ABS">
-      <h1>ABS Amarillo</h1>
-      <p>SKU: M09IAM175CJ EAN: 7798049653051</p>
+      <nav class="woocommerce-breadcrumb">
+        <a href="/">Inicio</a> / <a href="/categoria-producto/basicos/">Básicos</a> /
+        <a href="/categoria-producto/basicos/abs/">ABS</a> / ABS Amarillo
+      </nav>
+      <div class="woocommerce-product-gallery">
+        <img data-large_image="/wp-content/uploads/abs-amarillo-boxed.jpg" alt="ABS Amarillo caja">
+        <img data-large_image="/wp-content/uploads/abs-amarillo-angled.jpg" alt="ABS Amarillo bobina">
+        <img data-large_image="/wp-content/uploads/abs-amarillo-frontal.jpg" alt="ABS Amarillo frente">
+        <img data-large_image="/wp-content/uploads/abs-range.jpg" alt="Gama ABS">
+        <img data-large_image="/wp-content/uploads/abs-amarillo-angled.jpg" alt="ABS Amarillo bobina repetida">
+      </div>
+      <span class="sku">M09IAM175CJ</span>
+      <script type="application/ld+json">
+        {"@type": "Product", "sku": "JSON-SKU", "gtin13": "7798049653051"}
+      </script>
       <p>PANTONE Yellow</p>
+      <section class="related products">
+        <img data-large_image="/wp-content/uploads/related.jpg" alt="Producto relacionado">
+      </section>
     </body></html>
     """
 
     detail = parse_grilon3_product_detail(html, base_url="https://grilon3.com.ar/producto/abs-amarillo/")
 
-    assert detail == {
-        "pantone": "Pantone Yellow",
-        "image_url": "https://grilon3.com.ar/wp-content/uploads/abs-amarillo.jpg",
-        "sku": "M09IAM175CJ",
-        "ean": "7798049653051",
-    }
+    assert detail.product_url == "https://grilon3.com.ar/producto/abs-amarillo/"
+    assert detail.category_path == ("Básicos", "ABS")
+    assert detail.gallery_image_urls == (
+        "https://grilon3.com.ar/wp-content/uploads/abs-amarillo-boxed.jpg",
+        "https://grilon3.com.ar/wp-content/uploads/abs-amarillo-angled.jpg",
+        "https://grilon3.com.ar/wp-content/uploads/abs-amarillo-frontal.jpg",
+        "https://grilon3.com.ar/wp-content/uploads/abs-range.jpg",
+    )
+    assert detail.primary_image_url == detail.gallery_image_urls[0]
+    assert detail.pantone == "Pantone Yellow"
+    assert detail.sku == "M09IAM175CJ"
+    assert detail.ean == "7798049653051"
 
 
-def test_parse_grilon3_product_detail_prefers_clean_spool_gallery_image():
+def test_parse_grilon3_product_detail_uses_json_ld_codes_after_visible_fields():
     html = """
     <html><body>
-      <img src="/wp-content/uploads/logo_grilon3_10.png" alt="Grilon3">
-      <img src="/wp-content/uploads/2021/10/astra_calipso4-600x600.jpg" alt="pieza impresa calipso">
-      <img src="/wp-content/uploads/2021/10/astra_calipso_web-100x100.jpg"
-        srcset="/wp-content/uploads/2021/10/astra_calipso_web-100x100.jpg 100w,
-                /wp-content/uploads/2021/10/astra_calipso_web-600x600.jpg 600w"
-        alt="Filamento Grilon3 Astra Calipso">
-      <img src="/wp-content/uploads/2021/10/astra_calipso2_web-600x600.jpg" alt="Filamento Grilon3 Astra Calipso caja">
-      <p>SKU: M10ICA175CJ EAN: 7798049653000</p>
+      <script type="application/ld+json">
+        {"@context": "https://schema.org", "@type": "Product",
+         "sku": "M10ICA175CJ", "gtin13": "7798049653000"}
+      </script>
     </body></html>
     """
 
     detail = parse_grilon3_product_detail(html, base_url="https://grilon3.com.ar/producto/pla-astra-calipso/")
 
-    assert detail["image_url"] == "https://grilon3.com.ar/wp-content/uploads/2021/10/astra_calipso_web-600x600.jpg"
+    assert detail.sku == "M10ICA175CJ"
+    assert detail.ean == "7798049653000"
 
 
-def test_parse_grilon3_product_detail_prefers_boxed_base_image_when_available():
+def test_parse_grilon3_product_detail_returns_empty_unpublished_fields():
     html = """
     <html><body>
-      <img src="/wp-content/uploads/2020/09/pla_850_turquesa-600x600.jpg" alt="PLA 850 Grilon3 caja">
-      <img src="/wp-content/uploads/2020/09/pla_850_turquesa3-600x600.jpg" alt="PLA 850 Grilon3 frontal">
-      <img src="/wp-content/uploads/2020/09/pla_850_turquesa2-600x600.jpg" alt="PLA 850 Grilon3">
-      <p>SKU: M11ITU175CJ EAN: 7798049653440</p>
+      <h1>PLA Turquesa</h1>
     </body></html>
     """
 
     detail = parse_grilon3_product_detail(html, base_url="https://grilon3.com.ar/producto/filamento-3d-pla-turquesa-2/")
 
-    assert detail["image_url"] == "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_850_turquesa-600x600.jpg"
+    assert (detail.pantone, detail.sku, detail.ean) == ("", "", "")
 
 
 def test_parse_grilon3_product_detail_ignores_related_product_images_when_gallery_exists():
@@ -215,19 +230,22 @@ def test_parse_grilon3_product_detail_ignores_related_product_images_when_galler
     <html><body>
       <div class="woocommerce-product-gallery woocommerce-product-gallery--with-images">
         <div class="woocommerce-product-gallery__wrapper">
-          <img src="/wp-content/uploads/2020/09/pla_amarillo-600x600.jpg" alt="Grilon3 PLA">
-          <img src="/wp-content/uploads/2020/09/pla_amarillo2-600x600.jpg" alt="Grilon3 PLA">
+          <img data-large_image="/wp-content/uploads/2020/09/pla_amarillo-600x600.jpg" alt="Grilon3 PLA">
+          <img data-large_image="/wp-content/uploads/2020/09/pla_amarillo2-600x600.jpg" alt="Grilon3 PLA">
         </div>
       </div>
       <section class="related products">
-        <img src="/wp-content/uploads/2024/10/abs_maxicarrete_turquesa_web-600x600.webp" alt="Producto relacionado">
+        <img data-large_image="/wp-content/uploads/2024/10/abs_maxicarrete_turquesa_web-600x600.webp" alt="Producto relacionado">
       </section>
     </body></html>
     """
 
     detail = parse_grilon3_product_detail(html, base_url="https://grilon3.com.ar/producto/filamento-3d-pla-amarillo/")
 
-    assert detail["image_url"] == "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_amarillo-600x600.jpg"
+    assert detail.gallery_image_urls == (
+        "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_amarillo-600x600.jpg",
+        "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_amarillo2-600x600.jpg",
+    )
 
 
 def test_fetch_grilon3_product_detail_downloads_product_page(monkeypatch):
@@ -248,9 +266,9 @@ def test_fetch_grilon3_product_detail_downloads_product_page(monkeypatch):
     detail = fetch_grilon3_product_detail("https://grilon3.com.ar/producto/abs-amarillo/", timeout_seconds=7)
 
     assert calls == [("https://grilon3.com.ar/producto/abs-amarillo/", 7), "raise_for_status"]
-    assert detail["pantone"] == "Pantone Yellow"
-    assert detail["sku"] == "M09IAM175CJ"
-    assert detail["ean"] == "7798049653051"
+    assert detail.pantone == "Pantone Yellow"
+    assert detail.sku == "M09IAM175CJ"
+    assert detail.ean == "7798049653051"
 
 
 def test_enrich_grilon3_catalog_details_prefers_product_page_image(monkeypatch):
@@ -258,12 +276,16 @@ def test_enrich_grilon3_catalog_details_prefers_product_page_image(monkeypatch):
 
     def fake_detail(product_url, timeout_seconds):
         assert product_url == "https://grilon3.com.ar/producto/pla-negro/"
-        return {
-            "pantone": "Pantone Black",
-            "image_url": "https://grilon3.com.ar/wp-content/uploads/pla_negro_web-600x600.jpg",
-            "sku": "M09INE175CJ",
-            "ean": "7798049653037",
-        }
+        from centraldefilamentos.connectors.grilon3_catalog import CatalogProductDetail
+
+        return CatalogProductDetail(
+            product_url=product_url,
+            category_path=("Básicos", "PLA"),
+            gallery_image_urls=("https://grilon3.com.ar/wp-content/uploads/pla_negro_web-600x600.jpg",),
+            pantone="Pantone Black",
+            sku="M09INE175CJ",
+            ean="7798049653037",
+        )
 
     monkeypatch.setattr("centraldefilamentos.connectors.grilon3_catalog.fetch_grilon3_product_detail", fake_detail)
 

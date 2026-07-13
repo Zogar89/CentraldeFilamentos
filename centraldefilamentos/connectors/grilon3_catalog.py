@@ -3,8 +3,9 @@ from __future__ import annotations
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
 from html.parser import HTMLParser
+import json
 import re
-from urllib.parse import urljoin, urlparse
+from urllib.parse import urljoin
 
 import requests
 
@@ -33,6 +34,20 @@ class CatalogPage:
     products: tuple[CatalogProduct, ...]
     pagination_urls: tuple[str, ...]
     reported_total: int | None
+
+
+@dataclass(frozen=True)
+class CatalogProductDetail:
+    product_url: str
+    category_path: tuple[str, ...]
+    gallery_image_urls: tuple[str, ...]
+    pantone: str = ""
+    sku: str = ""
+    ean: str = ""
+
+    @property
+    def primary_image_url(self) -> str:
+        return self.gallery_image_urls[0] if self.gallery_image_urls else ""
 
 
 def fetch_grilon3_catalog(products_url: str = BASE_URL, timeout_seconds: int = 30) -> dict[str, CatalogProduct]:
@@ -105,10 +120,10 @@ def enrich_grilon3_catalog_details(
                 product_id=product.product_id,
                 title=product.title,
                 product_url=product.product_url,
-                image_url=detail["image_url"] or product.image_url,
-                pantone=detail["pantone"],
-                sku=detail["sku"],
-                ean=detail["ean"],
+                image_url=detail.primary_image_url or product.image_url,
+                pantone=detail.pantone,
+                sku=detail.sku,
+                ean=detail.ean,
             )
     return enriched
 
@@ -143,10 +158,10 @@ def enrich_grilon3_selected_details(
                 product_id=product.product_id,
                 title=product.title,
                 product_url=product.product_url,
-                image_url=detail["image_url"] or product.image_url,
-                pantone=detail["pantone"],
-                sku=detail["sku"],
-                ean=detail["ean"],
+                image_url=detail.primary_image_url or product.image_url,
+                pantone=detail.pantone,
+                sku=detail.sku,
+                ean=detail.ean,
             )
     return enriched
 
@@ -172,20 +187,24 @@ def apply_grilon3_metadata(
     return enriched
 
 
-def fetch_grilon3_product_detail(product_url: str, timeout_seconds: int = 10) -> dict[str, str]:
+def fetch_grilon3_product_detail(product_url: str, timeout_seconds: int = 10) -> CatalogProductDetail:
     response = requests.get(product_url, timeout=timeout_seconds)
     response.raise_for_status()
     return parse_grilon3_product_detail(response.text, base_url=product_url)
 
 
-def parse_grilon3_product_detail(html_text: str, base_url: str = BASE_URL) -> dict[str, str]:
-    detail = _ProductDetailParser.parse(html_text, base_url)
-    sku, ean = _extract_sku_ean_from_html(html_text)
-    return {
-        **detail,
-        "sku": detail["sku"] or sku,
-        "ean": detail["ean"] or ean,
-    }
+def parse_grilon3_product_detail(html_text: str, base_url: str = BASE_URL) -> CatalogProductDetail:
+    parser = _ProductDetailParser.parse(html_text, base_url)
+    json_ld_sku, json_ld_ean = _extract_json_ld_codes(parser.json_ld_blocks)
+    fallback_sku, fallback_ean = _extract_sku_ean(_clean_text(" ".join(parser.visible_text)))
+    return CatalogProductDetail(
+        product_url=base_url,
+        category_path=tuple(dict.fromkeys(parser.category_path)),
+        gallery_image_urls=tuple(dict.fromkeys(parser.gallery_image_urls)),
+        pantone=parser.pantone,
+        sku=parser.sku or json_ld_sku or fallback_sku,
+        ean=parser.ean or json_ld_ean or fallback_ean,
+    )
 
 
 def parse_grilon3_catalog(html_text: str, base_url: str = BASE_URL) -> dict[str, CatalogProduct]:
@@ -391,58 +410,114 @@ class _ProductDetailParser(HTMLParser):
         super().__init__()
         self.base_url = base_url
         self.pantone = ""
-        self.image_candidates: list[str] = []
-        self.gallery_image_candidates: list[str] = []
+        self.gallery_image_urls: list[str] = []
+        self.category_path: list[str] = []
+        self.visible_text: list[str] = []
+        self.json_ld_blocks: list[str] = []
         self._gallery_depth = 0
+        self._breadcrumb_depth = 0
+        self._category_anchor_depth = 0
+        self._category_anchor_text: list[str] = []
+        self._field_depth = 0
+        self._field_name = ""
+        self._field_text: list[str] = []
+        self._json_ld_depth = 0
+        self._json_ld_text: list[str] = []
         self.sku = ""
         self.ean = ""
 
     @classmethod
-    def parse(cls, html_text: str, base_url: str) -> dict[str, str]:
+    def parse(cls, html_text: str, base_url: str) -> _ProductDetailParser:
         parser = cls(base_url)
         parser.feed(html_text)
-        image_candidates = parser.gallery_image_candidates or parser.image_candidates
-        return {"pantone": parser.pantone, "image_url": _preferred_product_image(image_candidates), "sku": parser.sku, "ean": parser.ean}
+        parser.close()
+        return parser
 
     def handle_starttag(self, tag: str, attrs) -> None:
         attributes = dict(attrs)
         classes = set((attributes.get("class") or "").split())
+
         if self._gallery_depth > 0 and tag not in VOID_TAGS:
             self._gallery_depth += 1
         elif "woocommerce-product-gallery" in classes:
             self._gallery_depth = 1
 
-        if tag != "img":
-            return
-        src = (
-            attributes.get("data-large_image")
-            or _largest_srcset_image(attributes.get("srcset", "") or attributes.get("data-srcset", ""))
-            or attributes.get("data-src")
-            or attributes.get("src")
-            or ""
-        )
-        alt = attributes.get("alt", "")
-        image_url = urljoin(self.base_url, src)
-        if _is_product_image_candidate(image_url, alt):
-            self.image_candidates.append(image_url)
-            if self._gallery_depth > 0:
-                self.gallery_image_candidates.append(image_url)
+        if self._breadcrumb_depth > 0 and tag not in VOID_TAGS:
+            self._breadcrumb_depth += 1
+        elif "woocommerce-breadcrumb" in classes:
+            self._breadcrumb_depth = 1
+
+        if self._breadcrumb_depth > 0 and tag == "a" and "/categoria-producto/" in attributes.get("href", ""):
+            self._category_anchor_depth = 1
+            self._category_anchor_text = []
+        elif self._category_anchor_depth > 0 and tag not in VOID_TAGS:
+            self._category_anchor_depth += 1
+
+        field_name = "sku" if "sku" in classes else "ean" if "ean" in classes else ""
+        if field_name and not self._field_depth:
+            self._field_depth = 1
+            self._field_name = field_name
+            self._field_text = []
+        elif self._field_depth > 0 and tag not in VOID_TAGS:
+            self._field_depth += 1
+
+        if tag == "script" and attributes.get("type", "").lower() == "application/ld+json":
+            self._json_ld_depth = 1
+            self._json_ld_text = []
+        elif self._json_ld_depth > 0 and tag not in VOID_TAGS:
+            self._json_ld_depth += 1
+
+        if self._gallery_depth > 0 and tag == "img":
+            image_url = attributes.get("data-large_image", "")
+            if image_url:
+                self.gallery_image_urls.append(urljoin(self.base_url, image_url))
 
     def handle_endtag(self, tag: str) -> None:
+        if self._category_anchor_depth > 0:
+            self._category_anchor_depth -= 1
+            if not self._category_anchor_depth:
+                label = _clean_text(" ".join(self._category_anchor_text))
+                if label:
+                    self.category_path.append(label)
+                self._category_anchor_text = []
+
+        if self._field_depth > 0:
+            self._field_depth -= 1
+            if not self._field_depth:
+                value = _clean_text(" ".join(self._field_text)).strip()
+                if self._field_name == "sku" and value and not self.sku:
+                    self.sku = value
+                elif self._field_name == "ean" and value and not self.ean:
+                    self.ean = value
+                self._field_name = ""
+                self._field_text = []
+
+        if self._json_ld_depth > 0:
+            self._json_ld_depth -= 1
+            if not self._json_ld_depth:
+                block = "".join(self._json_ld_text).strip()
+                if block:
+                    self.json_ld_blocks.append(block)
+                self._json_ld_text = []
+
         if self._gallery_depth > 0 and tag not in VOID_TAGS:
             self._gallery_depth -= 1
+        if self._breadcrumb_depth > 0 and tag not in VOID_TAGS:
+            self._breadcrumb_depth -= 1
 
     def handle_data(self, data: str) -> None:
-        if self.pantone:
+        if self._json_ld_depth:
+            self._json_ld_text.append(data)
             return
-        pantone = _extract_pantone(data)
-        if pantone:
-            self.pantone = pantone
-        sku, ean = _extract_sku_ean(data)
-        if sku and not self.sku:
-            self.sku = sku
-        if ean and not self.ean:
-            self.ean = ean
+        self.visible_text.append(data)
+        if self._category_anchor_depth:
+            self._category_anchor_text.append(data)
+        if self._field_depth:
+            self._field_text.append(data)
+        if not self.pantone:
+            pantone = _extract_pantone(data)
+            if pantone:
+                self.pantone = pantone
 
 
 def _clean_text(value: str) -> str:
@@ -467,75 +542,31 @@ def _extract_sku_ean(value: str) -> tuple[str, str]:
     )
 
 
-def _largest_srcset_image(srcset: str) -> str:
-    candidates = []
-    for item in srcset.split(","):
-        parts = item.strip().split()
-        if not parts:
+def _extract_json_ld_codes(blocks: list[str]) -> tuple[str, str]:
+    sku = ""
+    ean = ""
+
+    def visit(value: object) -> None:
+        nonlocal sku, ean
+        if isinstance(value, dict):
+            if not sku and isinstance(value.get("sku"), (str, int)):
+                sku = str(value["sku"]).strip()
+            if not ean and isinstance(value.get("gtin13"), (str, int)):
+                candidate = str(value["gtin13"]).strip()
+                if re.fullmatch(r"[0-9]{8,14}", candidate):
+                    ean = candidate
+            for child in value.values():
+                visit(child)
+        elif isinstance(value, list):
+            for child in value:
+                visit(child)
+
+    for block in blocks:
+        try:
+            visit(json.loads(block))
+        except (json.JSONDecodeError, TypeError):
             continue
-        url = parts[0]
-        width = 0
-        if len(parts) > 1 and parts[1].endswith("w"):
-            width_text = parts[1][:-1]
-            width = int(width_text) if width_text.isdigit() else 0
-        candidates.append((width, url))
-    if not candidates:
-        return ""
-    return max(candidates, key=lambda candidate: candidate[0])[1]
-
-
-def _is_product_image_candidate(image_url: str, alt: str) -> bool:
-    folded = _image_token(f"{image_url} {alt}")
-    if "/wp-content/uploads/" not in image_url:
-        return False
-    blocked = ["favicon", "logo", "auspicia", "iso", "tabla", "perfil", "icon"]
-    return not any(token in folded for token in blocked)
-
-
-def _preferred_product_image(image_urls: list[str]) -> str:
-    unique_urls = list(dict.fromkeys(image_urls))
-    if not unique_urls:
-        return ""
-    return max(unique_urls, key=_product_image_score)
-
-
-def _product_image_score(image_url: str) -> tuple[int, str]:
-    filename = _image_token(urlparse(image_url).path.rsplit("/", 1)[-1])
-    score = 0
-    if "600x600" in filename:
-        score += 20
-    if "350x350" in filename:
-        score += 10
-    if "web" in filename:
-        score += 80
-    if re.search(r"(?:^|[-_])web(?:[-_.]|$)", filename):
-        score += 25
-    if re.search(r"(?:^|[-_])wp[-_]post[-_]image(?:[-_.]|$)", filename):
-        score -= 30
-    if re.search(r"[a-z]+(?:2|3)(?:-\d+x\d+)?\.", filename):
-        score -= 12
-    if re.search(r"\d+[-_]web", filename):
-        score -= 8
-    if re.search(r"\d+(?:[-_]\d+x\d+)?\.", filename):
-        score -= 12
-    if any(token in filename for token in ["leon", "dragon", "pieza", "textura"]):
-        score -= 50
-    return (score, image_url)
-
-
-def _image_token(value: str) -> str:
-    return value.lower().replace("%20", "-").replace("_", "-")
-
-
-def _extract_sku_ean_from_html(html_text: str) -> tuple[str, str]:
-    sku_match = re.search(r'class=["\']sku["\'][^>]*>\s*([^<\s]+)', html_text, flags=re.IGNORECASE)
-    ean_match = re.search(r'class=["\']ean["\'][^>]*>\s*([0-9]{8,14})', html_text, flags=re.IGNORECASE)
-    if sku_match or ean_match:
-        return (
-            sku_match.group(1).strip() if sku_match else "",
-            ean_match.group(1).strip() if ean_match else "",
-        )
-    return _extract_sku_ean(_clean_text(re.sub(r"<[^>]+>", " ", html_text)))
+    return sku, ean
 
 
 def _title_from_product_url(url: str) -> str:
