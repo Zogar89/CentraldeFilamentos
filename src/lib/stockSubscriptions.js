@@ -5,25 +5,47 @@ export function subscriptionKey(product, offer) {
 }
 
 export function stockSignature(offer) {
+  const status = offer?.stock_status || "unknown";
+  const rawQuantity = offer?.stock_quantity;
+  const quantity = status === "unknown" && (rawQuantity === null || rawQuantity === undefined || rawQuantity === "")
+    ? "unknown"
+    : Number(rawQuantity || 0);
   return [
-    offer?.stock_status || "unknown",
-    Number(offer?.stock_quantity || 0),
+    status,
+    quantity,
     offer?.updated_at || "",
   ].join(":");
 }
 
-export function loadStockSubscriptions() {
-  if (typeof localStorage === "undefined") return [];
+function resolvedStorage(storage) {
+  if (storage !== undefined) return storage;
   try {
-    return normalizeSubscriptions(JSON.parse(localStorage.getItem(stockSubscriptionsStorageKey) || "[]"));
+    return globalThis.localStorage;
+  } catch {
+    return null;
+  }
+}
+
+export function loadStockSubscriptions(storage) {
+  const target = resolvedStorage(storage);
+  if (!target) return [];
+  try {
+    return normalizeSubscriptions(JSON.parse(target.getItem(stockSubscriptionsStorageKey) || "[]"));
   } catch {
     return [];
   }
 }
 
-export function saveStockSubscriptions(items) {
-  if (typeof localStorage === "undefined") return;
-  localStorage.setItem(stockSubscriptionsStorageKey, JSON.stringify(normalizeSubscriptions(items)));
+export function saveStockSubscriptions(items, storage) {
+  const payload = normalizeSubscriptions(items);
+  const target = resolvedStorage(storage);
+  if (!target) return { ok: false, payload };
+  try {
+    target.setItem(stockSubscriptionsStorageKey, JSON.stringify(payload));
+    return { ok: true, payload };
+  } catch {
+    return { ok: false, payload };
+  }
 }
 
 export function normalizeSubscriptions(payload) {
