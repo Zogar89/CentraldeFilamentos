@@ -49,9 +49,8 @@ afterEach(() => {
 
 test("a failed catalog load preserves the local quote list without writing", () => {
   const storage = createStorage(storedState([{ productId: "pla-negro", quantity: 3 }]));
-  globalThis.localStorage = storage;
 
-  const loaded = loadQuoteList();
+  const loaded = loadQuoteList(storage);
   const initialized = initializeQuoteList(loaded, { ok: false, products: [] });
 
   assert.deepEqual(initialized.items, loaded.items);
@@ -67,11 +66,10 @@ test("an unknown schema remains byte-for-byte intact and blocks writes", () => {
     futureSettings: { grouped: true },
   });
   const storage = createStorage(raw);
-  globalThis.localStorage = storage;
 
-  const loaded = loadQuoteList();
+  const loaded = loadQuoteList(storage);
   const initialized = initializeQuoteList(loaded, { ok: true, products: [] });
-  const saved = saveQuoteList({ ...loaded, items: [] });
+  const saved = saveQuoteList({ ...loaded, items: [] }, storage);
 
   assert.equal(loaded.readOnly, true);
   assert.equal(initialized.shouldSave, false);
@@ -81,10 +79,10 @@ test("an unknown schema remains byte-for-byte intact and blocks writes", () => {
 });
 
 test("a failed write returns the complete session payload", () => {
-  globalThis.localStorage = createStorage(null, { failWrite: true });
+  const storage = createStorage(null, { failWrite: true });
   const sessionItems = [{ productId: "petg-azul", quantity: 5 }];
 
-  const result = saveQuoteList({ items: sessionItems, settings: { showQuickControls: true } });
+  const result = saveQuoteList({ items: sessionItems, settings: { showQuickControls: true } }, storage);
 
   assert.equal(result.ok, false);
   assert.equal(result.saveError, "write");
@@ -104,6 +102,11 @@ test("normalization removes duplicate products and keeps the first quantity", ()
 
   assert.equal(normalized.items.length, 1);
   assert.equal(normalized.items[0].quantity, 2);
+});
+
+test("quick controls default true when a legacy payload omits the setting", () => {
+  const normalized = normalizeQuoteList({ schemaVersion: quoteListSchemaVersion, items: [] });
+  assert.equal(normalized.settings.showQuickControls, true);
 });
 
 test("reconciliation removes missing products and refreshes catalog snapshots", () => {
