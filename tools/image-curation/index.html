@@ -3,56 +3,55 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Curador local de imagenes</title>
+    <title>Revisión de galerías Grilon3</title>
     <link rel="stylesheet" href="/styles.css">
   </head>
   <body>
     <main class="workspace">
       <header class="topbar">
         <div>
-          <p class="eyebrow">Herramienta local</p>
-          <h1>Curador de imagenes</h1>
-          <p class="subtitle">Lista completa, preview actual, 3 candidatas maximo y decision humana por producto.</p>
+          <p class="eyebrow">Herramienta local · scan oficial</p>
+          <h1>Revisión de galerías Grilon3</h1>
+          <p>Elegí explícitamente la mejor foto oficial de cada producto activo.</p>
         </div>
-        <div class="guardrail">No publica · no descarga banco · guarda decisiones locales</div>
+        <div class="guardrail">No publica · no modifica stock · solo guarda revisiones locales</div>
       </header>
 
-      <section class="flow-box" aria-label="Flujo de curacion">
-        <strong>Flujo</strong>
-        <span>1. Recorres la lista · 2. Si una publicacion esta mal, elegis candidata o pegás URL · 3. Si esta bien, tocás “Dejar igual” · 4. Me avisás “aplicá selecciones”.</span>
-        <p>La captura automatica solo guarda URLs candidatas en <code>.image-curation/candidates.json</code>. Tus decisiones quedan en <code>.image-curation/selections.json</code>.</p>
+      <section class="flow-box">
+        <strong>Criterio</strong>
+        <span>Priorizá el carrete a 45° sin caja. Si no existe, marcá el mejor carrete; como último recurso, la foto principal oficial.</span>
+        <code>.image-curation/grilon3-scan.json → .image-curation/selections.json</code>
       </section>
 
       <section class="toolbar">
-        <label class="field search-field">
+        <label>
           <span>Buscar producto</span>
-          <input id="search" type="search" placeholder="bordo, ABS, petg blanco, silk..." autocomplete="off">
+          <input id="search" type="search" placeholder="PLA Astra, rojo, SKU…" autocomplete="off">
         </label>
-        <label class="field">
-          <span>Ver</span>
+        <label>
+          <span>Estado</span>
           <select id="review-filter">
             <option value="all">Todos</option>
             <option value="pending">Pendientes</option>
-            <option value="selected">Con cambio elegido</option>
-            <option value="kept">Dejados igual</option>
-            <option value="without-image">Sin foto actual</option>
+            <option value="reviewed">Revisados</option>
+            <option value="stale">Desactualizados</option>
+            <option value="without-gallery">Sin galería</option>
           </select>
         </label>
-        <button id="capture-toggle" type="button">Pausar captura</button>
       </section>
 
-      <section class="status-grid">
+      <section class="status-grid" aria-label="Contadores">
         <div><strong id="visible-count">0</strong><span>visibles</span></div>
-        <div><strong id="total-count">0</strong><span>productos</span></div>
-        <div><strong id="captured-count">0</strong><span>con candidatas</span></div>
-        <div><strong id="reviewed-count">0</strong><span>revisados</span></div>
+        <div><strong id="total-count">0</strong><span>activos</span></div>
+        <div><strong data-count="pending">0</strong><span>pendientes</span></div>
+        <div><strong data-count="reviewed">0</strong><span>revisados</span></div>
+        <div><strong data-count="stale">0</strong><span>desactualizados</span></div>
+        <div><strong data-count="without-gallery">0</strong><span>sin galería</span></div>
       </section>
 
-      <p id="capture-status" class="capture-status">Preparando captura automatica...</p>
-
+      <p id="message" class="message" role="status" aria-live="polite">Cargando scan…</p>
       <section id="products" class="product-feed"></section>
     </main>
-
     <script type="module" src="/app.js"></script>
   </body>
 </html>

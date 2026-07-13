@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
-    "test:quote-list": "node --test tests/quoteList.test.js tests/quoteCoverage.test.js",
+    "test:frontend": "node --test tests/quoteList.test.js tests/quoteCoverage.test.js tests/imageCuration.test.js",
+    "test:quote-list": "npm run test:frontend",
     "build": "vite build",
     "preview": "vite preview --host 0.0.0.0",
     "curate-images": "node tools/image-curation/server.mjs"
