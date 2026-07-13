@@ -972,6 +972,8 @@ def _product_from_group(product_id: str, data: Mapping[str, object]) -> ProductG
         pantone=str(enrichment["pantone"]),
         sku=str(enrichment["sku"]),
         ean=str(enrichment["ean"]),
+        subrange=fields.subrange,
+        finish=fields.finish,
         display_name=build_display_name(fields),
         offers=offers,
     )

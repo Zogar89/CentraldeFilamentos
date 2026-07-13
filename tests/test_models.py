@@ -1,7 +1,7 @@
 from centraldefilamentos.models import Offer, ProductGroup, ProviderStats, SourceStatus
 
 
-def test_product_group_serializes_for_public_json():
+def test_product_group_serializes_subrange_for_public_json():
     offer = Offer(
         source_id="filamentos3d",
         provider_name="Filamentos3D",
@@ -30,6 +30,8 @@ def test_product_group_serializes_for_public_json():
         pantone="Pantone Black 6 C",
         sku="M09INE175CJ",
         ean="7798049653037",
+        subrange="Astra",
+        finish="Glitter",
         display_name="PLA Negro Grilon3 1 kg",
         offers=[offer],
     )
@@ -46,6 +48,8 @@ def test_product_group_serializes_for_public_json():
     assert payload["pantone"] == "Pantone Black 6 C"
     assert payload["sku"] == "M09INE175CJ"
     assert payload["ean"] == "7798049653037"
+    assert payload["subrange"] == "Astra"
+    assert payload["finish"] == "Glitter"
 
 
 def test_source_status_serializes_error_message():

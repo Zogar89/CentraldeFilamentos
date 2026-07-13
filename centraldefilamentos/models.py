@@ -67,11 +67,15 @@ class ProductGroup:
     pantone: str
     sku: str
     ean: str
+    subrange: str
+    finish: str
     display_name: str
     offers: list[Offer]
 
     def to_dict(self) -> dict[str, object]:
         payload = asdict(self)
+        payload["subrange"] = str(self.subrange)
+        payload["finish"] = str(self.finish)
         payload["offers"] = [offer.to_dict() for offer in self.offers]
         return payload
 
