@@ -407,7 +407,7 @@
       <button id="summary-sort-alpha" class="soft-button" class:active={categoryOrder === "alpha"} type="button" data-category-order="alpha" on:click={() => categoryOrder = "alpha"}>A-Z</button>
     </div>
     <div class="quote-import-entry">
-      <button class="soft-button" type="button" disabled={!quoteWorkspace} on:click={openQuoteImportPicker}>Importar lista</button>
+      <button class="soft-button" type="button" disabled={!quoteWorkspace || quoteListReadOnly} on:click={openQuoteImportPicker}>Importar lista</button>
       <button type="button" class="quote-import-help-tip" aria-label="Importa una lista exportada para recuperarla o llevarla desde otra PC o navegador." data-tooltip="Importa una lista exportada para recuperarla o llevarla desde otra PC o navegador.">?</button>
     </div>
   </section>
@@ -600,8 +600,8 @@
         {#if quoteImportPreview.skippedCount}<p>{quoteImportPreview.skippedCount} item(s) se descartaran porque no son validos o ya no existen.</p>{/if}
         <p class="quote-import-help">Combinar conserva tus otros items; si un producto se repite, usa la cantidad importada.</p>
         <div class="quote-import-actions">
-          <button class="primary-button" type="button" on:click={() => applyQuoteImport("combine")}>Combinar</button>
-          <button class="soft-button" type="button" on:click={() => applyQuoteImport("replace")}>Reemplazar</button>
+          <button class="primary-button" type="button" disabled={quoteListReadOnly} on:click={() => applyQuoteImport("combine")}>Combinar</button>
+          <button class="soft-button" type="button" disabled={quoteListReadOnly} on:click={() => applyQuoteImport("replace")}>Reemplazar</button>
         </div>
       {/if}
     </div>

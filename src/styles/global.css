@@ -414,7 +414,6 @@ input {
   position: sticky;
   top: 0;
   z-index: 8;
-  overflow: hidden;
   background: color-mix(in srgb, var(--bg) 92%, transparent);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid color-mix(in srgb, var(--line) 78%, transparent);
@@ -3613,6 +3612,14 @@ input {
     width: 100%;
   }
 
+  .quick-line,
+  .filters input,
+  .status-strip .soft-button,
+  .stock-alert-banner a,
+  .stock-alert-banner button {
+    min-height: 44px;
+  }
+
   .filters {
     grid-template-columns: 1fr 1fr;
     position: static;
@@ -3675,16 +3682,20 @@ input {
   .quote-list-menu summary,
   .quote-workflow-footer > button,
   .quote-workflow-primary {
-    min-height: 42px;
+    min-height: 44px;
   }
 
   .quote-list-drawer-close,
   .quote-list-remove {
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
   }
 
-  .quote-import-help-tip,
+  .quote-import-help-tip {
+    width: 44px;
+    height: 44px;
+  }
+
   .official-product-link {
     width: 32px;
     height: 32px;
@@ -3720,13 +3731,13 @@ input {
   }
 
   .quote-quantity-control {
-    grid-template-columns: 40px minmax(54px, 1fr) 40px;
+    grid-template-columns: 44px minmax(54px, 1fr) 44px;
     width: 100%;
   }
 
   .quote-quantity-control button,
   .quote-quantity-control input {
-    height: 40px;
+    height: 44px;
   }
 
   .quote-quantity-control button:nth-of-type(3),

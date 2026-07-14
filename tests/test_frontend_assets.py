@@ -635,6 +635,23 @@ def test_summary_reuses_action_workspaces_and_preserves_cell_offer_contract():
     assert ".summary-table-region" in css
 
 
+def test_summary_read_only_disables_every_quote_import_mutation_control():
+    view = (SRC / "SummaryApp.svelte").read_text(encoding="utf-8")
+
+    assert (
+        '<button class="soft-button" type="button" disabled={!quoteWorkspace || quoteListReadOnly} '
+        'on:click={openQuoteImportPicker}>Importar lista</button>'
+    ) in view
+    assert (
+        '<button class="primary-button" type="button" disabled={quoteListReadOnly} '
+        'on:click={() => applyQuoteImport("combine")}>Combinar</button>'
+    ) in view
+    assert (
+        '<button class="soft-button" type="button" disabled={quoteListReadOnly} '
+        'on:click={() => applyQuoteImport("replace")}>Reemplazar</button>'
+    ) in view
+
+
 def test_summary_sticky_headers_are_explicit_across_scroll_modes():
     css = (SRC / "styles" / "global.css").read_text(encoding="utf-8")
     base_region = css.split(".summary-table-region {", 1)[1].split("}", 1)[0]
@@ -657,6 +674,28 @@ def test_summary_sticky_headers_are_explicit_across_scroll_modes():
     assert "position: static" in quote_groups
     assert ".summary-action-layout.quote-list-layout-active .summary-table-region" in mobile
     assert "overflow-x: visible" in mobile
+
+
+def test_summary_mobile_controls_keep_44px_targets_and_focus_rings_unclipped():
+    css = (SRC / "styles" / "global.css").read_text(encoding="utf-8")
+    quick_lines_shell = css.split(".quick-lines-shell {", 1)[1].split("}", 1)[0]
+    mobile = css.split("@media (max-width: 520px)", 1)[1].split("@keyframes", 1)[0]
+
+    assert "overflow: hidden" not in quick_lines_shell
+    mobile_target_rule = mobile.split(".quick-line,", 1)[1].split("}", 1)[0]
+    for selector in [
+        ".quick-line",
+        ".filters input",
+        ".status-strip .soft-button",
+        ".stock-alert-banner a,",
+    ]:
+        assert selector in ".quick-line," + mobile_target_rule
+    assert "min-height: 44px" in mobile_target_rule
+
+    assert "44px" in mobile.split(".quote-import-help-tip {", 1)[1].split("}", 1)[0]
+    assert "min-height: 44px" in mobile.split(".quote-workflow-tabs button,", 1)[1].split("}", 1)[0]
+    assert "width: 44px" in mobile.split(".quote-list-drawer-close,", 1)[1].split("}", 1)[0]
+    assert "height: 44px" in mobile.split(".quote-quantity-control button,", 1)[1].split("}", 1)[0]
 
 
 def test_summary_labels_support_current_and_legacy_stock_payloads():
