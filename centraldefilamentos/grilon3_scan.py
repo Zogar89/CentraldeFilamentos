@@ -5,7 +5,9 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 import hashlib
 import json
 from pathlib import Path
+import re
 from typing import Sequence
+import unicodedata
 
 from centraldefilamentos.connectors.grilon3_catalog import (
     CatalogProduct,
@@ -14,8 +16,8 @@ from centraldefilamentos.connectors.grilon3_catalog import (
     fetch_grilon3_product_detail,
     fetch_grilon3_sitemap_catalog_audit,
 )
-from centraldefilamentos.models import RawStockItem
-from centraldefilamentos.normalize import normalize_record
+from centraldefilamentos.models import NormalizedFields, RawStockItem
+from centraldefilamentos.normalize import build_product_id, normalize_record
 from centraldefilamentos.providers import MANUFACTURERS
 
 DEFAULT_OUTPUT_PATH = Path(".image-curation/grilon3-scan.json")
@@ -61,6 +63,7 @@ def scan_grilon3_catalog(
         _product_payload(product, details.get(product_url), product_url in detail_errors)
         for product_url, product in sorted(active_by_url.items())
     ]
+    products, product_id_conflicts = resolve_grilon3_product_identities(products)
 
     sitemap_only = [
         {
@@ -95,6 +98,8 @@ def scan_grilon3_catalog(
         warnings.append("detail_requests_failed")
     if unclassified_count:
         warnings.append("unclassified_sitemap_only_urls")
+    if product_id_conflicts:
+        warnings.append("duplicate_product_ids")
 
     complete = (
         reported_total is not None
@@ -103,7 +108,10 @@ def scan_grilon3_catalog(
         and not active_audit.rejections
         and detail_success_count == active_count
         and unclassified_count == 0
+        and not product_id_conflicts
     )
+
+    product_id_unique_count = len({product["product_id"] for product in products})
 
     return {
         "summary": {
@@ -138,8 +146,12 @@ def scan_grilon3_catalog(
             "sitemap_rejected_count": len(sitemap_audit.rejections),
             "sitemap_only_count": len(sitemap_only),
             "unclassified_sitemap_only_count": unclassified_count,
+            "product_id_unique_count": product_id_unique_count,
+            "product_id_conflict_count": len(product_id_conflicts),
+            "product_id_conflict_excess_count": active_count - product_id_unique_count,
         },
         "products": products,
+        "product_id_conflicts": product_id_conflicts,
         "active_catalog_audit": {
             "raw_link_count": active_audit.raw_link_count,
             "raw_unique_url_count": active_audit.raw_unique_url_count,
@@ -171,6 +183,100 @@ def scan_grilon3_catalog(
         "warnings": warnings,
         "complete": complete,
     }
+
+
+def resolve_grilon3_product_identities(
+    products: Sequence[dict[str, object]],
+) -> tuple[list[dict[str, object]], list[dict[str, object]]]:
+    resolved = [dict(product) for product in products]
+    grouped = _products_by_id(resolved)
+
+    for duplicates in grouped.values():
+        if len(duplicates) < 2:
+            continue
+        candidates: list[tuple[dict[str, object], NormalizedFields, str]] = []
+        for product in duplicates:
+            fields = _identity_fields(product)
+            if fields.diameter_mm is None or fields.weight_g is None:
+                candidates = []
+                break
+            candidates.append((product, fields, build_product_id(fields)))
+        candidate_ids = {candidate_id for _product, _fields, candidate_id in candidates}
+        if len(candidates) != len(duplicates) or len(candidate_ids) != len(duplicates):
+            continue
+        for product, fields, candidate_id in candidates:
+            product["product_id"] = candidate_id
+            product["diameter_mm"] = fields.diameter_mm
+            product["weight_g"] = fields.weight_g
+
+    conflicts = [
+        {
+            "product_id": product_id,
+            "product_urls": sorted(str(product["product_url"]) for product in duplicates),
+        }
+        for product_id, duplicates in sorted(_products_by_id(resolved).items())
+        if len(duplicates) > 1
+    ]
+    return resolved, conflicts
+
+
+def _products_by_id(
+    products: Sequence[dict[str, object]],
+) -> dict[str, list[dict[str, object]]]:
+    grouped: dict[str, list[dict[str, object]]] = {}
+    for product in products:
+        grouped.setdefault(str(product["product_id"]), []).append(product)
+    return grouped
+
+
+def _identity_fields(product: dict[str, object]) -> NormalizedFields:
+    diameter_mm = _official_sku_diameter(str(product.get("sku", "")))
+    if diameter_mm is None:
+        diameter_mm = product.get("diameter_mm")
+    weight_g = product.get("weight_g")
+    if weight_g is None:
+        weight_g = _official_presentation_weight(product)
+    return NormalizedFields(
+        material=str(product.get("material", "")),
+        variant=str(product.get("variant", "")),
+        color=str(product.get("color", "")),
+        diameter_mm=diameter_mm if isinstance(diameter_mm, (int, float)) else None,
+        weight_g=weight_g if isinstance(weight_g, int) else None,
+        brand=str(product.get("brand", "")),
+        manufacturer_name=str(product.get("manufacturer_name", "")),
+        subrange=str(product.get("subrange", "")),
+        finish=str(product.get("finish", "")),
+    )
+
+
+def _official_sku_diameter(sku: str) -> float | None:
+    match = re.search(r"(175|285)C", sku.upper())
+    if not match:
+        return None
+    return 1.75 if match.group(1) == "175" else 2.85
+
+
+def _official_presentation_weight(product: dict[str, object]) -> int | None:
+    category_path = product.get("category_path", [])
+    labels = category_path if isinstance(category_path, list) else []
+    text = _fold_identity_text(" ".join([str(product.get("title", "")), *map(str, labels)]))
+    if "MAXICARRETE" in text:
+        return 2500
+    if "MEGAFILL" in text:
+        return 4000
+    sku = re.sub(r"(?:-[0-9]+)+$", "", str(product.get("sku", "")).upper())
+    if re.search(r"(?:175|285)C2$", sku):
+        return 2500
+    if re.search(r"(?:175|285)C4$", sku):
+        return 4000
+    if re.search(r"(?:175|285)C(?:J)?$", sku):
+        return 1000
+    return None
+
+
+def _fold_identity_text(value: str) -> str:
+    normalized = unicodedata.normalize("NFKD", value)
+    return "".join(char for char in normalized if not unicodedata.combining(char)).upper()
 
 
 def write_grilon3_scan(
