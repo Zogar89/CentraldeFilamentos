@@ -53,6 +53,16 @@ def test_finish_resolution_priority() -> None:
     ) == ("satin", "default")
 
 
+def test_astra_line_keeps_its_existing_glitter_semantics() -> None:
+    assert resolve_material_finish(
+        product_id="pla-astra-jade",
+        variant="PLA Astra",
+        color="Jade",
+        original_names=[],
+        overrides={},
+    ) == ("glitter", "variant")
+
+
 def test_material_appearance_combines_color_and_finish_provenance() -> None:
     appearance = resolve_material_appearance(
         product_id="pla-rojo",

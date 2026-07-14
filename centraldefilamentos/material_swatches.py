@@ -237,8 +237,8 @@ def apply_material_swatches_to_stock(stock_json: Path, public_dir: Path) -> int:
             color=str(product.get("color", "")),
             original_names=_offer_names(product),
         )
-        pantone_hex = str(product.get("pantone_hex", "")) or appearance.pantone_hex
-        finish = str(product.get("material_finish", "")) or appearance.finish
+        pantone_hex = appearance.pantone_hex
+        finish = appearance.finish
         product["pantone_hex"] = pantone_hex
         product["material_finish"] = finish
         if not pantone_hex or finish not in MATERIAL_FINISHES:
