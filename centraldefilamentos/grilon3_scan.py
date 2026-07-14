@@ -101,7 +101,6 @@ def scan_grilon3_catalog(
         and active_count == reported_total
         and active_audit.raw_unique_url_count == reported_total
         and not active_audit.rejections
-        and not sitemap_audit.rejections
         and detail_success_count == active_count
         and unclassified_count == 0
     )

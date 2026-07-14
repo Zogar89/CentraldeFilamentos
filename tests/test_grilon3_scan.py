@@ -196,6 +196,30 @@ def test_scan_is_incomplete_when_active_raw_unique_count_misses_reported_total(m
     assert payload["complete"] is False
 
 
+def test_scan_reports_non_product_sitemap_loc_without_blocking_active_completeness(monkeypatch):
+    active, sitemap = install_catalog_stubs(monkeypatch, sitemap_extra=False)
+    rejection = CatalogRejection(
+        title="",
+        url="https://grilon3.com.ar/productos/",
+        reasons=("not_product_url",),
+    )
+    monkeypatch.setattr(
+        "centraldefilamentos.grilon3_scan.fetch_grilon3_sitemap_catalog_audit",
+        lambda **kwargs: SimpleNamespace(
+            catalog=sitemap,
+            raw_loc_count=3,
+            raw_unique_url_count=3,
+            rejections=(rejection,),
+        ),
+    )
+
+    payload = scan_grilon3_catalog(max_workers=1)
+
+    assert payload["sitemap_audit"]["rejections"] == [rejection.to_dict()]
+    assert "sitemap_urls_rejected" in payload["warnings"]
+    assert payload["complete"] is True
+
+
 def test_scan_retains_detail_failure_and_marks_incomplete(monkeypatch):
     install_catalog_stubs(monkeypatch, sitemap_extra=False, failing_url=ACTIVE_ROJO_URL)
 
