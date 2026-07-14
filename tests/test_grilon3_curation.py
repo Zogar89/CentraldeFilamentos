@@ -161,6 +161,28 @@ def test_invalid_review_date_is_rejected():
         build_apply_plan(scan(product()), reviews(review(reviewed_at="ayer")), {}, {})
 
 
+def test_dry_run_preserves_explicit_vision_llm_provenance():
+    plan = build_apply_plan(
+        scan(product()),
+        reviews(review(provenance="vision_llm")),
+        {},
+        {},
+    )
+
+    assert plan["selections"]["selections"][PRODUCT_URL]["provenance"] == "vision_llm"
+
+
+@pytest.mark.parametrize("provenance", ["ai_vision_draft", "automatic", 123])
+def test_unapproved_or_invalid_review_provenance_is_rejected(provenance):
+    with pytest.raises(ValueError, match="procedencia"):
+        build_apply_plan(
+            scan(product()),
+            reviews(review(provenance=provenance)),
+            {},
+            {},
+        )
+
+
 def test_non_official_image_host_is_rejected():
     evil = "https://example.com/private.jpg"
     with pytest.raises(ValueError, match="oficial invalida"):

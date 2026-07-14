@@ -3,6 +3,7 @@ const selectionReasons = new Set([
   "best_spool",
   "official_primary",
 ]);
+const reviewProvenance = new Set(["human", "vision_llm"]);
 
 export function draftProducts(payload) {
   if (!payload || !Array.isArray(payload.products)) return [];
@@ -31,13 +32,20 @@ export function validateReview(product, review) {
       || !Number.isFinite(Date.parse(review.reviewed_at))) {
     throw new Error("La fecha de revisión no es válida.");
   }
-  return {
+  const normalized = {
     product_url: product.product_url,
     selected_image_remote_url: review.selected_image_remote_url,
     selection_reason: review.selection_reason,
     gallery_fingerprint: product.gallery_fingerprint,
     reviewed_at: review.reviewed_at,
   };
+  if (review.provenance !== undefined) {
+    if (typeof review.provenance !== "string" || !reviewProvenance.has(review.provenance)) {
+      throw new Error("La procedencia de la revisión no es válida.");
+    }
+    normalized.provenance = review.provenance;
+  }
+  return normalized;
 }
 
 export function reviewStatus(product, review) {

@@ -91,6 +91,23 @@ test("validateReview serializes only the durable review contract without droppin
   });
 });
 
+test("validateReview preserves explicit Vision LLM provenance", () => {
+  const normalized = validateReview(product, validReview({ provenance: "vision_llm" }));
+
+  assert.equal(normalized.provenance, "vision_llm");
+});
+
+test("validateReview rejects draft or unknown provenance", () => {
+  assert.throws(
+    () => validateReview(product, validReview({ provenance: "ai_vision_draft" })),
+    /procedencia/i,
+  );
+  assert.throws(
+    () => validateReview(product, validReview({ provenance: "automatic" })),
+    /procedencia/i,
+  );
+});
+
 test("validateReview rejects an invalid reviewed timestamp", () => {
   assert.throws(
     () => validateReview(product, validReview({ reviewed_at: "today" })),

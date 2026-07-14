@@ -22,6 +22,7 @@ DEFAULT_REVIEWS_PATH = Path(".image-curation/selections.json")
 DEFAULT_SELECTIONS_PATH = Path("centraldefilamentos/data/grilon3_image_selections.json")
 DEFAULT_ASSETS_DIR = Path("public/assets/grilon3")
 VALID_REASONS = {"preferred_angle", "best_spool", "official_primary"}
+VALID_PROVENANCE = {"human", "vision_llm"}
 SELECTIONS_VERSION = 1
 
 
@@ -408,13 +409,19 @@ def _validated_review(
         datetime.fromisoformat(reviewed_at.replace("Z", "+00:00"))
     except ValueError as exc:
         raise ValueError("reviewed_at debe ser una fecha ISO valida") from exc
-    return {
+    normalized = {
         "product_url": product_url,
         "selected_image_remote_url": selected_url,
         "selection_reason": reason,
         "gallery_fingerprint": fingerprint,
         "reviewed_at": reviewed_at,
     }
+    if "provenance" in review:
+        provenance = review.get("provenance")
+        if not isinstance(provenance, str) or provenance not in VALID_PROVENANCE:
+            raise ValueError("procedencia de revision invalida")
+        normalized["provenance"] = provenance
+    return normalized
 
 
 def _gallery(value: object) -> list[str]:
