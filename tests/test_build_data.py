@@ -80,6 +80,7 @@ def test_build_payload_groups_products_and_keeps_unknown_stock_visible():
                 "manufacturer_product_url": "https://grilon3.com.ar/producto/catalog-product/",
                 "image_url": "assets/grilon3/catalog-product.jpg",
                 "image_source": "manufacturer",
+                "pantone": "Pantone 179",
             }
         },
     )
@@ -90,6 +91,10 @@ def test_build_payload_groups_products_and_keeps_unknown_stock_visible():
     assert payload["products"][0]["manufacturer_product_url"] == "https://grilon3.com.ar/producto/catalog-product/"
     assert payload["products"][0]["image_url"] == "assets/grilon3/catalog-product.jpg"
     assert payload["products"][0]["thumbnail_url"] == "assets/thumbs/grilon3/catalog-product.webp"
+    assert payload["products"][0]["pantone"] == "Pantone 179"
+    assert payload["products"][0]["pantone_hex"] == "#E03C31"
+    assert payload["products"][0]["material_finish"] == "satin"
+    assert payload["products"][0]["material_swatch_url"] == ""
     assert [offer["provider_name"] for offer in payload["products"][0]["offers"]] == [
         "MundoInsumos",
         "Filamentos3D",
