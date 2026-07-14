@@ -4,6 +4,8 @@
   export let sources = [];
   export let contactContext = "";
 
+  const baseUrl = import.meta.env.BASE_URL;
+
   $: message = `Hola, vi su stock publicado en Central de Filamentos.${contactContext ? ` Estoy buscando ${contactContext}.` : " Quería consultar disponibilidad y precio."}`;
 
   function providerInitials(source) {
@@ -111,6 +113,10 @@
       <p>Si encontrás un error de stock, una foto incorrecta o querés sumar tu proveedor al listado, avisame por GitHub.</p>
     </div>
     <div class="contact-actions footer-actions footer-meta-actions">
+      <a href={`${baseUrl}catalogo.html`}>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v16H6.5A2.5 2.5 0 0 0 4 21.5Z"/><path d="M20 5.5A2.5 2.5 0 0 0 17.5 3H13v16h4.5a2.5 2.5 0 0 1 2.5 2.5Z"/></svg>
+        <span>Catálogo anterior</span>
+      </a>
       <a href={siteContactUrl} target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 2h8l4 4v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6l4-4Z"/><path d="M12 8v5"/><path d="M12 17h.01"/></svg>
         <span>Reportar error</span>

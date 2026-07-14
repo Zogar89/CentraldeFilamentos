@@ -1,4 +1,6 @@
 import json
+import re
+import shutil
 import subprocess
 from collections import Counter
 from pathlib import Path
@@ -10,20 +12,26 @@ SRC = Path("src")
 
 def test_static_frontend_files_exist_and_are_linked():
     index = Path("index.html").read_text(encoding="utf-8")
+    catalog = Path("catalogo.html").read_text(encoding="utf-8")
     resumen = Path("resumen.html").read_text(encoding="utf-8")
     internal = Path("estadisticas.html").read_text(encoding="utf-8")
     flags = json.loads((PUBLIC / "data" / "feature_flags.json").read_text(encoding="utf-8"))
     catalog_view = (SRC / "CatalogApp.svelte").read_text(encoding="utf-8")
     site_header = (SRC / "components" / "SiteHeader.svelte").read_text(encoding="utf-8")
 
-    assert 'type="module" src="/src/catalog.js"' in index
-    assert 'href: "resumen.html"' in site_header
-    assert 'href: "index.html#site-footer"' in site_header
+    assert 'type="module" src="/src/summary.js"' in index
+    assert 'type="module" src="/src/catalog.js"' in catalog
+    assert 'type="module" src="/src/summary-redirect.js"' in resumen
+    assert resumen.count('type="module"') == 1
+    assert 'src="/src/summary.js"' not in resumen
+    assert 'src="/src/catalog.js"' not in resumen
+    assert 'label: "Catálogo"' not in site_header
+    assert '{ id: "summary", label: "Resumen", href: baseUrl }' in site_header
+    assert 'href: `${baseUrl}#site-footer`' in site_header
     assert 'href: "estadisticas.html"' not in site_header
     assert "provider-status" not in site_header
     assert "brand-mark" in site_header
     assert "SiteHeader" in catalog_view
-    assert 'type="module" src="/src/summary.js"' in resumen
     assert 'id="merge-brands-toggle"' not in resumen
     assert "Fusionar Grilon3 + 3N3" not in resumen
     assert "estadisticas.html" not in index
@@ -38,6 +46,81 @@ def test_static_frontend_files_exist_and_are_linked():
         assert 'import { mount } from "svelte"' in js
         assert "mount(" in js
         assert "new " not in js
+
+
+def test_summary_root_route_redirect_and_legacy_catalog_contract():
+    index = Path("index.html").read_text(encoding="utf-8")
+    catalog = Path("catalogo.html").read_text(encoding="utf-8")
+    resumen = Path("resumen.html").read_text(encoding="utf-8")
+    redirect = (SRC / "summary-redirect.js").read_text(encoding="utf-8")
+    vite = Path("vite.config.js").read_text(encoding="utf-8")
+    header = (SRC / "components" / "SiteHeader.svelte").read_text(encoding="utf-8")
+    footer = (SRC / "components" / "SiteFooter.svelte").read_text(encoding="utf-8")
+    summary_view = (SRC / "SummaryApp.svelte").read_text(encoding="utf-8")
+
+    assert "resumen" in index.lower()
+    assert "catálogo" in catalog.lower()
+    assert 'name="robots" content="noindex,follow"' in resumen
+    assert 'href="./"' in resumen
+    assert "location.replace" in redirect
+    assert "import.meta.env.BASE_URL" in redirect
+    assert "export function summaryRedirectTarget" in redirect
+    assert "import.meta.env.BASE_URL" in header
+    assert "import.meta.env.BASE_URL" in footer
+    assert "Catálogo anterior" in footer
+    assert "catalogo.html" in footer
+    assert '<SiteHeader active="summary"' in summary_view
+    assert "summary-redirect.js" not in index
+    assert "summary-redirect.js" not in catalog
+
+    expected_inputs = {
+        'index: resolve(__dirname, "index.html")',
+        'catalogo: resolve(__dirname, "catalogo.html")',
+        'resumen: resolve(__dirname, "resumen.html")',
+        'estadisticas: resolve(__dirname, "estadisticas.html")',
+    }
+    assert all(entry in vite for entry in expected_inputs)
+    assert vite.count("resolve(__dirname") == 4
+
+    route_sources = "\n".join([index, catalog, resumen, redirect, header, footer, vite])
+    assert "https://zogar89.github.io/CentraldeFilamentos" not in route_sources
+
+    script = """
+      import { summaryRedirectTarget } from "./src/summary-redirect.js";
+      process.stdout.write(JSON.stringify([
+        summaryRedirectTarget("/CentraldeFilamentos/", "?material=PLA", "#proveedor-grilon3"),
+        summaryRedirectTarget("/", "", "#site-footer"),
+      ]));
+    """
+    result = subprocess.run(
+        ["node", "--input-type=module", "--eval", script],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    assert json.loads(result.stdout) == [
+        "/CentraldeFilamentos/?material=PLA#proveedor-grilon3",
+        "/#site-footer",
+    ]
+
+
+def test_vite_build_emits_summary_root_redirect_and_legacy_catalog():
+    npm = shutil.which("npm") or shutil.which("npm.cmd")
+    assert npm, "npm is required to verify the frontend build"
+    subprocess.run([npm, "run", "build"], check=True, capture_output=True, text=True)
+
+    built = {
+        name: (Path("dist") / name).read_text(encoding="utf-8")
+        for name in ["index.html", "catalogo.html", "resumen.html", "estadisticas.html"]
+    }
+    summary_assets = set(re.findall(r"/assets/index-[^\"']+\.js", built["index.html"]))
+    catalog_assets = set(re.findall(r"/assets/catalogo-[^\"']+\.js", built["catalogo.html"]))
+
+    assert summary_assets
+    assert catalog_assets
+    assert summary_assets.isdisjoint(catalog_assets)
+    assert re.search(r"/assets/resumen-[^\"']+\.js", built["resumen.html"])
+    assert 'id="app"' not in built["resumen.html"]
 
 
 def test_catalog_svelte_fetches_json_and_supports_required_filters():
