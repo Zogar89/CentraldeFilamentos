@@ -38,6 +38,9 @@ jobs:
       - name: Build stock data
         run: python -m centraldefilamentos.build_data --output public/data/stock.json
 
+      - name: Generate material swatches
+        run: python -m centraldefilamentos.generate_material_swatches --stock-json public/data/stock.json --public-dir public
+
       - name: Commit captured data
         id: commit-data
         run: |
@@ -48,6 +51,7 @@ jobs:
           public/data/build_technical_log.json
           public/data/provider_stock_history.json
           public/data/stock.json
+          public/assets/material-swatches
           "
           if [ -z "$(git status --porcelain -- $DATA_FILES)" ]; then
             echo "No stock data changes"
@@ -77,10 +81,12 @@ jobs:
             git -C "$pages_dir" remote add origin "$repo_url"
           fi
           mkdir -p "$pages_dir/data"
+          mkdir -p "$pages_dir/assets/material-swatches"
           cp public/data/*.json "$pages_dir/data/"
+          cp -a public/assets/material-swatches/. "$pages_dir/assets/material-swatches/"
           git -C "$pages_dir" config user.name "github-actions[bot]"
           git -C "$pages_dir" config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git -C "$pages_dir" add data
+          git -C "$pages_dir" add data assets/material-swatches
           if git -C "$pages_dir" diff --cached --quiet; then
             echo "No published data changes"
             exit 0
