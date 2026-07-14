@@ -59,6 +59,7 @@
   let quoteImportPreview = null;
   let quoteImportError = "";
   let quoteImportFileName = "";
+  let quoteImportRequestId = 0;
   let quoteAddFeedback = {};
   let quoteFeedbackMessage = "";
   let quotePulseKey = 0;
@@ -113,6 +114,7 @@
 
   onDestroy(() => {
     componentActive = false;
+    invalidateQuoteImportRequest();
     unsubscribeQuoteWorkspace();
     unsubscribeStockWatchWorkspace();
     quoteFeedbackTimers.forEach((timer) => window.clearTimeout(timer));
@@ -463,6 +465,12 @@
   }
 
   function openQuoteImportPicker() {
+    if (!quoteWorkspace) {
+      quoteImportPreview = null;
+      quoteImportFileName = "";
+      quoteImportError = "Todavia estamos cargando tu lista. Intenta nuevamente en unos segundos.";
+      return;
+    }
     quoteImportError = "";
     quoteImportInput?.click();
   }
@@ -471,22 +479,38 @@
     const file = event.currentTarget.files?.[0];
     event.currentTarget.value = "";
     if (!file) return;
+    const requestId = beginQuoteImportRequest();
+    quoteImportPreview = null;
+    quoteImportError = "";
     quoteImportFileName = file.name;
+    if (!quoteWorkspace) {
+      if (isCurrentQuoteImportRequest(requestId)) {
+        quoteImportError = "Todavia estamos cargando tu lista. Intenta nuevamente en unos segundos.";
+      }
+      return;
+    }
     if (file.size > 2_000_000) {
       quoteImportPreview = null;
       quoteImportError = "El archivo es demasiado grande para una lista de cotizacion.";
       return;
     }
-    const fileText = await file.text();
-    if (!componentActive || !quoteWorkspace) return;
-    const previewResult = quoteWorkspace.previewImport(fileText);
-    if (!previewResult.ok) {
+    try {
+      const fileText = await file.text();
+      if (!isCurrentQuoteImportRequest(requestId)) return;
+      const previewResult = quoteWorkspace.previewImport(fileText);
+      if (!isCurrentQuoteImportRequest(requestId)) return;
+      if (!previewResult.ok) {
+        quoteImportPreview = null;
+        quoteImportError = previewResult.error;
+        return;
+      }
+      quoteImportError = "";
+      quoteImportPreview = previewResult;
+    } catch {
+      if (!isCurrentQuoteImportRequest(requestId)) return;
       quoteImportPreview = null;
-      quoteImportError = previewResult.error;
-      return;
+      quoteImportError = "No pudimos leer ese archivo. Elegi nuevamente la lista exportada.";
     }
-    quoteImportError = "";
-    quoteImportPreview = previewResult;
   }
 
   function applyQuoteImport(mode) {
@@ -499,9 +523,23 @@
   }
 
   function closeQuoteImport() {
+    invalidateQuoteImportRequest();
     quoteImportPreview = null;
     quoteImportError = "";
     quoteImportFileName = "";
+  }
+
+  function beginQuoteImportRequest() {
+    quoteImportRequestId += 1;
+    return quoteImportRequestId;
+  }
+
+  function invalidateQuoteImportRequest() {
+    quoteImportRequestId += 1;
+  }
+
+  function isCurrentQuoteImportRequest(requestId) {
+    return componentActive && requestId === quoteImportRequestId;
   }
 
   function toggleQuoteControls() {

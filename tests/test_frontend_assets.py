@@ -324,6 +324,37 @@ def test_catalog_delegates_interaction_state_to_shared_workspaces():
         assert duplicated_or_low_level not in catalog
 
 
+def test_catalog_import_reads_only_publish_the_latest_live_request():
+    catalog = (SRC / "CatalogApp.svelte").read_text(encoding="utf-8")
+    destroy_block = catalog.split("onDestroy(() => {", 1)[1].split("});", 1)[0]
+    picker_block = catalog.split("function openQuoteImportPicker() {", 1)[1].split("\n  async function handleQuoteImportFile", 1)[0]
+    import_block = catalog.split("async function handleQuoteImportFile(event) {", 1)[1].split("\n  function applyQuoteImport", 1)[0]
+    close_block = catalog.split("function closeQuoteImport() {", 1)[1].split("\n  }", 1)[0]
+
+    assert "let quoteImportRequestId = 0;" in catalog
+    assert "function beginQuoteImportRequest()" in catalog
+    assert "function invalidateQuoteImportRequest()" in catalog
+    assert "function isCurrentQuoteImportRequest(requestId)" in catalog
+
+    assert "if (!quoteWorkspace)" in picker_block
+    assert picker_block.index("if (!quoteWorkspace)") < picker_block.index("quoteImportInput?.click()")
+
+    for required in [
+        "const requestId = beginQuoteImportRequest();",
+        "if (!quoteWorkspace)",
+        "await file.text()",
+        "isCurrentQuoteImportRequest(requestId)",
+        "catch",
+    ]:
+        assert required in import_block
+    assert import_block.index("if (!quoteWorkspace)") < import_block.index("await file.text()")
+    assert import_block.index('quoteImportError = "";') < import_block.index("await file.text()")
+    assert import_block.count("isCurrentQuoteImportRequest(requestId)") >= 2
+
+    assert "invalidateQuoteImportRequest();" in close_block
+    assert "invalidateQuoteImportRequest();" in destroy_block
+
+
 def test_quote_list_styles_contract_covers_panel_and_controls():
     def read_source(path):
         return path.read_text(encoding="utf-8") if path.exists() else ""
