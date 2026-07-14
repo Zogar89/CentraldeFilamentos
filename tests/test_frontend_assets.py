@@ -637,6 +637,13 @@ def test_summary_reuses_action_workspaces_and_preserves_cell_offer_contract():
 
 def test_summary_read_only_disables_every_quote_import_mutation_control():
     view = (SRC / "SummaryApp.svelte").read_text(encoding="utf-8")
+    picker = view.split("function openQuoteImportPicker() {", 1)[1].split(
+        "\n  async function handleQuoteImportFile", 1
+    )[0]
+
+    assert picker.index("if (quoteListReadOnly || !quoteWorkspace)") < picker.index(
+        "quoteImportInput?.click()"
+    )
 
     assert (
         '<button class="soft-button" type="button" disabled={!quoteWorkspace || quoteListReadOnly} '
@@ -649,6 +656,14 @@ def test_summary_read_only_disables_every_quote_import_mutation_control():
     assert (
         '<button class="soft-button" type="button" disabled={quoteListReadOnly} '
         'on:click={() => applyQuoteImport("replace")}>Reemplazar</button>'
+    ) in view
+    assert (
+        '<button class="soft-button" type="button" disabled={quoteListReadOnly || !quoteWorkspace} '
+        'on:click={openQuoteImportPicker}>Elegir otro archivo</button>'
+    ) in view
+    assert (
+        '<input class="quote-import-input" type="file" disabled={quoteListReadOnly || !quoteWorkspace} '
+        'accept=".json,application/json"'
     ) in view
 
 
@@ -679,6 +694,9 @@ def test_summary_sticky_headers_are_explicit_across_scroll_modes():
 def test_summary_mobile_controls_keep_44px_targets_and_focus_rings_unclipped():
     css = (SRC / "styles" / "global.css").read_text(encoding="utf-8")
     quick_lines_shell = css.split(".quick-lines-shell {", 1)[1].split("}", 1)[0]
+    mobile_tablet = css.split("@media (max-width: 820px)", 1)[1].split(
+        "@media (max-width: 520px)", 1
+    )[0]
     mobile = css.split("@media (max-width: 520px)", 1)[1].split("@keyframes", 1)[0]
 
     assert "overflow: hidden" not in quick_lines_shell
@@ -696,6 +714,18 @@ def test_summary_mobile_controls_keep_44px_targets_and_focus_rings_unclipped():
     assert "min-height: 44px" in mobile.split(".quote-workflow-tabs button,", 1)[1].split("}", 1)[0]
     assert "width: 44px" in mobile.split(".quote-list-drawer-close,", 1)[1].split("}", 1)[0]
     assert "height: 44px" in mobile.split(".quote-quantity-control button,", 1)[1].split("}", 1)[0]
+
+    mobile_root = mobile_tablet.split(":root {", 1)[1].split("}", 1)[0]
+    quick_lines = mobile_tablet.split(".quick-lines {", 1)[1].split("}", 1)[0]
+    quick_line_height = int(re.search(r"--quick-lines-height:\s*(\d+)px", mobile_root).group(1))
+    padding = re.search(r"padding:\s*(\d+)px\s+\d+px\s+(\d+)px", quick_lines)
+    mobile_control_height = int(
+        re.search(r"min-height:\s*(\d+)px", mobile_target_rule).group(1)
+    )
+
+    assert "min-height: var(--quick-lines-height)" in quick_lines
+    assert quick_line_height >= mobile_control_height + int(padding.group(1)) + int(padding.group(2))
+    assert "box-sizing: border-box" in css.split("* {", 1)[1].split("}", 1)[0]
 
 
 def test_summary_labels_support_current_and_legacy_stock_payloads():

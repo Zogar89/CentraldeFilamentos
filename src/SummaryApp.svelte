@@ -306,10 +306,12 @@
   }
 
   function openQuoteImportPicker() {
-    if (!quoteWorkspace) {
+    if (quoteListReadOnly || !quoteWorkspace) {
       quoteImportPreview = null;
       quoteImportFileName = "";
-      quoteImportError = "Todavia estamos cargando tu lista. Intenta nuevamente en unos segundos.";
+      quoteImportError = quoteListReadOnly
+        ? quoteSchemaWarningCopy
+        : "Todavia estamos cargando tu lista. Intenta nuevamente en unos segundos.";
       return;
     }
     quoteImportError = "";
@@ -324,8 +326,12 @@
     quoteImportPreview = null;
     quoteImportError = "";
     quoteImportFileName = file.name;
-    if (!quoteWorkspace) {
-      if (isCurrentQuoteImportRequest(requestId)) quoteImportError = "Todavia estamos cargando tu lista. Intenta nuevamente en unos segundos.";
+    if (quoteListReadOnly || !quoteWorkspace) {
+      if (isCurrentQuoteImportRequest(requestId)) {
+        quoteImportError = quoteListReadOnly
+          ? quoteSchemaWarningCopy
+          : "Todavia estamos cargando tu lista. Intenta nuevamente en unos segundos.";
+      }
       return;
     }
     if (file.size > 2_000_000) {
@@ -584,7 +590,7 @@
   {handleQuoteDrawerKeydown}
 />
 
-<input class="quote-import-input" type="file" accept=".json,application/json" bind:this={quoteImportInput} on:change={handleQuoteImportFile}>
+<input class="quote-import-input" type="file" disabled={quoteListReadOnly || !quoteWorkspace} accept=".json,application/json" bind:this={quoteImportInput} on:change={handleQuoteImportFile}>
 
 {#if quoteImportPreview || quoteImportError}
   <div class="quote-import-backdrop" role="presentation" on:click={(event) => event.target === event.currentTarget && closeQuoteImport()}>
@@ -594,7 +600,7 @@
       <small>{quoteImportFileName}</small>
       {#if quoteImportError}
         <p class="quote-import-error" aria-live="polite">{quoteImportError}</p>
-        <button class="soft-button" type="button" on:click={openQuoteImportPicker}>Elegir otro archivo</button>
+        <button class="soft-button" type="button" disabled={quoteListReadOnly || !quoteWorkspace} on:click={openQuoteImportPicker}>Elegir otro archivo</button>
       {:else}
         <p><strong>{quoteImportPreview.validCount}</strong> item(s) listos para importar.</p>
         {#if quoteImportPreview.skippedCount}<p>{quoteImportPreview.skippedCount} item(s) se descartaran porque no son validos o ya no existen.</p>{/if}
