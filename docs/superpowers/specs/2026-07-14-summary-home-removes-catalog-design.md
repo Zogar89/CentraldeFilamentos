@@ -26,15 +26,33 @@ La primera celda de cada fila usa un grupo visual horizontal compacto:
 
 Las dos imagenes usan 28 x 28 px, borde y radio coherentes con la tabla. La foto es decorativa porque el nombre del producto ya aparece al lado; la muestra material conserva su descripcion accesible. En pantallas angostas el grupo no se parte y la fila mantiene la densidad actual.
 
+Al pasar el puntero sobre cualquiera de las dos imagenes se muestra el preview ampliado existente. La foto usa el original cuando esta disponible y el render usa su WebP. En dispositivos sin hover no se muestra el preview flotante.
+
+## Filtros y ayuda
+
+Resumen recibe el panel completo que hoy existe en Catalogo: busqueda, material, color, proveedor, linea, diametro, peso, marca y disponibilidad. Los filtros se aplican antes de calcular filas, grupos y totales, por lo que la tabla y el pie siempre representan el subconjunto visible.
+
+La franja de ayuda existente se mantiene mediante `SiteHeader` y pasa a mostrarse desde `SummaryApp`. Su texto conserva la explicacion de `+1` y campanita porque ambas acciones tambien se migran.
+
+## Cotizacion y seguimiento
+
+- Cada fila de producto muestra `+1` junto al nombre/presentacion y agrega una unidad a la lista local existente.
+- Cada celda de proveedor muestra la campanita asociada a la oferta de ese producto/proveedor.
+- Se migran a `SummaryApp` la carga, reconciliacion, importacion/exportacion, panel lateral, drawer mobile y feedback de la lista de cotizacion.
+- Se migran la carga, persistencia, reconciliacion y avisos de seguimiento de stock.
+- Se reutilizan sin cambiar esquema `src/lib/quoteList.js`, `src/lib/stockSubscriptions.js` y los componentes `QuoteList*`.
+- Las acciones no cambian la semantica: StockCentral arma consultas y alertas locales; no vende ni procesa pedidos.
+
 ## Alcance de eliminacion
 
-Se elimina unicamente la pantalla y entrypoint del Catalogo. Los componentes de lista de cotizacion, persistencia y alertas no se borran en esta tarea: forman parte del trabajo de producto existente y eliminarlos ampliaria el alcance innecesariamente. El CSS que quede sin consumidores directos puede conservarse hasta una limpieza especifica posterior; no se hara una poda masiva mezclada con este cambio.
+Se elimina unicamente la pantalla y entrypoint del Catalogo despues de comprobar que filtros, cotizacion, alertas y preview funcionan desde Resumen. Los componentes de lista de cotizacion, persistencia y alertas no se borran. El CSS que quede sin consumidores directos puede conservarse hasta una limpieza especifica posterior; no se hara una poda masiva mezclada con este cambio.
 
 ## Pruebas y verificacion
 
 - El contrato de assets debe exigir que `index.html` y `resumen.html` carguen `summary.js`.
 - Debe exigir que `CatalogApp.svelte` y `catalog.js` no existan.
 - Debe verificar que `SummaryApp` renderice `thumbnail_url || image_url` junto a `material_swatch_url` y conserve `colorSwatchStyle` como fallback.
+- Debe verificar los nueve filtros, la franja de ayuda, `+1`, campanita, lista de cotizacion y preview ampliado desde `SummaryApp`.
 - Debe verificar que el encabezado ya no contenga la opcion `Catalogo`.
 - La suite Python completa y `npm run build` deben pasar.
 - El build final debe producir `index.html`, `resumen.html` y `estadisticas.html`.
