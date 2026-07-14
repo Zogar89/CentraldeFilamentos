@@ -137,6 +137,57 @@ def test_fetch_grilon3_active_catalog_deduplicates_canonical_urls_across_paginat
     ]
 
 
+def test_fetch_grilon3_active_catalog_follows_pagination_links_discovered_later(monkeypatch):
+    pages = {
+        "https://grilon3.com.ar/productos/": """
+          <p class="woocommerce-result-count">Mostrando 1-1 de 4 resultados</p>
+          <a href="/producto/pla-negro/"><img alt="PLA Negro Grilon3 1 kg"></a>
+          <a class="page-numbers" href="/productos/page/2/">2</a>
+          <a class="page-numbers" href="/productos/page/4/">4</a>
+        """,
+        "https://grilon3.com.ar/productos/page/2/": """
+          <a href="/producto/pla-amarillo/"><img alt="PLA Amarillo Grilon3 1 kg"></a>
+          <a class="page-numbers" href="/productos/page/3/">3</a>
+        """,
+        "https://grilon3.com.ar/productos/page/3/": """
+          <a href="/producto/pla-rojo/"><img alt="PLA Rojo Grilon3 1 kg"></a>
+        """,
+        "https://grilon3.com.ar/productos/page/4/": """
+          <a href="/producto/pla-verde/"><img alt="PLA Verde Grilon3 1 kg"></a>
+        """,
+    }
+    calls = []
+
+    class Response:
+        def __init__(self, text):
+            self.text = text
+
+        def raise_for_status(self):
+            pass
+
+    def fake_get(url, timeout):
+        calls.append(url)
+        return Response(pages[url])
+
+    monkeypatch.setattr("centraldefilamentos.connectors.grilon3_catalog.requests.get", fake_get)
+
+    catalog, reported_total = fetch_grilon3_active_catalog(timeout_seconds=6)
+
+    assert reported_total == 4
+    assert {product.product_url for product in catalog.values()} == {
+        "https://grilon3.com.ar/producto/pla-negro/",
+        "https://grilon3.com.ar/producto/pla-amarillo/",
+        "https://grilon3.com.ar/producto/pla-rojo/",
+        "https://grilon3.com.ar/producto/pla-verde/",
+    }
+    assert calls == [
+        "https://grilon3.com.ar/productos/",
+        "https://grilon3.com.ar/productos/page/2/",
+        "https://grilon3.com.ar/productos/page/4/",
+        "https://grilon3.com.ar/productos/page/3/",
+    ]
+
+
 def test_enrich_with_grilon3_catalog_matches_only_confident_grilon3_products():
     catalog = parse_grilon3_catalog(FIXTURE_PATH.read_text(encoding="utf-8"))
 

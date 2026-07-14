@@ -65,10 +65,19 @@ def fetch_grilon3_active_catalog(
     first_page = parse_grilon3_catalog_page(response.text, base_url=products_url)
 
     pages = [first_page]
-    for page_url in first_page.pagination_urls:
+    visited_page_urls = {_canonical_product_url(products_url)}
+    pending_page_urls = list(first_page.pagination_urls)
+    while pending_page_urls:
+        page_url = pending_page_urls.pop(0)
+        canonical_page_url = _canonical_product_url(page_url)
+        if canonical_page_url in visited_page_urls:
+            continue
+        visited_page_urls.add(canonical_page_url)
         response = requests.get(page_url, timeout=timeout_seconds)
         response.raise_for_status()
-        pages.append(parse_grilon3_catalog_page(response.text, base_url=page_url))
+        page = parse_grilon3_catalog_page(response.text, base_url=page_url)
+        pages.append(page)
+        pending_page_urls.extend(page.pagination_urls)
 
     catalog: dict[str, CatalogProduct] = {}
     seen_urls: set[str] = set()
