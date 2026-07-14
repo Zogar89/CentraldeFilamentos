@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import Mapping
 from zoneinfo import ZoneInfo
 
+from centraldefilamentos.material_appearance import resolve_material_appearance
 from centraldefilamentos.models import (
     ManufacturerInfo,
     Offer,
@@ -955,6 +956,13 @@ def _product_from_group(product_id: str, data: Mapping[str, object]) -> ProductG
     enrichment = data["enrichment"]
     offers = sorted(data["offers"], key=_offer_sort_key)  # type: ignore[arg-type]
     _validate_unique_provider_offers(product_id, offers)
+    appearance = resolve_material_appearance(
+        product_id=product_id,
+        pantone=str(enrichment["pantone"]),
+        variant=fields.variant,
+        color=fields.color,
+        original_names=[offer.original_name for offer in offers],
+    )
 
     return ProductGroup(
         id=product_id,
@@ -970,6 +978,9 @@ def _product_from_group(product_id: str, data: Mapping[str, object]) -> ProductG
         thumbnail_url=thumbnail_url_for(str(enrichment["image_url"])),
         image_source=enrichment["image_source"],  # type: ignore[arg-type]
         pantone=str(enrichment["pantone"]),
+        pantone_hex=appearance.pantone_hex,
+        material_finish=appearance.finish,
+        material_swatch_url="",
         sku=str(enrichment["sku"]),
         ean=str(enrichment["ean"]),
         display_name=build_display_name(fields),

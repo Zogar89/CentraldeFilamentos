@@ -63,6 +63,9 @@ class ProductGroup:
     thumbnail_url: str
     image_source: ImageSource
     pantone: str
+    pantone_hex: str
+    material_finish: str
+    material_swatch_url: str
     sku: str
     ean: str
     display_name: str
