@@ -29,6 +29,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 BOUTIQUE 13_ACQUA 1.75 MM X 1 KG",
@@ -65,6 +67,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M17IAQ175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/pla-boutique-acqua-600x600-241d2a74.webp",
       "variant": "PLA Boutique",
@@ -82,6 +85,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 PLA _06_AMARILLO 1.75 MM X 500 GR",
@@ -118,6 +123,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "",
@@ -135,6 +141,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 PLA 06_G1_AMARILLO 1.75 MM X 1 KG",
@@ -171,6 +179,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3n3-box-pla-175mm-amarillo-x1kg-2d2b4b25.webp",
       "variant": "",
@@ -188,6 +197,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-amarillo/",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-yellow-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 PLA 06_G1_AMARILLO 1.75 MM X 1 KG",
@@ -224,6 +235,7 @@
         }
       ],
       "pantone": "Pantone Yellow",
+      "pantone_hex": "#FEDD00",
       "sku": "M10IAM175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/pla-amarillo-600x600-535755a6.webp",
       "variant": "",
@@ -241,6 +253,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/megafill-pla-amarillo/",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-yellow-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "MEGAFILL GRILON3 PLA 06_AMARILLO 1.75 MM X 4 KG",
@@ -277,6 +291,7 @@
         }
       ],
       "pantone": "Pantone Yellow",
+      "pantone_hex": "#FEDD00",
       "sku": "M10IAM175C4",
       "thumbnail_url": "assets/thumbs/grilon3/megafill-amarillo2-a4b176d0.webp",
       "variant": "",
@@ -294,6 +309,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3NFLEX PLA+ 06_AMARILLO 1.75 MM X 1 KG",
@@ -308,6 +325,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3nflex-pla-175mm-amarillo-97296be5.webp",
       "variant": "PLA Flexible",
@@ -325,6 +343,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3NMAX PLA+ SE 06_AMARILLO 1.75 MM X 750G",
@@ -361,6 +381,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PLA+",
@@ -378,6 +399,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3NMAX PLA+ 06_AMARILLO 1.75 MM X 1 KG",
@@ -403,6 +426,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3nmax-pla-amarillo-175mm-x1kg-3d2717c0.webp",
       "variant": "PLA+",
@@ -420,6 +444,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 PLA 20_AMARILLO FLUO 1.75 MM X 1 KG",
@@ -456,6 +482,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3n3-box-pla-175mm-amarillo-fluo-x1kg-a3c5d1ce.webp",
       "variant": "",
@@ -473,6 +500,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-388-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 PLA 20_AMARILLO FLUO 1.75 MM X 1 KG",
@@ -509,6 +538,7 @@
         }
       ],
       "pantone": "Pantone 388",
+      "pantone_hex": "#E0E721",
       "sku": "M10IAF175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/pla-amarillo-fluo-600x600-81c10d4c.webp",
       "variant": "",
@@ -526,6 +556,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 BOUTIQUE 06_ARENA 1.75 MM X 1 KG",
@@ -562,6 +594,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M17IAR175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/pla-boutique-arena-1-600x600-075f8ebd.webp",
       "variant": "PLA Boutique",
@@ -579,6 +612,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "silk",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 SILK AZABACHE 1.75MM X 1 KG",
@@ -615,6 +650,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M10IGE175CJ-1-3-1",
       "thumbnail_url": "",
       "variant": "PLA Silk",
@@ -632,6 +668,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "silk",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 SILK AZABACHE 1.75 MM X 17 M",
@@ -646,6 +684,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PLA Silk",
@@ -663,6 +702,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 ZETA AZABACHE 1.75 MM X 1 KG",
@@ -699,6 +740,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M16IZB175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/zeta-azabache2-600x600-c72f29a0.webp",
       "variant": "PLA Zeta",
@@ -716,6 +758,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-azul-2/",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 PLA 850 AZUL 1.75 MM X 1 KG",
@@ -730,6 +774,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M11IAZ175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/pla-850-azul-ml-17d120d8.webp",
       "variant": "PLA 850",
@@ -747,6 +792,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "MAXI GRILON3 PLA 850 08_AZUL 1.75 MM X 2.5 KG",
@@ -772,6 +819,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M11IAZ175C2",
       "thumbnail_url": "",
       "variant": "PLA 850",
@@ -789,6 +837,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 PLA _08_AZUL 1.75 MM X 500 GR",
@@ -825,6 +875,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "",
@@ -842,6 +893,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 PLA 08_G1_AZUL 1.75 MM X 1 KG",
@@ -878,6 +931,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3n3-box-pla-175mm-azul-x1kg-049c1621.webp",
       "variant": "",
@@ -895,6 +949,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-azul/",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-286-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 PLA 08_G1_AZUL 1.75 MM X 1 KG",
@@ -931,6 +987,7 @@
         }
       ],
       "pantone": "Pantone 286",
+      "pantone_hex": "#0033A0",
       "sku": "M10IAZ175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/pla-azul-600x600-cef91203.webp",
       "variant": "",
@@ -948,8 +1005,11 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/pla-azul-285/",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "",
@@ -967,6 +1027,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-286-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "MEGAFILL GRILON3 PLA 08_AZUL 1.75 MM X 4 KG",
@@ -1003,6 +1065,7 @@
         }
       ],
       "pantone": "Pantone 286",
+      "pantone_hex": "#0033A0",
       "sku": "M10IAZ175C4",
       "thumbnail_url": "assets/thumbs/grilon3/megafill-azul2-600x600-632b4bc2.webp",
       "variant": "",
@@ -1020,6 +1083,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "silk",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 SILK AZUL 1.75 MM X 1 KG",
@@ -1056,6 +1121,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M10IGE175CJ-1-1",
       "thumbnail_url": "assets/thumbs/grilon3/silk-azul-600x600-7502dda7.webp",
       "variant": "PLA Silk",
@@ -1073,6 +1139,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "silk",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 SILK AZUL 1.75 MM X 17 M",
@@ -1087,6 +1155,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PLA Silk",
@@ -1104,6 +1173,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3NMAX PLA+ SE 08_AZUL 1.75 MM X 750G",
@@ -1140,6 +1211,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PLA+",
@@ -1157,6 +1229,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3NMAX PLA+ 08_AZUL 1.75 MM X 1 KG",
@@ -1182,6 +1256,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3nmax-pla-azul-175mm-x1kg-ca51d57a.webp",
       "variant": "PLA+",
@@ -1199,6 +1274,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 PLA PRO HYPER 08_AZUL 1.75 MM X 1 KG",
@@ -1224,6 +1301,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "Pro",
@@ -1241,6 +1319,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "NUEVO MAXI GRILON3 PLA PRO HYPER 08_AZUL 1.75 MM X 2.5 KG",
@@ -1255,6 +1335,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "Pro",
@@ -1272,6 +1353,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-3015-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 PLA 23_AZUL DE PRUSIA 1.75 MM X 1 KG",
@@ -1308,6 +1391,7 @@
         }
       ],
       "pantone": "Pantone 3015",
+      "pantone_hex": "#00629B",
       "sku": "M10IAF175CJ-1",
       "thumbnail_url": "assets/thumbs/grilon3/pla-azul-prusia-600x600-924c7f41.webp",
       "variant": "",
@@ -1325,6 +1409,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3NFLEX PLA+ 23_AZUL PRUSIA 1.75 MM X 1 KG",
@@ -1339,6 +1425,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3nflex-pla-175mm-azul-prusia-48ad2d22.webp",
       "variant": "PLA Flexible",
@@ -1356,6 +1443,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-blanco-2/",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 PLA 850 BLANCO 1.75 MM X 1 KG",
@@ -1370,6 +1459,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M11IBL175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/pla-850-blanco-ml-507ee82e.webp",
       "variant": "PLA 850",
@@ -1387,6 +1477,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "MAXI GRILON3 PLA 850 01_BLANCO 1.75 MM X 2.5 KG",
@@ -1412,6 +1504,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M11IBL175C2",
       "thumbnail_url": "assets/thumbs/grilon3/petg-maxicarrete-blanco1-350x350-006d487d.webp",
       "variant": "PLA 850",
@@ -1429,6 +1522,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 PLA 870 01_BLANCO 1.75 MM X 1 KG",
@@ -1465,6 +1560,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PLA 870",
@@ -1482,6 +1578,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 PLA _01_BLANCO 1.75 MM X 500 GR",
@@ -1518,6 +1616,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "",
@@ -1535,6 +1634,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 PLA 01_G1_BLANCO 1.75 MM X 1 KG",
@@ -1571,6 +1672,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3n3-box-pla-175mm-blanco-x1kg-0b0b107c.webp",
       "variant": "",
@@ -1588,6 +1690,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 PLA 01_G1_BLANCO 1.75 MM X 1 KG",
@@ -1624,6 +1728,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M10IBL175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/pla-blanco-1-600x600-466d0cd2.webp",
       "variant": "",
@@ -1641,8 +1746,11 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/pla-blanco-285/",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "",
@@ -1660,6 +1768,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "MEGAFILL GRILON3 PLA 01_BLANCO 1.75 MM X 4 KG",
@@ -1696,6 +1806,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M10IBL175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/pla-blanco-1-600x600-466d0cd2.webp",
       "variant": "",
@@ -1713,6 +1824,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3NFLEX PLA+ 01_BLANCO 1.75 MM X 1 KG",
@@ -1727,6 +1840,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3nflex-pla-175mm-blanco-2c1c1d1b.webp",
       "variant": "PLA Flexible",
@@ -1744,6 +1858,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3NMAX PLA+ SE 01_BLANCO 1.75 MM X 750G",
@@ -1780,6 +1896,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PLA+",
@@ -1797,6 +1914,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3NMAX PLA+ 01_BLANCO 1.75 MM X 1 KG",
@@ -1822,6 +1941,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3nmax-pla-blanco-175mm-x1kg-33057e11.webp",
       "variant": "PLA+",
@@ -1839,6 +1959,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 PLA PRO HYPER 01_BLANCO 1.75 MM X 1 KG",
@@ -1864,6 +1986,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "Pro",
@@ -1881,6 +2004,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "NUEVO MAXI GRILON3 PLA PRO HYPER 01_BLANCO 1.75 MM X 2.5 KG",
@@ -1895,6 +2020,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "Pro",
@@ -1912,6 +2038,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "silk",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 SILK BLANCO PERLA 1.75 MM X 1 KG",
@@ -1948,6 +2076,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M10IGE175CJ-1-2",
       "thumbnail_url": "",
       "variant": "PLA Silk",
@@ -1965,6 +2094,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "silk",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 SILK BLANCO PERLA 1.75 MM X 17 M",
@@ -1979,6 +2110,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PLA Silk",
@@ -1996,6 +2128,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 PLA 850 BORDO 1.75 MM X 1 KG",
@@ -2010,6 +2144,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PLA 850",
@@ -2027,6 +2162,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 PLA 870 17_BORDO 1.75 MM X 1 KG",
@@ -2063,6 +2200,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PLA 870",
@@ -2080,6 +2218,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 PLA 17_BORDO 1.75 MM X 1 KG",
@@ -2116,6 +2256,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M15IBO175CJ",
       "thumbnail_url": "",
       "variant": "",
@@ -2133,6 +2274,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 PLA PRO HYPER 17_BORDO 1.75 MM X 1 KG",
@@ -2158,6 +2301,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "Pro",
@@ -2175,6 +2319,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 PLA 850 BRONCE 1.75 MM X 1 KG",
@@ -2189,6 +2335,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M11IBR175C2",
       "thumbnail_url": "",
       "variant": "PLA 850",
@@ -2206,6 +2353,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "MAXI GRILON3 PLA 850 14_BRONCE 1.75 MM X 2.5 KG",
@@ -2231,6 +2380,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M11IBR175C2",
       "thumbnail_url": "",
       "variant": "PLA 850",
@@ -2248,6 +2398,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 PLA _14_BRONCE 1.75 MM X 500 GR",
@@ -2284,6 +2436,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "",
@@ -2301,6 +2454,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 PLA 14_BRONCE 1.75 MM X 1 KG",
@@ -2337,6 +2492,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3n3-box-pla-175mm-bronce-x1kg-da93c066.webp",
       "variant": "",
@@ -2354,6 +2510,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 PLA 14_BRONCE 1.75 MM X 1 KG",
@@ -2390,6 +2548,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M11IBR175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/pla-850-bronce-600x600-4a74034e.webp",
       "variant": "",
@@ -2407,6 +2566,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3nFLEX PLA+ BRONCE 1.75 X 1 KG",
@@ -2432,6 +2593,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PLA Flexible",
@@ -2449,6 +2611,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3NMAX PLA+ SE 14_BRONCE 1.75 MM X 750G",
@@ -2485,6 +2649,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PLA+",
@@ -2502,6 +2667,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3NMAX PLA+ 14_BRONCE 1.75 MM X 1 KG",
@@ -2527,6 +2694,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3nmax-pla-bronce-175mm-x1kg-8a7facdd.webp",
       "variant": "PLA+",
@@ -2544,6 +2712,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 PLA PRO HYPER 14_BRONCE 1.75 MM X 1 KG",
@@ -2569,6 +2739,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "Pro",
@@ -2586,6 +2757,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "NUEVO MAXI GRILON3 PLA PRO HYPER 14_BRONCE 1.75 MM X 2.5 KG",
@@ -2600,6 +2773,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "Pro",
@@ -2617,6 +2791,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "glitter",
+      "material_swatch_url": "assets/material-swatches/pantone-320-c-glitter-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 ASTRA CALIPSO 1.75 MM X 1 KG",
@@ -2653,6 +2829,7 @@
         }
       ],
       "pantone": "Pantone 320",
+      "pantone_hex": "#009CA6",
       "sku": "M22ICA175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/astra-calipso-web-600x600-ea3a0024.webp",
       "variant": "PLA Astra",
@@ -2670,6 +2847,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "glitter",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 ASTRA CALIPSO 1.75 MM X 17 M",
@@ -2684,6 +2863,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PLA Astra",
@@ -2701,6 +2881,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "wood",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 PLA WOOD CAOBA 1.75 MM X 1 KG",
@@ -2737,6 +2919,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M20ICA175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/wood-caoba-1-600x600-0cb08d3d.webp",
       "variant": "PLA Wood",
@@ -2754,6 +2937,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "wood",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 PLA WOOD CAOBA 1.75 MM X 17 M",
@@ -2768,6 +2953,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PLA Wood",
@@ -2785,6 +2971,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 BOUTIQUE 02_CARBON.75 MM X 1 KG",
@@ -2821,6 +3009,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M17ICB175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/pla-boutique-carbon-1-600x600-d61e6f92.webp",
       "variant": "PLA Boutique",
@@ -2838,6 +3027,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 BOUTIQUE 07_CARIBE 1.75 MM X 1 KG",
@@ -2874,6 +3065,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M17ICA175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/pla-boutique-caribe-1-600x600-f0aa3711.webp",
       "variant": "PLA Boutique",
@@ -2891,6 +3083,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/pla-carpincho-serie-limitada/",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-7510-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 PLA 920_SL_CARPINCHO 1.75 MM X 1 KG",
@@ -2927,6 +3121,7 @@
         }
       ],
       "pantone": "Pantone 7510",
+      "pantone_hex": "#C6893F",
       "sku": "M10ICA175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/pla-carpincho-web-277f0647.webp",
       "variant": "",
@@ -2944,6 +3139,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 PLA _13_CELESTE 1.75 MM X 500 GR",
@@ -2980,6 +3177,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "",
@@ -2997,6 +3195,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 PLA 13_CELESTE 1.75 MM X 1 KG",
@@ -3033,6 +3233,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3n3-box-pla-175mm-celeste-x1kg-b600d95c.webp",
       "variant": "",
@@ -3050,6 +3251,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-2925-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 PLA 13_CELESTE 1.75 MM X 1 KG",
@@ -3086,6 +3289,7 @@
         }
       ],
       "pantone": "Pantone 2925",
+      "pantone_hex": "#009CDE",
       "sku": "M10ICE175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/pla-celeste-600x600-e8f3c4bd.webp",
       "variant": "",
@@ -3103,6 +3307,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3NMAX PLA+ SE 13_CELESTE 1.75 MM X 750G",
@@ -3139,6 +3345,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PLA+",
@@ -3156,6 +3363,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3NMAX PLA+ 13_CELESTE 1.75 MM X 1 KG",
@@ -3181,6 +3390,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3nmax-pla-celeste-175mm-x1kg-d5137688.webp",
       "variant": "PLA+",
@@ -3198,6 +3408,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "wood",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 PLA WOOD CEREZO 1.75 MM X 1 KG",
@@ -3234,6 +3446,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M20ICE175CJ",
       "thumbnail_url": "",
       "variant": "PLA Wood",
@@ -3251,6 +3464,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "wood",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 PLA WOOD CEREZO 1.75 MM X 17 M",
@@ -3265,6 +3480,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PLA Wood",
@@ -3282,6 +3498,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 BOUTIQUE 31_CHOCOLATE 1.75 MM X 1 KG",
@@ -3318,6 +3536,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M17ICH175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/pla-boutique-chocolate-1-600x600-2615c921.webp",
       "variant": "PLA Boutique",
@@ -3335,6 +3554,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3NMAX PLA+ SE 25_CHOCOLATE 1.75 MM X 750G",
@@ -3371,6 +3592,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PLA+",
@@ -3388,6 +3610,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3NMAX PLA+ 25_CHOCOLATE 1.75 MM X 1 KG",
@@ -3413,6 +3637,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3nmax-pla-chocolate-175mm-x1kg-4bc27edd.webp",
       "variant": "PLA+",
@@ -3430,6 +3655,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "translucent",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 ZETA CLEAR CRISTAL 1.75 MM X 1 KG",
@@ -3466,6 +3693,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PLA Zeta",
@@ -3483,6 +3711,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 PLA 15_COBRE 1.75 MM X 1 KG",
@@ -3519,6 +3749,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3n3-box-pla-175mm-cobre-x1kg-40b8a334.webp",
       "variant": "",
@@ -3536,6 +3767,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-160-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 PLA 15_COBRE 1.75 MM X 1 KG",
@@ -3572,6 +3805,7 @@
         }
       ],
       "pantone": "Pantone 160",
+      "pantone_hex": "#A1561C",
       "sku": "M10ICO175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/pla-cobre-600x600-cda8b5b5.webp",
       "variant": "",
@@ -3589,6 +3823,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "silk",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 SILK COBRE 1.75 MM X 1 KG",
@@ -3625,6 +3861,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M10IGE175CJ-1-3-2",
       "thumbnail_url": "assets/thumbs/grilon3/silk-cobre-600x600-f42df4ff.webp",
       "variant": "PLA Silk",
@@ -3642,6 +3879,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "silk",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 SILK COBRE 1.75 MM X 17 M",
@@ -3656,6 +3895,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PLA Silk",
@@ -3673,6 +3913,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 BOUTIQUE 16_CREMA DEL CIELO 1.75 MM X 1 KG",
@@ -3709,6 +3951,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M17ICI175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/pla-boutique-cremadelcielo-1-600x600-1e9b96ca.webp",
       "variant": "PLA Boutique",
@@ -3726,6 +3969,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "glitter",
+      "material_swatch_url": "assets/material-swatches/pantone-419-c-glitter-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 ASTRA DARK 1.75 MM X 1 KG",
@@ -3762,6 +4007,7 @@
         }
       ],
       "pantone": "Pantone 419",
+      "pantone_hex": "#212322",
       "sku": "M22IDA175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/astra-dark3-600x600-15bb7915.webp",
       "variant": "PLA Astra",
@@ -3779,6 +4025,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "glitter",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 ASTRA DARK 1.75 MM X 17 M",
@@ -3793,6 +4041,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PLA Astra",
@@ -3810,6 +4059,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-143-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 PLA 24_DORADO 1.75 MM X 1 KG",
@@ -3846,6 +4097,7 @@
         }
       ],
       "pantone": "Pantone 143",
+      "pantone_hex": "#F1B434",
       "sku": "M10IDO175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/pla-dorado-600x600-6888bb8e.webp",
       "variant": "",
@@ -3863,6 +4115,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "silk",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 SILK DORADO 1.75 MM X 1 KG",
@@ -3899,6 +4153,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M10IGE175CJ-1",
       "thumbnail_url": "assets/thumbs/grilon3/silk-dorado-600x600-1e261111.webp",
       "variant": "PLA Silk",
@@ -3916,6 +4171,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "silk",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 SILK DORADO 1.75 MM X 17 M",
@@ -3930,6 +4187,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PLA Silk",
@@ -3947,6 +4205,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 BOUTIQUE 14_DULCE DE LECHE 1.75 MM X 1 KG",
@@ -3983,6 +4243,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M17IDL175CJ",
       "thumbnail_url": "",
       "variant": "PLA Boutique",
@@ -4000,6 +4261,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 BOUTIQUE 18_ESMERALDA 1.75 MM X 1 KG",
@@ -4036,6 +4299,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M17IES175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/pla-boutique-esmeralda-1-600x600-b3c267b2.webp",
       "variant": "PLA Boutique",
@@ -4053,6 +4317,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 BOUTIQUE 10_FRUTILLA 1.75 MM X 1 KG",
@@ -4089,6 +4355,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M17IFR175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/pla-boutique-frutilla-1-600x600-1f3e53ed.webp",
       "variant": "PLA Boutique",
@@ -4106,6 +4373,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 PLA _10_FUCSIA 1.75 MM X 500 GR",
@@ -4142,6 +4411,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "",
@@ -4159,6 +4429,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 PLA 10_FUCSIA 1.75 MM X 1 KG",
@@ -4195,6 +4467,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3n3-box-pla-175mm-fucsia-x1kg-91ca98b0.webp",
       "variant": "",
@@ -4212,6 +4485,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-232-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 PLA 10_FUCSIA 1.75 MM X 1 KG",
@@ -4248,6 +4523,7 @@
         }
       ],
       "pantone": "Pantone 232",
+      "pantone_hex": "#E93CAC",
       "sku": "M10IFU175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/pla-fucsia-600x600-a51838d0.webp",
       "variant": "",
@@ -4265,6 +4541,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 PLA 23_GRIS ACERO 1.75 MM X 1 KG",
@@ -4301,6 +4579,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3n3-box-pla-175mm-gris-acero-x1kg-1cc0630f.webp",
       "variant": "",
@@ -4318,6 +4597,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-cool-gray-3-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 PLA 22_G1_GRIS ESPACIAL 1.75 MM X 1 KG",
@@ -4354,6 +4635,7 @@
         }
       ],
       "pantone": "Pantone Cool Gray 3",
+      "pantone_hex": "#C8C9C7",
       "sku": "M10IGE175CJ",
       "thumbnail_url": "",
       "variant": "",
@@ -4371,6 +4653,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-gris-plata-2/",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 PLA 850 GRIS PLATA 1.75 MM X 1 KG",
@@ -4385,6 +4669,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M11IGR175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/pla-850-grisplata2-537a11d1.webp",
       "variant": "PLA 850",
@@ -4402,6 +4687,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "MAXI GRILON3 PLA 850 04_GRIS PLATA 1.75 MM X 2.5 KG",
@@ -4427,6 +4714,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M11IGR175C2",
       "thumbnail_url": "",
       "variant": "PLA 850",
@@ -4444,6 +4732,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 PLA 870 04_GRIS PLATA 1.75 MM X 1 KG",
@@ -4480,6 +4770,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PLA 870",
@@ -4497,6 +4788,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-gris-plata/",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-cool-gray-9-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 PLA 04_G1_GRIS PLATA 1.75 MM X 1 KG",
@@ -4533,6 +4826,7 @@
         }
       ],
       "pantone": "Pantone Cool Gray 9",
+      "pantone_hex": "#75787B",
       "sku": "M10IGR175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/pla-grisplata-8aa114c1.webp",
       "variant": "",
@@ -4550,8 +4844,11 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/pla-gris-plata-285/",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "",
@@ -4569,6 +4866,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-cool-gray-9-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "MEGAFILL GRILON3 PLA 04_GRIS PLATA 1.75 MM X 4 KG",
@@ -4605,6 +4904,7 @@
         }
       ],
       "pantone": "Pantone Cool Gray 9",
+      "pantone_hex": "#75787B",
       "sku": "M10IGR175C4",
       "thumbnail_url": "assets/thumbs/grilon3/megafill-grisplata2-600x600-500a9452.webp",
       "variant": "",
@@ -4622,6 +4922,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 PLA PRO HYPER 04_GRIS PLATA 1.75 MM X 1 KG",
@@ -4647,6 +4949,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "Pro",
@@ -4664,6 +4967,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "NUEVO MAXI GRILON3 PLA PRO HYPER 04_GRIS PLATA 1.75 MM X 2.5 KG",
@@ -4678,6 +4983,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "Pro",
@@ -4695,6 +5001,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3NFLEX PLA+ 04_GRIS PLOMO 1.75 MM X 1 KG",
@@ -4709,6 +5017,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3nflex-pla-175mm-gris-plomo-9a5dbeb4.webp",
       "variant": "PLA Flexible",
@@ -4726,6 +5035,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 PLA _04_GRIS PLOMO 1.75 MM X 500 GR",
@@ -4762,6 +5073,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "",
@@ -4779,6 +5091,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 PLA 04_G1_GRIS PLOMO 1.75 MM X 1 KG",
@@ -4815,6 +5129,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3n3-box-pla-175mm-gris-plomo-x1kg-659de7e6.webp",
       "variant": "",
@@ -4832,6 +5147,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3NMAX PLA+ SE 04_GRIS PLOMO 1.75 MM X 750G",
@@ -4868,6 +5185,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PLA+",
@@ -4885,6 +5203,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3NMAX PLA+ 04_GRIS PLOMO 1.75 MM X 1 KG",
@@ -4910,6 +5230,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3nmax-pla-gris-plomo-175mm-x1kg-e6a01240.webp",
       "variant": "PLA+",
@@ -4927,6 +5248,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 PLA 31_HABANO 1.75 MM X 1 KG",
@@ -4963,6 +5286,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3n3-box-pla-175mm-habano-x1kg-c708350f.webp",
       "variant": "",
@@ -4980,6 +5304,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 PLA 32_HUESO 1.75 MM X 1 KG",
@@ -5016,6 +5342,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3n3-box-pla-175mm-hueso-x1kg-15d0200c.webp",
       "variant": "",
@@ -5033,6 +5360,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "glitter",
+      "material_swatch_url": "assets/material-swatches/pantone-3305-c-glitter-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 ASTRA JADE 1.75 MM X 1 KG",
@@ -5069,6 +5398,7 @@
         }
       ],
       "pantone": "Pantone 3305",
+      "pantone_hex": "#004E42",
       "sku": "M22IJA175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/astra-jade3-600x600-30d4d015.webp",
       "variant": "PLA Astra",
@@ -5086,6 +5416,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "glitter",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 ASTRA JADE 1.75 MM X 17 M",
@@ -5100,6 +5432,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PLA Astra",
@@ -5117,6 +5450,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "KIT LAPIZ 3D GRILON3 PLA 10 COLORES 10M POR COLOR (100M)",
@@ -5142,6 +5477,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "",
@@ -5159,6 +5495,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "KIT LAPIZ 3D GRILON3 PLA 20 COLORES 10M POR COLOR (200M)",
@@ -5184,6 +5522,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "",
@@ -5201,6 +5540,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 BOUTIQUE 11_LAVANDA 1.75 MM X 1 KG",
@@ -5237,6 +5578,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M17ILA175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/pla-boutique-lavanda-1-600x600-6f3b8c95.webp",
       "variant": "PLA Boutique",
@@ -5254,6 +5596,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3NMAX PLA+ SE 11_LILA 1.75 MM X 750G",
@@ -5290,6 +5634,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PLA+",
@@ -5307,6 +5652,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3NMAX PLA+ 11_LILA 1.75 MM X 1 KG",
@@ -5332,6 +5679,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3nmax-pla-lila-175mm-x1kg-d5c1e606.webp",
       "variant": "PLA+",
@@ -5349,6 +5697,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/pla-magenta/",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-226-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 PLA 25_MAGENTA FLUO 1.75 MM X 1 KG",
@@ -5385,6 +5735,7 @@
         }
       ],
       "pantone": "Pantone 226",
+      "pantone_hex": "#D0006F",
       "sku": "M10IMF175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/pla-magenta-880128a2.webp",
       "variant": "",
@@ -5402,6 +5753,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3nFLEX  PLA+ NARANJA 1.75 X KG",
@@ -5427,6 +5780,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3nflex-pla-175mm-naranja-8823032b.webp",
       "variant": "PLA Flexible",
@@ -5444,6 +5798,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 PLA _09_NARANJA 1.75 MM X 500 GR",
@@ -5480,6 +5836,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "",
@@ -5497,6 +5854,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 PLA 09_NARANJA 1.75 MM X 1 KG",
@@ -5533,6 +5892,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3n3-box-pla-175mm-naranja-x1kg-52dcea6a.webp",
       "variant": "",
@@ -5550,6 +5910,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3NMAX PLA+ SE 09_NARANJA 1.75 MM X 750G",
@@ -5586,6 +5948,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PLA+",
@@ -5603,6 +5966,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3NMAX PLA+ 09_NARANJA 1.75 MM X 1 KG",
@@ -5628,6 +5993,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3nmax-pla-naranja-175mm-x1kg-6857962c.webp",
       "variant": "PLA+",
@@ -5645,6 +6011,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-172-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 PLA 09_NARANJA FLUO 1.75 MM X 1 KG",
@@ -5681,6 +6049,7 @@
         }
       ],
       "pantone": "Pantone 172",
+      "pantone_hex": "#FA4616",
       "sku": "M10INF175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/pla-naranja-fluo-600x600-d033d93e.webp",
       "variant": "",
@@ -5698,6 +6067,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "NUEVO GRILON3 PLA PRO HYPER 09_NARANJA FLUO 1.75 MM X 1 KG",
@@ -5712,6 +6083,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "Pro",
@@ -5729,6 +6101,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "fluorescent",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 PLA 850 NARANJA UV GLOW 1.75 MM X 1 KG",
@@ -5743,6 +6117,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PLA 850",
@@ -5760,6 +6135,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "fluorescent",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 PLA PRO HYPER 09_NARANJA UV GLOW 1.75 MM X 1 KG",
@@ -5774,6 +6151,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "Pro",
@@ -5791,6 +6169,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 PLA 870 03_NATURAL 1.75 MM X 1 KG",
@@ -5827,6 +6207,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PLA 870",
@@ -5844,6 +6225,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 PLA 03_NATURAL 1.75 MM X 1 KG",
@@ -5880,6 +6263,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3n3-box-pla-175mm-natural-x1kg-88e72d4f.webp",
       "variant": "",
@@ -5897,6 +6281,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-natural/",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 PLA 03_NATURAL 1.75 MM X 1 KG",
@@ -5933,6 +6319,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M10INT175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/pla-natural-5ccd971a.webp",
       "variant": "",
@@ -5950,6 +6337,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "glitter",
+      "material_swatch_url": "assets/material-swatches/pantone-violet-c-glitter-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 ASTRA NEBULA 1.75 MM X 1 KG",
@@ -5986,6 +6375,7 @@
         }
       ],
       "pantone": "Pantone Violet",
+      "pantone_hex": "#440099",
       "sku": "M22INE175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/astra-nebula3-600x600-6cfd46bb.webp",
       "variant": "PLA Astra",
@@ -6003,6 +6393,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "glitter",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 ASTRA NEBULA 1.75 MM X 17 M",
@@ -6017,6 +6409,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PLA Astra",
@@ -6034,6 +6427,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-negro/",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 PLA 850 NEGRO 1.75 MM X 1 KG",
@@ -6048,6 +6443,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M11ING175C",
       "thumbnail_url": "assets/thumbs/grilon3/pla-850-negro-ml-bffee702.webp",
       "variant": "PLA 850",
@@ -6065,6 +6461,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "MAXI GRILON3 PLA 850 02_NEGRO 1.75 MM X 2.5 KG",
@@ -6090,6 +6488,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M11ING175C2",
       "thumbnail_url": "",
       "variant": "PLA 850",
@@ -6107,6 +6506,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 PLA 870 02_NEGRO 1.75 MM X 1 KG",
@@ -6143,6 +6544,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PLA 870",
@@ -6160,6 +6562,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3nFLEX PLA+  NEGRO 1.75 X 1 KG",
@@ -6185,6 +6589,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3nflex-pla-175mm-negro-94f37f32.webp",
       "variant": "PLA Flexible",
@@ -6202,6 +6607,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 PLA _02_NEGRO 1.75 MM X 500 GR",
@@ -6238,6 +6645,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "",
@@ -6255,6 +6663,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 PLA 02_G1_NEGRO 1.75 MM X 1 KG",
@@ -6291,6 +6701,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3n3-box-pla-175mm-negro-x1kg-3583212a.webp",
       "variant": "",
@@ -6308,6 +6719,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-black-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 PLA 02_G1_NEGRO 1.75 MM X 1 KG",
@@ -6344,6 +6757,7 @@
         }
       ],
       "pantone": "Pantone Black",
+      "pantone_hex": "#2D2926",
       "sku": "M10ING175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/pla-negro-1-600x600-be7e9893.webp",
       "variant": "",
@@ -6361,8 +6775,11 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/pla-negro-285/",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "",
@@ -6380,6 +6797,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-black-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "MEGAFILL GRILON3 PLA 02_NEGRO 1.75 MM X 4 KG",
@@ -6416,6 +6835,7 @@
         }
       ],
       "pantone": "Pantone Black",
+      "pantone_hex": "#2D2926",
       "sku": "M10ING175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/pla-negro-1-600x600-be7e9893.webp",
       "variant": "",
@@ -6433,6 +6853,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3NMAX PLA+ SE 02_NEGRO 1.75 MM X 750G",
@@ -6469,6 +6891,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PLA+",
@@ -6486,6 +6909,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3NMAX PLA+ 02_NEGRO 1.75 MM X 1 KG",
@@ -6511,6 +6936,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3nmax-pla-negro-175mm-x1kg-29b36680.webp",
       "variant": "PLA+",
@@ -6528,6 +6954,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 PLA PRO HYPER 02_NEGRO 1.75 MM X 1 KG",
@@ -6553,6 +6981,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "Pro",
@@ -6570,6 +6999,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "NUEVO MAXI GRILON3 PLA PRO HYPER 02_NEGRO 1.75 MM X 2.5 KG",
@@ -6584,6 +7015,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "Pro",
@@ -6601,6 +7033,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "glitter",
+      "material_swatch_url": "assets/material-swatches/pantone-2747-c-glitter-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 ASTRA NOCHE 1.75 MM X 1 KG",
@@ -6637,6 +7071,7 @@
         }
       ],
       "pantone": "Pantone 2747",
+      "pantone_hex": "#001A72",
       "sku": "M22INO175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/astra-noche3-600x600-7ffb3493.webp",
       "variant": "PLA Astra",
@@ -6654,6 +7089,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "glitter",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 ASTRA NOCHE 1.75 MM X 17 M",
@@ -6668,6 +7105,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PLA Astra",
@@ -6685,6 +7123,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "wood",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 PLA WOOD NOGAL 1.75 MM X 1 KG",
@@ -6721,6 +7161,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M20INO175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/wood-nogal-600x600-5dcc902b.webp",
       "variant": "PLA Wood",
@@ -6738,6 +7179,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "wood",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 PLA WOOD NOGAL 1.75 MM X 17 M",
@@ -6752,6 +7195,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PLA Wood",
@@ -6769,6 +7213,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 PLA 30_ORO 1.75 MM X 1 KG",
@@ -6805,6 +7251,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3n3-box-pla-175mm-oro-x1kg-6a44158b.webp",
       "variant": "",
@@ -6822,6 +7269,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "pearl",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "MEGAFILL GRILON3 BOUTIQUE PERLA 1.75 MM X 4 KG",
@@ -6836,6 +7285,7 @@
         }
       ],
       "pantone": "Pantone Perla",
+      "pantone_hex": "",
       "sku": "M17IPE175C4",
       "thumbnail_url": "",
       "variant": "PLA Boutique",
@@ -6853,6 +7303,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "pearl",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 BOUTIQUE 03_PERLA CÁLIDO 1.75 MM X 1 KG",
@@ -6889,6 +7341,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PLA Boutique",
@@ -6906,6 +7359,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "pearl",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "MEGAFILL GRILON3 BOUTIQUE PERLA CÁLIDO 1.75 MM X 4 KG",
@@ -6920,6 +7375,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PLA Boutique",
@@ -6937,6 +7393,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "pearl",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 BOUTIQUE 04_PERLA FRÍO 1.75 MM X 1 KG",
@@ -6973,6 +7431,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M17IPE175CJ-1",
       "thumbnail_url": "assets/thumbs/grilon3/boutique-perla-frio2-600x600-214e0a5b.webp",
       "variant": "PLA Boutique",
@@ -6990,6 +7449,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "pearl",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "MEGAFILL GRILON3 BOUTIQUE PERLA FRÍO 1.75 MM X 4 KG",
@@ -7004,6 +7465,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M17IPE175CJ-1",
       "thumbnail_url": "assets/thumbs/grilon3/boutique-perla-frio2-600x600-214e0a5b.webp",
       "variant": "PLA Boutique",
@@ -7021,6 +7483,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3NFLEX PLA+ 91_PIEL-162 1.75 MM X 1 KG",
@@ -7035,6 +7499,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3nflex-pla-175mm-piel162-42fb7d30.webp",
       "variant": "PLA Flexible",
@@ -7052,6 +7517,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-piel/",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-162-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 PLA 91_PIEL-162 1.75 MM X 1 KG",
@@ -7088,6 +7555,7 @@
         }
       ],
       "pantone": "Pantone 162",
+      "pantone_hex": "#FFBE9F",
       "sku": "M10IPI175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/pla-piel162-600x600-f83aee7b.webp",
       "variant": "",
@@ -7105,6 +7573,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-162-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "MEGAFILL GRILON3 PLA 91_PIEL-162 1.75 MM X 4 KG",
@@ -7141,6 +7611,7 @@
         }
       ],
       "pantone": "Pantone Piel 162",
+      "pantone_hex": "#FFBE9F",
       "sku": "M10IPI175C4",
       "thumbnail_url": "assets/thumbs/grilon3/megafill-piel2-600x600-3ec73a19.webp",
       "variant": "",
@@ -7158,6 +7629,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3nFLEX  PLA+ PIEL 720 1.75 X KG",
@@ -7183,6 +7656,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3nflex-pla-175mm-piel720-e7e59613.webp",
       "variant": "PLA Flexible",
@@ -7200,6 +7674,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/pla-piel-720/",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-720-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 PLA 92_PIEL-720 1.75 MM X 1 KG",
@@ -7236,6 +7712,7 @@
         }
       ],
       "pantone": "Pantone 720",
+      "pantone_hex": "#E7B78A",
       "sku": "M10IPI175CJ-1",
       "thumbnail_url": "assets/thumbs/grilon3/pla-piel720-600x600-ef75b622.webp",
       "variant": "",
@@ -7253,6 +7730,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/pla-piel-720/",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-720-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "MEGAFILL GRILON3 PLA 92_PIEL-720 1.75 MM X 4 KG",
@@ -7289,6 +7768,7 @@
         }
       ],
       "pantone": "Pantone 720",
+      "pantone_hex": "#E7B78A",
       "sku": "M10IPI175CJ-1",
       "thumbnail_url": "assets/thumbs/grilon3/pla-piel720-600x600-ef75b622.webp",
       "variant": "",
@@ -7306,6 +7786,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "wood",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 PLA WOOD PINO 1.75 MM X 1 KG",
@@ -7342,6 +7824,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M20IPI175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/wood-pino-600x600-77c6580b.webp",
       "variant": "PLA Wood",
@@ -7359,6 +7842,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "wood",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 PLA WOOD PINO 1.75 MM X 17 M",
@@ -7373,6 +7858,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PLA Wood",
@@ -7390,6 +7876,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "silk",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 SILK PLATINO 1.75 MM X 1 KG",
@@ -7426,6 +7914,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M10IGE175CJ-1-3-2-1",
       "thumbnail_url": "assets/thumbs/grilon3/silk-platino-600x600-44b3505a.webp",
       "variant": "PLA Silk",
@@ -7443,6 +7932,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "silk",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 SILK PLATINO 1.75 MM X 17 M",
@@ -7457,6 +7948,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PLA Silk",
@@ -7474,6 +7966,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "glitter",
+      "material_swatch_url": "assets/material-swatches/pantone-200-c-glitter-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 ASTRA ROBY 1.75 MM X 1 KG",
@@ -7510,6 +8004,7 @@
         }
       ],
       "pantone": "Pantone 200",
+      "pantone_hex": "#BA0C2F",
       "sku": "M22IRO175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/astra-roby3-600x600-1d307948.webp",
       "variant": "PLA Astra",
@@ -7527,6 +8022,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "glitter",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 ASTRA ROBY 1.75 MM X 17 M",
@@ -7541,6 +8038,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PLA Astra",
@@ -7558,6 +8056,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-rojo-2/",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 PLA 850 ROJO 1.75 MM X 1 KG",
@@ -7572,6 +8072,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M11IRJ175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/pla-850-rojo2-26d3ca6c.webp",
       "variant": "PLA 850",
@@ -7589,6 +8090,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "MAXI GRILON3 PLA 850 05_ROJO 1.75 MM X 2.5 KG",
@@ -7614,6 +8117,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M11IRJ175C2",
       "thumbnail_url": "",
       "variant": "PLA 850",
@@ -7631,6 +8135,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3nFLEX  PLA+ ROJO 1.75 X KG",
@@ -7656,6 +8162,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3nflex-pla-175mm-rojo-2c15b125.webp",
       "variant": "PLA Flexible",
@@ -7673,6 +8180,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 PLA _05_ROJO 1.75 MM X 500 GR",
@@ -7709,6 +8218,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "",
@@ -7726,6 +8236,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 PLA 05_G1_ROJO 1.75 MM X 1 KG",
@@ -7762,6 +8274,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3n3-box-pla-175mm-rojo-x1kg-656cc556.webp",
       "variant": "",
@@ -7779,6 +8292,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-rojo/",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-485-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 PLA 05_G1_ROJO 1.75 MM X 1 KG",
@@ -7815,6 +8330,7 @@
         }
       ],
       "pantone": "Pantone 485",
+      "pantone_hex": "#DA291C",
       "sku": "M10IRJ175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/pla-rojo-bea352ed.webp",
       "variant": "",
@@ -7832,8 +8348,11 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/pla-rojo-285/",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "",
@@ -7851,6 +8370,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-485-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "MEGAFILL GRILON3 PLA 05_ROJO 1.75 MM X 4 KG",
@@ -7887,6 +8408,7 @@
         }
       ],
       "pantone": "Pantone 485",
+      "pantone_hex": "#DA291C",
       "sku": "M10IRJ175C4",
       "thumbnail_url": "assets/thumbs/grilon3/megafill-rojo2-600x600-5bf500c1.webp",
       "variant": "",
@@ -7904,6 +8426,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3NMAX PLA+ SE 05_ROJO 1.75 MM X 750G",
@@ -7940,6 +8464,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PLA+",
@@ -7957,6 +8482,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3NMAX PLA+ 05_ROJO 1.75 MM X 1 KG",
@@ -7982,6 +8509,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3nmax-pla-rojo-175mm-x1kg-102de89e.webp",
       "variant": "PLA+",
@@ -7999,6 +8527,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 PLA PRO HYPER 05_ROJO 1.75 MM X 1 KG",
@@ -8024,6 +8554,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "Pro",
@@ -8041,6 +8572,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "NUEVO MAXI GRILON3 PLA PRO HYPER 05_ROJO 1.75 MM X 2.5 KG",
@@ -8055,6 +8588,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "Pro",
@@ -8072,6 +8606,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3NFLEX PLA+ 12_ROSA 1.75 MM X 1 KG",
@@ -8086,6 +8622,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3nflex-pla-175mm-rosa-e719dcb1.webp",
       "variant": "PLA Flexible",
@@ -8103,6 +8640,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 PLA 12_ROSA 1.75 MM X 1 KG",
@@ -8139,6 +8678,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3n3-box-pla-175mm-rosa-x1kg-ad11ef2d.webp",
       "variant": "",
@@ -8156,6 +8696,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-211-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 PLA 12_ROSA 1.75 MM X 1 KG",
@@ -8192,6 +8734,7 @@
         }
       ],
       "pantone": "Pantone 211",
+      "pantone_hex": "#F57EB6",
       "sku": "M10IRS175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/pla-rosa-600x600-2bfa7de9.webp",
       "variant": "",
@@ -8209,6 +8752,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3NMAX PLA+ SE 12_ROSA 1.75 MM X 750G",
@@ -8245,6 +8790,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PLA+",
@@ -8262,6 +8808,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3NMAX PLA+ 12_ROSA 1.75 MM X 1 KG",
@@ -8287,6 +8835,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3nmax-pla-rosa-175mm-x1kg-6ada8e67.webp",
       "variant": "PLA+",
@@ -8304,6 +8853,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 BOUTIQUE 05_RUBI 1.75 MM X 1 KG",
@@ -8340,6 +8891,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M17IRU175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/pla-boutique-rubi-600x600-c100a7cf.webp",
       "variant": "PLA Boutique",
@@ -8357,6 +8909,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 PLA 33_RUSTICO 1.75 MM X 1 KG",
@@ -8393,6 +8947,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3n3-box-pla-175mm-rustico-x1kg-ffe00f16.webp",
       "variant": "",
@@ -8410,6 +8965,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 BOUTIQUE 12_SALMON 1.75 MM X 1 KG",
@@ -8446,6 +9003,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M17ISA175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/pla-boutique-salmon-1-600x600-92bcac0e.webp",
       "variant": "PLA Boutique",
@@ -8463,6 +9021,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-7510-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 PLA SERIE LIMITADA",
@@ -8477,6 +9037,7 @@
         }
       ],
       "pantone": "Pantone 7510",
+      "pantone_hex": "#C6893F",
       "sku": "M10ICA175CJ",
       "thumbnail_url": "",
       "variant": "",
@@ -8494,6 +9055,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-turquesa-2/",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 PLA 850 TURQUESA 1.75 MM X 1 KG",
@@ -8508,6 +9071,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M11ITU175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/pla-850-turquesa2-2f51ffde.webp",
       "variant": "PLA 850",
@@ -8525,6 +9089,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 PLA 870 16_TURQUESA 1.75 MM X 1 KG",
@@ -8561,6 +9127,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PLA 870",
@@ -8578,6 +9145,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-turquesa/",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-313-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 PLA 16_TURQUESA 1.75 MM X 1 KG",
@@ -8614,6 +9183,7 @@
         }
       ],
       "pantone": "Pantone 313",
+      "pantone_hex": "#0092BC",
       "sku": "M10ITU175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/pla-turquesa-350x350-cd184f30.webp",
       "variant": "",
@@ -8631,6 +9201,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-313-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "MEGAFILL GRILON3 PLA 16_TURQUESA 1.75 MM X 4 KG",
@@ -8667,6 +9239,7 @@
         }
       ],
       "pantone": "Pantone 313",
+      "pantone_hex": "#0092BC",
       "sku": "M10ITU175C4",
       "thumbnail_url": "assets/thumbs/grilon3/megafill-turquesa2-600x600-7a748bbb.webp",
       "variant": "",
@@ -8684,6 +9257,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 PLA PRO HYPER 16_TURQUESA 1.75 MM X 1 KG",
@@ -8709,6 +9284,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "Pro",
@@ -8726,6 +9302,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "silk",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 SILK TUTTI FRUTTI 1.75 MM X 1 KG",
@@ -8762,6 +9340,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M10IGE175CJ-1-3-2-1-1",
       "thumbnail_url": "assets/thumbs/grilon3/silk-tuttifrutti-600x600-6ec143cf.webp",
       "variant": "PLA Silk",
@@ -8779,6 +9358,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "silk",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 SILK TUTTI FRUTTI 1.75 MM X 17 M",
@@ -8793,6 +9374,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PLA Silk",
@@ -8810,6 +9392,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3NMAX PLA+ UVA 1.75 MM X 750 GR",
@@ -8824,6 +9408,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PLA+",
@@ -8841,6 +9426,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3NMAX PLA+ 24_UVA 1.75 MM X 1 KG",
@@ -8866,6 +9453,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3nmax-pla-uva-175mm-x1kg-a009a4f6.webp",
       "variant": "PLA+",
@@ -8883,6 +9471,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3NFLEX PLA+ 07_VERDE 1.75 MM X 1 KG",
@@ -8897,6 +9487,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3nflex-pla-175mm-verde-53c5ebc8.webp",
       "variant": "PLA Flexible",
@@ -8914,6 +9505,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "silk",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 SILK VERDE 1.75 MM X 1 KG",
@@ -8950,6 +9543,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M10IGE175CJ-1-3",
       "thumbnail_url": "assets/thumbs/grilon3/silk-verde-600x600-69a9d28d.webp",
       "variant": "PLA Silk",
@@ -8967,6 +9561,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "silk",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 SILK VERDE 1.75 MM X 17 M",
@@ -8981,6 +9577,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PLA Silk",
@@ -8998,6 +9595,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 PLA 07_VERDE 1.75 MM X 1 KG",
@@ -9034,6 +9633,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3n3-box-pla-175mm-verde-x1kg-6184cf34.webp",
       "variant": "",
@@ -9051,6 +9651,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-347-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 PLA 07_VERDE 1.75 MM X 1 KG",
@@ -9087,6 +9689,7 @@
         }
       ],
       "pantone": "Pantone 347",
+      "pantone_hex": "#009A44",
       "sku": "M10IVR175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/pla-verde-600x600-d35c2c94.webp",
       "variant": "",
@@ -9104,8 +9707,11 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/pla-verde-285/",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "",
@@ -9123,6 +9729,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3NMAX PLA+ SE 07_VERDE 1.75 MM X 750G",
@@ -9159,6 +9767,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PLA+",
@@ -9176,6 +9785,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3NMAX PLA+ 07_VERDE 1.75 MM X 1 KG",
@@ -9201,6 +9812,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3nmax-pla-verde-175mm-x1kg-66f95ee9.webp",
       "variant": "PLA+",
@@ -9218,6 +9830,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 BOUTIQUE 19_VERDE AVIADOR 1.75 MM X 1 KG",
@@ -9254,6 +9868,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M17IVA175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/pla-boutique-verde-aviador-600x600-c1fedaa9.webp",
       "variant": "PLA Boutique",
@@ -9271,6 +9886,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 PLA _18_VERDE FLUO 1.75 MM X 500 GR",
@@ -9307,6 +9924,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "",
@@ -9324,6 +9942,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 PLA 18_VERDE FLUO 1.75 MM X 1 KG",
@@ -9360,6 +9980,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3n3-box-pla-175mm-verde-fluo-x1kg-afa159bc.webp",
       "variant": "",
@@ -9377,6 +9998,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 PLA 18_VERDE FLUO 1.75 MM X 1 KG",
@@ -9413,6 +10036,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M10IVF175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/pla-verde-fluo-600x600-6e07d19f.webp",
       "variant": "",
@@ -9430,6 +10054,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "NUEVO GRILON3 PLA PRO HYPER 18_VERDE FLUO 1.75 MM X 1 KG",
@@ -9444,6 +10070,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "Pro",
@@ -9461,6 +10088,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3NFLEX PLA+ 19_VERDE MANZANA 1.75 MM X 1 KG",
@@ -9475,6 +10104,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3nflex-pla-175mm-verde-manzana-eb2261e1.webp",
       "variant": "PLA Flexible",
@@ -9492,6 +10122,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-375-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 PLA 19_VERDE MANZANA 1.75 MM X 1 KG",
@@ -9528,6 +10160,7 @@
         }
       ],
       "pantone": "Pantone 375",
+      "pantone_hex": "#97D700",
       "sku": "M10IVM175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/pla-verde-manzana-600x600-ee11e00f.webp",
       "variant": "",
@@ -9545,6 +10178,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "fluorescent",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 PLA 850 VERDE UV GLOW 1.75 MM X 1 KG",
@@ -9559,6 +10194,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PLA 850",
@@ -9576,6 +10212,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "fluorescent",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 PLA PRO HYPER 18_VERDE UV GLOW 1.75 MM X 1 KG",
@@ -9590,6 +10228,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "Pro",
@@ -9607,6 +10246,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 PLA 11_VIOLETA 1.75 MM X 1 KG",
@@ -9643,6 +10284,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3n3-box-pla-175mm-violeta-x1kg-c7214eea.webp",
       "variant": "",
@@ -9660,6 +10302,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-2603-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 PLA 11_VIOLETA 1.75 MM X 1 KG",
@@ -9696,6 +10340,7 @@
         }
       ],
       "pantone": "Pantone 2603",
+      "pantone_hex": "#702082",
       "sku": "M10IVI175CJ",
       "thumbnail_url": "",
       "variant": "",
@@ -9713,6 +10358,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PLA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 BOUTIQUE 08_ZAFIRO 1.75 MM X 1 KG",
@@ -9749,6 +10396,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M17IZA175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/pla-boutique-zafiro-600x600-510fbb0e.webp",
       "variant": "PLA Boutique",
@@ -9766,6 +10414,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "ABS",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-yellow-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 ABS 06_AMARILLO 1.75 MM X 1 KG",
@@ -9802,6 +10452,7 @@
         }
       ],
       "pantone": "Pantone Yellow",
+      "pantone_hex": "#FEDD00",
       "sku": "M09IAM175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/abs-amarillo-350x350-465ea125.webp",
       "variant": "",
@@ -9819,6 +10470,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "ABS",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-286-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 ABS 08_AZUL 1.75 MM X 1 KG",
@@ -9855,6 +10508,7 @@
         }
       ],
       "pantone": "Pantone 286",
+      "pantone_hex": "#0033A0",
       "sku": "M09IAZ175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/abs-azul1-350x350-23dc6e38.webp",
       "variant": "",
@@ -9872,6 +10526,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "ABS",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 ABS 01_BLANCO 1.75 MM X 1 KG",
@@ -9908,6 +10564,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M09IBL175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/abs-blanco-350x350-753a7f8f.webp",
       "variant": "",
@@ -9925,8 +10582,11 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/abs-blanco-285/",
       "material": "ABS",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "",
@@ -9944,6 +10604,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "ABS",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "MAXI GRILON3 ABS BLANCO 1.75 MM X 2.5 KG",
@@ -9980,6 +10642,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M09IBL175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/abs-blanco-350x350-753a7f8f.webp",
       "variant": "",
@@ -9997,6 +10660,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "ABS",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-2385-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 ABS 10_FUCSIA 1.75 MM X 1 KG",
@@ -10033,6 +10698,7 @@
         }
       ],
       "pantone": "Pantone 2385",
+      "pantone_hex": "#D539B5",
       "sku": "M09IFU175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/abs-fucsia1-350x350-5b1c4fdf.webp",
       "variant": "",
@@ -10050,6 +10716,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "ABS",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-cool-gray-9-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 ABS 04_GRIS PLATA 1.75 MM X 1 KG",
@@ -10086,6 +10754,7 @@
         }
       ],
       "pantone": "Pantone Cool Gray 9",
+      "pantone_hex": "#75787B",
       "sku": "M09IGR175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/abs-gris-plata-350x350-e167b618.webp",
       "variant": "",
@@ -10103,6 +10772,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "ABS",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-179-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 ABS 09_NARANJA FLUO 1.75 MM X 1 KG",
@@ -10139,6 +10810,7 @@
         }
       ],
       "pantone": "Pantone 179",
+      "pantone_hex": "#E03C31",
       "sku": "M09INF175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/abs-naranja-fluo1-350x350-1d1a7232.webp",
       "variant": "",
@@ -10156,6 +10828,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "ABS",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 ABS 03_NATURAL 1.75 MM X 1 KG",
@@ -10192,6 +10866,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M09INT175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/abs-natural-350x350-d1e8e6a0.webp",
       "variant": "",
@@ -10209,6 +10884,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "ABS",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-black-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 ABS 02_NEGRO 1.75 MM X 1 KG",
@@ -10245,6 +10922,7 @@
         }
       ],
       "pantone": "Pantone Black",
+      "pantone_hex": "#2D2926",
       "sku": "M09ING175C",
       "thumbnail_url": "assets/thumbs/grilon3/abs-negro-350x350-1ca3d6b8.webp",
       "variant": "",
@@ -10262,8 +10940,11 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/abs-negro-285/",
       "material": "ABS",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "",
@@ -10281,6 +10962,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "ABS",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-black-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "MAXI GRILON3 ABS NEGRO 1.75 MM X 2.5 KG",
@@ -10317,6 +11000,7 @@
         }
       ],
       "pantone": "Pantone Black",
+      "pantone_hex": "#2D2926",
       "sku": "M09ING175C",
       "thumbnail_url": "assets/thumbs/grilon3/abs-negro-350x350-1ca3d6b8.webp",
       "variant": "",
@@ -10334,6 +11018,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "ABS",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-485-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 ABS 05_ROJO 1.75 MM X 1 KG",
@@ -10370,6 +11056,7 @@
         }
       ],
       "pantone": "Pantone 485",
+      "pantone_hex": "#DA291C",
       "sku": "M09IRJ175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/abs-rojo-350x350-70725d3a.webp",
       "variant": "",
@@ -10387,6 +11074,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "ABS",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "MAXI GRILON3 ABS TURQUESA 1.75 MM X 2.5 KG",
@@ -10423,6 +11112,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M09IFU175CJ-1-1-1",
       "thumbnail_url": "assets/thumbs/grilon3/abs-maxicarrete-turquesa-web-600x600-939ad319.webp",
       "variant": "",
@@ -10440,6 +11130,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "ABS",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-347-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 ABS 07_VERDE 1.75 MM X 1 KG",
@@ -10476,6 +11168,7 @@
         }
       ],
       "pantone": "Pantone 347",
+      "pantone_hex": "#009A44",
       "sku": "M09IVR175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/abs-verde-350x350-7c9296f6.webp",
       "variant": "",
@@ -10493,6 +11186,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "ASA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 ASA 01_BLANCO 1.75 MM X 17 M",
@@ -10507,6 +11202,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "",
@@ -10524,6 +11220,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "ASA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 ASA 02_NEGRO 1.75 MM X 17 M",
@@ -10538,6 +11236,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "",
@@ -10555,6 +11254,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-acetal-blanco/",
       "material": "Acetal",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 ACETAL-POM 01_BLANCO 1.75 MM X 1 KG",
@@ -10591,6 +11292,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M03IBL175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/acetal-blanco-600x600-2e8a15e2.webp",
       "variant": "Acetal-POM",
@@ -10608,6 +11310,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-acetal-gris-acero/",
       "material": "Acetal",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 ACETAL-POM 23_GRIS ACERO 1.75 MM X 1 KG",
@@ -10644,6 +11348,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M03IGA175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/acetal-gris-acero-600x600-a5e5adcf.webp",
       "variant": "Acetal-POM",
@@ -10661,6 +11366,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "Acetal",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 ACETAL-POM 23_GRIS ACERO 1.75 MM X 17 M",
@@ -10675,6 +11382,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "Acetal-POM",
@@ -10692,6 +11400,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/categoria-producto/tecnicos/acetal/",
       "material": "Acetal",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 ACETAL-POM 04_GRIS PLATA 1.75 MM X 1 KG",
@@ -10728,6 +11438,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "Acetal-POM",
@@ -10745,6 +11456,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "Acetal",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 ACETAL-POM 04_GRIS PLATA 1.75 MM X 17 M",
@@ -10759,6 +11472,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "Acetal-POM",
@@ -10776,6 +11490,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-acetal-negro/",
       "material": "Acetal",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 ACETAL-POM 02_NEGRO 1.75 MM X 1 KG",
@@ -10812,6 +11528,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M03ING175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/acetal-negro-600x600-d3d3df13.webp",
       "variant": "Acetal-POM",
@@ -10829,6 +11546,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "Acetal",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 ACETAL-POM 02_NEGRO 1.75 MM X 17 M",
@@ -10843,6 +11562,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "Acetal-POM",
@@ -10860,6 +11580,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-acetal-rojo/",
       "material": "Acetal",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 ACETAL-POM 05_ROJO 1.75 MM X 1 KG",
@@ -10896,6 +11618,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M03IRJ175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/acetal-rojo-600x600-ccbd8868.webp",
       "variant": "Acetal-POM",
@@ -10913,6 +11636,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "Acetal",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 ACETAL-POM 05_ROJO 1.75 MM X 17 M",
@@ -10927,6 +11652,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "Acetal-POM",
@@ -10944,6 +11670,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "HIPS",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-286-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 HIPS AZUL 1.75 MM X 1 KG",
@@ -10958,6 +11686,7 @@
         }
       ],
       "pantone": "Pantone 286",
+      "pantone_hex": "#0033A0",
       "sku": "M08ING175CJ-2-1",
       "thumbnail_url": "assets/thumbs/grilon3/hips-azul-l1-600x600-02291584.webp",
       "variant": "",
@@ -10975,6 +11704,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "HIPS",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 HIPS 01_BLANCO 1.75 MM X 1 KG",
@@ -11011,6 +11742,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M08IBL175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/hips-blanco1-600x600-e23fd379.webp",
       "variant": "",
@@ -11028,6 +11760,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "HIPS",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 HIPS 03_NATURAL 1.75 MM X 1 KG",
@@ -11064,6 +11798,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M08INT175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/hips-natural1-600x600-ae3fcb41.webp",
       "variant": "",
@@ -11081,6 +11816,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "HIPS",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-black-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 HIPS 02_NEGRO 1.75 MM X 1 KG",
@@ -11117,6 +11854,7 @@
         }
       ],
       "pantone": "Pantone Black",
+      "pantone_hex": "#2D2926",
       "sku": "M08ING175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/hips-negro1-600x600-47f49229.webp",
       "variant": "",
@@ -11134,6 +11872,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "HIPS",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-485-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 HIPS ROJO 1.75 MM X 1 KG",
@@ -11148,6 +11888,7 @@
         }
       ],
       "pantone": "Pantone 485",
+      "pantone_hex": "#DA291C",
       "sku": "M08ING175CJ-2",
       "thumbnail_url": "assets/thumbs/grilon3/hips-rojo1-600x600-3d1ec8b8.webp",
       "variant": "",
@@ -11165,6 +11906,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "HIPS",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-347-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 HIPS VERDE 1.75 MM X 1 KG",
@@ -11179,6 +11922,7 @@
         }
       ],
       "pantone": "Pantone 347",
+      "pantone_hex": "#009A44",
       "sku": "M08ING175CJ-1",
       "thumbnail_url": "assets/thumbs/grilon3/hips-verde1-600x600-753cfdf4.webp",
       "variant": "",
@@ -11196,6 +11940,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "Nylon",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 NYLON12 AZUL 1.75 MM X 1 KG",
@@ -11210,6 +11956,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M12IAZ175CJ",
       "thumbnail_url": "",
       "variant": "Nylon 12",
@@ -11227,6 +11974,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "Nylon",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 NYLON12 08_AZUL 1.75 MM X 17 M",
@@ -11241,6 +11990,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "Nylon 12",
@@ -11258,6 +12008,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "Nylon",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 NYLON12 01_BLANCO 1.75 MM X 1 KG",
@@ -11294,6 +12046,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M12IBL175CJ",
       "thumbnail_url": "",
       "variant": "Nylon 12",
@@ -11311,6 +12064,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "Nylon",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 NYLON12 01_BLANCO 1.75 MM X 17 M",
@@ -11325,6 +12080,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "Nylon 12",
@@ -11342,6 +12098,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "Nylon",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 NYLON6 01_BLANCO 1.75 MM X 1 KG",
@@ -11378,6 +12136,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M01IBL175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/nylon6-blanco-600x600-aabb7d5e.webp",
       "variant": "Nylon 6",
@@ -11395,6 +12154,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "Nylon",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 NYLON6 01_BLANCO 1.75 MM X 17 M",
@@ -11409,6 +12170,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "Nylon 6",
@@ -11426,6 +12188,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "Nylon",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-orange-021-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 NYLON6 09_NARANJA FLUO 1.75 MM X 1 KG",
@@ -11462,6 +12226,7 @@
         }
       ],
       "pantone": "Pantone Orange 021",
+      "pantone_hex": "#FE5000",
       "sku": "M01INF175CJ",
       "thumbnail_url": "",
       "variant": "Nylon 6",
@@ -11479,6 +12244,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "Nylon",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 NYLON6 09_NARANJA FLUO 1.75 MM X 17 M",
@@ -11493,6 +12260,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "Nylon 6",
@@ -11510,6 +12278,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "Nylon",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 NYLON12 03_NATURAL 1.75 MM X 1 KG",
@@ -11546,6 +12316,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M12INT175CJ",
       "thumbnail_url": "",
       "variant": "Nylon 12",
@@ -11563,6 +12334,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "Nylon",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 NYLON12 03_NATURAL 1.75 MM X 17 M",
@@ -11577,6 +12350,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "Nylon 12",
@@ -11594,6 +12368,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "Nylon",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 NYLON6 03_NATURAL 1.75 MM X 1 KG",
@@ -11630,6 +12406,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M01INT175CJ",
       "thumbnail_url": "",
       "variant": "Nylon 6",
@@ -11647,6 +12424,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "Nylon",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 NYLON6 03_NATURAL 1.75 MM X 17 M",
@@ -11661,6 +12440,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "Nylon 6",
@@ -11678,6 +12458,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "Nylon",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 NYLON12 02_NEGRO 1.75 MM X 1 KG",
@@ -11714,6 +12496,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M12ING175CJ",
       "thumbnail_url": "",
       "variant": "Nylon 12",
@@ -11731,6 +12514,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "Nylon",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 NYLON12 02_NEGRO 1.75 MM X 17 M",
@@ -11745,6 +12530,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "Nylon 12",
@@ -11762,6 +12548,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "Nylon",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-black-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 NYLON6 02_NEGRO 1.75 MM X 1 KG",
@@ -11798,6 +12586,7 @@
         }
       ],
       "pantone": "Pantone Black",
+      "pantone_hex": "#2D2926",
       "sku": "M01ING175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/nylon6-negro-600x600-0e56c1d3.webp",
       "variant": "Nylon 6",
@@ -11815,6 +12604,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "Nylon",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 NYLON6 02_NEGRO 1.75 MM X 17 M",
@@ -11829,6 +12620,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "Nylon 6",
@@ -11846,6 +12638,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "Nylon",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 NYLON6 OPTICO 1.75 MM X 1 KG",
@@ -11882,6 +12676,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M01IOT175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/nylon6-optico-600x600-6a56a529.webp",
       "variant": "Nylon 6",
@@ -11899,6 +12694,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "Nylon",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 NYLON6 OPTICO 1.75 MM X 17 M",
@@ -11913,6 +12710,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "Nylon 6",
@@ -11930,6 +12728,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "Nylon",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 NYLON12 TITANIO 1.75 MM X 1 KG",
@@ -11944,6 +12744,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M12ITI175CJ",
       "thumbnail_url": "",
       "variant": "Nylon 12",
@@ -11961,6 +12762,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "Nylon",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 NYLON12 TITANIO 1.75 MM X 17 M",
@@ -11975,6 +12778,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "Nylon 12",
@@ -11992,6 +12796,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "Nylon",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-375-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 NYLON6 18_VERDE FLUO 1.75 MM X 1 KG",
@@ -12028,6 +12834,7 @@
         }
       ],
       "pantone": "Pantone 375",
+      "pantone_hex": "#97D700",
       "sku": "M01IVF175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/nylon6-600x600-3778f508.webp",
       "variant": "Nylon 6",
@@ -12045,6 +12852,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "Nylon",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 NYLON6 18_VERDE FLUO 1.75 MM X 17 M",
@@ -12059,6 +12868,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "Nylon 6",
@@ -12076,6 +12886,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PET",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3nEPET AZUL TRAFUL 1KG",
@@ -12090,6 +12902,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "E-PET",
@@ -12107,6 +12920,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PET",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 EPET AZUL TRAFUL 1.75 MM X 1 KG",
@@ -12121,6 +12936,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3n3-epet-azul-traful-175mm-x1kg-9dab3b84.webp",
       "variant": "E-PET",
@@ -12138,6 +12954,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PET",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3nEPET BLANCO 1KG",
@@ -12152,6 +12970,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "E-PET",
@@ -12169,6 +12988,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PET",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 EPET 01_BLANCO 1.75 MM X 1 KG",
@@ -12183,6 +13004,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3n3-epet-blanco-175mm-x1kg-4978b250.webp",
       "variant": "E-PET",
@@ -12200,6 +13022,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PET",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3nEPET GRIS ESPACIAL 1KG",
@@ -12214,6 +13038,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "E-PET",
@@ -12231,6 +13056,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PET",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 EPET 22_GRIS ESPACIAL 1.75 MM X 1 KG",
@@ -12245,6 +13072,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3n3-epet-gris-espacial-175mm-x1kg-fb59d281.webp",
       "variant": "E-PET",
@@ -12262,6 +13090,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PET",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3nEPET NEGRO 1KG",
@@ -12276,6 +13106,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "E-PET",
@@ -12293,6 +13124,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PET",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 EPET 02_NEGRO 1.75 MM X 1 KG",
@@ -12307,6 +13140,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3n3-epet-negro-175mm-x1kg-dcba0c9e.webp",
       "variant": "E-PET",
@@ -12324,6 +13158,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PET",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3nEPET ROJO CARMIN 1KG",
@@ -12338,6 +13174,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "E-PET",
@@ -12355,6 +13192,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PET",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 EPET ROJO CARMIN 1.75 MM X 1 KG",
@@ -12369,6 +13208,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3n3-epet-rojo-carmin-175mm-x1kg-71790198.webp",
       "variant": "E-PET",
@@ -12386,6 +13226,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PET",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3nEPET VERDE LIMA 1KG",
@@ -12400,6 +13242,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "E-PET",
@@ -12417,6 +13260,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PET",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 EPET VERDE LIMA 1.75 MM X 1 KG",
@@ -12431,6 +13276,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3n3-epet-verde-lima-175mm-x1kg-7eb831e1.webp",
       "variant": "E-PET",
@@ -12448,6 +13294,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PETG",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 PETG 08_AZUL 1.75 MM X 1 KG",
@@ -12484,6 +13332,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3n3-petg-175mm-azul-x1kg-b60940cc.webp",
       "variant": "",
@@ -12501,6 +13350,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PETG",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 PETG 01_BLANCO 1.75 MM X 1 KG",
@@ -12537,6 +13388,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3n3-petg-175mm-blanco-x1kg-dc796345.webp",
       "variant": "",
@@ -12554,6 +13406,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PETG",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 PETG BLANCO 1.75 MM X 1 KG",
@@ -12590,6 +13444,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M77IBL175CJ",
       "thumbnail_url": "",
       "variant": "",
@@ -12607,8 +13462,11 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/petg-blanco-285/",
       "material": "PETG",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "",
@@ -12626,6 +13484,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PETG",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 PETG 01_BLANCO 1.75 MM X 17 M",
@@ -12640,6 +13500,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "",
@@ -12657,6 +13518,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PETG",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "MAXI GRILON3 PETG BLANCO 1.75 MM X 2.5 KG",
@@ -12693,6 +13556,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M77IBL175CJ",
       "thumbnail_url": "",
       "variant": "",
@@ -12710,6 +13574,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PETG",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "MEGAFILL GRILON3 PETG 01_BLANCO 1.75 MM X 4 KG",
@@ -12735,6 +13601,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M77IBL175CJ",
       "thumbnail_url": "",
       "variant": "",
@@ -12752,6 +13619,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PETG",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 PETG 14_BRONCE 1.75 MM X 1 KG",
@@ -12788,6 +13657,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3n3-petg-175mm-bronce-x1kg-28986b25.webp",
       "variant": "",
@@ -12805,6 +13675,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PETG",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-477-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 PETG CHOCOLATE 1.75 MM X 1 KG",
@@ -12841,6 +13713,7 @@
         }
       ],
       "pantone": "Pantone 477",
+      "pantone_hex": "#623B2A",
       "sku": "M77ICH175CJ",
       "thumbnail_url": "",
       "variant": "",
@@ -12858,6 +13731,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PETG",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 PETG 25_CHOCOLATE 1.75 MM X 17 M",
@@ -12872,6 +13747,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "",
@@ -12889,6 +13765,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PETG",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 PETG 86_CLEAR AMARILLO 1.75 MM X 17 M",
@@ -12903,6 +13781,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "",
@@ -12920,6 +13799,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PETG",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-107-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 PETG CLEAR AMARILLO 1.75 MM X 1 KG",
@@ -12956,6 +13837,7 @@
         }
       ],
       "pantone": "Pantone 107",
+      "pantone_hex": "#FBE122",
       "sku": "M77IAM175CJ",
       "thumbnail_url": "",
       "variant": "PETG Clear",
@@ -12973,6 +13855,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PETG",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 PETG 89_CLEAR AMBAR 1.75 MM X 17 M",
@@ -12987,6 +13871,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "",
@@ -13004,6 +13889,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PETG",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-716-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 PETG CLEAR AMBAR 1.75 MM X 1 KG",
@@ -13040,6 +13927,7 @@
         }
       ],
       "pantone": "Pantone 716",
+      "pantone_hex": "#EA7600",
       "sku": "M77IAM175CJ-1",
       "thumbnail_url": "",
       "variant": "PETG Clear",
@@ -13057,6 +13945,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PETG",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 PETG 88_CLEAR AZUL 1.75 MM X 17 M",
@@ -13071,6 +13961,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "",
@@ -13088,6 +13979,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PETG",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-reflex-blue-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 PETG CLEAR AZUL 1.75 MM X 1 KG",
@@ -13124,6 +14017,7 @@
         }
       ],
       "pantone": "Pantone Reflex Blue",
+      "pantone_hex": "#001489",
       "sku": "M77IAZ175CJ",
       "thumbnail_url": "",
       "variant": "PETG Clear",
@@ -13141,6 +14035,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PETG",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-200-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 PETG CLEAR ROJO 1.75 MM X 1 KG",
@@ -13177,6 +14073,7 @@
         }
       ],
       "pantone": "Pantone 200",
+      "pantone_hex": "#BA0C2F",
       "sku": "M77IRJ175CJ",
       "thumbnail_url": "",
       "variant": "PETG Clear",
@@ -13194,6 +14091,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PETG",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 PETG 85_CLEAR ROJO 1.75 MM X 17 M",
@@ -13208,6 +14107,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "",
@@ -13225,6 +14125,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PETG",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-369-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 PETG CLEAR VERDE 1.75 MM X 1 KG",
@@ -13261,6 +14163,7 @@
         }
       ],
       "pantone": "Pantone 369",
+      "pantone_hex": "#64A70B",
       "sku": "M77IVR175CJ",
       "thumbnail_url": "",
       "variant": "PETG Clear",
@@ -13278,6 +14181,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PETG",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 PETG 87_CLEAR VERDE 1.75 MM X 17 M",
@@ -13292,6 +14197,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "",
@@ -13309,6 +14215,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PETG",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "MEGAFILL GRILON3 PETG 87_CLEAR VERDE 1.75 MM X 4 KG",
@@ -13334,6 +14242,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "",
@@ -13351,6 +14260,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PETG",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-432-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 PETG GRIS ACERO 1.75 MM X 1 KG",
@@ -13387,6 +14298,7 @@
         }
       ],
       "pantone": "Pantone 432",
+      "pantone_hex": "#333F48",
       "sku": "M77IGA175CJ",
       "thumbnail_url": "",
       "variant": "",
@@ -13404,6 +14316,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PETG",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 PETG 23_GRIS ACERO 1.75 MM X 17 M",
@@ -13418,6 +14332,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "",
@@ -13435,6 +14350,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PETG",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 PETG 22_GRIS ESPACIAL 1.75 MM X 1 KG",
@@ -13471,6 +14388,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3n3-petg-175mm-gris-espacial-x1kg-76aeec2c.webp",
       "variant": "",
@@ -13488,6 +14406,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PETG",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-cool-gray-10-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 PETG GRIS PLATA 1.75 MM X 1 KG",
@@ -13524,6 +14444,7 @@
         }
       ],
       "pantone": "Pantone Cool Gray 10",
+      "pantone_hex": "#63666A",
       "sku": "M77IGA175CJ-1",
       "thumbnail_url": "",
       "variant": "",
@@ -13541,6 +14462,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PETG",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 PETG 04_GRIS PLATA 1.75 MM X 17 M",
@@ -13555,6 +14478,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "",
@@ -13572,6 +14496,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PETG",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-orange-021-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 PETG NARANJA PRAGA 1.75 MM X 1 KG",
@@ -13608,6 +14534,7 @@
         }
       ],
       "pantone": "Pantone Orange 021",
+      "pantone_hex": "#FE5000",
       "sku": "M77INP175CJ",
       "thumbnail_url": "",
       "variant": "",
@@ -13625,6 +14552,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PETG",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 PETG 09_NARANJA PRAGA 1.75 MM X 17 M",
@@ -13639,6 +14568,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "",
@@ -13656,6 +14586,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PETG",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 PETG NATURAL 1.75 MM X 1 KG",
@@ -13692,6 +14624,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M77INT175CJ",
       "thumbnail_url": "",
       "variant": "",
@@ -13709,6 +14642,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PETG",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 PETG 03_NATURAL 1.75 MM X 17 M",
@@ -13723,6 +14658,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "",
@@ -13740,6 +14676,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PETG",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 PETG 02_NEGRO 1.75 MM X 1 KG",
@@ -13776,6 +14714,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3n3-petg-175mm-negro-x1kg-e6bad019.webp",
       "variant": "",
@@ -13793,6 +14732,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-petg-negro/",
       "material": "PETG",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-black-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 PETG NEGRO 1.75 MM X 1 KG",
@@ -13829,6 +14770,7 @@
         }
       ],
       "pantone": "Pantone Black",
+      "pantone_hex": "#2D2926",
       "sku": "M77ING175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/petg-negro2-8218e01d.webp",
       "variant": "",
@@ -13846,8 +14788,11 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/petg-negro-285/",
       "material": "PETG",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "",
@@ -13865,6 +14810,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PETG",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 PETG 02_NEGRO 1.75 MM X 17 M",
@@ -13879,6 +14826,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "",
@@ -13896,6 +14844,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-petg-negro/",
       "material": "PETG",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-black-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "MAXI GRILON3 PETG NEGRO 1.75 MM X 2.5 KG",
@@ -13932,6 +14882,7 @@
         }
       ],
       "pantone": "Pantone Black",
+      "pantone_hex": "#2D2926",
       "sku": "M77ING175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/petg-negro2-8218e01d.webp",
       "variant": "",
@@ -13949,6 +14900,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-petg-negro/",
       "material": "PETG",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-black-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "MEGAFILL GRILON3 PETG 02_NEGRO 1.75 MM X 4 KG",
@@ -13985,6 +14938,7 @@
         }
       ],
       "pantone": "Pantone Black",
+      "pantone_hex": "#2D2926",
       "sku": "M77ING175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/petg-negro2-8218e01d.webp",
       "variant": "",
@@ -14002,6 +14956,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PETG",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 PETG NOVA 1.75 MM X 1 KG",
@@ -14038,6 +14994,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "",
@@ -14055,6 +15012,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PETG",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 PETG 24_NOVA 1.75 MM X 17 M",
@@ -14069,6 +15028,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "",
@@ -14086,6 +15046,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "PETG",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 PETG 05_ROJO 1.75 MM X 1 KG",
@@ -14122,6 +15084,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "assets/thumbs/filamentos3d/3n3-petg-175mm-rojo-x1kg-f8d83939.webp",
       "variant": "",
@@ -14139,6 +15102,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/pp-t-amarillo/",
       "material": "PP",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 PP-T 06_AMARILLO 1.75 MM X 1 KG",
@@ -14164,6 +15129,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M04IAM175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/ppt-amarillo-67e2e0b9.webp",
       "variant": "PP-T",
@@ -14181,6 +15147,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PP",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 PP-T 06_AMARILLO 1.75 MM X 17 M",
@@ -14195,6 +15163,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PP-T",
@@ -14212,6 +15181,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/pp-t-azul/",
       "material": "PP",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 PP-T 08_AZUL 1.75 MM X 1 KG",
@@ -14248,6 +15219,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M04IAZ175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/ppt-azul-6a5e1c89.webp",
       "variant": "PP-T",
@@ -14265,6 +15237,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PP",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 PP-T 08_AZUL 1.75 MM X 17 M",
@@ -14279,6 +15253,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PP-T",
@@ -14296,6 +15271,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/categoria-producto/tecnicos/pp-t/",
       "material": "PP",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 PP-T 01_BLANCO 1.75 MM X 1 KG",
@@ -14332,6 +15309,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PP-T",
@@ -14349,6 +15327,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PP",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 PP-T 01_BLANCO 1.75 MM X 17 M",
@@ -14363,6 +15343,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PP-T",
@@ -14380,6 +15361,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/categoria-producto/tecnicos/pp-t/",
       "material": "PP",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 PP-T 23_GRIS ACERO 1.75 MM X 1 KG",
@@ -14416,6 +15399,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PP-T",
@@ -14433,6 +15417,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PP",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 PP-T 23_GRIS ACERO 1.75 MM X 17 M",
@@ -14447,6 +15433,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PP-T",
@@ -14464,6 +15451,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/pp-natural/",
       "material": "PP",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 PP-T 03_NATURAL 1.75 MM X 1 KG",
@@ -14500,6 +15489,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M04INT175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/polipropileno1-9cb231ff.webp",
       "variant": "PP-T",
@@ -14517,6 +15507,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PP",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 PP-T 03_NATURAL 1.75 MM X 17 M",
@@ -14531,6 +15523,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PP-T",
@@ -14548,6 +15541,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/categoria-producto/tecnicos/pp-t/",
       "material": "PP",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 PP-T 02_NEGRO 1.75 MM X 1 KG",
@@ -14584,6 +15579,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PP-T",
@@ -14601,6 +15597,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PP",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 PP-T 02_NEGRO 1.75 MM X 17 M",
@@ -14615,6 +15613,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PP-T",
@@ -14632,6 +15631,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/categoria-producto/tecnicos/pp-t/",
       "material": "PP",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 PP-T 05_ROJO 1.75 MM X 1 KG",
@@ -14668,6 +15669,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PP-T",
@@ -14685,6 +15687,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PP",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 PP-T 05_ROJO 1.75 MM X 17 M",
@@ -14699,6 +15703,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PP-T",
@@ -14716,6 +15721,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/pp-t-verde/",
       "material": "PP",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 PP-T 07_VERDE 1.75 MM X 1 KG",
@@ -14741,6 +15748,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M04IVR175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/ppt-verde-77cb9ea8.webp",
       "variant": "PP-T",
@@ -14758,6 +15766,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PP",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 PP-T 07_VERDE 1.75 MM X 17 M",
@@ -14772,6 +15782,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PP-T",
@@ -14789,6 +15800,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "PVA",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 PVA NATURAL 1.75 MM X 500 GR",
@@ -14825,6 +15838,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "PVA Soluble",
@@ -14842,6 +15856,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "TPU",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3nFLEX AZUL500G",
@@ -14856,6 +15872,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "Flex",
@@ -14873,6 +15890,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "TPU",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 TPU 08_AZUL 1.75 MM X 500 GR",
@@ -14887,6 +15906,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "",
@@ -14904,6 +15924,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "TPU",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 TPU 08_AZUL 1.75 MM X KG",
@@ -14940,6 +15962,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "",
@@ -14957,6 +15980,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "TPU",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3nFLEX BLANCO 500G",
@@ -14971,6 +15996,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "Flex",
@@ -14988,6 +16014,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "TPU",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 SIMPLIFLEX 01_BLANCO 1.75 MM X 1 KG",
@@ -15024,6 +16052,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M13IBL175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/simpliflex-blanco-600x600-eff26d67.webp",
       "variant": "Simpliflex",
@@ -15041,6 +16070,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "TPU",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 SIMPLIFLEX 01_BLANCO 1.75 MM X 17 M",
@@ -15055,6 +16086,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "Simpliflex",
@@ -15072,6 +16104,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "TPU",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 TPU 01_BLANCO 1.75 MM X 500 GR",
@@ -15086,6 +16120,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "",
@@ -15103,6 +16138,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "TPU",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 TPU 01_BLANCO 1.75 MM X KG",
@@ -15139,6 +16176,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "",
@@ -15156,6 +16194,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "TPU",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-2925-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 SIMPLIFLEX 13_CELESTE 1.75 MM X 1 KG",
@@ -15192,6 +16232,7 @@
         }
       ],
       "pantone": "Pantone 2925",
+      "pantone_hex": "#009CDE",
       "sku": "M13ICE175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/simpliflex-celeste-600x600-bd049947.webp",
       "variant": "Simpliflex",
@@ -15209,6 +16250,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "TPU",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 SIMPLIFLEX 13_CELESTE 1.75 MM X 17 M",
@@ -15223,6 +16266,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "Simpliflex",
@@ -15240,6 +16284,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "TPU",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3nFLEX GRIS PLOMO 500G",
@@ -15254,6 +16300,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "Flex",
@@ -15271,6 +16318,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "TPU",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 TPU 04_GRIS PLOMO 1.75 MM X 500 GR",
@@ -15285,6 +16334,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "",
@@ -15302,6 +16352,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "TPU",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 TPU 04_GRIS PLOMO 1.75 MM X KG",
@@ -15338,6 +16390,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "",
@@ -15355,6 +16408,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "TPU",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-172-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 SIMPLIFLEX 09_NARANJA 1.75 MM X 1 KG",
@@ -15391,6 +16446,7 @@
         }
       ],
       "pantone": "Pantone 172",
+      "pantone_hex": "#FA4616",
       "sku": "M13INA175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/simpliflex-naranja-600x600-0d42c35b.webp",
       "variant": "Simpliflex",
@@ -15408,6 +16464,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "TPU",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 SIMPLIFLEX 09_NARANJA 1.75 MM X 17 M",
@@ -15422,6 +16480,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "Simpliflex",
@@ -15439,6 +16498,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "TPU",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 SIMPLIFLEX 03_NATURAL 1.75 MM X 1 KG",
@@ -15475,6 +16536,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M13INT175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/simpliflex-natural-600x600-90555472.webp",
       "variant": "Simpliflex",
@@ -15492,6 +16554,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "TPU",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 SIMPLIFLEX 03_NATURAL 1.75 MM X 17 M",
@@ -15506,6 +16570,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "Simpliflex",
@@ -15523,6 +16588,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "TPU",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3nFLEX NEGRO 500G",
@@ -15537,6 +16604,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "Flex",
@@ -15554,6 +16622,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "TPU",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-black-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 SIMPLIFLEX 02_NEGRO 1.75 MM X 1 KG",
@@ -15590,6 +16660,7 @@
         }
       ],
       "pantone": "Pantone Black",
+      "pantone_hex": "#2D2926",
       "sku": "M13ING175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/simpliflex-negro-600x600-d65e3792.webp",
       "variant": "Simpliflex",
@@ -15607,6 +16678,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "TPU",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 SIMPLIFLEX 02_NEGRO 1.75 MM X 17 M",
@@ -15621,6 +16694,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "Simpliflex",
@@ -15638,6 +16712,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "TPU",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 TPU 02_NEGRO 1.75 MM X 500 GR",
@@ -15652,6 +16728,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "",
@@ -15669,6 +16746,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "TPU",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 TPU 02_NEGRO 1.75 MM X KG",
@@ -15705,6 +16784,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "",
@@ -15722,6 +16802,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "TPU",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "GRILON3 SIMPLIFLEX 24_NOVA 1.75 MM X 1 KG",
@@ -15758,6 +16840,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "M13INV175CJ",
       "thumbnail_url": "",
       "variant": "Simpliflex",
@@ -15775,6 +16858,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "TPU",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 SIMPLIFLEX 24_NOVA 1.75 MM X 17 M",
@@ -15789,6 +16874,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "Simpliflex",
@@ -15806,6 +16892,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "TPU",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3nFLEX ROJO 500G",
@@ -15820,6 +16908,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "Flex",
@@ -15837,6 +16926,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "TPU",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 TPU 05_ROJO 1.75 MM X 500 GR",
@@ -15851,6 +16942,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "",
@@ -15868,6 +16960,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "TPU",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 TPU 05_ROJO 1.75 MM X KG",
@@ -15904,6 +16998,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "",
@@ -15921,6 +17016,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "TPU",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3nFLEX VERDE 500G",
@@ -15935,6 +17032,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "Flex",
@@ -15952,6 +17050,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "TPU",
+      "material_finish": "satin",
+      "material_swatch_url": "assets/material-swatches/pantone-347-c-satin-v1.webp",
       "offers": [
         {
           "original_name": "GRILON3 SIMPLIFLEX 07_VERDE 1.75 MM X 1 KG",
@@ -15988,6 +17088,7 @@
         }
       ],
       "pantone": "Pantone 347",
+      "pantone_hex": "#009A44",
       "sku": "M13IVR175CJ",
       "thumbnail_url": "assets/thumbs/grilon3/simpliflex-verde-600x600-b9b2212c.webp",
       "variant": "Simpliflex",
@@ -16005,6 +17106,8 @@
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "",
       "material": "TPU",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "SAMPLER GRILON3 SIMPLIFLEX 07_VERDE 1.75 MM X 17 M",
@@ -16019,6 +17122,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "Simpliflex",
@@ -16036,6 +17140,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "TPU",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 TPU 07_VERDE 1.75 MM X 500 GR",
@@ -16050,6 +17156,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "",
@@ -16067,6 +17174,8 @@
       "manufacturer_name": "3N3",
       "manufacturer_product_url": "",
       "material": "TPU",
+      "material_finish": "satin",
+      "material_swatch_url": "",
       "offers": [
         {
           "original_name": "3N3 TPU 07_VERDE 1.75 MM X KG",
@@ -16092,6 +17201,7 @@
         }
       ],
       "pantone": "",
+      "pantone_hex": "",
       "sku": "",
       "thumbnail_url": "",
       "variant": "",
