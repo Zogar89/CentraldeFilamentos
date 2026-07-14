@@ -3093,9 +3093,21 @@ input {
 
 .summary-table-region {
   min-width: 0;
+}
+
+.summary-action-layout.quote-list-layout-active .summary-table-region {
   overflow-x: auto;
   overscroll-behavior-inline: contain;
   -webkit-overflow-scrolling: touch;
+}
+
+.summary-action-layout.quote-list-layout-active .summary-table thead th {
+  position: static;
+}
+
+.summary-action-layout.quote-list-layout-active .summary-table tbody .summary-group-row th,
+.summary-action-layout.quote-list-layout-active .summary-table tbody .summary-group-row td {
+  position: static;
 }
 
 .summary-product-thumbnail {
@@ -3268,6 +3280,10 @@ input {
 
   .quote-floating-button {
     display: grid;
+  }
+
+  .summary-action-layout.quote-list-layout-active .summary-table-region {
+    overflow-x: visible;
   }
 
   .filters {

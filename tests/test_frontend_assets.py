@@ -550,6 +550,30 @@ def test_summary_reuses_action_workspaces_and_preserves_cell_offer_contract():
     assert ".summary-table-region" in css
 
 
+def test_summary_sticky_headers_are_explicit_across_scroll_modes():
+    css = (SRC / "styles" / "global.css").read_text(encoding="utf-8")
+    base_region = css.split(".summary-table-region {", 1)[1].split("}", 1)[0]
+    quote_scroller = css.split(
+        ".summary-action-layout.quote-list-layout-active .summary-table-region {", 1
+    )[1].split("}", 1)[0]
+    desktop_head = css.split(".summary-table thead th {", 1)[1].split("}", 1)[0]
+    quote_head = css.split(
+        ".summary-action-layout.quote-list-layout-active .summary-table thead th {", 1
+    )[1].split("}", 1)[0]
+    quote_groups = css.split(
+        ".summary-action-layout.quote-list-layout-active .summary-table tbody .summary-group-row th,", 1
+    )[1].split("}", 1)[0]
+    mobile = css.split("@media (max-width: 820px)", 1)[1]
+
+    assert "overflow-x" not in base_region
+    assert "overflow-x: auto" in quote_scroller
+    assert "position: sticky" in desktop_head
+    assert "position: static" in quote_head
+    assert "position: static" in quote_groups
+    assert ".summary-action-layout.quote-list-layout-active .summary-table-region" in mobile
+    assert "overflow-x: visible" in mobile
+
+
 def test_summary_labels_support_current_and_legacy_stock_payloads():
     script = """
       import { finishLabel, lineVariantDisambiguator, subrangeLabel } from "./src/lib/shared.js";
