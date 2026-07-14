@@ -1,26 +1,14 @@
 {
   "events": [
     {
-      "code": "source_error",
-      "level": "error",
-      "message": "Filamentos3D no respondio correctamente. Se conserva la ultima publicacion buena. Se mantiene el ultimo dato bueno de 2026-07-14T13:19:19-03:00."
-    },
-    {
-      "code": "provider_stock_drop",
-      "level": "error",
-      "message": "Filamentos3D tuvo una baja de stock demasiado grande para publicarla automaticamente. Se conserva la publicacion anterior."
+      "code": "publish_ok",
+      "level": "info",
+      "message": "La actualizacion paso los controles y se puede publicar."
     }
   ],
-  "generated_at": "2026-07-14T16:26:18-03:00",
-  "last_good_sources": {
-    "filamentos3d": {
-      "generated_at": "2026-07-14T13:19:19-03:00",
-      "name": "Filamentos3D",
-      "product_count": 323,
-      "total_stock_units": 10310
-    }
-  },
-  "should_publish": false,
-  "status": "blocked",
-  "summary": "Publicacion bloqueada por datos incompletos o sospechosos."
+  "generated_at": "2026-07-14T19:01:47-03:00",
+  "last_good_sources": {},
+  "should_publish": true,
+  "status": "ok",
+  "summary": "Publicacion habilitada. No se detectaron errores criticos."
 }
