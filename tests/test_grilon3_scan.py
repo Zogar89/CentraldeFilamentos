@@ -123,6 +123,9 @@ def test_scan_retains_detail_failure_and_marks_incomplete(monkeypatch):
     payload = scan_grilon3_catalog(max_workers=1)
 
     assert payload["summary"]["detail_success_count"] == 1
+    assert payload["summary"]["detail_initial_error_count"] == 1
+    assert payload["summary"]["detail_retry_attempt_count"] == 1
+    assert payload["summary"]["detail_retry_error_count"] == 1
     assert payload["summary"]["detail_error_count"] == 1
     assert payload["detail_errors"] == [
         {
@@ -135,6 +138,112 @@ def test_scan_retains_detail_failure_and_marks_incomplete(monkeypatch):
     assert failed["gallery_image_urls"] == []
     assert "detail_request_failed" in failed["warnings"]
     assert payload["complete"] is False
+
+
+def test_scan_retries_initial_detail_failure_once_and_uses_recovered_detail(monkeypatch):
+    install_catalog_stubs(monkeypatch, sitemap_extra=False)
+    calls = {ACTIVE_NEGRO_URL: 0, ACTIVE_ROJO_URL: 0}
+
+    def fetch_detail(product_url, timeout_seconds):
+        calls[product_url] += 1
+        if product_url == ACTIVE_ROJO_URL and calls[product_url] == 1:
+            raise RuntimeError("timeout inicial")
+        return detail(product_url, gallery_urls=(f"{product_url}bobina.jpg",))
+
+    monkeypatch.setattr(
+        "centraldefilamentos.grilon3_scan.fetch_grilon3_product_detail",
+        fetch_detail,
+    )
+
+    payload = scan_grilon3_catalog(max_workers=1)
+
+    assert calls == {ACTIVE_NEGRO_URL: 1, ACTIVE_ROJO_URL: 2}
+    assert payload["summary"] == {
+        "active_count": 2,
+        "reported_total": 2,
+        "detail_success_count": 2,
+        "detail_error_count": 0,
+        "detail_initial_error_count": 1,
+        "detail_retry_attempt_count": 1,
+        "detail_retry_success_count": 1,
+        "detail_retry_error_count": 0,
+        "sitemap_count": 2,
+        "sitemap_only_count": 0,
+        "unclassified_sitemap_only_count": 0,
+    }
+    assert payload["detail_errors"] == []
+    assert payload["detail_attempts"] == [
+        {
+            "url": ACTIVE_NEGRO_URL,
+            "attempts": [{"attempt": 1, "status": "success"}],
+        },
+        {
+            "url": ACTIVE_ROJO_URL,
+            "attempts": [
+                {
+                    "attempt": 1,
+                    "status": "error",
+                    "error_type": "RuntimeError",
+                    "message": "timeout inicial",
+                },
+                {"attempt": 2, "status": "success"},
+            ],
+        },
+    ]
+    recovered = next(item for item in payload["products"] if item["product_url"] == ACTIVE_ROJO_URL)
+    assert recovered["gallery_image_urls"] == [f"{ACTIVE_ROJO_URL}bobina.jpg"]
+    assert "detail_request_failed" not in recovered["warnings"]
+    assert payload["complete"] is True
+
+
+def test_scan_never_calls_successful_or_twice_failed_detail_more_than_allowed(monkeypatch):
+    install_catalog_stubs(monkeypatch, sitemap_extra=False)
+    calls = {ACTIVE_NEGRO_URL: 0, ACTIVE_ROJO_URL: 0}
+
+    def fetch_detail(product_url, timeout_seconds):
+        calls[product_url] += 1
+        if product_url == ACTIVE_ROJO_URL:
+            raise RuntimeError(f"fallo {calls[product_url]}")
+        return detail(product_url)
+
+    monkeypatch.setattr(
+        "centraldefilamentos.grilon3_scan.fetch_grilon3_product_detail",
+        fetch_detail,
+    )
+
+    payload = scan_grilon3_catalog(max_workers=1)
+
+    assert calls == {ACTIVE_NEGRO_URL: 1, ACTIVE_ROJO_URL: 2}
+    assert payload["detail_attempts"] == [
+        {
+            "url": ACTIVE_NEGRO_URL,
+            "attempts": [{"attempt": 1, "status": "success"}],
+        },
+        {
+            "url": ACTIVE_ROJO_URL,
+            "attempts": [
+                {
+                    "attempt": 1,
+                    "status": "error",
+                    "error_type": "RuntimeError",
+                    "message": "fallo 1",
+                },
+                {
+                    "attempt": 2,
+                    "status": "error",
+                    "error_type": "RuntimeError",
+                    "message": "fallo 2",
+                },
+            ],
+        },
+    ]
+    assert payload["detail_errors"] == [
+        {
+            "url": ACTIVE_ROJO_URL,
+            "error_type": "RuntimeError",
+            "message": "fallo 2",
+        }
+    ]
 
 
 def test_gallery_fingerprint_is_deterministic_and_order_sensitive(monkeypatch):

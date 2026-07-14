@@ -49,7 +49,7 @@ def scan_grilon3_catalog(
         for url, classification in (sitemap_classifications or {}).items()
     }
 
-    details, detail_errors = _fetch_details(
+    details, detail_errors, detail_attempts = _fetch_details(
         active_by_url,
         timeout_seconds=timeout_seconds,
         max_workers=max_workers,
@@ -100,6 +100,24 @@ def scan_grilon3_catalog(
             "reported_total": reported_total,
             "detail_success_count": detail_success_count,
             "detail_error_count": len(detail_error_records),
+            "detail_initial_error_count": sum(
+                attempts["attempts"][0]["status"] == "error"
+                for attempts in detail_attempts
+            ),
+            "detail_retry_attempt_count": sum(
+                len(attempts["attempts"]) == 2
+                for attempts in detail_attempts
+            ),
+            "detail_retry_success_count": sum(
+                len(attempts["attempts"]) == 2
+                and attempts["attempts"][1]["status"] == "success"
+                for attempts in detail_attempts
+            ),
+            "detail_retry_error_count": sum(
+                len(attempts["attempts"]) == 2
+                and attempts["attempts"][1]["status"] == "error"
+                for attempts in detail_attempts
+            ),
             "sitemap_count": len(sitemap_urls),
             "sitemap_only_count": len(sitemap_only),
             "unclassified_sitemap_only_count": unclassified_count,
@@ -107,6 +125,7 @@ def scan_grilon3_catalog(
         "products": products,
         "sitemap_only": sitemap_only,
         "detail_errors": detail_error_records,
+        "detail_attempts": detail_attempts,
         "warnings": warnings,
         "complete": complete,
     }
@@ -128,25 +147,53 @@ def _fetch_details(
     active_by_url: dict[str, CatalogProduct],
     timeout_seconds: int,
     max_workers: int,
-) -> tuple[dict[str, CatalogProductDetail], dict[str, dict[str, str]]]:
+) -> tuple[
+    dict[str, CatalogProductDetail],
+    dict[str, dict[str, str]],
+    list[dict[str, object]],
+]:
     details: dict[str, CatalogProductDetail] = {}
-    errors: dict[str, dict[str, str]] = {}
-    with ThreadPoolExecutor(max_workers=max_workers) as executor:
-        futures = {
-            executor.submit(fetch_grilon3_product_detail, url, timeout_seconds): url
-            for url in active_by_url
-        }
-        for future in as_completed(futures):
-            url = futures[future]
-            try:
-                details[url] = future.result()
-            except Exception as exc:
-                errors[url] = {
-                    "url": url,
-                    "error_type": type(exc).__name__,
-                    "message": str(exc),
-                }
-    return details, errors
+    attempts: dict[str, list[dict[str, object]]] = {
+        url: [] for url in active_by_url
+    }
+
+    def run_attempt(urls: Sequence[str], attempt_number: int) -> dict[str, dict[str, str]]:
+        errors: dict[str, dict[str, str]] = {}
+        with ThreadPoolExecutor(max_workers=max_workers) as executor:
+            futures = {
+                executor.submit(fetch_grilon3_product_detail, url, timeout_seconds): url
+                for url in urls
+            }
+            for future in as_completed(futures):
+                url = futures[future]
+                try:
+                    details[url] = future.result()
+                except Exception as exc:
+                    error = {
+                        "url": url,
+                        "error_type": type(exc).__name__,
+                        "message": str(exc),
+                    }
+                    errors[url] = error
+                    attempts[url].append({
+                        "attempt": attempt_number,
+                        "status": "error",
+                        "error_type": error["error_type"],
+                        "message": error["message"],
+                    })
+                else:
+                    attempts[url].append({
+                        "attempt": attempt_number,
+                        "status": "success",
+                    })
+        return errors
+
+    initial_errors = run_attempt(sorted(active_by_url), 1)
+    final_errors = run_attempt(sorted(initial_errors), 2) if initial_errors else {}
+    return details, final_errors, [
+        {"url": url, "attempts": attempts[url]}
+        for url in sorted(attempts)
+    ]
 
 
 def _product_payload(
