@@ -10,6 +10,7 @@ from PIL import Image
 from centraldefilamentos.apply_grilon3_curation import (
     apply_grilon3_plan,
     build_apply_plan,
+    official_product_identity,
 )
 from centraldefilamentos.build_data import build_grilon3_enrichments, load_grilon3_metadata
 from centraldefilamentos.cache_grilon3_metadata import grilon3_asset_filename
@@ -259,6 +260,9 @@ def test_dry_run_reports_exact_changes_without_writes_or_downloads(tmp_path, mon
         "asset_changes": plan["asset_changes"],
         "metadata": plan["metadata"],
         "selections": plan["selections"],
+        "page_mappings": plan["page_mappings"],
+        "quarantine": plan["quarantine"],
+        "coverage": plan["coverage"],
     }
     assert sorted(str(path.relative_to(tmp_path)) for path in tmp_path.rglob("*")) == before
 
@@ -547,3 +551,198 @@ def test_build_data_consumes_versioned_approved_metadata_without_scratch(tmp_pat
 
     assert enrichment["sku"] == "SKU-APPROVED"
     assert enrichment["image_url"] == "assets/grilon3/approved.png"
+
+
+AMBIGUOUS_OFFICIAL_PRESENTATIONS = (
+    ("ABS", "", "Blanco", (("abs-blanco-285", "", ("2,85", "ABS 2,85 mm"), 2.85, None), ("filamento-3d-abs-blanco", "M09IBL175CJ", ("Básicos", "ABS"), 1.75, 1000), ("maxicarrete-abs-blanco", "M09IFU175CJ-1", ("Maxicarretes",), 1.75, 2500))),
+    ("ABS", "", "Negro", (("abs-negro-285", "", ("2,85", "ABS 2,85 mm"), 2.85, None), ("abs-negro", "M09ING175C", ("Básicos", "ABS"), 1.75, 1000), ("maxicarrete-abs-negro", "M09IFU175CJ-1-1", ("Maxicarretes",), 1.75, 2500))),
+    ("PETG", "", "Blanco", (("filamento-3d-petg-blanco", "M77IBL175CJ", ("Básicos", "PETG"), 1.75, 1000), ("maxicarrete-petg-blanco", "M77IBL175CJ-1", ("Maxicarrete PETG",), 1.75, 2500), ("petg-blanco-285", "", ("2,85", "PETG 2,85 mm"), 2.85, None), ("petg-blanco-megafill", "M77IBL175C4", ("Megafill", "Megafill PETG"), 1.75, 4000))),
+    ("PETG", "", "Negro", (("filamento-3d-petg-negro", "M77ING175CJ", ("Básicos", "PETG"), 1.75, 1000), ("maxicarrete-petg-negro", "M77IBL175CJ-1-1", ("Maxicarrete PETG",), 1.75, 2500), ("petg-negro-285", "", ("2,85", "PETG 2,85 mm"), 2.85, None), ("petg-negro-megafill", "M77ING175C4", ("Megafill", "Megafill PETG"), 1.75, 4000))),
+    ("PETG", "PETG Clear", "Clear Verde", (("filamento-3d-petg-clear-verde", "M77IVR175CJ", ("Básicos", "PETG"), 1.75, 1000), ("petg-clear-verde-megafill", "M77IVR175C4", ("Megafill", "Megafill PETG"), 1.75, 4000))),
+    *(("PLA", "", color, ((standard, sku, ("PLA",), 1.75, 1000), (mega, sku.replace("CJ", "C4"), ("Megafill", "Megafill PLA"), 1.75, 4000))) for color, standard, mega, sku in (
+        ("Amarillo", "filamento-3d-pla-amarillo", "megafill-pla-amarillo", "M10IAM175CJ"),
+        ("Blanco", "filamento-3d-pla-blanco", "megafill-pla-blanco", "M10IBL175CJ"),
+        ("Piel 162", "filamento-3d-pla-piel", "pla-piel-162-megafill", "M10IPI175CJ"),
+        ("Turquesa", "filamento-3d-pla-turquesa", "megafill-pla-turquesa", "M10ITU175CJ"),
+    )),
+    *(("PLA", "", color, ((standard, sku, ("PLA",), 1.75, 1000), (mega, sku.replace("CJ", "C4"), ("Megafill", "Megafill PLA"), 1.75, 4000), (wide, "", ("2,85", "PLA 2,85 mm"), 2.85, None))) for color, standard, mega, wide, sku in (
+        ("Azul", "filamento-3d-pla-azul", "megafill-pla-azul", "pla-azul-285", "M10IAZ175CJ"),
+        ("Gris Plata", "filamento-3d-pla-gris-plata", "megafill-pla-gris-plata", "pla-gris-plata-285", "M10IGR175CJ"),
+        ("Negro", "filamento-3d-pla-negro-2", "megafill-pla-negro", "pla-negro-285", "M10ING175CJ"),
+        ("Rojo", "filamento-3d-pla-rojo", "megafill-pla-rojo", "pla-rojo-285", "M10IRJ175CJ"),
+    )),
+    ("PLA", "", "Verde", (("filamento-3d-pla-verde", "M10IVR175CJ", ("Básicos",), 1.75, 1000), ("pla-verde-285", "", ("2,85", "PLA 2,85 mm"), 2.85, None))),
+    *(("PLA", "PLA 850", color, ((standard, sku, ("PLA 850",), 1.75, 1000), (maxi, sku.replace("CJ", "C2"), ("Maxicarrete PLA 850",), 1.75, 2500))) for color, standard, maxi, sku in (
+        ("Azul", "filamento-3d-pla-azul-2", "maxicarrete-pla-850-azul", "M11IAZ175CJ"),
+        ("Blanco", "filamento-3d-pla-blanco-2", "maxicarrete-pla-850-blanco", "M11IBL175CJ"),
+        ("Bronce", "filamento-3d-pla-bronce-2", "maxicarrete-pla-850-bronce", "M11IBR175CJ"),
+        ("Gris Plata", "filamento-3d-pla-gris-plata-2", "maxicarrete-pla-850-gris-plata", "M11IGR175CJ"),
+        ("Negro", "filamento-3d-pla-negro", "maxicarrete-pla-850-negro", "M11ING175CJ"),
+        ("Rojo", "filamento-3d-pla-rojo-2", "maxicarrete-pla-850-rojo", "M11IRJ175CJ"),
+    )),
+    ("PLA", "PLA Boutique", "Perla", (("filamento-3d-pla-boutique-perla", "M17IPE175CJ", ("PLA Boutique",), 1.75, 1000), ("pla-boutique-perla-megafill", "M17IPE175C4", ("Megafill", "Megafill PLA Boutique"), 1.75, 4000))),
+)
+
+
+def official_page(material, variant, color, page):
+    slug, sku, category_path, _diameter, _weight = page
+    return product(
+        product_id=f"{slug}-unknown-unknown-grilon3",
+        title=slug.replace("-", " "),
+        product_url=f"https://grilon3.com.ar/producto/{slug}/",
+        material=material,
+        variant=variant,
+        color=color,
+        diameter_mm=None,
+        weight_g=None,
+        brand="Grilon3",
+        manufacturer_name="Grilon3",
+        category_path=list(category_path),
+        sku=sku,
+    )
+
+
+def stock_product(product_id, material, variant, color, diameter, weight):
+    return {
+        "id": product_id,
+        "material": material,
+        "variant": variant,
+        "color": color,
+        "diameter_mm": diameter,
+        "weight_g": weight,
+        "brand": "Grilon3",
+        "manufacturer_name": "Grilon3",
+        "subrange": "",
+        "finish": "",
+    }
+
+
+def test_all_21_ambiguous_commercial_groups_have_distinct_official_presentations():
+    assert len(AMBIGUOUS_OFFICIAL_PRESENTATIONS) == 21
+    for material, variant, color, pages in AMBIGUOUS_OFFICIAL_PRESENTATIONS:
+        actual = []
+        for page in pages:
+            identity = official_product_identity(official_page(material, variant, color, page))
+            actual.append((identity["diameter_mm"], identity["weight_g"]))
+        assert actual == [(page[3], page[4]) for page in pages]
+        assert len(actual) == len(set(actual))
+
+
+def test_official_identity_prefers_285_title_category_over_conflicting_detail_template():
+    page = official_page("PLA", "", "Azul", ("pla-azul-285", "", ("2,85", "PLA 2,85 mm"), 2.85, None))
+    page["diameter_mm"] = 1.75
+
+    identity = official_product_identity(page)
+
+    assert identity["diameter_mm"] == 2.85
+
+
+def test_fanout_maps_only_exact_official_presentations_and_preserves_unproven_285():
+    group = next(group for group in AMBIGUOUS_OFFICIAL_PRESENTATIONS if group[:3] == ("PETG", "", "Blanco"))
+    pages = [official_page(*group[:3], page) for page in group[3]]
+    page_reviews = []
+    for page in pages:
+        page_reviews.append(review(
+            product_url=page["product_url"],
+            selected_image_remote_url=IMAGE_URL,
+            gallery_fingerprint=FINGERPRINT,
+        ))
+    stock = {"products": [
+        stock_product("petg-blanco-175-1000-grilon3", "PETG", "", "Blanco", 1.75, 1000),
+        stock_product("petg-blanco-175-2500-grilon3", "PETG", "", "Blanco", 1.75, 2500),
+        stock_product("petg-blanco-175-4000-grilon3", "PETG", "", "Blanco", 1.75, 4000),
+        stock_product("petg-blanco-285-1000-grilon3", "PETG", "", "Blanco", 2.85, 1000),
+    ]}
+    legacy_285 = {"manufacturer_product_url": "https://grilon3.com.ar/producto/legacy-285/", "sku": "LEGACY-285"}
+
+    plan = build_apply_plan(scan(*pages), reviews(*page_reviews), {}, {"petg-blanco-285-1000-grilon3": legacy_285}, stock=stock)
+
+    mappings = plan["page_mappings"]
+    assert mappings[pages[0]["product_url"]]["product_ids"] == ["petg-blanco-175-1000-grilon3"]
+    assert mappings[pages[1]["product_url"]]["product_ids"] == ["petg-blanco-175-2500-grilon3"]
+    assert mappings[pages[3]["product_url"]]["product_ids"] == ["petg-blanco-175-4000-grilon3"]
+    assert mappings[pages[2]["product_url"]]["status"] == "no_match"
+    assert plan["metadata"]["petg-blanco-285-1000-grilon3"] == legacy_285
+    assert [item["product_url"] for item in plan["quarantine"]] == [pages[2]["product_url"]]
+    assert len(plan["asset_changes"]) == 3
+
+
+def test_fanout_merge_preserves_legacy_and_gate_uses_effective_lookup_semantics():
+    current = {
+        "pla-negro-grilon3": {"manufacturer_product_url": "https://grilon3.com.ar/producto/legacy-negro/", "sku": "LEGACY"},
+        "obsolete-no-stock": {"manufacturer_product_url": "https://grilon3.com.ar/producto/legacy-obsolete/"},
+    }
+    stock = {"products": [
+        stock_product("pla-negro-175-1000-grilon3", "PLA", "", "Negro", 1.75, 1000),
+    ]}
+    official = product(
+        product_id="pla-negro-unknown-unknown-grilon3",
+        title="PLA Negro",
+        material="PLA", variant="", color="Negro", diameter_mm=None, weight_g=None,
+        brand="Grilon3", manufacturer_name="Grilon3", category_path=["PLA"], sku="M10ING175CJ",
+    )
+
+    plan = build_apply_plan(scan(official), reviews(), {}, current, stock=stock)
+
+    assert plan["metadata"]["obsolete-no-stock"] == current["obsolete-no-stock"]
+    assert plan["metadata"]["pla-negro-175-1000-grilon3"]["sku"] == "M10ING175CJ"
+    assert plan["coverage"]["baseline_effective"] == 1
+    assert plan["coverage"]["proposed_effective"] == 1
+    assert plan["coverage"]["proposed_effective"] >= plan["coverage"]["baseline_effective"]
+
+
+def test_apply_rejects_tampered_plan_that_drops_preserved_legacy_metadata(tmp_path):
+    metadata_path, selections_path, assets = production_paths(tmp_path)
+    legacy_id = "obsolete-no-stock"
+    current = {legacy_id: {"manufacturer_product_url": "https://grilon3.com.ar/producto/legacy-obsolete/"}}
+    stock = {"products": [stock_product("pla-negro-175-1000-grilon3", "PLA", "", "Negro", 1.75, 1000)]}
+    official = product(material="PLA", variant="", color="Negro", diameter_mm=1.75, weight_g=1000, brand="Grilon3")
+    plan = build_apply_plan(scan(official), reviews(), {}, current, stock=stock)
+    del plan["metadata"][legacy_id]
+
+    with pytest.raises(ValueError, match="preserv|cobertura|baseline"):
+        apply_grilon3_plan(
+            plan,
+            apply=False,
+            metadata_path=metadata_path,
+            selections_path=selections_path,
+            assets_dir=assets,
+        )
+
+
+def test_apply_rejects_tampered_alias_to_incompatible_presentation(tmp_path):
+    metadata_path, selections_path, assets = production_paths(tmp_path)
+    stock = {"products": [
+        stock_product("pla-negro-175-1000-grilon3", "PLA", "", "Negro", 1.75, 1000),
+        stock_product("pla-negro-175-4000-grilon3", "PLA", "", "Negro", 1.75, 4000),
+    ]}
+    official = product(material="PLA", variant="", color="Negro", diameter_mm=None, weight_g=None, brand="Grilon3", category_path=["PLA"], sku="M10ING175CJ")
+    plan = build_apply_plan(scan(official), reviews(), {}, {}, stock=stock)
+    plan["review_context"][PRODUCT_URL]["product_ids"] = ["pla-negro-175-4000-grilon3"]
+    plan["metadata"]["pla-negro-175-4000-grilon3"] = dict(plan["metadata"]["pla-negro-175-1000-grilon3"])
+
+    with pytest.raises(ValueError, match="presentaci|identidad|mapping|cobertura"):
+        apply_grilon3_plan(
+            plan,
+            apply=False,
+            metadata_path=metadata_path,
+            selections_path=selections_path,
+            assets_dir=assets,
+        )
+
+
+def test_apply_rejects_tampered_audit_mapping(tmp_path):
+    metadata_path, selections_path, assets = production_paths(tmp_path)
+    stock = {"products": [stock_product("pla-negro-175-1000-grilon3", "PLA", "", "Negro", 1.75, 1000)]}
+    official = product(material="PLA", variant="", color="Negro", diameter_mm=1.75, weight_g=1000, brand="Grilon3")
+    plan = build_apply_plan(scan(official), reviews(), {}, {}, stock=stock)
+    plan["page_mappings"][PRODUCT_URL]["product_ids"] = []
+
+    with pytest.raises(ValueError, match="audit|mapping"):
+        apply_grilon3_plan(
+            plan,
+            apply=False,
+            metadata_path=metadata_path,
+            selections_path=selections_path,
+            assets_dir=assets,
+        )

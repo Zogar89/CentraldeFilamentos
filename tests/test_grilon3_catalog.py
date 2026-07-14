@@ -1,6 +1,7 @@
 from pathlib import Path
 
 import centraldefilamentos.connectors.grilon3_catalog as grilon_catalog
+import pytest
 
 from centraldefilamentos.connectors.grilon3_catalog import (
     enrich_with_grilon3_catalog,
@@ -432,6 +433,28 @@ def test_parse_grilon3_product_detail_returns_empty_unpublished_fields():
     detail = parse_grilon3_product_detail(html, base_url="https://grilon3.com.ar/producto/filamento-3d-pla-turquesa-2/")
 
     assert (detail.pantone, detail.sku, detail.ean) == ("", "", "")
+
+
+def test_parse_grilon3_product_detail_extracts_published_diameter_and_presentation():
+    html = """
+    <html><body>
+      <div class="woocommerce-product-details__short-description">
+        <p>Diámetro: 1,75 mm</p><p>Presentación: bobina de 500 gr</p>
+      </div>
+    </body></html>
+    """
+
+    detail = parse_grilon3_product_detail(html, base_url="https://grilon3.com.ar/producto/filamento-3d-pva/")
+
+    assert detail.diameter_mm == 1.75
+    assert detail.weight_g == 500
+
+
+@pytest.mark.parametrize(("published", "expected"), [("1 kg", 1000), ("2,5Kg", 2500), ("4 KG", 4000), ("750 g", 750)])
+def test_parse_grilon3_product_detail_accepts_other_published_presentations(published, expected):
+    detail = parse_grilon3_product_detail(f"<p>Presentación: {published}</p>")
+
+    assert detail.weight_g == expected
 
 
 def test_parse_grilon3_product_detail_ignores_related_product_images_when_gallery_exists():

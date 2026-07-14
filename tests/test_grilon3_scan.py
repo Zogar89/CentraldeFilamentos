@@ -32,7 +32,7 @@ def product(product_id, title, url):
     )
 
 
-def detail(url, gallery_urls=()):
+def detail(url, gallery_urls=(), diameter_mm=None, weight_g=None):
     return CatalogProductDetail(
         product_url=url,
         category_path=("Básicos", "PLA"),
@@ -40,6 +40,8 @@ def detail(url, gallery_urls=()):
         pantone="Pantone Black" if "negro" in url else "",
         sku="SKU-NEGRO" if "negro" in url else "SKU-ROJO",
         ean="7790000000001" if "negro" in url else "7790000000002",
+        diameter_mm=diameter_mm,
+        weight_g=weight_g,
     )
 
 
@@ -310,6 +312,34 @@ def test_scan_is_complete_when_counts_details_and_sitemap_classifications_are_re
         {"url": LEGACY_URL, "classification": "legacy"}
     ]
     assert payload["complete"] is True
+
+
+def test_scan_uses_published_detail_presentation_over_listing_gaps(monkeypatch):
+    active, sitemap = install_catalog_stubs(monkeypatch, sitemap_extra=False)
+    for product_id, catalog_product in list(active.items()):
+        replacement = product(product_id, catalog_product.title.replace(" 1 kg", ""), catalog_product.product_url)
+        active[product_id] = replacement
+        sitemap[product_id] = replacement
+    monkeypatch.setattr(
+        "centraldefilamentos.grilon3_scan.fetch_grilon3_product_detail",
+        lambda product_url, timeout_seconds: detail(product_url, diameter_mm=1.75, weight_g=500),
+    )
+
+    payload = scan_grilon3_catalog(max_workers=1)
+
+    assert {(product["diameter_mm"], product["weight_g"]) for product in payload["products"]} == {(1.75, 500)}
+
+
+def test_scan_keeps_explicit_listing_presentation_when_detail_template_conflicts(monkeypatch):
+    install_catalog_stubs(monkeypatch, sitemap_extra=False)
+    monkeypatch.setattr(
+        "centraldefilamentos.grilon3_scan.fetch_grilon3_product_detail",
+        lambda product_url, timeout_seconds: detail(product_url, diameter_mm=2.85, weight_g=500),
+    )
+
+    payload = scan_grilon3_catalog(max_workers=1)
+
+    assert {(product["diameter_mm"], product["weight_g"]) for product in payload["products"]} == {(2.85, 1000)}
 
 
 def test_scan_is_incomplete_when_reported_total_does_not_match(monkeypatch):

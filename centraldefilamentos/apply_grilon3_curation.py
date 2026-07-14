@@ -12,8 +12,14 @@ from urllib.parse import urlsplit, urlunsplit
 
 import requests
 
-from centraldefilamentos.build_data import GRILON3_METADATA_CACHE, load_grilon3_metadata
+from centraldefilamentos.build_data import (
+    GRILON3_METADATA_CACHE,
+    _grilon3_metadata_for_fields,
+    load_grilon3_metadata,
+)
 from centraldefilamentos.cache_grilon3_metadata import grilon3_asset_filename
+from centraldefilamentos.grilon3_scan import _identity_fields
+from centraldefilamentos.models import NormalizedFields
 from centraldefilamentos.thumbnails import ensure_thumbnail_for_url, thumbnail_url_for
 
 
@@ -21,6 +27,7 @@ DEFAULT_SCAN_PATH = Path(".image-curation/grilon3-scan.json")
 DEFAULT_REVIEWS_PATH = Path(".image-curation/selections.json")
 DEFAULT_SELECTIONS_PATH = Path("centraldefilamentos/data/grilon3_image_selections.json")
 DEFAULT_ASSETS_DIR = Path("public/assets/grilon3")
+DEFAULT_STOCK_PATH = Path("public/data/stock.json")
 VALID_REASONS = {"preferred_angle", "best_spool", "official_primary"}
 VALID_PROVENANCE = {"human", "vision_llm"}
 SELECTIONS_VERSION = 1
@@ -31,6 +38,8 @@ def build_apply_plan(
     reviews: object,
     existing_selections: object,
     existing_metadata: object,
+    *,
+    stock: object | None = None,
 ) -> dict[str, object]:
     scan_data = _mapping(scan, "scan")
     if scan_data.get("complete") is not True:
@@ -42,12 +51,31 @@ def build_apply_plan(
     current_metadata = _metadata_mapping(existing_metadata)
     current_selections = _selection_records(existing_selections)
 
-    proposed_metadata: dict[str, dict[str, str]] = {}
+    proposed_metadata: dict[str, dict[str, str]] = {
+        product_id: dict(metadata) for product_id, metadata in current_metadata.items()
+    }
     proposed_selections: dict[str, dict[str, str]] = {}
     asset_changes: list[dict[str, str]] = []
     review_context: dict[str, dict[str, object]] = {}
     seen_urls: set[str] = set()
     seen_product_ids: set[str] = set()
+    stock_products = _stock_grilon3_products(stock) if stock is not None else []
+    candidate_ids_by_url: dict[str, list[str]] = {}
+    candidate_urls_by_id: dict[str, list[str]] = {}
+    if stock is not None:
+        for raw_product in products:
+            product = _mapping(raw_product, "producto del scan")
+            product_url = _canonical_product_url(product.get("product_url"))
+            identity = official_product_identity(product)
+            candidate_ids = sorted(
+                item["id"] for item in stock_products if _stock_matches_identity(item, identity)
+            )
+            candidate_ids_by_url[product_url] = candidate_ids
+            for candidate_id in candidate_ids:
+                candidate_urls_by_id.setdefault(candidate_id, []).append(product_url)
+
+    page_mappings: dict[str, dict[str, object]] = {}
+    quarantine: list[dict[str, object]] = []
 
     for raw_product in products:
         product = _mapping(raw_product, "producto del scan")
@@ -59,22 +87,56 @@ def build_apply_plan(
         if product_id in seen_product_ids:
             raise ValueError(f"product_id duplicado o conflictivo: {product_id}")
         seen_product_ids.add(product_id)
+        identity = official_product_identity(product)
+        if stock is None:
+            mapped_product_ids = [product_id]
+            mapping_status = "exact"
+        else:
+            candidates = candidate_ids_by_url[product_url]
+            conflicting = [
+                candidate_id
+                for candidate_id in candidates
+                if len(candidate_urls_by_id.get(candidate_id, [])) > 1
+            ]
+            if conflicting:
+                mapped_product_ids = []
+                mapping_status = "ambiguous"
+            elif candidates:
+                mapped_product_ids = candidates
+                mapping_status = "exact" if product_id in candidates else "alias"
+            else:
+                mapped_product_ids = []
+                mapping_status = "no_match"
+        page_mappings[product_url] = {
+            "status": mapping_status,
+            "scan_product_id": product_id,
+            "product_ids": mapped_product_ids,
+            "identity": identity,
+        }
+        if not mapped_product_ids:
+            quarantine.append({
+                "product_url": product_url,
+                "scan_product_id": product_id,
+                "status": mapping_status,
+                "identity": identity,
+            })
         gallery = _gallery(product.get("gallery_image_urls"))
         fingerprint = _fingerprint(product.get("gallery_fingerprint"), "scan")
         review_context[product_url] = {
             "product_id": product_id,
+            "product_ids": mapped_product_ids,
             "product_url": product_url,
             "gallery_image_urls": gallery,
             "gallery_fingerprint": fingerprint,
+            "identity": identity,
         }
 
-        metadata = dict(current_metadata.get(product_id, {}))
-        metadata.update({
+        official_metadata = {
             "manufacturer_product_url": product_url,
             "sku": _official_field(product, "sku"),
             "ean": _official_field(product, "ean"),
             "pantone": _official_field(product, "pantone"),
-        })
+        }
 
         if gallery:
             raw_review = review_data.get(product_url)
@@ -84,24 +146,31 @@ def build_apply_plan(
             proposed_selections[product_url] = selected
             filename = grilon3_asset_filename(selected["selected_image_remote_url"])
             local_url = f"assets/grilon3/{filename}"
-            metadata["image_remote_url"] = selected["selected_image_remote_url"]
-            metadata["image_url"] = local_url
-            asset_changes.append({
-                "product_url": product_url,
-                "remote_url": selected["selected_image_remote_url"],
-                "image_url": local_url,
-                "thumbnail_url": thumbnail_url_for(local_url),
-            })
-        else:
-            metadata.pop("image_remote_url", None)
-            metadata.pop("image_url", None)
+            official_metadata["image_remote_url"] = selected["selected_image_remote_url"]
+            official_metadata["image_url"] = local_url
+            if mapped_product_ids:
+                asset_changes.append({
+                    "product_url": product_url,
+                    "remote_url": selected["selected_image_remote_url"],
+                    "image_url": local_url,
+                    "thumbnail_url": thumbnail_url_for(local_url),
+                })
 
-        proposed_metadata[product_id] = metadata
+        for mapped_product_id in mapped_product_ids:
+            metadata = dict(current_metadata.get(mapped_product_id, {}))
+            metadata.update(official_metadata)
+            if not gallery:
+                metadata.pop("image_remote_url", None)
+                metadata.pop("image_url", None)
+            proposed_metadata[mapped_product_id] = metadata
 
     unknown_review_keys = set(review_data) - seen_urls
     if unknown_review_keys:
         raise ValueError(f"revision de producto desconocido: {sorted(unknown_review_keys)[0]}")
 
+    coverage = _coverage_report(current_metadata, proposed_metadata, stock_products)
+    if coverage["proposed_effective"] < coverage["baseline_effective"]:
+        raise ValueError("La propuesta reduce la cobertura efectiva de metadata Grilon3")
     selection_payload: dict[str, object] = {
         "version": SELECTIONS_VERSION,
         "selections": proposed_selections,
@@ -111,6 +180,13 @@ def build_apply_plan(
         "metadata": proposed_metadata,
         "selections": selection_payload,
         "review_context": review_context,
+        "page_mappings": page_mappings,
+        "quarantine": sorted(quarantine, key=lambda item: str(item["product_url"])),
+        "coverage": coverage,
+        "coverage_context": {
+            "baseline_metadata": current_metadata,
+            "stock_products": [_stock_identity_record(product) for product in stock_products],
+        },
         "metadata_changes": _changes(current_metadata, proposed_metadata),
         "selection_changes": _changes(current_selections, proposed_selections),
         "asset_changes": sorted(asset_changes, key=lambda item: item["product_url"]),
@@ -133,6 +209,9 @@ def apply_grilon3_plan(
         "asset_changes": asset_changes,
         "metadata": metadata,
         "selections": selections,
+        "page_mappings": plan.get("page_mappings", {}),
+        "quarantine": plan.get("quarantine", []),
+        "coverage": plan.get("coverage", {}),
     }
     if not apply:
         return report
@@ -206,11 +285,35 @@ def _validate_apply_plan(
         if not isinstance(plan_data.get(changes_key), list):
             raise ValueError(f"{changes_key} debe ser una lista")
     metadata = _metadata_mapping(plan_data.get("metadata"))
+    coverage = _mapping(plan_data.get("coverage"), "coverage")
+    baseline_effective = _non_negative_int(coverage.get("baseline_effective"), "baseline_effective")
+    proposed_effective = _non_negative_int(coverage.get("proposed_effective"), "proposed_effective")
+    if proposed_effective < baseline_effective:
+        raise ValueError("El plan reduce la cobertura efectiva de metadata Grilon3")
+    coverage_context = _mapping(plan_data.get("coverage_context"), "coverage_context")
+    baseline_metadata = _metadata_mapping(coverage_context.get("baseline_metadata"))
+    stock_products = _stock_grilon3_products({"products": coverage_context.get("stock_products")})
+    recomputed_coverage = _coverage_report(baseline_metadata, metadata, stock_products)
+    if dict(coverage) != recomputed_coverage:
+        raise ValueError("El reporte de cobertura no coincide con la semantica efectiva del lookup")
+    missing_baseline = sorted(set(baseline_metadata) - set(metadata))
+    if missing_baseline:
+        raise ValueError(f"El plan no preserva metadata baseline: {missing_baseline[0]}")
     selections_payload = _mapping(plan_data.get("selections"), "selections del plan")
     if selections_payload.get("version") != SELECTIONS_VERSION:
         raise ValueError("version invalida del manifiesto de selecciones")
     selections = _selection_records(selections_payload)
     context = _review_context(plan_data.get("review_context"))
+    _validate_mapping_audit(plan_data, context)
+    stock_by_id = {str(product["id"]): product for product in stock_products}
+    mapped_ids = {
+        product_id
+        for product_context in context.values()
+        for product_id in product_context["product_ids"]
+    }
+    for product_id, baseline_record in baseline_metadata.items():
+        if product_id not in mapped_ids and metadata.get(product_id) != baseline_record:
+            raise ValueError(f"El plan altera metadata legacy sin mapping oficial: {product_id}")
 
     validated_selections: dict[str, dict[str, str]] = {}
     for product_url, raw_selection in selections.items():
@@ -255,42 +358,60 @@ def _validate_apply_plan(
             "image_url": image_url,
             "thumbnail_url": thumb_url,
         }
-    if set(asset_by_product) != set(validated_selections):
-        missing = sorted(set(validated_selections) - set(asset_by_product))
+    required_asset_urls = {
+        product_url for product_url, product_context in context.items()
+        if product_context["product_ids"] and product_context["gallery_image_urls"]
+    }
+    if set(asset_by_product) != required_asset_urls:
+        missing = sorted(required_asset_urls - set(asset_by_product))
+        if not missing:
+            raise ValueError("El plan contiene assets fuera del mapping aprobado")
         raise ValueError(f"Falta asset requerido por seleccion aprobada: {missing[0]}")
 
     context_product_ids: set[str] = set()
-    normalized_metadata: dict[str, dict[str, str]] = {}
+    normalized_metadata: dict[str, dict[str, str]] = {
+        product_id: dict(product_metadata) for product_id, product_metadata in metadata.items()
+    }
     for product_url, product_context in context.items():
-        product_id = product_context["product_id"]
-        if product_id in context_product_ids:
-            raise ValueError(f"product_id duplicado o conflictivo: {product_id}")
-        context_product_ids.add(product_id)
-        product_metadata = metadata.get(product_id)
-        if product_metadata is None:
-            raise ValueError(f"Falta metadata para {product_id}")
-        if _canonical_product_url(product_metadata.get("manufacturer_product_url")) != product_url:
-            raise ValueError(f"Metadata y product_url no coinciden: {product_id}")
-        normalized_product_metadata = dict(product_metadata)
-        normalized_product_metadata["manufacturer_product_url"] = product_url
+        product_ids = product_context["product_ids"]
+        for product_id in product_ids:
+            if product_id in context_product_ids:
+                raise ValueError(f"product_id duplicado o conflictivo: {product_id}")
+            context_product_ids.add(product_id)
+            stock_product = stock_by_id.get(product_id)
+            if stock_products and (
+                stock_product is None
+                or not _stock_matches_identity(stock_product, product_context["identity"])
+            ):
+                raise ValueError(f"El mapping mezcla una presentacion incompatible: {product_id}")
+            product_metadata = metadata.get(product_id)
+            if product_metadata is None:
+                raise ValueError(f"Falta metadata para {product_id}")
+            if _canonical_product_url(product_metadata.get("manufacturer_product_url")) != product_url:
+                raise ValueError(f"Metadata y product_url no coinciden: {product_id}")
+            normalized_product_metadata = dict(product_metadata)
+            normalized_product_metadata["manufacturer_product_url"] = product_url
+            normalized_metadata[product_id] = normalized_product_metadata
         selection = validated_selections.get(product_url)
         if selection is None:
-            if product_metadata.get("image_url") or product_metadata.get("image_remote_url"):
-                raise ValueError(f"Producto sin galeria no puede publicar imagen: {product_url}")
-            normalized_product_metadata.pop("image_url", None)
-            normalized_product_metadata.pop("image_remote_url", None)
-            normalized_metadata[product_id] = normalized_product_metadata
+            for product_id in product_ids:
+                product_metadata = normalized_metadata[product_id]
+                if product_metadata.get("image_url") or product_metadata.get("image_remote_url"):
+                    raise ValueError(f"Producto sin galeria no puede publicar imagen: {product_url}")
+                product_metadata.pop("image_url", None)
+                product_metadata.pop("image_remote_url", None)
+            continue
+        if not product_ids:
             continue
         asset = asset_by_product[product_url]
-        if product_metadata.get("image_remote_url") != selection["selected_image_remote_url"]:
-            raise ValueError(f"Metadata y seleccion no coinciden: {product_url}")
-        if product_metadata.get("image_url") != asset["image_url"]:
-            raise ValueError(f"Metadata y asset no coinciden: {product_url}")
-        normalized_product_metadata["image_remote_url"] = selection["selected_image_remote_url"]
-        normalized_product_metadata["image_url"] = asset["image_url"]
-        normalized_metadata[product_id] = normalized_product_metadata
-    if set(metadata) != context_product_ids:
-        raise ValueError("Metadata contiene productos fuera del contexto revisado")
+        for product_id in product_ids:
+            product_metadata = normalized_metadata[product_id]
+            if product_metadata.get("image_remote_url") != selection["selected_image_remote_url"]:
+                raise ValueError(f"Metadata y seleccion no coinciden: {product_url}")
+            if product_metadata.get("image_url") != asset["image_url"]:
+                raise ValueError(f"Metadata y asset no coinciden: {product_url}")
+            product_metadata["image_remote_url"] = selection["selected_image_remote_url"]
+            product_metadata["image_url"] = asset["image_url"]
 
     ordered_assets = [asset_by_product[url] for url in sorted(asset_by_product)]
     normalized_selections: dict[str, object] = {
@@ -301,6 +422,49 @@ def _validate_apply_plan(
         },
     }
     return normalized_metadata, normalized_selections, validated_selections, ordered_assets
+
+
+def _validate_mapping_audit(
+    plan: Mapping[str, object],
+    context: Mapping[str, Mapping[str, object]],
+) -> None:
+    raw_mappings = _mapping(plan.get("page_mappings"), "page_mappings")
+    mappings: dict[str, Mapping[str, object]] = {}
+    for raw_url, raw_mapping in raw_mappings.items():
+        product_url = _canonical_product_url(raw_url)
+        if product_url in mappings:
+            raise ValueError(f"mapping de auditoria duplicado: {product_url}")
+        mappings[product_url] = _mapping(raw_mapping, f"mapping {product_url}")
+    if set(mappings) != set(context):
+        raise ValueError("El audit de mapping no coincide con el contexto revisado")
+
+    expected_quarantine: set[str] = set()
+    for product_url, product_context in context.items():
+        mapping = mappings[product_url]
+        product_ids = _string_list(mapping.get("product_ids"), "product_ids de mapping")
+        if product_ids != product_context["product_ids"]:
+            raise ValueError(f"El audit de mapping no coincide con sus aliases: {product_url}")
+        if _required_string(mapping.get("scan_product_id"), "scan_product_id") != product_context["product_id"]:
+            raise ValueError(f"El audit de mapping no coincide con el scan: {product_url}")
+        if _identity_mapping(mapping.get("identity")) != product_context["identity"]:
+            raise ValueError(f"El audit de mapping altera la identidad oficial: {product_url}")
+        status = _required_string(mapping.get("status"), "status de mapping")
+        if status not in {"exact", "alias", "no_match", "ambiguous"}:
+            raise ValueError(f"status de mapping invalido: {status}")
+        if bool(product_ids) != (status in {"exact", "alias"}):
+            raise ValueError(f"status de mapping inconsistente: {product_url}")
+        if not product_ids:
+            expected_quarantine.add(product_url)
+
+    raw_quarantine = plan.get("quarantine")
+    if not isinstance(raw_quarantine, list):
+        raise ValueError("quarantine debe ser una lista")
+    quarantine_urls = {
+        _canonical_product_url(_mapping(item, "item de quarantine").get("product_url"))
+        for item in raw_quarantine
+    }
+    if quarantine_urls != expected_quarantine or len(quarantine_urls) != len(raw_quarantine):
+        raise ValueError("El audit de quarantine no coincide con los no-match")
 
 
 def _review_context(value: object) -> dict[str, dict[str, object]]:
@@ -315,11 +479,143 @@ def _review_context(value: object) -> dict[str, dict[str, object]]:
             raise ValueError(f"Key y product_url no coinciden: {product_url}")
         context[product_url] = {
             "product_id": _required_string(data.get("product_id"), "product_id"),
+            "product_ids": _string_list(data.get("product_ids"), "product_ids"),
             "product_url": product_url,
             "gallery_image_urls": _gallery(data.get("gallery_image_urls")),
             "gallery_fingerprint": _fingerprint(data.get("gallery_fingerprint"), "contexto"),
+            "identity": _identity_mapping(data.get("identity")),
         }
     return context
+
+
+def official_product_identity(product: Mapping[str, object]) -> dict[str, object]:
+    fields = _identity_fields(dict(product))
+    diameter_mm = fields.diameter_mm
+    category_path = product.get("category_path", [])
+    labels = category_path if isinstance(category_path, list) else []
+    presentation_text = " ".join([str(product.get("title", "")), *map(str, labels)])
+    if re.search(r"(?:2[,.]85|\b285\s*mm\b)", presentation_text, re.IGNORECASE):
+        diameter_mm = 2.85
+    return {
+        "material": fields.material,
+        "variant": fields.variant,
+        "color": fields.color,
+        "diameter_mm": diameter_mm,
+        "weight_g": fields.weight_g,
+        "brand": fields.brand,
+    }
+
+
+def _stock_grilon3_products(stock: object) -> list[dict[str, object]]:
+    stock_data = _mapping(stock, "stock")
+    products = stock_data.get("products")
+    if not isinstance(products, list):
+        raise ValueError("El stock debe contener una lista products")
+    result: list[dict[str, object]] = []
+    seen: set[str] = set()
+    for raw_product in products:
+        product = _mapping(raw_product, "producto de stock")
+        if product.get("brand") != "Grilon3":
+            continue
+        product_id = _required_string(product.get("id"), "id de stock")
+        if product_id in seen:
+            raise ValueError(f"id de stock duplicado: {product_id}")
+        seen.add(product_id)
+        result.append({**product, "id": product_id})
+    return result
+
+
+def _stock_matches_identity(product: Mapping[str, object], identity: Mapping[str, object]) -> bool:
+    return all(product.get(key) == identity.get(key) for key in (
+        "material", "variant", "color", "diameter_mm", "weight_g", "brand"
+    ))
+
+
+def _stock_identity_record(product: Mapping[str, object]) -> dict[str, object]:
+    return {
+        "id": str(product["id"]),
+        "material": str(product.get("material", "")),
+        "variant": str(product.get("variant", "")),
+        "color": str(product.get("color", "")),
+        "diameter_mm": product.get("diameter_mm"),
+        "weight_g": product.get("weight_g"),
+        "brand": str(product.get("brand", "")),
+        "manufacturer_name": str(product.get("manufacturer_name", "")),
+        "subrange": str(product.get("subrange", "")),
+        "finish": str(product.get("finish", "")),
+    }
+
+
+def _identity_mapping(value: object) -> dict[str, object]:
+    identity = _mapping(value, "identidad oficial")
+    result: dict[str, object] = {}
+    for key in ("material", "variant", "color", "brand"):
+        raw_value = identity.get(key, "")
+        if not isinstance(raw_value, str):
+            raise ValueError(f"{key} oficial invalido")
+        result[key] = raw_value
+    diameter = identity.get("diameter_mm")
+    if diameter is not None and (isinstance(diameter, bool) or not isinstance(diameter, (int, float))):
+        raise ValueError("diameter_mm oficial invalido")
+    weight = identity.get("weight_g")
+    if weight is not None and (isinstance(weight, bool) or not isinstance(weight, int)):
+        raise ValueError("weight_g oficial invalido")
+    result["diameter_mm"] = diameter
+    result["weight_g"] = weight
+    return result
+
+
+def _coverage_report(
+    baseline: Mapping[str, dict[str, str]],
+    proposed: Mapping[str, dict[str, str]],
+    stock_products: Sequence[Mapping[str, object]],
+) -> dict[str, int]:
+    stock_ids = {str(product["id"]) for product in stock_products}
+    return {
+        "stock_product_count": len(stock_products),
+        "baseline_exact": len(stock_ids & set(baseline)),
+        "proposed_exact": len(stock_ids & set(proposed)),
+        "baseline_effective": _effective_coverage(baseline, stock_products),
+        "proposed_effective": _effective_coverage(proposed, stock_products),
+    }
+
+
+def _effective_coverage(
+    metadata: Mapping[str, dict[str, str]],
+    stock_products: Sequence[Mapping[str, object]],
+) -> int:
+    return sum(
+        bool(_grilon3_metadata_for_fields(metadata, _fields_from_stock(product)))
+        for product in stock_products
+    )
+
+
+def _fields_from_stock(product: Mapping[str, object]) -> NormalizedFields:
+    return NormalizedFields(
+        material=str(product.get("material", "")),
+        variant=str(product.get("variant", "")),
+        color=str(product.get("color", "")),
+        diameter_mm=product.get("diameter_mm") if isinstance(product.get("diameter_mm"), (int, float)) else None,
+        weight_g=product.get("weight_g") if isinstance(product.get("weight_g"), int) else None,
+        brand=str(product.get("brand", "")),
+        manufacturer_name=str(product.get("manufacturer_name", "")),
+        subrange=str(product.get("subrange", "")),
+        finish=str(product.get("finish", "")),
+    )
+
+
+def _string_list(value: object, label: str) -> list[str]:
+    if not isinstance(value, list) or any(not isinstance(item, str) or not item for item in value):
+        raise ValueError(f"{label} debe ser una lista de strings")
+    if len(value) != len(set(value)):
+        raise ValueError(f"{label} contiene duplicados")
+    return list(value)
+
+
+def _non_negative_int(value: object, label: str) -> int:
+    if isinstance(value, bool) or not isinstance(value, int) or value < 0:
+        raise ValueError(f"{label} debe ser un entero no negativo")
+    return value
 
 
 def _commit_replacements(replacements: list[tuple[Path, Path]]) -> None:
@@ -585,6 +881,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--metadata", default=str(GRILON3_METADATA_CACHE))
     parser.add_argument("--selections", default=str(DEFAULT_SELECTIONS_PATH))
     parser.add_argument("--assets-dir", default=str(DEFAULT_ASSETS_DIR))
+    parser.add_argument("--stock", default=str(DEFAULT_STOCK_PATH))
     parser.add_argument("--apply", action="store_true")
     args = parser.parse_args(argv)
 
@@ -595,6 +892,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         _read_json(Path(args.reviews), {}),
         _read_json(selections_path, {}),
         _read_json(metadata_path, {}),
+        stock=_read_json(Path(args.stock), None),
     )
     report = apply_grilon3_plan(
         plan,

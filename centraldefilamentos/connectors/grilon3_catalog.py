@@ -5,6 +5,7 @@ from dataclasses import dataclass
 from html.parser import HTMLParser
 import json
 import re
+import unicodedata
 from urllib.parse import urljoin, urlparse
 
 import requests
@@ -45,6 +46,8 @@ class CatalogProductDetail:
     pantone: str = ""
     sku: str = ""
     ean: str = ""
+    diameter_mm: float | None = None
+    weight_g: int | None = None
 
     @property
     def primary_image_url(self) -> str:
@@ -284,6 +287,7 @@ def parse_grilon3_product_detail(html_text: str, base_url: str = BASE_URL) -> Ca
     parser = _ProductDetailParser.parse(html_text, base_url)
     json_ld_sku, json_ld_ean = _extract_json_ld_codes(parser.json_ld_blocks)
     fallback_sku, fallback_ean = _extract_sku_ean(_clean_text(" ".join(parser.visible_text)))
+    diameter_mm, weight_g = _extract_published_dimensions(_clean_text(" ".join(parser.visible_text)))
     return CatalogProductDetail(
         product_url=base_url,
         category_path=tuple(dict.fromkeys(parser.category_path)),
@@ -291,6 +295,8 @@ def parse_grilon3_product_detail(html_text: str, base_url: str = BASE_URL) -> Ca
         pantone=parser.pantone,
         sku=parser.sku or json_ld_sku or fallback_sku,
         ean=parser.ean or json_ld_ean or fallback_ean,
+        diameter_mm=diameter_mm,
+        weight_g=weight_g,
     )
 
 
@@ -685,6 +691,28 @@ def _extract_sku_ean(value: str) -> tuple[str, str]:
         sku_match.group(1).strip() if sku_match else "",
         ean_match.group(1).strip() if ean_match else "",
     )
+
+
+def _extract_published_dimensions(value: str) -> tuple[float | None, int | None]:
+    folded = unicodedata.normalize("NFKD", value)
+    folded = "".join(char for char in folded if not unicodedata.combining(char)).upper()
+    diameter_match = re.search(r"DIAMETRO\s*:?\s*(1[,.]75|2[,.]85)\s*MM", folded)
+    diameter_mm = float(diameter_match.group(1).replace(",", ".")) if diameter_match else None
+    weight_match = re.search(
+        r"PRESENTACION\s*:?\s*(?:BOBINA|CARRETE)?(?:\s+DE)?\s*(\d+(?:[,.]\d+)?)\s*(KG|KILOS?|G|GR|GRAMOS?)\b",
+        folded,
+    )
+    if not weight_match:
+        weight_match = re.search(
+            r"(?:BOBINA|CARRETE)\s*(?:X|DE)?\s*(\d+(?:[,.]\d+)?)\s*(KG|KILOS?|G|GR|GRS|GRAMOS?)\b",
+            folded,
+        )
+    if not weight_match:
+        return diameter_mm, None
+    amount = float(weight_match.group(1).replace(",", "."))
+    unit = weight_match.group(2)
+    weight_g = round(amount * 1000) if unit.startswith("K") else round(amount)
+    return diameter_mm, weight_g
 
 
 def _extract_json_ld_codes(blocks: list[str]) -> tuple[str, str]:
