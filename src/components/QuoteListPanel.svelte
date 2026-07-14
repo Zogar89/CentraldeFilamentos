@@ -16,6 +16,7 @@
   export let showQuickControls = false;
   export let storageWarning = "";
   export let reconcileNotice = "";
+  export let readOnly = false;
   export let onToggleControls = () => {};
   export let onSetQuantity = () => {};
   export let onRemoveItem = () => {};
@@ -102,6 +103,7 @@
           class="quote-list-toggle"
           aria-pressed={showQuickControls}
           aria-label={showQuickControls ? "Ocultar controles rapidos" : "Controles rapidos"}
+          disabled={readOnly}
           on:click={onToggleControls}
         >
           {showQuickControls ? "Ocultar cantidades" : "Editar cantidades"}
@@ -109,9 +111,9 @@
         <details class="quote-list-menu">
           <summary>Acciones</summary>
           <div>
-            <button type="button" on:click={onExportList}>Exportar JSON</button>
-            <button type="button" on:click={onImportList}>Importar lista</button>
-            <button type="button" class="danger" on:click={onClearList}>Limpiar lista</button>
+            <button type="button" disabled={readOnly} on:click={onExportList}>Exportar JSON</button>
+            <button type="button" disabled={readOnly} on:click={onImportList}>Importar lista</button>
+            <button type="button" class="danger" disabled={readOnly} on:click={onClearList}>Limpiar lista</button>
           </div>
         </details>
       </div>
@@ -122,6 +124,7 @@
             <QuoteListItem
               {item}
               showControls={showQuickControls}
+              {readOnly}
               onChange={(quantity) => onSetQuantity(item.productId, quantity)}
               onRemove={() => onRemoveItem(item.productId)}
             />

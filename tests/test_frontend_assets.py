@@ -498,6 +498,56 @@ def test_summary_organizes_materials_and_preserves_pla_subrange_detail():
     assert 'targetSelector=".summary-group-row"' in view
 
 
+def test_summary_reuses_action_workspaces_and_preserves_cell_offer_contract():
+    view = (SRC / "SummaryApp.svelte").read_text(encoding="utf-8")
+    panel = (SRC / "components" / "QuoteListPanel.svelte").read_text(encoding="utf-8")
+    drawer = (SRC / "components" / "QuoteListDrawer.svelte").read_text(encoding="utf-8")
+    item = (SRC / "components" / "QuoteListItem.svelte").read_text(encoding="utf-8")
+    css = (SRC / "styles" / "global.css").read_text(encoding="utf-8")
+    quote_sources = view + panel
+
+    for token in [
+        "createQuoteWorkspace",
+        "createStockWatchWorkspace",
+        "QuoteListPanel",
+        "QuoteListDrawer",
+        "QuoteProviderCoverage",
+        "quote-summary-add",
+        "summary-stock-watch",
+        "stockAlerts",
+        "quoteImportPreview",
+        "applyQuoteImport",
+        "quoteImportRequestId",
+        "beginQuoteImportRequest",
+        "isCurrentQuoteImportRequest",
+        "quote-list-layout-active",
+        "quote-floating-button",
+    ]:
+        assert token in quote_sources + css
+
+    assert "{ units: 0, unknown: false, offer: null }" in view
+    assert "cell.offer = offer;" in view
+    assert "{#if cell?.offer}" in view
+    assert "stockWatchWorkspace.toggle(product, offer)" in view
+    assert "quoteWorkspace.addProduct(product)" in view
+    assert "aria-pressed={isSubscribed(row.product, cell.offer)}" in view
+    assert "stockWatchTargetId(row.product, cell.offer)" in view
+    assert "product.thumbnail_url || product.image_url" in view
+    assert "row.product.sku" in view
+    assert "row.product.ean" in view
+    assert "row.product.pantone" in view
+    assert "quoteListReadOnly" in view
+    assert "readOnly={quoteListReadOnly}" in view
+    assert "disabled={readOnly}" in panel
+    assert "disabled={readOnly}" in item
+    assert "{readOnly}" in drawer
+    assert "componentActive" in view
+    assert "invalidateQuoteImportRequest();" in view
+    assert "min-width: 44px" in css
+    assert "min-height: 44px" in css
+    assert ".summary-table-region" in css
+
+
 def test_summary_labels_support_current_and_legacy_stock_payloads():
     script = """
       import { finishLabel, lineVariantDisambiguator, subrangeLabel } from "./src/lib/shared.js";

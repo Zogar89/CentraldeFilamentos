@@ -8,6 +8,7 @@
 
   export let item;
   export let showControls = false;
+  export let readOnly = false;
   export let onChange = () => {};
   export let onRemove = () => {};
 
@@ -44,7 +45,7 @@
   <div class="quote-list-item-main">
     <div class="quote-list-item-title">
       <strong>{item.productName || item.displayName || "Filamento"}</strong>
-      <button type="button" class="quote-list-remove" aria-label={`Quitar ${item.productName || "filamento"} de la lista`} title="Quitar" on:click={onRemove}>×</button>
+      <button type="button" class="quote-list-remove" disabled={readOnly} aria-label={`Quitar ${item.productName || "filamento"} de la lista`} title="Quitar" on:click={onRemove}>×</button>
     </div>
     <span>{metadata.filter(Boolean).join(" · ")}</span>
     <small>{[item?.diameterMm ? `${item.diameterMm} mm` : "", item?.presentation, code].filter(Boolean).join(" · ")}</small>
@@ -55,7 +56,7 @@
     </div>
   </div>
 
-  {#if showControls}
+  {#if showControls && !readOnly}
     <div class="quote-list-item-quantity">
       <QuoteQuantityControl quantity={item.quantity} {onChange} {onRemove} />
     </div>

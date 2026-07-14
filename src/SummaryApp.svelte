@@ -1,11 +1,16 @@
 <script>
-  import { onMount } from "svelte";
+  import { onDestroy, onMount } from "svelte";
   import QuickLines from "./components/QuickLines.svelte";
+  import QuoteListDrawer from "./components/QuoteListDrawer.svelte";
+  import QuoteListPanel from "./components/QuoteListPanel.svelte";
   import SiteHeader from "./components/SiteHeader.svelte";
   import SiteFooter from "./components/SiteFooter.svelte";
+  import { createQuoteWorkspace } from "./lib/quoteWorkspace.js";
+  import { createStockWatchWorkspace } from "./lib/stockWatchWorkspace.js";
   import {
     brandRank,
     colorSwatchStyle,
+    dataUrl,
     fetchJson,
     formatDate,
     finishLabel,
@@ -15,6 +20,7 @@
     lineRank,
     lineVariantDisambiguator,
     matchesSearchTerms,
+    productBaseName,
     slugText,
     stockDelta,
     subrangeLabel,
@@ -28,13 +34,72 @@
   let query = "";
   let categoryOrder = "popular";
   let lineHelp = "";
+  let stockAlerts = [];
+  let quoteItems = [];
+  let quoteSettings = { showQuickControls: true };
+  let quoteStorageWarning = "";
+  let quoteReconcileNotice = "";
+  let quoteDrawerOpen = false;
+  let quoteListReadOnly = false;
+  let quoteImportInput;
+  let quoteImportPreview = null;
+  let quoteImportError = "";
+  let quoteImportFileName = "";
+  let quoteImportRequestId = 0;
+  let quoteAddFeedback = {};
+  let quoteFeedbackMessage = "";
+  let quotePulseKey = 0;
+  let quoteWorkspace = null;
+  let stockWatchWorkspace = null;
+  let unsubscribeQuoteWorkspace = () => {};
+  let unsubscribeStockWatchWorkspace = () => {};
+  let componentActive = true;
+  const quoteFeedbackTimers = new Map();
+  const exportCleanupTimers = new Set();
+  const exportObjectUrls = new Set();
+  const quoteStorageWarningCopy = "No pudimos guardar la lista en este navegador. La podes usar durante esta sesion, pero se puede perder al cerrar la pagina.";
+  const quoteCatalogWarningCopy = "No pudimos actualizar el catalogo; conservamos tu lista guardada.";
+  const quoteSchemaWarningCopy = "La lista guardada usa una version mas nueva. La conservamos sin cambios para no perder datos.";
 
   onMount(async () => {
-    const payload = await fetchJson("data/stock.json", { products: [], sources: [] });
-    products = payload.products || [];
-    sources = [...(payload.sources || [])].sort((a, b) => (zoneOrder[a.zone] ?? 99) - (zoneOrder[b.zone] ?? 99) || a.name.localeCompare(b.name, "es-AR"));
-    generatedAt = payload.generated_at || "";
+    const payload = await fetchJson("data/stock.json", null);
+    if (!componentActive) return;
+    const catalogResult = payload && Array.isArray(payload.products)
+      ? { ok: true, products: payload.products }
+      : { ok: false, products: [] };
+    products = catalogResult.products;
+    sources = [...(Array.isArray(payload?.sources) ? payload.sources : [])].sort((a, b) => (zoneOrder[a.zone] ?? 99) - (zoneOrder[b.zone] ?? 99) || a.name.localeCompare(b.name, "es-AR"));
+    generatedAt = payload?.generated_at || "";
     rows = buildRows();
+
+    quoteWorkspace = createQuoteWorkspace({ products, catalogAvailable: catalogResult.ok });
+    unsubscribeQuoteWorkspace = quoteWorkspace.state.subscribe((state) => {
+      quoteItems = state.items;
+      quoteSettings = state.settings;
+      quoteListReadOnly = state.readOnly;
+      quoteReconcileNotice = state.reconcileNotice.replace("catálogo", "catalogo");
+      quoteStorageWarning = state.readOnly
+        ? quoteSchemaWarningCopy
+        : (!catalogResult.ok ? quoteCatalogWarningCopy : (state.storageWarning ? quoteStorageWarningCopy : ""));
+      if (!quoteItems.length) closeQuoteDrawer();
+    });
+
+    stockWatchWorkspace = createStockWatchWorkspace({ products });
+    unsubscribeStockWatchWorkspace = stockWatchWorkspace.state.subscribe((state) => {
+      stockAlerts = state.alerts;
+    });
+  });
+
+  onDestroy(() => {
+    componentActive = false;
+    invalidateQuoteImportRequest();
+    unsubscribeQuoteWorkspace();
+    unsubscribeStockWatchWorkspace();
+    quoteFeedbackTimers.forEach((timer) => window.clearTimeout(timer));
+    exportCleanupTimers.forEach((timer) => window.clearTimeout(timer));
+    exportObjectUrls.forEach((url) => URL.revokeObjectURL(url));
+    exportCleanupTimers.clear();
+    exportObjectUrls.clear();
   });
 
   $: visibleRows = (query, rows.filter(matchesQuery));
@@ -46,10 +111,11 @@
 
   function buildRows() {
     return products.map((product) => {
-      const cells = Object.fromEntries(sources.map((source) => [source.id, { units: 0, unknown: false }]));
+      const cells = Object.fromEntries(sources.map((source) => [source.id, { units: 0, unknown: false, offer: null }]));
       (product.offers || []).forEach((offer) => {
         const cell = cells[offer.source_id];
         if (!cell) return;
+        cell.offer = offer;
         if (Number.isFinite(Number(offer.stock_quantity)) && Number(offer.stock_quantity) > 0) {
           cell.units += Number(offer.stock_quantity);
         } else if (offer.stock_status === "unknown") {
@@ -165,10 +231,189 @@
     return `resumen-linea-${slugText(group.key)}`;
   }
 
+  function assetPath(path) {
+    if (!path || /^https?:\/\//.test(path)) return path;
+    return dataUrl(path);
+  }
+
+  function productThumbnail(product) {
+    return product.thumbnail_url || product.image_url || "";
+  }
+
+  function isSubscribed(product, offer) {
+    return stockWatchWorkspace?.isSubscribed(product, offer) || false;
+  }
+
+  function toggleStockSubscription(product, offer) {
+    if (!stockWatchWorkspace) return;
+    stockWatchWorkspace.toggle(product, offer);
+  }
+
+  function stockWatchTargetId(product, offer) {
+    return `stock-watch-${slugText([product.id, offer.source_id || offer.provider_name].join(" "))}`;
+  }
+
+  function dismissStockAlerts() {
+    stockWatchWorkspace?.dismissAlerts();
+  }
+
+  function addQuoteItem(product) {
+    if (!quoteWorkspace || quoteListReadOnly) return;
+    quoteWorkspace.addProduct(product);
+    const quantity = quoteItems.find((item) => item.productId === product.id)?.quantity;
+    if (!quantity) return;
+    window.clearTimeout(quoteFeedbackTimers.get(product.id));
+    quoteAddFeedback = { ...quoteAddFeedback, [product.id]: quantity };
+    quoteFeedbackMessage = `${productBaseName(product)} agregado. ${quantity} unidad(es) en la lista.`;
+    quotePulseKey += 1;
+    quoteFeedbackTimers.set(product.id, window.setTimeout(() => {
+      const nextFeedback = { ...quoteAddFeedback };
+      delete nextFeedback[product.id];
+      quoteAddFeedback = nextFeedback;
+      quoteFeedbackTimers.delete(product.id);
+    }, 850));
+  }
+
+  function pulseQuoteList(message) {
+    quotePulseKey += 1;
+    quoteFeedbackMessage = message;
+  }
+
+  function setQuoteItemQuantity(productId, quantity) {
+    if (!quoteWorkspace || quoteListReadOnly) return;
+    quoteWorkspace.setQuantity(productId, quantity);
+    const nextQuantity = quoteItems.find((item) => item.productId === productId)?.quantity || 1;
+    pulseQuoteList(`Cantidad actualizada a ${nextQuantity} unidad(es).`);
+  }
+
+  function removeQuoteItem(productId) {
+    if (!quoteWorkspace || quoteListReadOnly) return;
+    quoteWorkspace.removeProduct(productId);
+    pulseQuoteList("Producto quitado de la lista.");
+  }
+
+  function clearQuoteList() {
+    if (!quoteWorkspace || quoteListReadOnly) return;
+    if (!window.confirm("¿Vaciar la lista de cotizacion? Se quitaran todos los filamentos guardados en este navegador.")) return;
+    quoteWorkspace.clear();
+  }
+
+  function toggleQuoteControls() {
+    if (!quoteWorkspace || quoteListReadOnly) return;
+    quoteWorkspace.toggleQuickControls();
+  }
+
+  function exportQuoteList() {
+    if (!quoteItems.length || quoteListReadOnly || !quoteWorkspace) return;
+    const blob = new Blob([quoteWorkspace.exportJson()], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `stockcentral-lista-${new Date().toISOString().slice(0, 10)}.json`;
+    document.body.append(link);
+    link.click();
+    link.remove();
+    exportObjectUrls.add(url);
+    const cleanupTimer = window.setTimeout(() => {
+      URL.revokeObjectURL(url);
+      exportObjectUrls.delete(url);
+      exportCleanupTimers.delete(cleanupTimer);
+    }, 0);
+    exportCleanupTimers.add(cleanupTimer);
+  }
+
+  function openQuoteImportPicker() {
+    if (!quoteWorkspace) {
+      quoteImportPreview = null;
+      quoteImportFileName = "";
+      quoteImportError = "Todavia estamos cargando tu lista. Intenta nuevamente en unos segundos.";
+      return;
+    }
+    quoteImportError = "";
+    quoteImportInput?.click();
+  }
+
+  async function handleQuoteImportFile(event) {
+    const file = event.currentTarget.files?.[0];
+    event.currentTarget.value = "";
+    if (!file) return;
+    const requestId = beginQuoteImportRequest();
+    quoteImportPreview = null;
+    quoteImportError = "";
+    quoteImportFileName = file.name;
+    if (!quoteWorkspace) {
+      if (isCurrentQuoteImportRequest(requestId)) quoteImportError = "Todavia estamos cargando tu lista. Intenta nuevamente en unos segundos.";
+      return;
+    }
+    if (file.size > 2_000_000) {
+      quoteImportError = "El archivo es demasiado grande para una lista de cotizacion.";
+      return;
+    }
+    try {
+      const fileText = await file.text();
+      if (!isCurrentQuoteImportRequest(requestId)) return;
+      const previewResult = quoteWorkspace.previewImport(fileText);
+      if (!isCurrentQuoteImportRequest(requestId)) return;
+      if (!previewResult.ok) {
+        quoteImportError = previewResult.error;
+        return;
+      }
+      quoteImportPreview = previewResult;
+    } catch {
+      if (!isCurrentQuoteImportRequest(requestId)) return;
+      quoteImportError = "No pudimos leer ese archivo. Elegi nuevamente la lista exportada.";
+    }
+  }
+
+  function applyQuoteImport(mode) {
+    if (!quoteImportPreview || quoteListReadOnly || !quoteWorkspace) {
+      quoteImportError = quoteSchemaWarningCopy;
+      return;
+    }
+    quoteWorkspace.applyImport(quoteImportPreview, mode);
+    closeQuoteImport();
+  }
+
+  function closeQuoteImport() {
+    invalidateQuoteImportRequest();
+    quoteImportPreview = null;
+    quoteImportError = "";
+    quoteImportFileName = "";
+  }
+
+  function beginQuoteImportRequest() {
+    quoteImportRequestId += 1;
+    return quoteImportRequestId;
+  }
+
+  function invalidateQuoteImportRequest() {
+    quoteImportRequestId += 1;
+  }
+
+  function isCurrentQuoteImportRequest(requestId) {
+    return componentActive && requestId === quoteImportRequestId;
+  }
+
+  function openQuoteDrawer() {
+    if (quoteItems.length) quoteDrawerOpen = true;
+  }
+
+  function closeQuoteDrawer() {
+    quoteDrawerOpen = false;
+  }
+
+  function handleQuoteDrawerKeydown(event) {
+    if (event.key === "Escape" && (quoteImportPreview || quoteImportError)) {
+      closeQuoteImport();
+      return;
+    }
+    if (event.key === "Escape" && quoteDrawerOpen) closeQuoteDrawer();
+  }
+
 </script>
 
 <main id="main-content" class="shell" tabindex="-1">
-  <SiteHeader active="summary" updatedAt={generatedAt} subtitle="Resumen por proveedor" />
+  <SiteHeader active="summary" updatedAt={generatedAt} subtitle="Resumen por proveedor" {stockAlerts} onDismissStockAlerts={dismissStockAlerts} />
 
   <section class="status-strip">
     <span id="summary-updated">Última actualización: {formatDate(generatedAt)}</span>
@@ -178,7 +423,15 @@
       <button id="summary-sort-popular" class="soft-button" class:active={categoryOrder === "popular"} type="button" data-category-order="popular" on:click={() => categoryOrder = "popular"}>Popularidad</button>
       <button id="summary-sort-alpha" class="soft-button" class:active={categoryOrder === "alpha"} type="button" data-category-order="alpha" on:click={() => categoryOrder = "alpha"}>A-Z</button>
     </div>
+    <div class="quote-import-entry">
+      <button class="soft-button" type="button" disabled={!quoteWorkspace} on:click={openQuoteImportPicker}>Importar lista</button>
+      <button type="button" class="quote-import-help-tip" aria-label="Importa una lista exportada para recuperarla o llevarla desde otra PC o navegador." data-tooltip="Importa una lista exportada para recuperarla o llevarla desde otra PC o navegador.">?</button>
+    </div>
   </section>
+
+  {#if quoteListReadOnly}
+    <p class="quote-list-warning summary-read-only-warning" aria-live="polite">{quoteSchemaWarningCopy}</p>
+  {/if}
 
   <section class="filters" aria-label="Filtros">
     <label class="search-field">
@@ -192,8 +445,9 @@
     <p id="summary-line-help" class="line-help">{lineHelp}</p>
   </section>
 
-  <div class="table-shell">
-    <table id="summary-table" class="summary-table">
+  <div class:quote-list-layout-active={quoteItems.length > 0} class="summary-action-layout">
+    <div class="table-shell summary-table-region">
+      <table id="summary-table" class="summary-table">
       <thead>
         <tr>
           <th>Filamento</th>
@@ -229,6 +483,9 @@
               <tr>
                 <th>
                   <span class="summary-product">
+                    {#if productThumbnail(row.product)}
+                      <img class="summary-product-thumbnail" src={assetPath(productThumbnail(row.product))} alt={row.product.display_name || productSummaryName(row.product)} width="42" height="42" loading="lazy">
+                    {/if}
                     <span class="summary-color-swatch" style={colorSwatchStyle(row.product)} title={[row.product.color || "Sin color", row.product.pantone].filter(Boolean).join(" · ")} aria-label={[row.product.color || "Sin color", row.product.pantone].filter(Boolean).join(" · ")}></span>
                     <span class="summary-product-name">
                       {#if row.product.manufacturer_product_url}
@@ -236,14 +493,46 @@
                       {:else}
                         {productSummaryName(row.product)}
                       {/if}
-                      {#if row.product.pantone}<small>{row.product.pantone}</small>{/if}
+                      {#if row.product.sku || row.product.ean || row.product.pantone}
+                        <small class="summary-official-metadata">
+                          {#if row.product.sku}<span>SKU {row.product.sku}</span>{/if}
+                          {#if row.product.ean}<span>EAN {row.product.ean}</span>{/if}
+                          {#if row.product.pantone}<span>{row.product.pantone}</span>{/if}
+                        </small>
+                      {/if}
                     </span>
+                    <button
+                      class="quote-summary-add"
+                      class:confirmed={quoteAddFeedback[row.product.id]}
+                      type="button"
+                      disabled={!quoteWorkspace || quoteListReadOnly}
+                      aria-label={`Agregar ${row.product.display_name || productSummaryName(row.product)} a la lista de cotizacion`}
+                      on:click={() => addQuoteItem(row.product)}
+                    >{quoteAddFeedback[row.product.id] ? quoteAddFeedback[row.product.id] : "+1"}</button>
                   </span>
                 </th>
                 <td class="summary-presentation" data-label="Presentación">{formatPresentation(row.product)}</td>
                 {#each sources as source}
                   {@const cell = row.cells[source.id]}
-                  <td class={cell?.units > 0 ? "stock-in" : "stock-out"} data-label={source.name}>{formatInteger(cell?.units || 0)}</td>
+                  <td
+                    id={cell?.offer ? stockWatchTargetId(row.product, cell.offer) : undefined}
+                    class={cell?.units > 0 ? "stock-in" : (cell?.unknown ? "stock-unknown" : "stock-out")}
+                    data-label={source.name}
+                  >
+                    <span class="summary-cell-value">{cell?.unknown && !cell?.units ? "—" : formatInteger(cell?.units || 0)}</span>
+                    {#if cell?.offer}
+                      <button
+                        class="summary-stock-watch"
+                        class:active={isSubscribed(row.product, cell.offer)}
+                        type="button"
+                        aria-pressed={isSubscribed(row.product, cell.offer)}
+                        aria-label={`${isSubscribed(row.product, cell.offer) ? "Dejar de seguir" : "Avisarme por"} ${row.product.display_name || productSummaryName(row.product)} en ${source.name}`}
+                        on:click={() => toggleStockSubscription(row.product, cell.offer)}
+                      >
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path><path d="M10 21h4"></path></svg>
+                      </button>
+                    {/if}
+                  </td>
                 {/each}
                 <td class="summary-total" data-label="Total">{formatInteger(row.total)}</td>
               </tr>
@@ -259,8 +548,81 @@
           <td class="summary-total" data-label="Total">{formatInteger(grandTotal)}</td>
         </tr>
       </tfoot>
-    </table>
+      </table>
+    </div>
+
+    {#if quoteItems.length > 0}
+      <div class="quote-list-side-panel">
+        <QuoteListPanel
+          items={quoteItems}
+          {products}
+          {sources}
+          showQuickControls={quoteSettings.showQuickControls}
+          storageWarning={quoteStorageWarning}
+          reconcileNotice={quoteReconcileNotice}
+          readOnly={quoteListReadOnly}
+          onToggleControls={toggleQuoteControls}
+          onSetQuantity={setQuoteItemQuantity}
+          onRemoveItem={removeQuoteItem}
+          onClearList={clearQuoteList}
+          onExportList={exportQuoteList}
+          onImportList={openQuoteImportPicker}
+        />
+      </div>
+    {/if}
   </div>
+
+  <p class="visually-hidden" aria-live="polite">{quoteFeedbackMessage}</p>
 </main>
+
+{#if quoteItems.length > 0}
+  <button class="quote-floating-button" type="button" aria-label={`Abrir lista de cotizacion con ${quoteItems.length} item(s)`} on:click={openQuoteDrawer}>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h11"></path><path d="M8 12h11"></path><path d="M8 18h11"></path><path d="m3 6 1 1 2-2"></path><path d="m3 12 1 1 2-2"></path><path d="m3 18 1 1 2-2"></path></svg>
+    {#key quotePulseKey}<span class="quote-floating-count">{quoteItems.length}</span>{/key}
+  </button>
+{/if}
+
+<QuoteListDrawer
+  open={quoteDrawerOpen && quoteItems.length > 0}
+  items={quoteItems}
+  {products}
+  {sources}
+  showQuickControls={quoteSettings.showQuickControls}
+  storageWarning={quoteStorageWarning}
+  reconcileNotice={quoteReconcileNotice}
+  readOnly={quoteListReadOnly}
+  onClose={closeQuoteDrawer}
+  onToggleControls={toggleQuoteControls}
+  onSetQuantity={setQuoteItemQuantity}
+  onRemoveItem={removeQuoteItem}
+  onClearList={clearQuoteList}
+  onExportList={exportQuoteList}
+  onImportList={openQuoteImportPicker}
+  {handleQuoteDrawerKeydown}
+/>
+
+<input class="quote-import-input" type="file" accept=".json,application/json" bind:this={quoteImportInput} on:change={handleQuoteImportFile}>
+
+{#if quoteImportPreview || quoteImportError}
+  <div class="quote-import-backdrop" role="presentation" on:click={(event) => event.target === event.currentTarget && closeQuoteImport()}>
+    <div class="quote-import-dialog" role="dialog" aria-modal="true" aria-labelledby="summary-quote-import-title" tabindex="-1">
+      <button class="quote-import-close" type="button" aria-label="Cerrar importacion" on:click={closeQuoteImport}>×</button>
+      <h2 id="summary-quote-import-title">Importar lista</h2>
+      <small>{quoteImportFileName}</small>
+      {#if quoteImportError}
+        <p class="quote-import-error" aria-live="polite">{quoteImportError}</p>
+        <button class="soft-button" type="button" on:click={openQuoteImportPicker}>Elegir otro archivo</button>
+      {:else}
+        <p><strong>{quoteImportPreview.validCount}</strong> item(s) listos para importar.</p>
+        {#if quoteImportPreview.skippedCount}<p>{quoteImportPreview.skippedCount} item(s) se descartaran porque no son validos o ya no existen.</p>{/if}
+        <p class="quote-import-help">Combinar conserva tus otros items; si un producto se repite, usa la cantidad importada.</p>
+        <div class="quote-import-actions">
+          <button class="primary-button" type="button" on:click={() => applyQuoteImport("combine")}>Combinar</button>
+          <button class="soft-button" type="button" on:click={() => applyQuoteImport("replace")}>Reemplazar</button>
+        </div>
+      {/if}
+    </div>
+  </div>
+{/if}
 
 <SiteFooter sources={sources} contactContext={query ? `"${query}"` : ""} />
