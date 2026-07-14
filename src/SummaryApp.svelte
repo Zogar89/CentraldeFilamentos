@@ -7,6 +7,7 @@
   import SiteFooter from "./components/SiteFooter.svelte";
   import { createQuoteWorkspace } from "./lib/quoteWorkspace.js";
   import { createStockWatchWorkspace } from "./lib/stockWatchWorkspace.js";
+  import { buildSummaryRows, summaryProductImage } from "./lib/summaryRows.js";
   import {
     brandRank,
     colorSwatchStyle,
@@ -110,21 +111,7 @@
   $: availableLines = (products, [...new Set(products.map(lineLabel).filter(Boolean))]);
 
   function buildRows() {
-    return products.map((product) => {
-      const cells = Object.fromEntries(sources.map((source) => [source.id, { units: 0, unknown: false, offer: null }]));
-      (product.offers || []).forEach((offer) => {
-        const cell = cells[offer.source_id];
-        if (!cell) return;
-        cell.offer = offer;
-        if (Number.isFinite(Number(offer.stock_quantity)) && Number(offer.stock_quantity) > 0) {
-          cell.units += Number(offer.stock_quantity);
-        } else if (offer.stock_status === "unknown") {
-          cell.unknown = true;
-        }
-      });
-      const total = Object.values(cells).reduce((sum, cell) => sum + cell.units, 0);
-      return { product, cells, total };
-    }).sort((a, b) => compareProducts(a.product, b.product));
+    return buildSummaryRows(products, sources).sort((a, b) => compareProducts(a.product, b.product));
   }
 
   function totalsForRows(items) {
@@ -234,10 +221,6 @@
   function assetPath(path) {
     if (!path || /^https?:\/\//.test(path)) return path;
     return dataUrl(path);
-  }
-
-  function productThumbnail(product) {
-    return product.thumbnail_url || product.image_url || "";
   }
 
   function isSubscribed(product, offer) {
@@ -483,8 +466,8 @@
               <tr>
                 <th>
                   <span class="summary-product">
-                    {#if productThumbnail(row.product)}
-                      <img class="summary-product-thumbnail" src={assetPath(productThumbnail(row.product))} alt={row.product.display_name || productSummaryName(row.product)} width="42" height="42" loading="lazy">
+                    {#if summaryProductImage(row.product)}
+                      <img class="summary-product-thumbnail" src={assetPath(summaryProductImage(row.product))} alt={row.product.display_name || productSummaryName(row.product)} width="42" height="42" loading="lazy">
                     {/if}
                     <span class="summary-color-swatch" style={colorSwatchStyle(row.product)} title={[row.product.color || "Sin color", row.product.pantone].filter(Boolean).join(" · ")} aria-label={[row.product.color || "Sin color", row.product.pantone].filter(Boolean).join(" · ")}></span>
                     <span class="summary-product-name">
@@ -526,7 +509,7 @@
                         class:active={isSubscribed(row.product, cell.offer)}
                         type="button"
                         aria-pressed={isSubscribed(row.product, cell.offer)}
-                        aria-label={`${isSubscribed(row.product, cell.offer) ? "Dejar de seguir" : "Avisarme por"} ${row.product.display_name || productSummaryName(row.product)} en ${source.name}`}
+                        aria-label={`${isSubscribed(row.product, cell.offer) ? "Dejar de seguir" : "Avisarme por"} ${row.product.display_name || productSummaryName(row.product)} en ${cell.offer.provider_name || source.name}`}
                         on:click={() => toggleStockSubscription(row.product, cell.offer)}
                       >
                         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path><path d="M10 21h4"></path></svg>

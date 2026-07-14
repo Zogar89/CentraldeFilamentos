@@ -525,14 +525,16 @@ def test_summary_reuses_action_workspaces_and_preserves_cell_offer_contract():
     ]:
         assert token in quote_sources + css
 
-    assert "{ units: 0, unknown: false, offer: null }" in view
-    assert "cell.offer = offer;" in view
+    assert 'import { buildSummaryRows, summaryProductImage } from "./lib/summaryRows.js";' in view
+    assert "buildSummaryRows(products, sources)" in view
+    assert "cell.offer = offer;" not in view
     assert "{#if cell?.offer}" in view
     assert "stockWatchWorkspace.toggle(product, offer)" in view
     assert "quoteWorkspace.addProduct(product)" in view
     assert "aria-pressed={isSubscribed(row.product, cell.offer)}" in view
     assert "stockWatchTargetId(row.product, cell.offer)" in view
-    assert "product.thumbnail_url || product.image_url" in view
+    assert "cell.offer.provider_name || source.name" in view
+    assert "summaryProductImage(row.product)" in view
     assert "row.product.sku" in view
     assert "row.product.ean" in view
     assert "row.product.pantone" in view

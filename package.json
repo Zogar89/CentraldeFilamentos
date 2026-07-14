@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
-    "test:frontend": "node --test tests/quoteList.test.js tests/quoteWorkspace.test.js tests/quoteCoverage.test.js tests/imageCuration.test.js tests/stockWatchWorkspace.test.js",
+    "test:frontend": "node --test tests/quoteList.test.js tests/quoteWorkspace.test.js tests/quoteCoverage.test.js tests/imageCuration.test.js tests/stockWatchWorkspace.test.js tests/summaryRows.test.js",
     "test:quote-list": "npm run test:frontend",
     "build": "vite build",
     "preview": "vite preview --host 0.0.0.0",
