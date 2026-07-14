@@ -323,6 +323,8 @@ def test_catalog_delegates_interaction_state_to_shared_workspaces():
     ]:
         assert duplicated_or_low_level not in catalog
 
+    assert catalog.count("readOnly={quoteListReadOnly}") == 2
+
 
 def test_catalog_import_reads_only_publish_the_latest_live_request():
     catalog = (SRC / "CatalogApp.svelte").read_text(encoding="utf-8")

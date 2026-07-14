@@ -754,6 +754,7 @@
           showQuickControls={quoteSettings.showQuickControls}
           storageWarning={quoteStorageWarning}
           reconcileNotice={quoteReconcileNotice}
+          readOnly={quoteListReadOnly}
           onToggleControls={toggleQuoteControls}
           onSetQuantity={setQuoteItemQuantity}
           onRemoveItem={removeQuoteItem}
@@ -790,6 +791,7 @@
   showQuickControls={quoteSettings.showQuickControls}
   storageWarning={quoteStorageWarning}
   reconcileNotice={quoteReconcileNotice}
+  readOnly={quoteListReadOnly}
   onClose={closeQuoteDrawer}
   onToggleControls={toggleQuoteControls}
   onSetQuantity={setQuoteItemQuantity}
