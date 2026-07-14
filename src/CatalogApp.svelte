@@ -5,22 +5,8 @@
   import QuoteListPanel from "./components/QuoteListPanel.svelte";
   import SiteHeader from "./components/SiteHeader.svelte";
   import SiteFooter from "./components/SiteFooter.svelte";
-  import {
-    clampQuoteQuantity,
-    combineQuoteListItems,
-    initializeQuoteList,
-    loadQuoteList,
-    previewQuoteListImport,
-    saveQuoteList,
-    serializeQuoteListExport,
-    snapshotQuoteItem,
-  } from "./lib/quoteList.js";
-  import {
-    loadStockSubscriptions,
-    saveStockSubscriptions,
-    stockSignature,
-    subscriptionKey,
-  } from "./lib/stockSubscriptions.js";
+  import { createQuoteWorkspace } from "./lib/quoteWorkspace.js";
+  import { createStockWatchWorkspace } from "./lib/stockWatchWorkspace.js";
   import {
     brandRank,
     colorSwatchLabel,
@@ -62,15 +48,13 @@
   let categoryOrder = "popular";
   let lineHelp = "";
   let preview = null;
-  let stockSubscriptions = [];
   let stockAlerts = [];
   let quoteItems = [];
-  let quoteSettings = { showQuickControls: false };
+  let quoteSettings = { showQuickControls: true };
   let quoteStorageWarning = "";
   let quoteReconcileNotice = "";
   let quoteDrawerOpen = false;
   let quoteListReadOnly = false;
-  let preservedQuotePayload = null;
   let quoteImportInput;
   let quoteImportPreview = null;
   let quoteImportError = "";
@@ -81,45 +65,63 @@
   const quoteFeedbackTimers = new Map();
   let stockWatchFeedback = {};
   const stockWatchFeedbackTimers = new Map();
+  const exportCleanupTimers = new Set();
+  const exportObjectUrls = new Set();
   const quoteStorageWarningCopy = "No pudimos guardar la lista en este navegador. La podes usar durante esta sesion, pero se puede perder al cerrar la pagina.";
   const quoteCatalogWarningCopy = "No pudimos actualizar el catalogo; conservamos tu lista guardada.";
   const quoteSchemaWarningCopy = "La lista guardada usa una version mas nueva. La conservamos sin cambios para no perder datos.";
-  const quoteRemovedNoticeTemplate = "Quitamos {count} item(s) que ya no aparecen en el catalogo publicado.";
+  let quoteWorkspace = null;
+  let stockWatchWorkspace = null;
+  let unsubscribeQuoteWorkspace = () => {};
+  let unsubscribeStockWatchWorkspace = () => {};
+  let componentActive = true;
 
   onMount(async () => {
     const payload = await fetchJson("data/stock.json", null);
+    if (!componentActive) return;
     const catalogResult = payload && Array.isArray(payload.products)
       ? { ok: true, products: payload.products }
       : { ok: false, products: [] };
     products = catalogResult.products;
     sources = Array.isArray(payload?.sources) ? payload.sources : [];
     generatedAt = payload?.generated_at || "";
-    stockSubscriptions = loadStockSubscriptions();
-    reconcileStockSubscriptions();
-    const quoteList = loadQuoteList();
-    quoteListReadOnly = quoteList.readOnly;
-    preservedQuotePayload = quoteList.preservedPayload;
-    quoteSettings = quoteList.settings;
-    const reconciledQuoteList = initializeQuoteList(quoteList, catalogResult);
-    quoteItems = reconciledQuoteList.items;
-    quoteReconcileNotice = reconciledQuoteList.removedCount
-      ? quoteRemovedNoticeTemplate.replace("{count}", reconciledQuoteList.removedCount)
-      : "";
-    quoteStorageWarning = catalogResult.ok
-      ? (quoteList.storageAvailable ? "" : quoteStorageWarningCopy)
-      : quoteCatalogWarningCopy;
-    if (quoteListReadOnly) quoteStorageWarning = quoteSchemaWarningCopy;
-    if (reconciledQuoteList.shouldSave) {
-      saveQuoteListState(quoteItems, quoteSettings);
-    }
+
+    unsubscribeQuoteWorkspace();
+    quoteWorkspace = createQuoteWorkspace({
+      products,
+      catalogAvailable: catalogResult.ok,
+    });
+    unsubscribeQuoteWorkspace = quoteWorkspace.state.subscribe((state) => {
+      quoteItems = state.items;
+      quoteSettings = state.settings;
+      quoteListReadOnly = state.readOnly;
+      quoteReconcileNotice = state.reconcileNotice.replace("catálogo", "catalogo");
+      quoteStorageWarning = state.readOnly
+        ? quoteSchemaWarningCopy
+        : (!catalogResult.ok
+          ? quoteCatalogWarningCopy
+          : (state.storageWarning ? quoteStorageWarningCopy : ""));
+      if (!quoteItems.length) closeQuoteDrawer();
+    });
+
+    unsubscribeStockWatchWorkspace();
+    stockWatchWorkspace = createStockWatchWorkspace({ products });
+    unsubscribeStockWatchWorkspace = stockWatchWorkspace.state.subscribe((state) => {
+      stockAlerts = state.alerts;
+    });
   });
 
   onDestroy(() => {
+    componentActive = false;
+    unsubscribeQuoteWorkspace();
+    unsubscribeStockWatchWorkspace();
     quoteFeedbackTimers.forEach((timer) => window.clearTimeout(timer));
     stockWatchFeedbackTimers.forEach((timer) => window.clearTimeout(timer));
+    exportCleanupTimers.forEach((timer) => window.clearTimeout(timer));
+    exportObjectUrls.forEach((url) => URL.revokeObjectURL(url));
+    exportCleanupTimers.clear();
+    exportObjectUrls.clear();
   });
-
-  $: subscribedKeys = new Set(stockSubscriptions.map((item) => item.key));
   $: filteredProducts = (filters, categoryOrder, products.filter(matchesFilters).sort(compareProducts));
   $: groups = (categoryOrder, groupProducts(filteredProducts));
   $: lineOptions = (products, lineValues());
@@ -371,35 +373,13 @@
   }
 
   function isSubscribed(product, offer) {
-    return subscribedKeys.has(subscriptionKey(product, offer));
+    return stockWatchWorkspace?.isSubscribed(product, offer) || false;
   }
 
   function toggleStockSubscription(product, offer) {
-    const key = subscriptionKey(product, offer);
-    const existing = stockSubscriptions.find((item) => item.key === key);
-    if (existing) {
-      stockSubscriptions = stockSubscriptions.filter((item) => item.key !== key);
-      stockAlerts = stockAlerts.filter((item) => item.key !== key);
-    } else {
-      stockSubscriptions = [
-        ...stockSubscriptions,
-        {
-          key,
-          productId: product.id,
-          sourceId: offer.source_id || offer.provider_name,
-          productName: productBaseName(product),
-          providerName: offer.provider_name,
-          presentation: formatPresentation(product),
-          subscribedAt: new Date().toISOString(),
-          lastStockStatus: offer.stock_status || "unknown",
-          lastStockQuantity: Number(offer.stock_quantity || 0),
-          lastStockSignature: stockSignature(offer),
-          acknowledgedAt: "",
-        },
-      ];
-    }
-    saveStockSubscriptions(stockSubscriptions);
-    showStockWatchFeedback(key);
+    if (!stockWatchWorkspace) return;
+    stockWatchWorkspace.toggle(product, offer);
+    showStockWatchFeedback(stockWatchTargetId(product, offer));
   }
 
   function showStockWatchFeedback(key) {
@@ -417,13 +397,10 @@
   }
 
   function addQuoteItem(product) {
-    const existing = quoteItems.find((item) => item.productId === product.id);
-    const nextQuantity = Number(existing?.quantity || 0) + 1;
-    const nextItems = existing
-      ? quoteItems.map((item) => item.productId === product.id ? snapshotQuoteItem(product, nextQuantity) : item)
-      : [...quoteItems, snapshotQuoteItem(product, 1)];
-    saveQuoteListState(nextItems);
-    showQuoteAddFeedback(product, nextQuantity);
+    if (!quoteWorkspace || quoteListReadOnly) return;
+    quoteWorkspace.addProduct(product);
+    const quantity = quoteItems.find((item) => item.productId === product.id)?.quantity;
+    if (quantity) showQuoteAddFeedback(product, quantity);
   }
 
   function showQuoteAddFeedback(product, quantity) {
@@ -445,49 +422,29 @@
     quoteFeedbackMessage = message;
   }
 
-  function saveQuoteListState(nextItems, nextSettings = quoteSettings) {
-    quoteItems = nextItems;
-    quoteSettings = nextSettings;
-    const result = saveQuoteList({
-      items: quoteItems,
-      settings: quoteSettings,
-      readOnly: quoteListReadOnly,
-      preservedPayload: preservedQuotePayload,
-    });
-    quoteStorageWarning = result.blocked
-      ? quoteSchemaWarningCopy
-      : (result.ok ? "" : quoteStorageWarningCopy);
-    if (!quoteItems.length) closeQuoteDrawer();
-  }
-
   function setQuoteItemQuantity(productId, quantity) {
-    const product = products.find((item) => item.id === productId);
-    const nextQuantity = clampQuoteQuantity(quantity);
-    const nextItems = quoteItems.map((item) => {
-      if (item.productId !== productId) return item;
-      return product
-        ? snapshotQuoteItem(product, nextQuantity)
-        : { ...item, quantity: nextQuantity };
-    });
-    saveQuoteListState(nextItems);
+    if (!quoteWorkspace || quoteListReadOnly) return;
+    quoteWorkspace.setQuantity(productId, quantity);
+    const nextQuantity = quoteItems.find((item) => item.productId === productId)?.quantity || 1;
     pulseQuoteList(`Cantidad actualizada a ${nextQuantity} unidad(es).`);
   }
 
   function removeQuoteItem(productId) {
-    saveQuoteListState(quoteItems.filter((item) => item.productId !== productId));
+    if (!quoteWorkspace || quoteListReadOnly) return;
+    quoteWorkspace.removeProduct(productId);
     pulseQuoteList("Producto quitado de la lista.");
   }
 
   function clearQuoteList() {
+    if (!quoteWorkspace || quoteListReadOnly) return;
     if (!window.confirm("¿Vaciar la lista de cotizacion? Se quitaran todos los filamentos guardados en este navegador.")) return;
-    quoteReconcileNotice = "";
-    saveQuoteListState([]);
+    quoteWorkspace.clear();
   }
 
   function exportQuoteList() {
     if (!quoteItems.length || quoteListReadOnly) return;
     const blob = new Blob([
-      serializeQuoteListExport({ items: quoteItems, settings: quoteSettings }),
+      quoteWorkspace.exportJson(),
     ], { type: "application/json" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
@@ -496,7 +453,13 @@
     document.body.append(link);
     link.click();
     link.remove();
-    window.setTimeout(() => URL.revokeObjectURL(url), 0);
+    exportObjectUrls.add(url);
+    const cleanupTimer = window.setTimeout(() => {
+      URL.revokeObjectURL(url);
+      exportObjectUrls.delete(url);
+      exportCleanupTimers.delete(cleanupTimer);
+    }, 0);
+    exportCleanupTimers.add(cleanupTimer);
   }
 
   function openQuoteImportPicker() {
@@ -514,7 +477,9 @@
       quoteImportError = "El archivo es demasiado grande para una lista de cotizacion.";
       return;
     }
-    const previewResult = previewQuoteListImport(await file.text(), products);
+    const fileText = await file.text();
+    if (!componentActive || !quoteWorkspace) return;
+    const previewResult = quoteWorkspace.previewImport(fileText);
     if (!previewResult.ok) {
       quoteImportPreview = null;
       quoteImportError = previewResult.error;
@@ -529,14 +494,7 @@
       quoteImportError = quoteSchemaWarningCopy;
       return;
     }
-    const importedItems = quoteImportPreview.items;
-    const nextItems = mode === "combine"
-      ? combineQuoteListItems(quoteItems, importedItems)
-      : importedItems;
-    const nextSettings = mode === "replace" ? quoteImportPreview.settings : quoteSettings;
-    const skipped = quoteImportPreview.skippedCount;
-    quoteReconcileNotice = `Importamos ${quoteImportPreview.validCount} item(s)${skipped ? ` y descartamos ${skipped}` : ""}.`;
-    saveQuoteListState(nextItems, nextSettings);
+    quoteWorkspace.applyImport(quoteImportPreview, mode);
     closeQuoteImport();
   }
 
@@ -547,10 +505,8 @@
   }
 
   function toggleQuoteControls() {
-    saveQuoteListState(quoteItems, {
-      ...quoteSettings,
-      showQuickControls: !quoteSettings.showQuickControls,
-    });
+    if (!quoteWorkspace || quoteListReadOnly) return;
+    quoteWorkspace.toggleQuickControls();
   }
 
   function openQuoteDrawer() {
@@ -569,75 +525,8 @@
     if (event.key === "Escape" && quoteDrawerOpen) closeQuoteDrawer();
   }
 
-  function reconcileStockSubscriptions() {
-    const alerts = [];
-    const nextSubscriptions = stockSubscriptions.map((subscription) => {
-      const match = findSubscribedOffer(subscription);
-      if (!match) return subscription;
-
-      const { product, offer } = match;
-      const signature = stockSignature(offer);
-      const currentQuantity = Number(offer.stock_quantity || 0);
-      const previousQuantity = Number(subscription.lastStockQuantity || 0);
-      const cameBack = offer.stock_status === "in_stock" && subscription.lastStockStatus !== "in_stock";
-      const increasedStock = offer.stock_status === "in_stock" && currentQuantity > previousQuantity;
-      if (cameBack || increasedStock) {
-        alerts.push({
-          key: subscription.key,
-          productName: productBaseName(product),
-          providerName: offer.provider_name,
-          quantity: currentQuantity,
-          previousQuantity,
-          href: `#${stockWatchTargetId(product, offer)}`,
-        });
-        return subscription;
-      }
-
-      return {
-        ...subscription,
-        productName: productBaseName(product),
-        providerName: offer.provider_name,
-        presentation: formatPresentation(product),
-        lastStockStatus: offer.stock_status || "unknown",
-        lastStockQuantity: currentQuantity,
-        lastStockSignature: signature,
-      };
-    });
-
-    stockSubscriptions = nextSubscriptions;
-    stockAlerts = alerts;
-    saveStockSubscriptions(nextSubscriptions);
-  }
-
-  function findSubscribedOffer(subscription) {
-    const product = products.find((item) => item.id === subscription.productId);
-    if (!product) return null;
-
-    const offer = (product.offers || []).find((item) => (item.source_id || item.provider_name) === subscription.sourceId);
-    if (!offer) return null;
-    return { product, offer };
-  }
-
   function dismissStockAlerts() {
-    if (!stockAlerts.length) return;
-    const alertKeys = new Set(stockAlerts.map((item) => item.key));
-    stockSubscriptions = stockSubscriptions.map((subscription) => {
-      if (!alertKeys.has(subscription.key)) return subscription;
-      const match = findSubscribedOffer(subscription);
-      if (!match) return subscription;
-      return {
-        ...subscription,
-        productName: productBaseName(match.product),
-        providerName: match.offer.provider_name,
-        presentation: formatPresentation(match.product),
-        lastStockStatus: match.offer.stock_status || "unknown",
-        lastStockQuantity: Number(match.offer.stock_quantity || 0),
-        lastStockSignature: stockSignature(match.offer),
-        acknowledgedAt: new Date().toISOString(),
-      };
-    });
-    stockAlerts = [];
-    saveStockSubscriptions(stockSubscriptions);
+    stockWatchWorkspace?.dismissAlerts();
   }
 
   function stockWatchTargetId(product, offer) {
@@ -778,7 +667,7 @@
                         <div class="offers">
                           {#if (presentation.offers || []).length}
                             {#each presentation.offers as offer}
-                              {@const watchFeedbackKey = subscriptionKey(presentation, offer)}
+                              {@const watchFeedbackKey = stockWatchTargetId(presentation, offer)}
                               <div class="offer" id={stockWatchTargetId(presentation, offer)} title={providerTitle(offer)}>
                                 <div class="offer-main">
                                   <a href={`#${providerAnchorId(offer.source_id)}`} title={providerTitle(offer)}>{offer.provider_name}</a>

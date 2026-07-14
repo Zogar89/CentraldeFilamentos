@@ -47,7 +47,8 @@ def test_catalog_svelte_fetches_json_and_supports_required_filters():
     site_header = (SRC / "components" / "SiteHeader.svelte").read_text(encoding="utf-8")
     quick_lines = (SRC / "components" / "QuickLines.svelte").read_text(encoding="utf-8")
     subscriptions = (SRC / "lib" / "stockSubscriptions.js").read_text(encoding="utf-8")
-    js = view + shared + footer + site_header + quick_lines + subscriptions
+    stock_workspace = (SRC / "lib" / "stockWatchWorkspace.js").read_text(encoding="utf-8")
+    js = view + shared + footer + site_header + quick_lines + subscriptions + stock_workspace
 
     assert "data/stock.json" in js
     for filter_id in [
@@ -139,7 +140,7 @@ def test_catalog_svelte_fetches_json_and_supports_required_filters():
     assert "subscriptionKey" in js
     assert "stockSignature" in js
     assert "stockAlerts" in js
-    assert "increasedStock" in js
+    assert "confirmedQuantityIncrease" in js
     assert "currentQuantity > previousQuantity" in js
     assert "previousQuantity" in js
     assert "stockAlertLabel" in js
@@ -149,7 +150,7 @@ def test_catalog_svelte_fetches_json_and_supports_required_filters():
     assert "Avisarme si sube o vuelve el stock" in js
     assert "Seguir cambios de stock" in js
     assert "Dejar de seguir cambios de stock" in js
-    assert "reconcileStockSubscriptions" in js
+    assert "createStockWatchWorkspace" in js
     assert "dismissStockAlerts" in js
     assert "stockWatchTargetId" in js
     assert "0*" not in js
@@ -212,7 +213,7 @@ def test_quote_list_source_contract_covers_foundation():
         "QuoteListItem",
         "QuoteQuantityControl",
         "addQuoteItem",
-        "saveQuoteListState",
+        "createQuoteWorkspace",
         "setQuoteItemQuantity",
         "removeQuoteItem",
         "clearQuoteList",
@@ -230,7 +231,6 @@ def test_quote_list_source_contract_covers_foundation():
         "quantity",
     ]:
         assert identifier in js
-
     for copy in [
         "Agregar 1 unidad a la lista de cotizacion",
         "+1",
@@ -272,16 +272,69 @@ def test_quote_list_source_contract_covers_foundation():
         assert banned not in quote_class_source
 
 
+def test_catalog_delegates_interaction_state_to_shared_workspaces():
+    catalog = (SRC / "CatalogApp.svelte").read_text(encoding="utf-8")
+
+    for required in [
+        'import { createQuoteWorkspace } from "./lib/quoteWorkspace.js";',
+        'import { createStockWatchWorkspace } from "./lib/stockWatchWorkspace.js";',
+        "createQuoteWorkspace({",
+        "createStockWatchWorkspace({",
+        "unsubscribeQuoteWorkspace",
+        "unsubscribeStockWatchWorkspace",
+        "showQuickControls: true",
+        "QuoteListPanel",
+        "QuoteListDrawer",
+        "quote-add-button",
+        "stock-watch-button",
+        "quote-import-dialog",
+        "dismissStockAlerts",
+        "stockWatchTargetId",
+        "exportCleanupTimers",
+        "exportObjectUrls",
+    ]:
+        assert required in catalog
+
+    destroy_block = catalog.split("onDestroy(() => {", 1)[1].split("});", 1)[0]
+    for cleanup in [
+        "unsubscribeQuoteWorkspace();",
+        "unsubscribeStockWatchWorkspace();",
+        "quoteFeedbackTimers",
+        "stockWatchFeedbackTimers",
+        "exportCleanupTimers",
+        "exportObjectUrls",
+    ]:
+        assert cleanup in destroy_block
+
+    for duplicated_or_low_level in [
+        "loadQuoteList",
+        "saveQuoteList",
+        "initializeQuoteList",
+        "snapshotQuoteItem",
+        "combineQuoteListItems",
+        "previewQuoteListImport",
+        "serializeQuoteListExport",
+        "loadStockSubscriptions",
+        "saveStockSubscriptions",
+        "stockSignature",
+        "saveQuoteListState",
+        "reconcileStockSubscriptions",
+        "findSubscribedOffer",
+    ]:
+        assert duplicated_or_low_level not in catalog
+
+
 def test_quote_list_styles_contract_covers_panel_and_controls():
     def read_source(path):
         return path.read_text(encoding="utf-8") if path.exists() else ""
 
     catalog = read_source(SRC / "CatalogApp.svelte")
     quote_list = read_source(SRC / "lib" / "quoteList.js")
+    quote_workspace = read_source(SRC / "lib" / "quoteWorkspace.js")
     quote_panel = read_source(SRC / "components" / "QuoteListPanel.svelte")
     quote_drawer = read_source(SRC / "components" / "QuoteListDrawer.svelte")
     css = read_source(SRC / "styles" / "global.css")
-    quote_sources = catalog + quote_list + quote_panel + quote_drawer
+    quote_sources = catalog + quote_list + quote_workspace + quote_panel + quote_drawer
 
     assert (SRC / "components" / "QuoteListDrawer.svelte").exists()
     for identifier in [
@@ -306,7 +359,7 @@ def test_quote_list_styles_contract_covers_panel_and_controls():
         "No pudimos guardar la lista en este navegador. La podes usar durante esta sesion, pero se puede perder al cerrar la pagina.",
         "No se sincroniza con otra PC.",
         "StockCentral no vende ni procesa pedidos.",
-        "Quitamos {count} item(s) que ya no aparecen en el catalogo publicado.",
+        "Quitamos ${initialized.removedCount} item(s) que ya no aparecen en el catálogo publicado.",
     ]:
         assert copy in quote_sources
 
