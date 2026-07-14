@@ -10,6 +10,17 @@ PUBLIC = Path("public")
 SRC = Path("src")
 
 
+def test_material_swatches_are_generated_and_published_by_workflows():
+    data_capture = Path(".github/workflows/data-capture.yml").read_text(encoding="utf-8")
+    thumbnails_workflow = Path(".github/workflows/thumbnails.yml").read_text(encoding="utf-8")
+
+    assert "python -m centraldefilamentos.generate_material_swatches" in data_capture
+    assert "public/assets/material-swatches" in data_capture
+    assert 'cp -a public/assets/material-swatches/. "$pages_dir/assets/material-swatches/"' in data_capture
+    assert "python -m centraldefilamentos.generate_material_swatches" in thumbnails_workflow
+    assert "public/assets/material-swatches" in thumbnails_workflow
+
+
 def test_static_frontend_files_exist_and_are_linked():
     index = Path("index.html").read_text(encoding="utf-8")
     catalog = Path("catalogo.html").read_text(encoding="utf-8")
