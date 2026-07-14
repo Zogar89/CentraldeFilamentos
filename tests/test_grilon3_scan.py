@@ -1,8 +1,13 @@
 import hashlib
 import json
 import sys
+from types import SimpleNamespace
 
-from centraldefilamentos.connectors.grilon3_catalog import CatalogProduct, CatalogProductDetail
+from centraldefilamentos.connectors.grilon3_catalog import (
+    CatalogProduct,
+    CatalogProductDetail,
+    CatalogRejection,
+)
 from centraldefilamentos.grilon3_scan import main, scan_grilon3_catalog, write_grilon3_scan
 
 
@@ -53,12 +58,26 @@ def install_catalog_stubs(monkeypatch, *, reported_total=2, sitemap_extra=True, 
         )
 
     monkeypatch.setattr(
-        "centraldefilamentos.grilon3_scan.fetch_grilon3_active_catalog",
-        lambda **kwargs: (active, reported_total),
+        "centraldefilamentos.grilon3_scan.fetch_grilon3_active_catalog_audit",
+        lambda **kwargs: SimpleNamespace(
+            catalog=active,
+            reported_total=reported_total,
+            pages=(),
+            raw_link_count=len(active),
+            raw_unique_url_count=len(active),
+            rejections=(),
+        ),
+        raising=False,
     )
     monkeypatch.setattr(
-        "centraldefilamentos.grilon3_scan.fetch_grilon3_sitemap_catalog",
-        lambda **kwargs: sitemap,
+        "centraldefilamentos.grilon3_scan.fetch_grilon3_sitemap_catalog_audit",
+        lambda **kwargs: SimpleNamespace(
+            catalog=sitemap,
+            raw_loc_count=len(sitemap),
+            raw_unique_url_count=len(sitemap),
+            rejections=(),
+        ),
+        raising=False,
     )
 
     def fetch_detail(product_url, timeout_seconds):
@@ -76,6 +95,7 @@ def install_catalog_stubs(monkeypatch, *, reported_total=2, sitemap_extra=True, 
         "centraldefilamentos.grilon3_scan.fetch_grilon3_product_detail",
         fetch_detail,
     )
+    return active, sitemap
 
 
 def test_scan_retains_unclassified_sitemap_only_and_is_incomplete(monkeypatch):
@@ -114,6 +134,65 @@ def test_scan_is_incomplete_when_reported_total_does_not_match(monkeypatch):
 
     assert payload["summary"]["active_count"] == 2
     assert payload["summary"]["reported_total"] == 3
+    assert payload["complete"] is False
+
+
+def test_scan_is_incomplete_and_auditable_when_active_raw_card_is_rejected(monkeypatch):
+    active, _ = install_catalog_stubs(monkeypatch, reported_total=3, sitemap_extra=False)
+    rejection = CatalogRejection(
+        title="PLA Grilon3 1 kg",
+        url="https://grilon3.com.ar/producto/pla-sin-color/",
+        reasons=("color_missing",),
+    )
+    page = SimpleNamespace(
+        page_url="https://grilon3.com.ar/productos/",
+        raw_link_count=3,
+        raw_unique_url_count=3,
+        page=SimpleNamespace(products=tuple(active.values())),
+        rejections=(rejection,),
+    )
+    monkeypatch.setattr(
+        "centraldefilamentos.grilon3_scan.fetch_grilon3_active_catalog_audit",
+        lambda **kwargs: SimpleNamespace(
+            catalog=active,
+            reported_total=3,
+            pages=(page,),
+            raw_link_count=3,
+            raw_unique_url_count=3,
+            rejections=(rejection,),
+        ),
+        raising=False,
+    )
+
+    payload = scan_grilon3_catalog(max_workers=1)
+
+    assert payload["summary"]["active_raw_link_count"] == 3
+    assert payload["summary"]["active_raw_unique_url_count"] == 3
+    assert payload["summary"]["active_rejected_count"] == 1
+    assert payload["active_catalog_audit"]["rejections"] == [rejection.to_dict()]
+    assert "active_catalog_products_rejected" in payload["warnings"]
+    assert payload["complete"] is False
+
+
+def test_scan_is_incomplete_when_active_raw_unique_count_misses_reported_total(monkeypatch):
+    active, _ = install_catalog_stubs(monkeypatch, reported_total=3, sitemap_extra=False)
+    monkeypatch.setattr(
+        "centraldefilamentos.grilon3_scan.fetch_grilon3_active_catalog_audit",
+        lambda **kwargs: SimpleNamespace(
+            catalog=active,
+            reported_total=3,
+            pages=(),
+            raw_link_count=2,
+            raw_unique_url_count=2,
+            rejections=(),
+        ),
+        raising=False,
+    )
+
+    payload = scan_grilon3_catalog(max_workers=1)
+
+    assert payload["summary"]["active_raw_unique_url_count"] == 2
+    assert "active_raw_unique_count_mismatch" in payload["warnings"]
     assert payload["complete"] is False
 
 
@@ -160,6 +239,9 @@ def test_scan_retries_initial_detail_failure_once_and_uses_recovered_detail(monk
     assert calls == {ACTIVE_NEGRO_URL: 1, ACTIVE_ROJO_URL: 2}
     assert payload["summary"] == {
         "active_count": 2,
+        "active_raw_link_count": 2,
+        "active_raw_unique_url_count": 2,
+        "active_rejected_count": 0,
         "reported_total": 2,
         "detail_success_count": 2,
         "detail_error_count": 0,
@@ -168,6 +250,9 @@ def test_scan_retries_initial_detail_failure_once_and_uses_recovered_detail(monk
         "detail_retry_success_count": 1,
         "detail_retry_error_count": 0,
         "sitemap_count": 2,
+        "sitemap_raw_loc_count": 2,
+        "sitemap_raw_unique_url_count": 2,
+        "sitemap_rejected_count": 0,
         "sitemap_only_count": 0,
         "unclassified_sitemap_only_count": 0,
     }

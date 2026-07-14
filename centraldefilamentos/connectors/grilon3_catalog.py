@@ -5,7 +5,7 @@ from dataclasses import dataclass
 from html.parser import HTMLParser
 import json
 import re
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlparse
 
 import requests
 
@@ -50,6 +50,48 @@ class CatalogProductDetail:
         return self.gallery_image_urls[0] if self.gallery_image_urls else ""
 
 
+@dataclass(frozen=True)
+class CatalogRejection:
+    title: str
+    url: str
+    reasons: tuple[str, ...]
+
+    def to_dict(self) -> dict[str, object]:
+        return {
+            "title": self.title,
+            "url": self.url,
+            "reasons": list(self.reasons),
+        }
+
+
+@dataclass(frozen=True)
+class CatalogPageAudit:
+    page_url: str
+    page: CatalogPage
+    raw_link_count: int
+    raw_unique_url_count: int
+    raw_urls: tuple[str, ...]
+    rejections: tuple[CatalogRejection, ...]
+
+
+@dataclass(frozen=True)
+class ActiveCatalogAudit:
+    catalog: dict[str, CatalogProduct]
+    reported_total: int | None
+    pages: tuple[CatalogPageAudit, ...]
+    raw_link_count: int
+    raw_unique_url_count: int
+    rejections: tuple[CatalogRejection, ...]
+
+
+@dataclass(frozen=True)
+class SitemapCatalogAudit:
+    catalog: dict[str, CatalogProduct]
+    raw_loc_count: int
+    raw_unique_url_count: int
+    rejections: tuple[CatalogRejection, ...]
+
+
 def fetch_grilon3_catalog(products_url: str = BASE_URL, timeout_seconds: int = 30) -> dict[str, CatalogProduct]:
     response = requests.get(products_url, timeout=timeout_seconds)
     response.raise_for_status()
@@ -60,29 +102,39 @@ def fetch_grilon3_active_catalog(
     products_url: str = BASE_URL,
     timeout_seconds: int = 30,
 ) -> tuple[dict[str, CatalogProduct], int | None]:
+    audit = fetch_grilon3_active_catalog_audit(products_url, timeout_seconds)
+    return audit.catalog, audit.reported_total
+
+
+def fetch_grilon3_active_catalog_audit(
+    products_url: str = BASE_URL,
+    timeout_seconds: int = 30,
+) -> ActiveCatalogAudit:
     response = requests.get(products_url, timeout=timeout_seconds)
     response.raise_for_status()
-    first_page = parse_grilon3_catalog_page(response.text, base_url=products_url)
+    first_audit = parse_grilon3_catalog_page_audit(response.text, base_url=products_url)
 
-    pages = [first_page]
+    page_audits = [first_audit]
     visited_page_urls = {_canonical_product_url(products_url)}
-    pending_page_urls = list(first_page.pagination_urls)
+    pending_page_urls = list(first_audit.page.pagination_urls)
     while pending_page_urls:
         page_url = pending_page_urls.pop(0)
         canonical_page_url = _canonical_product_url(page_url)
         if canonical_page_url in visited_page_urls:
             continue
         visited_page_urls.add(canonical_page_url)
+        if not _is_allowed_catalog_page_url(page_url, products_url):
+            continue
         response = requests.get(page_url, timeout=timeout_seconds)
         response.raise_for_status()
-        page = parse_grilon3_catalog_page(response.text, base_url=page_url)
-        pages.append(page)
-        pending_page_urls.extend(page.pagination_urls)
+        page_audit = parse_grilon3_catalog_page_audit(response.text, base_url=page_url)
+        page_audits.append(page_audit)
+        pending_page_urls.extend(page_audit.page.pagination_urls)
 
     catalog: dict[str, CatalogProduct] = {}
     seen_urls: set[str] = set()
-    for page in pages:
-        for product in page.products:
+    for page_audit in page_audits:
+        for product in page_audit.page.products:
             canonical_url = _canonical_product_url(product.product_url)
             if canonical_url in seen_urls:
                 continue
@@ -99,13 +151,38 @@ def fetch_grilon3_active_catalog(
             key = _unique_catalog_key(catalog, product.product_id, canonical_url)
             catalog[key] = canonical_product
 
-    return catalog, first_page.reported_total
+    raw_urls = {
+        url
+        for page_audit in page_audits
+        for url in page_audit.raw_urls
+    }
+    return ActiveCatalogAudit(
+        catalog=catalog,
+        reported_total=first_audit.page.reported_total,
+        pages=tuple(page_audits),
+        raw_link_count=sum(page.raw_link_count for page in page_audits),
+        raw_unique_url_count=len(raw_urls),
+        rejections=tuple(
+            rejection
+            for page in page_audits
+            for rejection in page.rejections
+        ),
+    )
 
 
 def fetch_grilon3_sitemap_catalog(sitemap_url: str = SITEMAP_URL, timeout_seconds: int = 30) -> dict[str, CatalogProduct]:
     response = requests.get(sitemap_url, timeout=timeout_seconds)
     response.raise_for_status()
-    return parse_grilon3_sitemap(response.text)
+    return parse_grilon3_sitemap_audit(response.text).catalog
+
+
+def fetch_grilon3_sitemap_catalog_audit(
+    sitemap_url: str = SITEMAP_URL,
+    timeout_seconds: int = 30,
+) -> SitemapCatalogAudit:
+    response = requests.get(sitemap_url, timeout=timeout_seconds)
+    response.raise_for_status()
+    return parse_grilon3_sitemap_audit(response.text)
 
 
 def enrich_grilon3_catalog_details(
@@ -227,77 +304,135 @@ def parse_grilon3_catalog(html_text: str, base_url: str = BASE_URL) -> dict[str,
 
 
 def parse_grilon3_catalog_page(html_text: str, base_url: str = BASE_URL) -> CatalogPage:
+    return parse_grilon3_catalog_page_audit(html_text, base_url).page
+
+
+def parse_grilon3_catalog_page_audit(
+    html_text: str,
+    base_url: str = BASE_URL,
+) -> CatalogPageAudit:
     links = _ProductLinkParser.parse(html_text, base_url)
     metadata = _CatalogPageMetadataParser.parse(html_text, base_url)
     products: list[CatalogProduct] = []
+    rejections: list[CatalogRejection] = []
+    raw_urls: list[str] = []
 
     for link in links:
-        title = _clean_text(link["title"])
-        if not title:
-            continue
-        item = RawStockItem(
-            source_id="grilon3_catalog",
-            provider_name="Grilon3",
-            provider_zone="",
-            provider_url="https://grilon3.com.ar/",
-            original_name=title,
-            stock_quantity=None,
-            source_url=link["product_url"],
-            brand_hint="Grilon3",
-        )
-        fields = normalize_record(item)
-        product_id = build_product_id(fields)
-        if fields.brand != "Grilon3" or fields.material == "Sin clasificar" or fields.color == "Sin color":
-            continue
-        products.append(CatalogProduct(
-            product_id=product_id,
-            title=title,
-            product_url=link["product_url"],
+        canonical_url = _canonical_product_url(link["product_url"])
+        raw_urls.append(canonical_url)
+        product, rejection = _catalog_product_from_raw(
+            title=link["title"],
+            product_url=canonical_url,
             image_url=link["image_url"],
-            pantone="",
-            sku="",
-            ean="",
-        ))
+        )
+        if rejection:
+            rejections.append(rejection)
+        elif product:
+            products.append(product)
 
-    return CatalogPage(
+    page = CatalogPage(
         products=tuple(products),
         pagination_urls=metadata["pagination_urls"],
         reported_total=metadata["reported_total"],
     )
+    return CatalogPageAudit(
+        page_url=_canonical_product_url(base_url),
+        page=page,
+        raw_link_count=len(links),
+        raw_unique_url_count=len(set(raw_urls)),
+        raw_urls=tuple(raw_urls),
+        rejections=tuple(rejections),
+    )
 
 
 def parse_grilon3_sitemap(xml_text: str) -> dict[str, CatalogProduct]:
+    return parse_grilon3_sitemap_audit(xml_text).catalog
+
+
+def parse_grilon3_sitemap_audit(xml_text: str) -> SitemapCatalogAudit:
     catalog: dict[str, CatalogProduct] = {}
-    for url in re.findall(r"<loc>(.*?)</loc>", xml_text):
+    raw_locs = re.findall(r"<loc>(.*?)</loc>", xml_text)
+    unique_urls = tuple(dict.fromkeys(_canonical_product_url(url) for url in raw_locs))
+    rejections: list[CatalogRejection] = []
+    for url in unique_urls:
         if "/producto/" not in url:
+            rejections.append(CatalogRejection("", url, ("not_product_url",)))
             continue
         title = _title_from_product_url(url)
         if not title:
+            rejections.append(CatalogRejection("", url, ("missing_title",)))
             continue
-        item = RawStockItem(
-            source_id="grilon3_catalog",
-            provider_name="Grilon3",
-            provider_zone="",
-            provider_url="https://grilon3.com.ar/",
-            original_name=title,
-            stock_quantity=None,
-            source_url=url,
-            brand_hint="Grilon3",
-        )
-        fields = normalize_record(item)
-        if fields.brand != "Grilon3" or fields.material == "Sin clasificar" or fields.color == "Sin color":
-            continue
-        product_id = build_product_id(fields)
-        catalog[_unique_catalog_key(catalog, product_id, url)] = CatalogProduct(
-            product_id=product_id,
+        product, rejection = _catalog_product_from_raw(
             title=title,
             product_url=url,
             image_url="",
-            pantone="",
-            sku="",
-            ean="",
         )
-    return catalog
+        if rejection:
+            rejections.append(rejection)
+            continue
+        assert product is not None
+        catalog[_unique_catalog_key(catalog, product.product_id, url)] = product
+    return SitemapCatalogAudit(
+        catalog=catalog,
+        raw_loc_count=len(raw_locs),
+        raw_unique_url_count=len(unique_urls),
+        rejections=tuple(rejections),
+    )
+
+
+def _catalog_product_from_raw(
+    title: str,
+    product_url: str,
+    image_url: str,
+) -> tuple[CatalogProduct | None, CatalogRejection | None]:
+    cleaned_title = _clean_text(title)
+    if not cleaned_title:
+        return None, CatalogRejection("", product_url, ("missing_title",))
+    item = RawStockItem(
+        source_id="grilon3_catalog",
+        provider_name="Grilon3",
+        provider_zone="",
+        provider_url="https://grilon3.com.ar/",
+        original_name=cleaned_title,
+        stock_quantity=None,
+        source_url=product_url,
+        brand_hint="Grilon3",
+    )
+    fields = normalize_record(item)
+    reasons: list[str] = []
+    if fields.brand != "Grilon3":
+        reasons.append("brand_not_grilon3")
+    if fields.material == "Sin clasificar":
+        reasons.append("material_unclassified")
+    if fields.color == "Sin color":
+        reasons.append("color_missing")
+    if reasons:
+        return None, CatalogRejection(
+            cleaned_title,
+            product_url,
+            tuple(reasons),
+        )
+    return CatalogProduct(
+        product_id=build_product_id(fields),
+        title=cleaned_title,
+        product_url=product_url,
+        image_url=image_url,
+        pantone="",
+        sku="",
+        ean="",
+    ), None
+
+
+def _is_allowed_catalog_page_url(page_url: str, products_url: str) -> bool:
+    page = urlparse(page_url)
+    root = urlparse(products_url)
+    if (page.scheme, page.netloc) != (root.scheme, root.netloc):
+        return False
+    root_path = root.path.rstrip("/")
+    page_path = page.path.rstrip("/")
+    return page_path == root_path or bool(
+        re.fullmatch(rf"{re.escape(root_path)}/page/[0-9]+", page_path)
+    )
 
 
 def _unique_catalog_key(catalog: dict[str, CatalogProduct], product_id: str, product_url: str) -> str:

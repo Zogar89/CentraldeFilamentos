@@ -1,5 +1,7 @@
 from pathlib import Path
 
+import centraldefilamentos.connectors.grilon3_catalog as grilon_catalog
+
 from centraldefilamentos.connectors.grilon3_catalog import (
     enrich_with_grilon3_catalog,
     fetch_grilon3_active_catalog,
@@ -185,6 +187,118 @@ def test_fetch_grilon3_active_catalog_follows_pagination_links_discovered_later(
         "https://grilon3.com.ar/productos/page/2/",
         "https://grilon3.com.ar/productos/page/4/",
         "https://grilon3.com.ar/productos/page/3/",
+    ]
+
+
+def test_parse_grilon3_catalog_page_audit_records_raw_links_and_exact_rejections():
+    html = """
+    <html><body>
+      <p class="woocommerce-result-count">Mostrando 1-4 de 4 resultados</p>
+      <a href="/producto/pla-negro/"><img alt="PLA Negro Grilon3 1 kg"></a>
+      <a href="/producto/sin-titulo/"><img alt=""></a>
+      <a href="/producto/sin-material/"><img alt="Filamento Amarillo Grilon3 1 kg"></a>
+      <a href="/producto/sin-color/"><img alt="PLA Grilon3 1 kg"></a>
+    </body></html>
+    """
+
+    audit = grilon_catalog.parse_grilon3_catalog_page_audit(
+        html,
+        base_url="https://grilon3.com.ar/productos/",
+    )
+
+    assert audit.raw_link_count == 4
+    assert audit.raw_unique_url_count == 4
+    assert len(audit.page.products) == 1
+    assert [rejection.to_dict() for rejection in audit.rejections] == [
+        {
+            "title": "",
+            "url": "https://grilon3.com.ar/producto/sin-titulo/",
+            "reasons": ["missing_title"],
+        },
+        {
+            "title": "Filamento Amarillo Grilon3 1 kg",
+            "url": "https://grilon3.com.ar/producto/sin-material/",
+            "reasons": ["material_unclassified"],
+        },
+        {
+            "title": "PLA Grilon3 1 kg",
+            "url": "https://grilon3.com.ar/producto/sin-color/",
+            "reasons": ["color_missing"],
+        },
+    ]
+
+
+def test_fetch_grilon3_active_catalog_audit_ignores_external_pagination_and_cycles(monkeypatch):
+    pages = {
+        "https://grilon3.com.ar/productos/": """
+          <p class="woocommerce-result-count">Mostrando 1-2 de 2 resultados</p>
+          <a href="/producto/pla-negro/"><img alt="PLA Negro Grilon3 1 kg"></a>
+          <a class="page-numbers" href="/productos/page/2/">2</a>
+          <a class="page-numbers" href="https://example.com/productos/page/9/">externa</a>
+        """,
+        "https://grilon3.com.ar/productos/page/2/": """
+          <a href="/producto/pla-rojo/"><img alt="PLA Rojo Grilon3 1 kg"></a>
+          <a class="page-numbers" href="/productos/">inicio</a>
+          <a class="page-numbers" href="/productos/page/2/">2</a>
+        """,
+    }
+    calls = []
+
+    class Response:
+        def __init__(self, text):
+            self.text = text
+
+        def raise_for_status(self):
+            pass
+
+    def fake_get(url, timeout):
+        calls.append(url)
+        return Response(pages[url])
+
+    monkeypatch.setattr("centraldefilamentos.connectors.grilon3_catalog.requests.get", fake_get)
+
+    audit = grilon_catalog.fetch_grilon3_active_catalog_audit(timeout_seconds=6)
+
+    assert calls == [
+        "https://grilon3.com.ar/productos/",
+        "https://grilon3.com.ar/productos/page/2/",
+    ]
+    assert audit.raw_link_count == 2
+    assert audit.raw_unique_url_count == 2
+    assert len(audit.catalog) == 2
+    assert audit.rejections == ()
+    assert [page.page_url for page in audit.pages] == [
+        "https://grilon3.com.ar/productos/",
+        "https://grilon3.com.ar/productos/page/2/",
+    ]
+
+
+def test_parse_grilon3_sitemap_audit_records_raw_unique_and_rejected_locs():
+    xml = """
+    <urlset>
+      <url><loc>https://grilon3.com.ar/producto/pla-negro/</loc></url>
+      <url><loc>https://grilon3.com.ar/producto/pla-negro</loc></url>
+      <url><loc>https://grilon3.com.ar/producto/filamento-amarillo/</loc></url>
+      <url><loc>https://grilon3.com.ar/otra-ruta/</loc></url>
+    </urlset>
+    """
+
+    audit = grilon_catalog.parse_grilon3_sitemap_audit(xml)
+
+    assert audit.raw_loc_count == 4
+    assert audit.raw_unique_url_count == 3
+    assert len(audit.catalog) == 1
+    assert [rejection.to_dict() for rejection in audit.rejections] == [
+        {
+            "title": "Filamento Amarillo Grilon3 1 kg",
+            "url": "https://grilon3.com.ar/producto/filamento-amarillo/",
+            "reasons": ["material_unclassified"],
+        },
+        {
+            "title": "",
+            "url": "https://grilon3.com.ar/otra-ruta/",
+            "reasons": ["not_product_url"],
+        },
     ]
 
 

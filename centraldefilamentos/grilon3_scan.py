@@ -10,9 +10,9 @@ from typing import Sequence
 from centraldefilamentos.connectors.grilon3_catalog import (
     CatalogProduct,
     CatalogProductDetail,
-    fetch_grilon3_active_catalog,
+    fetch_grilon3_active_catalog_audit,
     fetch_grilon3_product_detail,
-    fetch_grilon3_sitemap_catalog,
+    fetch_grilon3_sitemap_catalog_audit,
 )
 from centraldefilamentos.models import RawStockItem
 from centraldefilamentos.normalize import normalize_record
@@ -29,12 +29,15 @@ def scan_grilon3_catalog(
     if max_workers < 1:
         raise ValueError("max_workers debe ser al menos 1")
 
-    active_catalog, reported_total = fetch_grilon3_active_catalog(
+    active_audit = fetch_grilon3_active_catalog_audit(
         timeout_seconds=timeout_seconds,
     )
-    sitemap_catalog = fetch_grilon3_sitemap_catalog(
+    sitemap_audit = fetch_grilon3_sitemap_catalog_audit(
         timeout_seconds=timeout_seconds,
     )
+    active_catalog = active_audit.catalog
+    reported_total = active_audit.reported_total
+    sitemap_catalog = sitemap_audit.catalog
 
     active_by_url = {
         _canonical_url(product.product_url): product
@@ -82,6 +85,12 @@ def scan_grilon3_catalog(
         warnings.append("reported_total_missing")
     elif active_count != reported_total:
         warnings.append("active_count_mismatch")
+    if reported_total is not None and active_audit.raw_unique_url_count != reported_total:
+        warnings.append("active_raw_unique_count_mismatch")
+    if active_audit.rejections:
+        warnings.append("active_catalog_products_rejected")
+    if sitemap_audit.rejections:
+        warnings.append("sitemap_urls_rejected")
     if detail_error_records:
         warnings.append("detail_requests_failed")
     if unclassified_count:
@@ -90,6 +99,9 @@ def scan_grilon3_catalog(
     complete = (
         reported_total is not None
         and active_count == reported_total
+        and active_audit.raw_unique_url_count == reported_total
+        and not active_audit.rejections
+        and not sitemap_audit.rejections
         and detail_success_count == active_count
         and unclassified_count == 0
     )
@@ -97,6 +109,9 @@ def scan_grilon3_catalog(
     return {
         "summary": {
             "active_count": active_count,
+            "active_raw_link_count": active_audit.raw_link_count,
+            "active_raw_unique_url_count": active_audit.raw_unique_url_count,
+            "active_rejected_count": len(active_audit.rejections),
             "reported_total": reported_total,
             "detail_success_count": detail_success_count,
             "detail_error_count": len(detail_error_records),
@@ -119,10 +134,38 @@ def scan_grilon3_catalog(
                 for attempts in detail_attempts
             ),
             "sitemap_count": len(sitemap_urls),
+            "sitemap_raw_loc_count": sitemap_audit.raw_loc_count,
+            "sitemap_raw_unique_url_count": sitemap_audit.raw_unique_url_count,
+            "sitemap_rejected_count": len(sitemap_audit.rejections),
             "sitemap_only_count": len(sitemap_only),
             "unclassified_sitemap_only_count": unclassified_count,
         },
         "products": products,
+        "active_catalog_audit": {
+            "raw_link_count": active_audit.raw_link_count,
+            "raw_unique_url_count": active_audit.raw_unique_url_count,
+            "accepted_count": active_count,
+            "rejected_count": len(active_audit.rejections),
+            "pages": [
+                {
+                    "url": page.page_url,
+                    "raw_link_count": page.raw_link_count,
+                    "raw_unique_url_count": page.raw_unique_url_count,
+                    "accepted_count": len(page.page.products),
+                    "rejected_count": len(page.rejections),
+                    "rejections": [rejection.to_dict() for rejection in page.rejections],
+                }
+                for page in active_audit.pages
+            ],
+            "rejections": [rejection.to_dict() for rejection in active_audit.rejections],
+        },
+        "sitemap_audit": {
+            "raw_loc_count": sitemap_audit.raw_loc_count,
+            "raw_unique_url_count": sitemap_audit.raw_unique_url_count,
+            "accepted_count": len(sitemap_urls),
+            "rejected_count": len(sitemap_audit.rejections),
+            "rejections": [rejection.to_dict() for rejection in sitemap_audit.rejections],
+        },
         "sitemap_only": sitemap_only,
         "detail_errors": detail_error_records,
         "detail_attempts": detail_attempts,
