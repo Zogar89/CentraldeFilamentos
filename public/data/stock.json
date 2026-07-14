@@ -26,9 +26,9 @@
       "finish": "",
       "id": "pla-pla-boutique-acqua-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/pla-boutique-acqua-600x600-241d2a74.jpg",
+      "image_url": "assets/grilon3/pla-boutique-acqua2-e6c606e0.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-boutique-acqua/",
       "material": "PLA",
       "offers": [
         {
@@ -68,7 +68,7 @@
       "pantone": "",
       "sku": "M17IAQ175CJ",
       "subrange": "Boutique",
-      "thumbnail_url": "assets/thumbs/grilon3/pla-boutique-acqua-600x600-241d2a74.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/pla-boutique-acqua2-e6c606e0.webp",
       "variant": "PLA Boutique",
       "weight_g": 1000
     },
@@ -191,7 +191,7 @@
       "finish": "",
       "id": "pla-amarillo-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/pla-amarillo-600x600-535755a6.jpg",
+      "image_url": "assets/grilon3/pla-amarillo2-fbce7107.jpg",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-amarillo/",
       "material": "PLA",
@@ -233,7 +233,7 @@
       "pantone": "Pantone Yellow",
       "sku": "M10IAM175CJ",
       "subrange": "Standard",
-      "thumbnail_url": "assets/thumbs/grilon3/pla-amarillo-600x600-535755a6.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/pla-amarillo2-fbce7107.webp",
       "variant": "",
       "weight_g": 1000
     },
@@ -488,9 +488,9 @@
       "finish": "",
       "id": "pla-amarillo-fluo-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/pla-amarillo-fluo-600x600-81c10d4c.jpg",
+      "image_url": "assets/grilon3/pla-amarillo-fluo2-559fb937.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-amarillo-fluo/",
       "material": "PLA",
       "offers": [
         {
@@ -530,7 +530,7 @@
       "pantone": "Pantone 388",
       "sku": "M10IAF175CJ",
       "subrange": "Standard",
-      "thumbnail_url": "assets/thumbs/grilon3/pla-amarillo-fluo-600x600-81c10d4c.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/pla-amarillo-fluo2-559fb937.webp",
       "variant": "",
       "weight_g": 1000
     },
@@ -543,9 +543,9 @@
       "finish": "",
       "id": "pla-pla-boutique-arena-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/pla-boutique-arena-1-600x600-075f8ebd.jpg",
+      "image_url": "assets/grilon3/pla-boutique-arena2-c8da7978.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-boutique-arena/",
       "material": "PLA",
       "offers": [
         {
@@ -585,7 +585,7 @@
       "pantone": "",
       "sku": "M17IAR175CJ",
       "subrange": "Boutique",
-      "thumbnail_url": "assets/thumbs/grilon3/pla-boutique-arena-1-600x600-075f8ebd.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/pla-boutique-arena2-c8da7978.webp",
       "variant": "PLA Boutique",
       "weight_g": 1000
     },
@@ -597,10 +597,10 @@
       "ean": "7798049654584",
       "finish": "Brillo metálico",
       "id": "pla-pla-silk-azabache-175-1000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/silk-azabache2-28212e0a.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/pla-silk-azabache/",
       "material": "PLA",
       "offers": [
         {
@@ -640,7 +640,7 @@
       "pantone": "",
       "sku": "M10IGE175CJ-1-3-1",
       "subrange": "Silk",
-      "thumbnail_url": "",
+      "thumbnail_url": "assets/thumbs/grilon3/silk-azabache2-28212e0a.webp",
       "variant": "PLA Silk",
       "weight_g": 1000
     },
@@ -686,9 +686,9 @@
       "finish": "",
       "id": "pla-pla-zeta-azabache-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/zeta-azabache2-600x600-c72f29a0.jpg",
+      "image_url": "assets/grilon3/zeta-azabache2-7ac633c6.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-zeta-azabache/",
       "material": "PLA",
       "offers": [
         {
@@ -728,7 +728,7 @@
       "pantone": "",
       "sku": "M16IZB175CJ",
       "subrange": "Zeta",
-      "thumbnail_url": "assets/thumbs/grilon3/zeta-azabache2-600x600-c72f29a0.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/zeta-azabache2-7ac633c6.webp",
       "variant": "PLA Zeta",
       "weight_g": 1000
     },
@@ -741,7 +741,7 @@
       "finish": "",
       "id": "pla-pla-850-azul-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/pla-850-azul-ml-17d120d8.jpg",
+      "image_url": "assets/grilon3/pla-850-azul2-ml-7dc1ce00.jpg",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-azul-2/",
       "material": "PLA",
@@ -761,7 +761,7 @@
       "pantone": "",
       "sku": "M11IAZ175CJ",
       "subrange": "PLA 850",
-      "thumbnail_url": "assets/thumbs/grilon3/pla-850-azul-ml-17d120d8.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/pla-850-azul2-ml-7dc1ce00.webp",
       "variant": "PLA 850",
       "weight_g": 1000
     },
@@ -773,10 +773,10 @@
       "ean": "7798049654218",
       "finish": "",
       "id": "pla-pla-850-azul-175-2500-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/pla850-maxicarrete-azul-21537992.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/maxicarrete-pla-850-azul/",
       "material": "PLA",
       "offers": [
         {
@@ -805,7 +805,7 @@
       "pantone": "",
       "sku": "M11IAZ175C2",
       "subrange": "PLA 850",
-      "thumbnail_url": "",
+      "thumbnail_url": "assets/thumbs/grilon3/pla850-maxicarrete-azul-21537992.webp",
       "variant": "PLA 850",
       "weight_g": 2500
     },
@@ -928,7 +928,7 @@
       "finish": "",
       "id": "pla-azul-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/pla-azul-600x600-cef91203.jpg",
+      "image_url": "assets/grilon3/pla-azul2-5dbfb9d5.jpg",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-azul/",
       "material": "PLA",
@@ -970,7 +970,7 @@
       "pantone": "Pantone 286",
       "sku": "M10IAZ175CJ",
       "subrange": "Standard",
-      "thumbnail_url": "assets/thumbs/grilon3/pla-azul-600x600-cef91203.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/pla-azul2-5dbfb9d5.webp",
       "variant": "",
       "weight_g": 1000
     },
@@ -982,16 +982,16 @@
       "ean": "",
       "finish": "",
       "id": "pla-azul-285-1000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/pla285-azul3-430ce84a.jpg",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/pla-azul-285/",
       "material": "PLA",
       "offers": [],
-      "pantone": "",
+      "pantone": "Pantone 286",
       "sku": "",
       "subrange": "Standard",
-      "thumbnail_url": "",
+      "thumbnail_url": "assets/thumbs/grilon3/pla285-azul3-430ce84a.webp",
       "variant": "",
       "weight_g": 1000
     },
@@ -1004,9 +1004,9 @@
       "finish": "",
       "id": "pla-azul-175-4000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/megafill-azul2-600x600-632b4bc2.jpg",
+      "image_url": "assets/grilon3/megafill-azul2-bacdf097.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/megafill-pla-azul/",
       "material": "PLA",
       "offers": [
         {
@@ -1046,7 +1046,7 @@
       "pantone": "Pantone 286",
       "sku": "M10IAZ175C4",
       "subrange": "Standard",
-      "thumbnail_url": "assets/thumbs/grilon3/megafill-azul2-600x600-632b4bc2.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/megafill-azul2-bacdf097.webp",
       "variant": "",
       "weight_g": 4000
     },
@@ -1059,9 +1059,9 @@
       "finish": "Brillo metálico",
       "id": "pla-pla-silk-azul-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/silk-azul-600x600-7502dda7.jpg",
+      "image_url": "assets/grilon3/silk-azul2-a4d4a5b2.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/pla-silk-azul/",
       "material": "PLA",
       "offers": [
         {
@@ -1101,7 +1101,7 @@
       "pantone": "",
       "sku": "M10IGE175CJ-1-1",
       "subrange": "Silk",
-      "thumbnail_url": "assets/thumbs/grilon3/silk-azul-600x600-7502dda7.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/silk-azul2-a4d4a5b2.webp",
       "variant": "PLA Silk",
       "weight_g": 1000
     },
@@ -1323,9 +1323,9 @@
       "finish": "",
       "id": "pla-azul-de-prusia-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/pla-azul-prusia-600x600-924c7f41.jpg",
+      "image_url": "assets/grilon3/pla-azul-prusia2-52298f56.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/pla-azul-prusia/",
       "material": "PLA",
       "offers": [
         {
@@ -1365,7 +1365,7 @@
       "pantone": "Pantone 3015",
       "sku": "M10IAF175CJ-1",
       "subrange": "Standard",
-      "thumbnail_url": "assets/thumbs/grilon3/pla-azul-prusia-600x600-924c7f41.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/pla-azul-prusia2-52298f56.webp",
       "variant": "",
       "weight_g": 1000
     },
@@ -1411,7 +1411,7 @@
       "finish": "",
       "id": "pla-pla-850-blanco-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/pla-850-blanco-ml-507ee82e.jpg",
+      "image_url": "assets/grilon3/pla-850-blanco2-ml-a9f6d5c5.jpg",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-blanco-2/",
       "material": "PLA",
@@ -1431,7 +1431,7 @@
       "pantone": "",
       "sku": "M11IBL175CJ",
       "subrange": "PLA 850",
-      "thumbnail_url": "assets/thumbs/grilon3/pla-850-blanco-ml-507ee82e.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/pla-850-blanco2-ml-a9f6d5c5.webp",
       "variant": "PLA 850",
       "weight_g": 1000
     },
@@ -1444,9 +1444,9 @@
       "finish": "",
       "id": "pla-pla-850-blanco-175-2500-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/petg-maxicarrete-blanco1-350x350-006d487d.jpg",
+      "image_url": "assets/grilon3/pla850-maxicarrete-blanco-3b8805a0.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/maxicarrete-pla-850-blanco/",
       "material": "PLA",
       "offers": [
         {
@@ -1475,7 +1475,7 @@
       "pantone": "",
       "sku": "M11IBL175C2",
       "subrange": "PLA 850",
-      "thumbnail_url": "assets/thumbs/grilon3/petg-maxicarrete-blanco1-350x350-006d487d.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/pla850-maxicarrete-blanco-3b8805a0.webp",
       "variant": "PLA 850",
       "weight_g": 2500
     },
@@ -1484,13 +1484,13 @@
       "color": "Blanco",
       "diameter_mm": 1.75,
       "display_name": "PLA 870 Blanco Grilon3 1 kg 1.75 mm",
-      "ean": "",
+      "ean": "7798049653464",
       "finish": "",
       "id": "pla-pla-870-blanco-175-1000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/pla-870-blanco2-790e72d1.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-nt-blanco/",
       "material": "PLA",
       "offers": [
         {
@@ -1528,9 +1528,9 @@
         }
       ],
       "pantone": "",
-      "sku": "",
+      "sku": "M15IBL175CJ",
       "subrange": "PLA 870",
-      "thumbnail_url": "",
+      "thumbnail_url": "assets/thumbs/grilon3/pla-870-blanco2-790e72d1.webp",
       "variant": "PLA 870",
       "weight_g": 1000
     },
@@ -1653,9 +1653,9 @@
       "finish": "",
       "id": "pla-blanco-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/pla-blanco-1-600x600-466d0cd2.jpg",
+      "image_url": "assets/grilon3/pla-blanco2-a6a39416.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-blanco/",
       "material": "PLA",
       "offers": [
         {
@@ -1695,7 +1695,7 @@
       "pantone": "",
       "sku": "M10IBL175CJ",
       "subrange": "Standard",
-      "thumbnail_url": "assets/thumbs/grilon3/pla-blanco-1-600x600-466d0cd2.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/pla-blanco2-a6a39416.webp",
       "variant": "",
       "weight_g": 1000
     },
@@ -1704,19 +1704,19 @@
       "color": "Blanco",
       "diameter_mm": 2.85,
       "display_name": "PLA Blanco Grilon3 1 kg 2.85 mm",
-      "ean": "",
+      "ean": "7798049652788",
       "finish": "",
       "id": "pla-blanco-285-1000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/pla-285-blanco2-ce4d11dc.jpg",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/pla-blanco-285/",
       "material": "PLA",
       "offers": [],
       "pantone": "",
-      "sku": "",
+      "sku": "M10IBL175CJ",
       "subrange": "Standard",
-      "thumbnail_url": "",
+      "thumbnail_url": "assets/thumbs/grilon3/pla-285-blanco2-ce4d11dc.webp",
       "variant": "",
       "weight_g": 1000
     },
@@ -1725,13 +1725,13 @@
       "color": "Blanco",
       "diameter_mm": 1.75,
       "display_name": "PLA Blanco Grilon3 4 kg 1.75 mm",
-      "ean": "7798049652788",
+      "ean": "7798049654744",
       "finish": "",
       "id": "pla-blanco-175-4000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/pla-blanco-1-600x600-466d0cd2.jpg",
+      "image_url": "assets/grilon3/megafill-blanco2-aba1f99f.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/megafill-pla-blanco/",
       "material": "PLA",
       "offers": [
         {
@@ -1769,9 +1769,9 @@
         }
       ],
       "pantone": "",
-      "sku": "M10IBL175CJ",
+      "sku": "M10IBL175C4",
       "subrange": "Standard",
-      "thumbnail_url": "assets/thumbs/grilon3/pla-blanco-1-600x600-466d0cd2.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/megafill-blanco2-aba1f99f.webp",
       "variant": "",
       "weight_g": 4000
     },
@@ -1992,10 +1992,10 @@
       "ean": "7798049654461",
       "finish": "Brillo metálico",
       "id": "pla-pla-silk-blanco-perla-175-1000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/silk-blanco2-9ee970d5.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/pla-silk-blanco-perla/",
       "material": "PLA",
       "offers": [
         {
@@ -2035,7 +2035,7 @@
       "pantone": "",
       "sku": "M10IGE175CJ-1-2",
       "subrange": "Silk",
-      "thumbnail_url": "",
+      "thumbnail_url": "assets/thumbs/grilon3/silk-blanco2-9ee970d5.webp",
       "variant": "PLA Silk",
       "weight_g": 1000
     },
@@ -2077,13 +2077,13 @@
       "color": "Bordo",
       "diameter_mm": 1.75,
       "display_name": "PLA 850 Bordo Grilon3 1 kg 1.75 mm",
-      "ean": "",
+      "ean": "7798049653457",
       "finish": "",
       "id": "pla-pla-850-bordo-175-1000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/pla-850-bordo2-ml-d418a390.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-bordo-2/",
       "material": "PLA",
       "offers": [
         {
@@ -2099,9 +2099,9 @@
         }
       ],
       "pantone": "",
-      "sku": "",
+      "sku": "M11IBO175CJ",
       "subrange": "PLA 850",
-      "thumbnail_url": "",
+      "thumbnail_url": "assets/thumbs/grilon3/pla-850-bordo2-ml-d418a390.webp",
       "variant": "PLA 850",
       "weight_g": 1000
     },
@@ -2110,13 +2110,13 @@
       "color": "Bordo",
       "diameter_mm": 1.75,
       "display_name": "PLA 870 Bordo Grilon3 1 kg 1.75 mm",
-      "ean": "",
+      "ean": "7798049653501",
       "finish": "",
       "id": "pla-pla-870-bordo-175-1000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/pla-870-bordo2-aed76746.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-nt-bordo/",
       "material": "PLA",
       "offers": [
         {
@@ -2154,9 +2154,9 @@
         }
       ],
       "pantone": "",
-      "sku": "",
+      "sku": "M15IBO175CJ",
       "subrange": "PLA 870",
-      "thumbnail_url": "",
+      "thumbnail_url": "assets/thumbs/grilon3/pla-870-bordo2-aed76746.webp",
       "variant": "PLA 870",
       "weight_g": 1000
     },
@@ -2165,13 +2165,13 @@
       "color": "Bordo",
       "diameter_mm": 1.75,
       "display_name": "PLA Bordo Grilon3 1 kg 1.75 mm",
-      "ean": "7798049653501",
+      "ean": "7798049652948",
       "finish": "",
       "id": "pla-bordo-175-1000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/pla-bordo2-78a68f8a.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-bordo/",
       "material": "PLA",
       "offers": [
         {
@@ -2208,10 +2208,10 @@
           "updated_at": "2026-07-14T10:52:54-03:00"
         }
       ],
-      "pantone": "",
-      "sku": "M15IBO175CJ",
+      "pantone": "Pantone 201",
+      "sku": "M10IBO175CJ",
       "subrange": "Standard",
-      "thumbnail_url": "",
+      "thumbnail_url": "assets/thumbs/grilon3/pla-bordo2-78a68f8a.webp",
       "variant": "",
       "weight_g": 1000
     },
@@ -2264,13 +2264,13 @@
       "color": "Bronce",
       "diameter_mm": 1.75,
       "display_name": "PLA 850 Bronce Grilon3 1 kg 1.75 mm",
-      "ean": "7798049654188",
+      "ean": "7798049653792",
       "finish": "",
       "id": "pla-pla-850-bronce-175-1000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/pla-850-bronce2-3809f0c6.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-bronce-2/",
       "material": "PLA",
       "offers": [
         {
@@ -2286,9 +2286,9 @@
         }
       ],
       "pantone": "",
-      "sku": "M11IBR175C2",
+      "sku": "M11IBR175CJ",
       "subrange": "PLA 850",
-      "thumbnail_url": "",
+      "thumbnail_url": "assets/thumbs/grilon3/pla-850-bronce2-3809f0c6.webp",
       "variant": "PLA 850",
       "weight_g": 1000
     },
@@ -2300,10 +2300,10 @@
       "ean": "7798049654188",
       "finish": "",
       "id": "pla-pla-850-bronce-175-2500-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/pla850-maxicarrete-bronce-fe58a8f3.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/maxicarrete-pla-850-bronce/",
       "material": "PLA",
       "offers": [
         {
@@ -2332,7 +2332,7 @@
       "pantone": "",
       "sku": "M11IBR175C2",
       "subrange": "PLA 850",
-      "thumbnail_url": "",
+      "thumbnail_url": "assets/thumbs/grilon3/pla850-maxicarrete-bronce-fe58a8f3.webp",
       "variant": "PLA 850",
       "weight_g": 2500
     },
@@ -2451,13 +2451,13 @@
       "color": "Bronce",
       "diameter_mm": 1.75,
       "display_name": "PLA Bronce Grilon3 1 kg 1.75 mm",
-      "ean": "7798049653792",
+      "ean": "7798049652917",
       "finish": "",
       "id": "pla-bronce-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/pla-850-bronce-600x600-4a74034e.jpg",
+      "image_url": "assets/grilon3/pla-bronce2-a33285b3.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-bronce/",
       "material": "PLA",
       "offers": [
         {
@@ -2494,10 +2494,10 @@
           "updated_at": "2026-07-14T10:52:54-03:00"
         }
       ],
-      "pantone": "",
-      "sku": "M11IBR175CJ",
+      "pantone": "Pantone 4505",
+      "sku": "M10IBR175CJ",
       "subrange": "Standard",
-      "thumbnail_url": "assets/thumbs/grilon3/pla-850-bronce-600x600-4a74034e.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/pla-bronce2-a33285b3.webp",
       "variant": "",
       "weight_g": 1000
     },
@@ -2730,9 +2730,9 @@
       "finish": "Glitter",
       "id": "pla-pla-astra-calipso-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/astra-calipso-web-600x600-ea3a0024.jpg",
+      "image_url": "assets/grilon3/astra-calipso2-web-901e3ffb.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/pla-astra-calipso/",
       "material": "PLA",
       "offers": [
         {
@@ -2772,7 +2772,7 @@
       "pantone": "Pantone 320",
       "sku": "M22ICA175CJ",
       "subrange": "Astra",
-      "thumbnail_url": "assets/thumbs/grilon3/astra-calipso-web-600x600-ea3a0024.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/astra-calipso2-web-901e3ffb.webp",
       "variant": "PLA Astra",
       "weight_g": 1000
     },
@@ -2818,9 +2818,9 @@
       "finish": "Madera",
       "id": "pla-pla-wood-caoba-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/wood-caoba-1-600x600-0cb08d3d.jpg",
+      "image_url": "assets/grilon3/wood-caoba3-f7f968fc.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/wood-caoba/",
       "material": "PLA",
       "offers": [
         {
@@ -2860,7 +2860,7 @@
       "pantone": "",
       "sku": "M20ICA175CJ",
       "subrange": "Wood",
-      "thumbnail_url": "assets/thumbs/grilon3/wood-caoba-1-600x600-0cb08d3d.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/wood-caoba3-f7f968fc.webp",
       "variant": "PLA Wood",
       "weight_g": 1000
     },
@@ -2906,9 +2906,9 @@
       "finish": "",
       "id": "pla-pla-boutique-carbon-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/pla-boutique-carbon-1-600x600-d61e6f92.jpg",
+      "image_url": "assets/grilon3/pla-boutique-carbon2-1-40509bc6.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-boutique-carbon/",
       "material": "PLA",
       "offers": [
         {
@@ -2948,7 +2948,7 @@
       "pantone": "",
       "sku": "M17ICB175CJ",
       "subrange": "Boutique",
-      "thumbnail_url": "assets/thumbs/grilon3/pla-boutique-carbon-1-600x600-d61e6f92.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/pla-boutique-carbon2-1-40509bc6.webp",
       "variant": "PLA Boutique",
       "weight_g": 1000
     },
@@ -2961,9 +2961,9 @@
       "finish": "",
       "id": "pla-pla-boutique-caribe-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/pla-boutique-caribe-1-600x600-f0aa3711.jpg",
+      "image_url": "assets/grilon3/pla-boutique-caribe2-69893e60.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-boutique-caribe/",
       "material": "PLA",
       "offers": [
         {
@@ -3003,7 +3003,7 @@
       "pantone": "",
       "sku": "M17ICA175CJ",
       "subrange": "Boutique",
-      "thumbnail_url": "assets/thumbs/grilon3/pla-boutique-caribe-1-600x600-f0aa3711.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/pla-boutique-caribe2-69893e60.webp",
       "variant": "PLA Boutique",
       "weight_g": 1000
     },
@@ -3181,9 +3181,9 @@
       "finish": "",
       "id": "pla-celeste-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/pla-celeste-600x600-e8f3c4bd.jpg",
+      "image_url": "assets/grilon3/pla-celeste2-12eefce9.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-celeste/",
       "material": "PLA",
       "offers": [
         {
@@ -3223,7 +3223,7 @@
       "pantone": "Pantone 2925",
       "sku": "M10ICE175CJ",
       "subrange": "Standard",
-      "thumbnail_url": "assets/thumbs/grilon3/pla-celeste-600x600-e8f3c4bd.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/pla-celeste2-12eefce9.webp",
       "variant": "",
       "weight_g": 1000
     },
@@ -3334,10 +3334,10 @@
       "ean": "7798049654379",
       "finish": "Madera",
       "id": "pla-pla-wood-cerezo-175-1000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/wood-cerezo2-8340a4c2.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/pla-wood-cerezo/",
       "material": "PLA",
       "offers": [
         {
@@ -3377,7 +3377,7 @@
       "pantone": "",
       "sku": "M20ICE175CJ",
       "subrange": "Wood",
-      "thumbnail_url": "",
+      "thumbnail_url": "assets/thumbs/grilon3/wood-cerezo2-8340a4c2.webp",
       "variant": "PLA Wood",
       "weight_g": 1000
     },
@@ -3423,9 +3423,9 @@
       "finish": "",
       "id": "pla-pla-boutique-chocolate-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/pla-boutique-chocolate-1-600x600-2615c921.jpg",
+      "image_url": "assets/grilon3/pla-boutique-chocolate2-f06c6cf8.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-boutique-chocolate/",
       "material": "PLA",
       "offers": [
         {
@@ -3465,7 +3465,7 @@
       "pantone": "",
       "sku": "M17ICH175CJ",
       "subrange": "Boutique",
-      "thumbnail_url": "assets/thumbs/grilon3/pla-boutique-chocolate-1-600x600-2615c921.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/pla-boutique-chocolate2-f06c6cf8.webp",
       "variant": "PLA Boutique",
       "weight_g": 1000
     },
@@ -3573,13 +3573,13 @@
       "color": "Clear Cristal",
       "diameter_mm": 1.75,
       "display_name": "PLA Zeta Clear Cristal Grilon3 1 kg 1.75 mm",
-      "ean": "",
+      "ean": "7798049653624",
       "finish": "",
       "id": "pla-pla-zeta-clear-cristal-175-1000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/zeta-cristal2-ad371e3c.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-zeta-cristal/",
       "material": "PLA",
       "offers": [
         {
@@ -3617,9 +3617,9 @@
         }
       ],
       "pantone": "",
-      "sku": "",
+      "sku": "M16ICR175CJ",
       "subrange": "Zeta",
-      "thumbnail_url": "",
+      "thumbnail_url": "assets/thumbs/grilon3/zeta-cristal2-ad371e3c.webp",
       "variant": "PLA Zeta",
       "weight_g": 1000
     },
@@ -3687,9 +3687,9 @@
       "finish": "",
       "id": "pla-cobre-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/pla-cobre-600x600-cda8b5b5.jpg",
+      "image_url": "assets/grilon3/pla-cobre2-1e3d0467.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-cobre/",
       "material": "PLA",
       "offers": [
         {
@@ -3729,7 +3729,7 @@
       "pantone": "Pantone 160",
       "sku": "M10ICO175CJ",
       "subrange": "Standard",
-      "thumbnail_url": "assets/thumbs/grilon3/pla-cobre-600x600-cda8b5b5.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/pla-cobre2-1e3d0467.webp",
       "variant": "",
       "weight_g": 1000
     },
@@ -3742,9 +3742,9 @@
       "finish": "Brillo metálico",
       "id": "pla-pla-silk-cobre-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/silk-cobre-600x600-f42df4ff.jpg",
+      "image_url": "assets/grilon3/silk-cobre2-bcdd6bb2.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/pla-silk-cobre/",
       "material": "PLA",
       "offers": [
         {
@@ -3784,7 +3784,7 @@
       "pantone": "",
       "sku": "M10IGE175CJ-1-3-2",
       "subrange": "Silk",
-      "thumbnail_url": "assets/thumbs/grilon3/silk-cobre-600x600-f42df4ff.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/silk-cobre2-bcdd6bb2.webp",
       "variant": "PLA Silk",
       "weight_g": 1000
     },
@@ -3830,9 +3830,9 @@
       "finish": "",
       "id": "pla-pla-boutique-crema-del-cielo-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/pla-boutique-cremadelcielo-1-600x600-1e9b96ca.jpg",
+      "image_url": "assets/grilon3/pla-boutique-cremadelcielo2-f2479d00.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-boutique-crema-del-cielo/",
       "material": "PLA",
       "offers": [
         {
@@ -3872,7 +3872,7 @@
       "pantone": "",
       "sku": "M17ICI175CJ",
       "subrange": "Boutique",
-      "thumbnail_url": "assets/thumbs/grilon3/pla-boutique-cremadelcielo-1-600x600-1e9b96ca.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/pla-boutique-cremadelcielo2-f2479d00.webp",
       "variant": "PLA Boutique",
       "weight_g": 1000
     },
@@ -3885,9 +3885,9 @@
       "finish": "Glitter",
       "id": "pla-pla-astra-dark-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/astra-dark3-600x600-15bb7915.jpg",
+      "image_url": "assets/grilon3/astra-dark-web2-bdf642ea.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/pla-astra-dark/",
       "material": "PLA",
       "offers": [
         {
@@ -3927,7 +3927,7 @@
       "pantone": "Pantone 419",
       "sku": "M22IDA175CJ",
       "subrange": "Astra",
-      "thumbnail_url": "assets/thumbs/grilon3/astra-dark3-600x600-15bb7915.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/astra-dark-web2-bdf642ea.webp",
       "variant": "PLA Astra",
       "weight_g": 1000
     },
@@ -3973,9 +3973,9 @@
       "finish": "",
       "id": "pla-dorado-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/pla-dorado-600x600-6888bb8e.webp",
+      "image_url": "assets/grilon3/pla-dorado2-5ab75615.webp",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/pla-dorado/",
       "material": "PLA",
       "offers": [
         {
@@ -4015,7 +4015,7 @@
       "pantone": "Pantone 143",
       "sku": "M10IDO175CJ",
       "subrange": "Standard",
-      "thumbnail_url": "assets/thumbs/grilon3/pla-dorado-600x600-6888bb8e.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/pla-dorado2-5ab75615.webp",
       "variant": "",
       "weight_g": 1000
     },
@@ -4028,9 +4028,9 @@
       "finish": "Brillo metálico",
       "id": "pla-pla-silk-dorado-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/silk-dorado-600x600-1e261111.jpg",
+      "image_url": "assets/grilon3/silk-dorado2-9cf93bb3.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/pla-silk-dorado/",
       "material": "PLA",
       "offers": [
         {
@@ -4070,7 +4070,7 @@
       "pantone": "",
       "sku": "M10IGE175CJ-1",
       "subrange": "Silk",
-      "thumbnail_url": "assets/thumbs/grilon3/silk-dorado-600x600-1e261111.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/silk-dorado2-9cf93bb3.webp",
       "variant": "PLA Silk",
       "weight_g": 1000
     },
@@ -4115,10 +4115,10 @@
       "ean": "7798049654256",
       "finish": "",
       "id": "pla-pla-boutique-dulce-de-leche-175-1000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/pla-boutique-dulceleche2-65fc2a3f.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-boutique-dulce-de-leche/",
       "material": "PLA",
       "offers": [
         {
@@ -4158,7 +4158,7 @@
       "pantone": "",
       "sku": "M17IDL175CJ",
       "subrange": "Boutique",
-      "thumbnail_url": "",
+      "thumbnail_url": "assets/thumbs/grilon3/pla-boutique-dulceleche2-65fc2a3f.webp",
       "variant": "PLA Boutique",
       "weight_g": 1000
     },
@@ -4171,9 +4171,9 @@
       "finish": "",
       "id": "pla-pla-boutique-esmeralda-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/pla-boutique-esmeralda-1-600x600-b3c267b2.jpg",
+      "image_url": "assets/grilon3/pla-boutique-esmeralda2-d97c501a.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-boutique-esmeralda/",
       "material": "PLA",
       "offers": [
         {
@@ -4213,7 +4213,7 @@
       "pantone": "",
       "sku": "M17IES175CJ",
       "subrange": "Boutique",
-      "thumbnail_url": "assets/thumbs/grilon3/pla-boutique-esmeralda-1-600x600-b3c267b2.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/pla-boutique-esmeralda2-d97c501a.webp",
       "variant": "PLA Boutique",
       "weight_g": 1000
     },
@@ -4226,9 +4226,9 @@
       "finish": "",
       "id": "pla-pla-boutique-frutilla-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/pla-boutique-frutilla-1-600x600-1f3e53ed.jpg",
+      "image_url": "assets/grilon3/pla-boutique-frutilla2-29aa6dd2.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-boutique-frutilla/",
       "material": "PLA",
       "offers": [
         {
@@ -4268,7 +4268,7 @@
       "pantone": "",
       "sku": "M17IFR175CJ",
       "subrange": "Boutique",
-      "thumbnail_url": "assets/thumbs/grilon3/pla-boutique-frutilla-1-600x600-1f3e53ed.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/pla-boutique-frutilla2-29aa6dd2.webp",
       "variant": "PLA Boutique",
       "weight_g": 1000
     },
@@ -4391,9 +4391,9 @@
       "finish": "",
       "id": "pla-fucsia-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/pla-fucsia-600x600-a51838d0.jpg",
+      "image_url": "assets/grilon3/pla-fucsia2-e554a119.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-fucsia/",
       "material": "PLA",
       "offers": [
         {
@@ -4433,7 +4433,7 @@
       "pantone": "Pantone 232",
       "sku": "M10IFU175CJ",
       "subrange": "Standard",
-      "thumbnail_url": "assets/thumbs/grilon3/pla-fucsia-600x600-a51838d0.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/pla-fucsia2-e554a119.webp",
       "variant": "",
       "weight_g": 1000
     },
@@ -4500,10 +4500,10 @@
       "ean": "7798049652986",
       "finish": "",
       "id": "pla-gris-espacial-175-1000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/pla-gris-espacial2-c978b052.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-gris-espacial/",
       "material": "PLA",
       "offers": [
         {
@@ -4543,7 +4543,7 @@
       "pantone": "Pantone Cool Gray 3",
       "sku": "M10IGE175CJ",
       "subrange": "Standard",
-      "thumbnail_url": "",
+      "thumbnail_url": "assets/thumbs/grilon3/pla-gris-espacial2-c978b052.webp",
       "variant": "",
       "weight_g": 1000
     },
@@ -4588,10 +4588,10 @@
       "ean": "7798049654195",
       "finish": "",
       "id": "pla-pla-850-gris-plata-175-2500-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/pla850-maxicarrete-gris-plata-d60c5f3f.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/maxicarrete-pla-850-gris-plata/",
       "material": "PLA",
       "offers": [
         {
@@ -4620,7 +4620,7 @@
       "pantone": "",
       "sku": "M11IGR175C2",
       "subrange": "PLA 850",
-      "thumbnail_url": "",
+      "thumbnail_url": "assets/thumbs/grilon3/pla850-maxicarrete-gris-plata-d60c5f3f.webp",
       "variant": "PLA 850",
       "weight_g": 2500
     },
@@ -4629,13 +4629,13 @@
       "color": "Gris Plata",
       "diameter_mm": 1.75,
       "display_name": "PLA 870 Gris Plata Grilon3 1 kg 1.75 mm",
-      "ean": "",
+      "ean": "7798049653488",
       "finish": "",
       "id": "pla-pla-870-gris-plata-175-1000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/pla-870-gris-plata1-fe88cc3c.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-nt-gris-plata/",
       "material": "PLA",
       "offers": [
         {
@@ -4673,9 +4673,9 @@
         }
       ],
       "pantone": "",
-      "sku": "",
+      "sku": "M15IGR175CJ",
       "subrange": "PLA 870",
-      "thumbnail_url": "",
+      "thumbnail_url": "assets/thumbs/grilon3/pla-870-gris-plata1-fe88cc3c.webp",
       "variant": "PLA 870",
       "weight_g": 1000
     },
@@ -4742,16 +4742,16 @@
       "ean": "",
       "finish": "",
       "id": "pla-gris-plata-285-1000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/pla-285-grisplata2-5af2a96c.jpg",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/pla-gris-plata-285/",
       "material": "PLA",
       "offers": [],
-      "pantone": "",
+      "pantone": "Pantone Cool Gray 9",
       "sku": "",
       "subrange": "Standard",
-      "thumbnail_url": "",
+      "thumbnail_url": "assets/thumbs/grilon3/pla-285-grisplata2-5af2a96c.webp",
       "variant": "",
       "weight_g": 1000
     },
@@ -4764,9 +4764,9 @@
       "finish": "",
       "id": "pla-gris-plata-175-4000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/megafill-grisplata2-600x600-500a9452.jpg",
+      "image_url": "assets/grilon3/megafill-grisplata2-3d3cb0af.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/megafill-pla-gris-plata/",
       "material": "PLA",
       "offers": [
         {
@@ -4806,7 +4806,7 @@
       "pantone": "Pantone Cool Gray 9",
       "sku": "M10IGR175C4",
       "subrange": "Standard",
-      "thumbnail_url": "assets/thumbs/grilon3/megafill-grisplata2-600x600-500a9452.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/megafill-grisplata2-3d3cb0af.webp",
       "variant": "",
       "weight_g": 4000
     },
@@ -5248,9 +5248,9 @@
       "finish": "Glitter",
       "id": "pla-pla-astra-jade-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/astra-jade3-600x600-30d4d015.jpg",
+      "image_url": "assets/grilon3/astra-jade-web2-08f9826e.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/pla-astra-jade/",
       "material": "PLA",
       "offers": [
         {
@@ -5290,7 +5290,7 @@
       "pantone": "Pantone 3305",
       "sku": "M22IJA175CJ",
       "subrange": "Astra",
-      "thumbnail_url": "assets/thumbs/grilon3/astra-jade3-600x600-30d4d015.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/astra-jade-web2-08f9826e.webp",
       "variant": "PLA Astra",
       "weight_g": 1000
     },
@@ -5424,9 +5424,9 @@
       "finish": "",
       "id": "pla-pla-boutique-lavanda-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/pla-boutique-lavanda-1-600x600-6f3b8c95.jpg",
+      "image_url": "assets/grilon3/pla-boutique-lavanda2-24cbde9d.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-boutique-lavanda/",
       "material": "PLA",
       "offers": [
         {
@@ -5466,7 +5466,7 @@
       "pantone": "",
       "sku": "M17ILA175CJ",
       "subrange": "Boutique",
-      "thumbnail_url": "assets/thumbs/grilon3/pla-boutique-lavanda-1-600x600-6f3b8c95.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/pla-boutique-lavanda2-24cbde9d.webp",
       "variant": "PLA Boutique",
       "weight_g": 1000
     },
@@ -5886,9 +5886,9 @@
       "finish": "",
       "id": "pla-naranja-fluo-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/pla-naranja-fluo-600x600-d033d93e.jpg",
+      "image_url": "assets/grilon3/pla-naranja-fluo2-af16a209.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-naranja-fluo/",
       "material": "PLA",
       "offers": [
         {
@@ -5928,7 +5928,7 @@
       "pantone": "Pantone 172",
       "sku": "M10INF175CJ",
       "subrange": "Standard",
-      "thumbnail_url": "assets/thumbs/grilon3/pla-naranja-fluo-600x600-d033d93e.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/pla-naranja-fluo2-af16a209.webp",
       "variant": "",
       "weight_g": 1000
     },
@@ -6036,13 +6036,13 @@
       "color": "Natural",
       "diameter_mm": 1.75,
       "display_name": "PLA 870 Natural Grilon3 1 kg 1.75 mm",
-      "ean": "",
+      "ean": "7798049653945",
       "finish": "",
       "id": "pla-pla-870-natural-175-1000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/pla-870-natural2-40b9dc9e.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-nt-natural/",
       "material": "PLA",
       "offers": [
         {
@@ -6080,9 +6080,9 @@
         }
       ],
       "pantone": "",
-      "sku": "",
+      "sku": "M15INT175CJ",
       "subrange": "PLA 870",
-      "thumbnail_url": "",
+      "thumbnail_url": "assets/thumbs/grilon3/pla-870-natural2-40b9dc9e.webp",
       "variant": "PLA 870",
       "weight_g": 1000
     },
@@ -6150,7 +6150,7 @@
       "finish": "",
       "id": "pla-natural-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/pla-natural-5ccd971a.jpg",
+      "image_url": "assets/grilon3/pla-natural2-789596ad.jpg",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-natural/",
       "material": "PLA",
@@ -6192,7 +6192,7 @@
       "pantone": "",
       "sku": "M10INT175CJ",
       "subrange": "Standard",
-      "thumbnail_url": "assets/thumbs/grilon3/pla-natural-5ccd971a.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/pla-natural2-789596ad.webp",
       "variant": "",
       "weight_g": 1000
     },
@@ -6205,9 +6205,9 @@
       "finish": "Glitter",
       "id": "pla-pla-astra-nebula-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/astra-nebula3-600x600-6cfd46bb.jpg",
+      "image_url": "assets/grilon3/astra-nebula2-web-3c642a8b.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/pla-astra-nebula/",
       "material": "PLA",
       "offers": [
         {
@@ -6247,7 +6247,7 @@
       "pantone": "Pantone Violet",
       "sku": "M22INE175CJ",
       "subrange": "Astra",
-      "thumbnail_url": "assets/thumbs/grilon3/astra-nebula3-600x600-6cfd46bb.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/astra-nebula2-web-3c642a8b.webp",
       "variant": "PLA Astra",
       "weight_g": 1000
     },
@@ -6293,7 +6293,7 @@
       "finish": "",
       "id": "pla-pla-850-negro-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/pla-850-negro-ml-bffee702.jpg",
+      "image_url": "assets/grilon3/pla-850-negro2-ml-3194eaca.jpg",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-negro/",
       "material": "PLA",
@@ -6313,7 +6313,7 @@
       "pantone": "",
       "sku": "M11ING175C",
       "subrange": "PLA 850",
-      "thumbnail_url": "assets/thumbs/grilon3/pla-850-negro-ml-bffee702.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/pla-850-negro2-ml-3194eaca.webp",
       "variant": "PLA 850",
       "weight_g": 1000
     },
@@ -6325,10 +6325,10 @@
       "ean": "7798049654171",
       "finish": "",
       "id": "pla-pla-850-negro-175-2500-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/pla850-maxicarrete-negro-d15e6f8e.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/maxicarrete-pla-850-negro/",
       "material": "PLA",
       "offers": [
         {
@@ -6357,7 +6357,7 @@
       "pantone": "",
       "sku": "M11ING175C2",
       "subrange": "PLA 850",
-      "thumbnail_url": "",
+      "thumbnail_url": "assets/thumbs/grilon3/pla850-maxicarrete-negro-d15e6f8e.webp",
       "variant": "PLA 850",
       "weight_g": 2500
     },
@@ -6366,13 +6366,13 @@
       "color": "Negro",
       "diameter_mm": 1.75,
       "display_name": "PLA 870 Negro Grilon3 1 kg 1.75 mm",
-      "ean": "",
+      "ean": "7798049653471",
       "finish": "",
       "id": "pla-pla-870-negro-175-1000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/pla-870-negro2-96578784.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-nt-negro/",
       "material": "PLA",
       "offers": [
         {
@@ -6410,9 +6410,9 @@
         }
       ],
       "pantone": "",
-      "sku": "",
+      "sku": "M15ING175CJ",
       "subrange": "PLA 870",
-      "thumbnail_url": "",
+      "thumbnail_url": "assets/thumbs/grilon3/pla-870-negro2-96578784.webp",
       "variant": "PLA 870",
       "weight_g": 1000
     },
@@ -6579,9 +6579,9 @@
       "finish": "",
       "id": "pla-negro-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/pla-negro-1-600x600-be7e9893.jpg",
+      "image_url": "assets/grilon3/pla-negro2-90e7c9b9.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-negro-2/",
       "material": "PLA",
       "offers": [
         {
@@ -6621,7 +6621,7 @@
       "pantone": "Pantone Black",
       "sku": "M10ING175CJ",
       "subrange": "Standard",
-      "thumbnail_url": "assets/thumbs/grilon3/pla-negro-1-600x600-be7e9893.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/pla-negro2-90e7c9b9.webp",
       "variant": "",
       "weight_g": 1000
     },
@@ -6630,19 +6630,19 @@
       "color": "Negro",
       "diameter_mm": 2.85,
       "display_name": "PLA Negro Grilon3 1 kg 2.85 mm",
-      "ean": "",
+      "ean": "7798049652795",
       "finish": "",
       "id": "pla-negro-285-1000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/pla-285-negro2-1fa9df5e.jpg",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/pla-negro-285/",
       "material": "PLA",
       "offers": [],
-      "pantone": "",
-      "sku": "",
+      "pantone": "Pantone Black",
+      "sku": "M10ING175CJ",
       "subrange": "Standard",
-      "thumbnail_url": "",
+      "thumbnail_url": "assets/thumbs/grilon3/pla-285-negro2-1fa9df5e.webp",
       "variant": "",
       "weight_g": 1000
     },
@@ -6651,13 +6651,13 @@
       "color": "Negro",
       "diameter_mm": 1.75,
       "display_name": "PLA Negro Grilon3 4 kg 1.75 mm",
-      "ean": "7798049652795",
+      "ean": "7798049654751",
       "finish": "",
       "id": "pla-negro-175-4000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/pla-negro-1-600x600-be7e9893.jpg",
+      "image_url": "assets/grilon3/megafill-negro2-29c40ece.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/megafill-pla-negro/",
       "material": "PLA",
       "offers": [
         {
@@ -6695,9 +6695,9 @@
         }
       ],
       "pantone": "Pantone Black",
-      "sku": "M10ING175CJ",
+      "sku": "M10ING175C4",
       "subrange": "Standard",
-      "thumbnail_url": "assets/thumbs/grilon3/pla-negro-1-600x600-be7e9893.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/megafill-negro2-29c40ece.webp",
       "variant": "",
       "weight_g": 4000
     },
@@ -6886,9 +6886,9 @@
       "finish": "Glitter",
       "id": "pla-pla-astra-noche-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/astra-noche3-600x600-7ffb3493.jpg",
+      "image_url": "assets/grilon3/astra-noche2-web-a6077ae1.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/pla-astra-noche/",
       "material": "PLA",
       "offers": [
         {
@@ -6928,7 +6928,7 @@
       "pantone": "Pantone 2747",
       "sku": "M22INO175CJ",
       "subrange": "Astra",
-      "thumbnail_url": "assets/thumbs/grilon3/astra-noche3-600x600-7ffb3493.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/astra-noche2-web-a6077ae1.webp",
       "variant": "PLA Astra",
       "weight_g": 1000
     },
@@ -6974,9 +6974,9 @@
       "finish": "Madera",
       "id": "pla-pla-wood-nogal-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/wood-nogal-600x600-5dcc902b.jpg",
+      "image_url": "assets/grilon3/wood-nogal-3-6ba38778.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/pla-wood-nogal/",
       "material": "PLA",
       "offers": [
         {
@@ -7016,7 +7016,7 @@
       "pantone": "",
       "sku": "M20INO175CJ",
       "subrange": "Wood",
-      "thumbnail_url": "assets/thumbs/grilon3/wood-nogal-600x600-5dcc902b.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/wood-nogal-3-6ba38778.webp",
       "variant": "PLA Wood",
       "weight_g": 1000
     },
@@ -7116,10 +7116,10 @@
       "ean": "7798049654829",
       "finish": "",
       "id": "pla-pla-boutique-perla-175-4000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/megafill-perla-web2-138fcf8c.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/pla-boutique-perla-megafill/",
       "material": "PLA",
       "offers": [
         {
@@ -7137,7 +7137,7 @@
       "pantone": "Pantone Perla",
       "sku": "M17IPE175C4",
       "subrange": "Boutique",
-      "thumbnail_url": "",
+      "thumbnail_url": "assets/thumbs/grilon3/megafill-perla-web2-138fcf8c.webp",
       "variant": "PLA Boutique",
       "weight_g": 4000
     },
@@ -7238,9 +7238,9 @@
       "finish": "",
       "id": "pla-pla-boutique-perla-frio-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/boutique-perla-frio2-600x600-214e0a5b.png",
+      "image_url": "assets/grilon3/boutique-perla-frio2-5b19a985.png",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/pla-boutique-perla-frio/",
       "material": "PLA",
       "offers": [
         {
@@ -7280,7 +7280,7 @@
       "pantone": "",
       "sku": "M17IPE175CJ-1",
       "subrange": "Boutique",
-      "thumbnail_url": "assets/thumbs/grilon3/boutique-perla-frio2-600x600-214e0a5b.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/boutique-perla-frio2-5b19a985.webp",
       "variant": "PLA Boutique",
       "weight_g": 1000
     },
@@ -7359,7 +7359,7 @@
       "finish": "",
       "id": "pla-piel-162-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/pla-piel162-600x600-f83aee7b.jpg",
+      "image_url": "assets/grilon3/pla-piel162-2-566aadfe.jpg",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-piel/",
       "material": "PLA",
@@ -7401,7 +7401,7 @@
       "pantone": "Pantone 162",
       "sku": "M10IPI175CJ",
       "subrange": "Standard",
-      "thumbnail_url": "assets/thumbs/grilon3/pla-piel162-600x600-f83aee7b.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/pla-piel162-2-566aadfe.webp",
       "variant": "",
       "weight_g": 1000
     },
@@ -7414,9 +7414,9 @@
       "finish": "",
       "id": "pla-piel-162-175-4000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/megafill-piel2-600x600-3ec73a19.jpg",
+      "image_url": "assets/grilon3/megafill-piel2-3d800dc3.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/pla-piel-162-megafill/",
       "material": "PLA",
       "offers": [
         {
@@ -7456,7 +7456,7 @@
       "pantone": "Pantone Piel 162",
       "sku": "M10IPI175C4",
       "subrange": "Standard",
-      "thumbnail_url": "assets/thumbs/grilon3/megafill-piel2-600x600-3ec73a19.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/megafill-piel2-3d800dc3.webp",
       "variant": "",
       "weight_g": 4000
     },
@@ -7513,7 +7513,7 @@
       "finish": "",
       "id": "pla-piel-720-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/pla-piel720-600x600-ef75b622.jpg",
+      "image_url": "assets/grilon3/pla-piel720-2-b4a65de0.jpg",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/pla-piel-720/",
       "material": "PLA",
@@ -7555,7 +7555,7 @@
       "pantone": "Pantone 720",
       "sku": "M10IPI175CJ-1",
       "subrange": "Standard",
-      "thumbnail_url": "assets/thumbs/grilon3/pla-piel720-600x600-ef75b622.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/pla-piel720-2-b4a65de0.webp",
       "variant": "",
       "weight_g": 1000
     },
@@ -7623,9 +7623,9 @@
       "finish": "Madera",
       "id": "pla-pla-wood-pino-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/wood-pino-600x600-77c6580b.jpg",
+      "image_url": "assets/grilon3/wood-pino3-2a1b827f.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/pla-wood-pino/",
       "material": "PLA",
       "offers": [
         {
@@ -7665,7 +7665,7 @@
       "pantone": "",
       "sku": "M20IPI175CJ",
       "subrange": "Wood",
-      "thumbnail_url": "assets/thumbs/grilon3/wood-pino-600x600-77c6580b.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/wood-pino3-2a1b827f.webp",
       "variant": "PLA Wood",
       "weight_g": 1000
     },
@@ -7711,9 +7711,9 @@
       "finish": "Brillo metálico",
       "id": "pla-pla-silk-platino-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/silk-platino-600x600-44b3505a.jpg",
+      "image_url": "assets/grilon3/silk-platino2-d8374c93.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/pla-silk-platino/",
       "material": "PLA",
       "offers": [
         {
@@ -7753,7 +7753,7 @@
       "pantone": "",
       "sku": "M10IGE175CJ-1-3-2-1",
       "subrange": "Silk",
-      "thumbnail_url": "assets/thumbs/grilon3/silk-platino-600x600-44b3505a.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/silk-platino2-d8374c93.webp",
       "variant": "PLA Silk",
       "weight_g": 1000
     },
@@ -7799,9 +7799,9 @@
       "finish": "Glitter",
       "id": "pla-pla-astra-roby-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/astra-roby3-600x600-1d307948.jpg",
+      "image_url": "assets/grilon3/astra-roby2-web-620f2383.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/pla-astra-roby/",
       "material": "PLA",
       "offers": [
         {
@@ -7841,7 +7841,7 @@
       "pantone": "Pantone 200",
       "sku": "M22IRO175CJ",
       "subrange": "Astra",
-      "thumbnail_url": "assets/thumbs/grilon3/astra-roby3-600x600-1d307948.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/astra-roby2-web-620f2383.webp",
       "variant": "PLA Astra",
       "weight_g": 1000
     },
@@ -7919,10 +7919,10 @@
       "ean": "7798049654201",
       "finish": "",
       "id": "pla-pla-850-rojo-175-2500-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/pla850-maxicarrete-rojo-d133ac9b.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/maxicarrete-pla-850-rojo/",
       "material": "PLA",
       "offers": [
         {
@@ -7951,7 +7951,7 @@
       "pantone": "",
       "sku": "M11IRJ175C2",
       "subrange": "PLA 850",
-      "thumbnail_url": "",
+      "thumbnail_url": "assets/thumbs/grilon3/pla850-maxicarrete-rojo-d133ac9b.webp",
       "variant": "PLA 850",
       "weight_g": 2500
     },
@@ -8118,7 +8118,7 @@
       "finish": "",
       "id": "pla-rojo-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/pla-rojo-bea352ed.jpg",
+      "image_url": "assets/grilon3/pla-roj2-47fdf841.jpg",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-rojo/",
       "material": "PLA",
@@ -8160,7 +8160,7 @@
       "pantone": "Pantone 485",
       "sku": "M10IRJ175CJ",
       "subrange": "Standard",
-      "thumbnail_url": "assets/thumbs/grilon3/pla-rojo-bea352ed.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/pla-roj2-47fdf841.webp",
       "variant": "",
       "weight_g": 1000
     },
@@ -8172,16 +8172,16 @@
       "ean": "",
       "finish": "",
       "id": "pla-rojo-285-1000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/pla-285-rojo2-d4723f5b.jpg",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/pla-rojo-285/",
       "material": "PLA",
       "offers": [],
-      "pantone": "",
+      "pantone": "Pantone 485",
       "sku": "",
       "subrange": "Standard",
-      "thumbnail_url": "",
+      "thumbnail_url": "assets/thumbs/grilon3/pla-285-rojo2-d4723f5b.webp",
       "variant": "",
       "weight_g": 1000
     },
@@ -8194,9 +8194,9 @@
       "finish": "",
       "id": "pla-rojo-175-4000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/megafill-rojo2-600x600-5bf500c1.jpg",
+      "image_url": "assets/grilon3/megafill-rojo2-062e8172.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/megafill-pla-rojo/",
       "material": "PLA",
       "offers": [
         {
@@ -8236,7 +8236,7 @@
       "pantone": "Pantone 485",
       "sku": "M10IRJ175C4",
       "subrange": "Standard",
-      "thumbnail_url": "assets/thumbs/grilon3/megafill-rojo2-600x600-5bf500c1.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/megafill-rojo2-062e8172.webp",
       "variant": "",
       "weight_g": 4000
     },
@@ -8513,9 +8513,9 @@
       "finish": "",
       "id": "pla-rosa-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/pla-rosa-600x600-2bfa7de9.jpg",
+      "image_url": "assets/grilon3/pla-rosa2-bf7ef6bb.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-rosa/",
       "material": "PLA",
       "offers": [
         {
@@ -8555,7 +8555,7 @@
       "pantone": "Pantone 211",
       "sku": "M10IRS175CJ",
       "subrange": "Standard",
-      "thumbnail_url": "assets/thumbs/grilon3/pla-rosa-600x600-2bfa7de9.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/pla-rosa2-bf7ef6bb.webp",
       "variant": "",
       "weight_g": 1000
     },
@@ -8667,9 +8667,9 @@
       "finish": "",
       "id": "pla-pla-boutique-rubi-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/pla-boutique-rubi-600x600-c100a7cf.jpg",
+      "image_url": "assets/grilon3/pla-boutique-rubi2-5178e80c.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/pla-boutique-rubi/",
       "material": "PLA",
       "offers": [
         {
@@ -8709,7 +8709,7 @@
       "pantone": "",
       "sku": "M17IRU175CJ",
       "subrange": "Boutique",
-      "thumbnail_url": "assets/thumbs/grilon3/pla-boutique-rubi-600x600-c100a7cf.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/pla-boutique-rubi2-5178e80c.webp",
       "variant": "PLA Boutique",
       "weight_g": 1000
     },
@@ -8777,9 +8777,9 @@
       "finish": "",
       "id": "pla-pla-boutique-salmon-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/pla-boutique-salmon-1-600x600-92bcac0e.jpg",
+      "image_url": "assets/grilon3/pla-boutique-salmon2-7939b333.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-boutique-salmon/",
       "material": "PLA",
       "offers": [
         {
@@ -8819,7 +8819,7 @@
       "pantone": "",
       "sku": "M17ISA175CJ",
       "subrange": "Boutique",
-      "thumbnail_url": "assets/thumbs/grilon3/pla-boutique-salmon-1-600x600-92bcac0e.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/pla-boutique-salmon2-7939b333.webp",
       "variant": "PLA Boutique",
       "weight_g": 1000
     },
@@ -8894,13 +8894,13 @@
       "color": "Turquesa",
       "diameter_mm": 1.75,
       "display_name": "PLA 870 Turquesa Grilon3 1 kg 1.75 mm",
-      "ean": "",
+      "ean": "7798049653495",
       "finish": "",
       "id": "pla-pla-870-turquesa-175-1000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/pla-870-turquesa2-3b6865ff.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-nt-turquesa/",
       "material": "PLA",
       "offers": [
         {
@@ -8938,9 +8938,9 @@
         }
       ],
       "pantone": "",
-      "sku": "",
+      "sku": "M15ITU175CJ",
       "subrange": "PLA 870",
-      "thumbnail_url": "",
+      "thumbnail_url": "assets/thumbs/grilon3/pla-870-turquesa2-3b6865ff.webp",
       "variant": "PLA 870",
       "weight_g": 1000
     },
@@ -8953,7 +8953,7 @@
       "finish": "",
       "id": "pla-turquesa-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/pla-turquesa-350x350-cd184f30.jpg",
+      "image_url": "assets/grilon3/pla-turquesa2-bc2bb633.jpg",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-turquesa/",
       "material": "PLA",
@@ -8995,7 +8995,7 @@
       "pantone": "Pantone 313",
       "sku": "M10ITU175CJ",
       "subrange": "Standard",
-      "thumbnail_url": "assets/thumbs/grilon3/pla-turquesa-350x350-cd184f30.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/pla-turquesa2-bc2bb633.webp",
       "variant": "",
       "weight_g": 1000
     },
@@ -9008,9 +9008,9 @@
       "finish": "",
       "id": "pla-turquesa-175-4000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/megafill-turquesa2-600x600-7a748bbb.jpg",
+      "image_url": "assets/grilon3/megafill-turquesa2-62d19330.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/megafill-pla-turquesa/",
       "material": "PLA",
       "offers": [
         {
@@ -9050,7 +9050,7 @@
       "pantone": "Pantone 313",
       "sku": "M10ITU175C4",
       "subrange": "Standard",
-      "thumbnail_url": "assets/thumbs/grilon3/megafill-turquesa2-600x600-7a748bbb.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/megafill-turquesa2-62d19330.webp",
       "variant": "",
       "weight_g": 4000
     },
@@ -9107,9 +9107,9 @@
       "finish": "Brillo metálico",
       "id": "pla-pla-silk-tutti-frutti-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/silk-tuttifrutti-600x600-6ec143cf.jpg",
+      "image_url": "assets/grilon3/silk-tuttifrutti2-b5bbf662.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/pla-silk-tutti-frutti/",
       "material": "PLA",
       "offers": [
         {
@@ -9149,7 +9149,7 @@
       "pantone": "",
       "sku": "M10IGE175CJ-1-3-2-1-1",
       "subrange": "Silk",
-      "thumbnail_url": "assets/thumbs/grilon3/silk-tuttifrutti-600x600-6ec143cf.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/silk-tuttifrutti2-b5bbf662.webp",
       "variant": "PLA Silk",
       "weight_g": 1000
     },
@@ -9305,9 +9305,9 @@
       "finish": "Brillo metálico",
       "id": "pla-pla-silk-verde-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/silk-verde-600x600-69a9d28d.jpg",
+      "image_url": "assets/grilon3/silk-verde2-cfff19fa.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/pla-silk-verde/",
       "material": "PLA",
       "offers": [
         {
@@ -9347,7 +9347,7 @@
       "pantone": "",
       "sku": "M10IGE175CJ-1-3",
       "subrange": "Silk",
-      "thumbnail_url": "assets/thumbs/grilon3/silk-verde-600x600-69a9d28d.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/silk-verde2-cfff19fa.webp",
       "variant": "PLA Silk",
       "weight_g": 1000
     },
@@ -9448,9 +9448,9 @@
       "finish": "",
       "id": "pla-verde-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/pla-verde-600x600-d35c2c94.jpg",
+      "image_url": "assets/grilon3/pla-verde2-0ecb0268.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-verde/",
       "material": "PLA",
       "offers": [
         {
@@ -9490,7 +9490,7 @@
       "pantone": "Pantone 347",
       "sku": "M10IVR175CJ",
       "subrange": "Standard",
-      "thumbnail_url": "assets/thumbs/grilon3/pla-verde-600x600-d35c2c94.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/pla-verde2-0ecb0268.webp",
       "variant": "",
       "weight_g": 1000
     },
@@ -9499,19 +9499,19 @@
       "color": "Verde",
       "diameter_mm": 2.85,
       "display_name": "PLA Verde Grilon3 1 kg 2.85 mm",
-      "ean": "",
+      "ean": "7798049652849",
       "finish": "",
       "id": "pla-verde-285-1000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/pla-285-verde2-63dcf230.jpg",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/pla-verde-285/",
       "material": "PLA",
       "offers": [],
-      "pantone": "",
-      "sku": "",
+      "pantone": "Pantone 347",
+      "sku": "M10IVR175CJ",
       "subrange": "Standard",
-      "thumbnail_url": "",
+      "thumbnail_url": "assets/thumbs/grilon3/pla-285-verde2-63dcf230.webp",
       "variant": "",
       "weight_g": 1000
     },
@@ -9623,9 +9623,9 @@
       "finish": "",
       "id": "pla-pla-boutique-verde-aviador-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/pla-boutique-verde-aviador-600x600-c1fedaa9.jpg",
+      "image_url": "assets/grilon3/pla-boutique-verde-aviador2-f71fd0ba.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/pla-boutique-verde-aviador/",
       "material": "PLA",
       "offers": [
         {
@@ -9665,7 +9665,7 @@
       "pantone": "",
       "sku": "M17IVA175CJ",
       "subrange": "Boutique",
-      "thumbnail_url": "assets/thumbs/grilon3/pla-boutique-verde-aviador-600x600-c1fedaa9.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/pla-boutique-verde-aviador2-f71fd0ba.webp",
       "variant": "PLA Boutique",
       "weight_g": 1000
     },
@@ -9788,9 +9788,9 @@
       "finish": "",
       "id": "pla-verde-fluo-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/pla-verde-fluo-600x600-6e07d19f.jpg",
+      "image_url": "assets/grilon3/pla-verde-fluo2-e6d1e839.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-verde-fluo/",
       "material": "PLA",
       "offers": [
         {
@@ -9830,7 +9830,7 @@
       "pantone": "",
       "sku": "M10IVF175CJ",
       "subrange": "Standard",
-      "thumbnail_url": "assets/thumbs/grilon3/pla-verde-fluo-600x600-6e07d19f.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/pla-verde-fluo2-e6d1e839.webp",
       "variant": "",
       "weight_g": 1000
     },
@@ -9909,9 +9909,9 @@
       "finish": "",
       "id": "pla-verde-manzana-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/pla-verde-manzana-600x600-ee11e00f.jpg",
+      "image_url": "assets/grilon3/pla-verde-manzana2-65eff1c6.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-verde-manzana/",
       "material": "PLA",
       "offers": [
         {
@@ -9951,7 +9951,7 @@
       "pantone": "Pantone 375",
       "sku": "M10IVM175CJ",
       "subrange": "Standard",
-      "thumbnail_url": "assets/thumbs/grilon3/pla-verde-manzana-600x600-ee11e00f.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/pla-verde-manzana2-65eff1c6.webp",
       "variant": "",
       "weight_g": 1000
     },
@@ -10084,10 +10084,10 @@
       "ean": "7798049652887",
       "finish": "",
       "id": "pla-violeta-175-1000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/pla-voleta2-5be51fcc.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-violeta/",
       "material": "PLA",
       "offers": [
         {
@@ -10127,7 +10127,7 @@
       "pantone": "Pantone 2603",
       "sku": "M10IVI175CJ",
       "subrange": "Standard",
-      "thumbnail_url": "",
+      "thumbnail_url": "assets/thumbs/grilon3/pla-voleta2-5be51fcc.webp",
       "variant": "",
       "weight_g": 1000
     },
@@ -10140,9 +10140,9 @@
       "finish": "",
       "id": "pla-pla-boutique-zafiro-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/pla-boutique-zafiro-600x600-510fbb0e.jpg",
+      "image_url": "assets/grilon3/pla-boutique-zafiro2-11c8a4bd.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-boutique-zafiro/",
       "material": "PLA",
       "offers": [
         {
@@ -10182,7 +10182,7 @@
       "pantone": "",
       "sku": "M17IZA175CJ",
       "subrange": "Boutique",
-      "thumbnail_url": "assets/thumbs/grilon3/pla-boutique-zafiro-600x600-510fbb0e.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/pla-boutique-zafiro2-11c8a4bd.webp",
       "variant": "PLA Boutique",
       "weight_g": 1000
     },
@@ -10195,9 +10195,9 @@
       "finish": "",
       "id": "abs-amarillo-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/abs-amarillo-350x350-465ea125.jpg",
+      "image_url": "assets/grilon3/abs-amarillo3-f36dacdd.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/abs-amarillo/",
       "material": "ABS",
       "offers": [
         {
@@ -10237,7 +10237,7 @@
       "pantone": "Pantone Yellow",
       "sku": "M09IAM175CJ",
       "subrange": "",
-      "thumbnail_url": "assets/thumbs/grilon3/abs-amarillo-350x350-465ea125.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/abs-amarillo3-f36dacdd.webp",
       "variant": "",
       "weight_g": 1000
     },
@@ -10250,9 +10250,9 @@
       "finish": "",
       "id": "abs-azul-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/abs-azul1-350x350-23dc6e38.jpg",
+      "image_url": "assets/grilon3/abs-azul3-ccdf94ad.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/abs-azul/",
       "material": "ABS",
       "offers": [
         {
@@ -10292,7 +10292,7 @@
       "pantone": "Pantone 286",
       "sku": "M09IAZ175CJ",
       "subrange": "",
-      "thumbnail_url": "assets/thumbs/grilon3/abs-azul1-350x350-23dc6e38.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/abs-azul3-ccdf94ad.webp",
       "variant": "",
       "weight_g": 1000
     },
@@ -10305,9 +10305,9 @@
       "finish": "",
       "id": "abs-blanco-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/abs-blanco-350x350-753a7f8f.jpg",
+      "image_url": "assets/grilon3/abs-blanco3-06a059c4.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-abs-blanco/",
       "material": "ABS",
       "offers": [
         {
@@ -10347,7 +10347,7 @@
       "pantone": "",
       "sku": "M09IBL175CJ",
       "subrange": "",
-      "thumbnail_url": "assets/thumbs/grilon3/abs-blanco-350x350-753a7f8f.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/abs-blanco3-06a059c4.webp",
       "variant": "",
       "weight_g": 1000
     },
@@ -10356,19 +10356,19 @@
       "color": "Blanco",
       "diameter_mm": 2.85,
       "display_name": "ABS Blanco Grilon3 1 kg 2.85 mm",
-      "ean": "",
+      "ean": "7798049653006",
       "finish": "",
       "id": "abs-blanco-285-1000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/abs-285-blanco2-5cf8de72.jpg",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/abs-blanco-285/",
       "material": "ABS",
       "offers": [],
       "pantone": "",
-      "sku": "",
+      "sku": "M09IBL175CJ",
       "subrange": "",
-      "thumbnail_url": "",
+      "thumbnail_url": "assets/thumbs/grilon3/abs-285-blanco2-5cf8de72.webp",
       "variant": "",
       "weight_g": 1000
     },
@@ -10377,13 +10377,13 @@
       "color": "Blanco",
       "diameter_mm": 1.75,
       "display_name": "ABS Blanco Grilon3 2.5 kg 1.75 mm",
-      "ean": "7798049653006",
+      "ean": "7798049654386",
       "finish": "",
       "id": "abs-blanco-175-2500-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/abs-blanco-350x350-753a7f8f.jpg",
+      "image_url": "assets/grilon3/abs-maxicarrete-blanco-web-a588c4f2.webp",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/maxicarrete-abs-blanco/",
       "material": "ABS",
       "offers": [
         {
@@ -10421,9 +10421,9 @@
         }
       ],
       "pantone": "",
-      "sku": "M09IBL175CJ",
+      "sku": "M09IFU175CJ-1",
       "subrange": "",
-      "thumbnail_url": "assets/thumbs/grilon3/abs-blanco-350x350-753a7f8f.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/abs-maxicarrete-blanco-web-a588c4f2.webp",
       "variant": "",
       "weight_g": 2500
     },
@@ -10436,9 +10436,9 @@
       "finish": "",
       "id": "abs-fucsia-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/abs-fucsia1-350x350-5b1c4fdf.jpg",
+      "image_url": "assets/grilon3/abs-fucsia3-5522a72a.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/abs-fucsia/",
       "material": "ABS",
       "offers": [
         {
@@ -10478,7 +10478,7 @@
       "pantone": "Pantone 2385",
       "sku": "M09IFU175CJ",
       "subrange": "",
-      "thumbnail_url": "assets/thumbs/grilon3/abs-fucsia1-350x350-5b1c4fdf.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/abs-fucsia3-5522a72a.webp",
       "variant": "",
       "weight_g": 1000
     },
@@ -10491,9 +10491,9 @@
       "finish": "",
       "id": "abs-gris-plata-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/abs-gris-plata-350x350-e167b618.jpg",
+      "image_url": "assets/grilon3/abs-gris-plata3-8f36eb61.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-abs-gris-plata/",
       "material": "ABS",
       "offers": [
         {
@@ -10533,7 +10533,7 @@
       "pantone": "Pantone Cool Gray 9",
       "sku": "M09IGR175CJ",
       "subrange": "",
-      "thumbnail_url": "assets/thumbs/grilon3/abs-gris-plata-350x350-e167b618.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/abs-gris-plata3-8f36eb61.webp",
       "variant": "",
       "weight_g": 1000
     },
@@ -10546,9 +10546,9 @@
       "finish": "",
       "id": "abs-naranja-fluo-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/abs-naranja-fluo1-350x350-1d1a7232.jpg",
+      "image_url": "assets/grilon3/abs-naranja-fluo3-7a3fa92a.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/abs-naranja-fluo/",
       "material": "ABS",
       "offers": [
         {
@@ -10588,7 +10588,7 @@
       "pantone": "Pantone 179",
       "sku": "M09INF175CJ",
       "subrange": "",
-      "thumbnail_url": "assets/thumbs/grilon3/abs-naranja-fluo1-350x350-1d1a7232.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/abs-naranja-fluo3-7a3fa92a.webp",
       "variant": "",
       "weight_g": 1000
     },
@@ -10603,7 +10603,7 @@
       "image_source": "manufacturer",
       "image_url": "assets/grilon3/abs-natural-350x350-d1e8e6a0.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/abs-natural/",
       "material": "ABS",
       "offers": [
         {
@@ -10656,9 +10656,9 @@
       "finish": "",
       "id": "abs-negro-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/abs-negro-350x350-1ca3d6b8.jpg",
+      "image_url": "assets/grilon3/abs-negro3-8e83c891.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/abs-negro/",
       "material": "ABS",
       "offers": [
         {
@@ -10698,7 +10698,7 @@
       "pantone": "Pantone Black",
       "sku": "M09ING175C",
       "subrange": "",
-      "thumbnail_url": "assets/thumbs/grilon3/abs-negro-350x350-1ca3d6b8.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/abs-negro3-8e83c891.webp",
       "variant": "",
       "weight_g": 1000
     },
@@ -10707,19 +10707,19 @@
       "color": "Negro",
       "diameter_mm": 2.85,
       "display_name": "ABS Negro Grilon3 1 kg 2.85 mm",
-      "ean": "",
+      "ean": "7798049653013",
       "finish": "",
       "id": "abs-negro-285-1000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/abs-285-negro-1-c3adc4ce.jpg",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/abs-negro-285/",
       "material": "ABS",
       "offers": [],
-      "pantone": "",
-      "sku": "",
+      "pantone": "Pantone Black",
+      "sku": "M09ING175C",
       "subrange": "",
-      "thumbnail_url": "",
+      "thumbnail_url": "assets/thumbs/grilon3/abs-285-negro-1-c3adc4ce.webp",
       "variant": "",
       "weight_g": 1000
     },
@@ -10728,13 +10728,13 @@
       "color": "Negro",
       "diameter_mm": 1.75,
       "display_name": "ABS Negro Grilon3 2.5 kg 1.75 mm",
-      "ean": "7798049653013",
+      "ean": "7798049654713",
       "finish": "",
       "id": "abs-negro-175-2500-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/abs-negro-350x350-1ca3d6b8.jpg",
+      "image_url": "assets/grilon3/abs-maxicarrete-negro-web-6cc533ed.webp",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/maxicarrete-abs-negro/",
       "material": "ABS",
       "offers": [
         {
@@ -10772,9 +10772,9 @@
         }
       ],
       "pantone": "Pantone Black",
-      "sku": "M09ING175C",
+      "sku": "M09IFU175CJ-1-1",
       "subrange": "",
-      "thumbnail_url": "assets/thumbs/grilon3/abs-negro-350x350-1ca3d6b8.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/abs-maxicarrete-negro-web-6cc533ed.webp",
       "variant": "",
       "weight_g": 2500
     },
@@ -10787,9 +10787,9 @@
       "finish": "",
       "id": "abs-rojo-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/abs-rojo-350x350-70725d3a.jpg",
+      "image_url": "assets/grilon3/abs-rojo3-2daf7fbe.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-abs-rojo/",
       "material": "ABS",
       "offers": [
         {
@@ -10829,7 +10829,7 @@
       "pantone": "Pantone 485",
       "sku": "M09IRJ175CJ",
       "subrange": "",
-      "thumbnail_url": "assets/thumbs/grilon3/abs-rojo-350x350-70725d3a.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/abs-rojo3-2daf7fbe.webp",
       "variant": "",
       "weight_g": 1000
     },
@@ -10842,9 +10842,9 @@
       "finish": "",
       "id": "abs-turquesa-175-2500-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/abs-maxicarrete-turquesa-web-600x600-939ad319.webp",
+      "image_url": "assets/grilon3/abs-maxicarrete-turquesa-web-d60f3f1a.webp",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/maxicarrete-abs-turquesa/",
       "material": "ABS",
       "offers": [
         {
@@ -10884,7 +10884,7 @@
       "pantone": "",
       "sku": "M09IFU175CJ-1-1-1",
       "subrange": "",
-      "thumbnail_url": "assets/thumbs/grilon3/abs-maxicarrete-turquesa-web-600x600-939ad319.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/abs-maxicarrete-turquesa-web-d60f3f1a.webp",
       "variant": "",
       "weight_g": 2500
     },
@@ -10897,9 +10897,9 @@
       "finish": "",
       "id": "abs-verde-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/abs-verde-350x350-7c9296f6.jpg",
+      "image_url": "assets/grilon3/abs-verde3-ece26f96.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/abs-verde/",
       "material": "ABS",
       "offers": [
         {
@@ -10939,7 +10939,7 @@
       "pantone": "Pantone 347",
       "sku": "M09IVR175CJ",
       "subrange": "",
-      "thumbnail_url": "assets/thumbs/grilon3/abs-verde-350x350-7c9296f6.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/abs-verde3-ece26f96.webp",
       "variant": "",
       "weight_g": 1000
     },
@@ -11425,9 +11425,9 @@
       "finish": "",
       "id": "hips-azul-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/hips-azul-l1-600x600-02291584.jpg",
+      "image_url": "assets/grilon3/hips-azul-l2-dc8a628e.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/hips-azul/",
       "material": "HIPS",
       "offers": [
         {
@@ -11445,7 +11445,7 @@
       "pantone": "Pantone 286",
       "sku": "M08ING175CJ-2-1",
       "subrange": "",
-      "thumbnail_url": "assets/thumbs/grilon3/hips-azul-l1-600x600-02291584.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/hips-azul-l2-dc8a628e.webp",
       "variant": "",
       "weight_g": 1000
     },
@@ -11458,9 +11458,9 @@
       "finish": "",
       "id": "hips-blanco-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/hips-blanco1-600x600-e23fd379.jpg",
+      "image_url": "assets/grilon3/hips-blanco2-c551b79a.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-hips-blanco/",
       "material": "HIPS",
       "offers": [
         {
@@ -11500,7 +11500,7 @@
       "pantone": "",
       "sku": "M08IBL175CJ",
       "subrange": "",
-      "thumbnail_url": "assets/thumbs/grilon3/hips-blanco1-600x600-e23fd379.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/hips-blanco2-c551b79a.webp",
       "variant": "",
       "weight_g": 1000
     },
@@ -11513,9 +11513,9 @@
       "finish": "",
       "id": "hips-natural-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/hips-natural1-600x600-ae3fcb41.jpg",
+      "image_url": "assets/grilon3/hips-natural2-91252276.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-hips-natural/",
       "material": "HIPS",
       "offers": [
         {
@@ -11555,7 +11555,7 @@
       "pantone": "",
       "sku": "M08INT175CJ",
       "subrange": "",
-      "thumbnail_url": "assets/thumbs/grilon3/hips-natural1-600x600-ae3fcb41.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/hips-natural2-91252276.webp",
       "variant": "",
       "weight_g": 1000
     },
@@ -11568,9 +11568,9 @@
       "finish": "",
       "id": "hips-negro-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/hips-negro1-600x600-47f49229.jpg",
+      "image_url": "assets/grilon3/hips-negro2-edeb4d34.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-hips-negro/",
       "material": "HIPS",
       "offers": [
         {
@@ -11610,7 +11610,7 @@
       "pantone": "Pantone Black",
       "sku": "M08ING175CJ",
       "subrange": "",
-      "thumbnail_url": "assets/thumbs/grilon3/hips-negro1-600x600-47f49229.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/hips-negro2-edeb4d34.webp",
       "variant": "",
       "weight_g": 1000
     },
@@ -11623,9 +11623,9 @@
       "finish": "",
       "id": "hips-rojo-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/hips-rojo1-600x600-3d1ec8b8.jpg",
+      "image_url": "assets/grilon3/hips-rojo2-1b8ece3e.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/hips-rojo/",
       "material": "HIPS",
       "offers": [
         {
@@ -11643,7 +11643,7 @@
       "pantone": "Pantone 485",
       "sku": "M08ING175CJ-2",
       "subrange": "",
-      "thumbnail_url": "assets/thumbs/grilon3/hips-rojo1-600x600-3d1ec8b8.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/hips-rojo2-1b8ece3e.webp",
       "variant": "",
       "weight_g": 1000
     },
@@ -11656,9 +11656,9 @@
       "finish": "",
       "id": "hips-verde-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/hips-verde1-600x600-753cfdf4.jpg",
+      "image_url": "assets/grilon3/hips-verde2-48d2eed7.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/hips-verde/",
       "material": "HIPS",
       "offers": [
         {
@@ -11676,7 +11676,7 @@
       "pantone": "Pantone 347",
       "sku": "M08ING175CJ-1",
       "subrange": "",
-      "thumbnail_url": "assets/thumbs/grilon3/hips-verde1-600x600-753cfdf4.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/hips-verde2-48d2eed7.webp",
       "variant": "",
       "weight_g": 1000
     },
@@ -11688,10 +11688,10 @@
       "ean": "7798049653280",
       "finish": "",
       "id": "nylon-nylon-12-azul-175-1000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/nylon12-azul2-1-ea7cebb7.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-nylon-12-azul/",
       "material": "Nylon",
       "offers": [
         {
@@ -11709,7 +11709,7 @@
       "pantone": "",
       "sku": "M12IAZ175CJ",
       "subrange": "",
-      "thumbnail_url": "",
+      "thumbnail_url": "assets/thumbs/grilon3/nylon12-azul2-1-ea7cebb7.webp",
       "variant": "Nylon 12",
       "weight_g": 1000
     },
@@ -11754,10 +11754,10 @@
       "ean": "7798049653242",
       "finish": "",
       "id": "nylon-nylon-12-blanco-175-1000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/nylon12-blanco2-1-225e0fb4.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-nylon-12-blanco/",
       "material": "Nylon",
       "offers": [
         {
@@ -11797,7 +11797,7 @@
       "pantone": "",
       "sku": "M12IBL175CJ",
       "subrange": "",
-      "thumbnail_url": "",
+      "thumbnail_url": "assets/thumbs/grilon3/nylon12-blanco2-1-225e0fb4.webp",
       "variant": "Nylon 12",
       "weight_g": 1000
     },
@@ -11843,9 +11843,9 @@
       "finish": "",
       "id": "nylon-nylon-6-blanco-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/nylon6-blanco-600x600-aabb7d5e.jpg",
+      "image_url": "assets/grilon3/nylon6-blanco2-abc2f753.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-nylon-6-blanco/",
       "material": "Nylon",
       "offers": [
         {
@@ -11885,7 +11885,7 @@
       "pantone": "",
       "sku": "M01IBL175CJ",
       "subrange": "",
-      "thumbnail_url": "assets/thumbs/grilon3/nylon6-blanco-600x600-aabb7d5e.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/nylon6-blanco2-abc2f753.webp",
       "variant": "Nylon 6",
       "weight_g": 1000
     },
@@ -11930,10 +11930,10 @@
       "ean": "7798049653211",
       "finish": "",
       "id": "nylon-nylon-6-naranja-fluo-175-1000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/nylon6-naranja-fluo2-be514b98.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-nylon-6-naranja-fluo/",
       "material": "Nylon",
       "offers": [
         {
@@ -11973,7 +11973,7 @@
       "pantone": "Pantone Orange 021",
       "sku": "M01INF175CJ",
       "subrange": "",
-      "thumbnail_url": "",
+      "thumbnail_url": "assets/thumbs/grilon3/nylon6-naranja-fluo2-be514b98.webp",
       "variant": "Nylon 6",
       "weight_g": 1000
     },
@@ -12018,10 +12018,10 @@
       "ean": "7798049653266",
       "finish": "",
       "id": "nylon-nylon-12-natural-175-1000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/nylon12-natural2-1-da2c3eb4.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-nylon-12-natural/",
       "material": "Nylon",
       "offers": [
         {
@@ -12061,7 +12061,7 @@
       "pantone": "",
       "sku": "M12INT175CJ",
       "subrange": "",
-      "thumbnail_url": "",
+      "thumbnail_url": "assets/thumbs/grilon3/nylon12-natural2-1-da2c3eb4.webp",
       "variant": "Nylon 12",
       "weight_g": 1000
     },
@@ -12106,10 +12106,10 @@
       "ean": "7798049653204",
       "finish": "",
       "id": "nylon-nylon-6-natural-175-1000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/nylon6-natural2-3cc4576c.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/nylon-6-natural/",
       "material": "Nylon",
       "offers": [
         {
@@ -12149,7 +12149,7 @@
       "pantone": "",
       "sku": "M01INT175CJ",
       "subrange": "",
-      "thumbnail_url": "",
+      "thumbnail_url": "assets/thumbs/grilon3/nylon6-natural2-3cc4576c.webp",
       "variant": "Nylon 6",
       "weight_g": 1000
     },
@@ -12194,10 +12194,10 @@
       "ean": "7798049653259",
       "finish": "",
       "id": "nylon-nylon-12-negro-175-1000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/nylon12-negro2-1-14d05fd5.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-nylon-12-negro/",
       "material": "Nylon",
       "offers": [
         {
@@ -12237,7 +12237,7 @@
       "pantone": "",
       "sku": "M12ING175CJ",
       "subrange": "",
-      "thumbnail_url": "",
+      "thumbnail_url": "assets/thumbs/grilon3/nylon12-negro2-1-14d05fd5.webp",
       "variant": "Nylon 12",
       "weight_g": 1000
     },
@@ -12283,9 +12283,9 @@
       "finish": "",
       "id": "nylon-nylon-6-negro-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/nylon6-negro-600x600-0e56c1d3.jpg",
+      "image_url": "assets/grilon3/nylon6-negro2-3b71b1e6.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-nylon-6-negro/",
       "material": "Nylon",
       "offers": [
         {
@@ -12325,7 +12325,7 @@
       "pantone": "Pantone Black",
       "sku": "M01ING175CJ",
       "subrange": "",
-      "thumbnail_url": "assets/thumbs/grilon3/nylon6-negro-600x600-0e56c1d3.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/nylon6-negro2-3b71b1e6.webp",
       "variant": "Nylon 6",
       "weight_g": 1000
     },
@@ -12371,9 +12371,9 @@
       "finish": "",
       "id": "nylon-nylon-6-optico-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/nylon6-optico-600x600-6a56a529.jpg",
+      "image_url": "assets/grilon3/nylon6-optico2-88d286f1.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-nylon-6-optico/",
       "material": "Nylon",
       "offers": [
         {
@@ -12413,7 +12413,7 @@
       "pantone": "",
       "sku": "M01IOT175CJ",
       "subrange": "",
-      "thumbnail_url": "assets/thumbs/grilon3/nylon6-optico-600x600-6a56a529.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/nylon6-optico2-88d286f1.webp",
       "variant": "Nylon 6",
       "weight_g": 1000
     },
@@ -12458,10 +12458,10 @@
       "ean": "7798049653273",
       "finish": "",
       "id": "nylon-nylon-12-titanio-175-1000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/nylon12-titanio2-1-5b130e85.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-nylon-12-titanio/",
       "material": "Nylon",
       "offers": [
         {
@@ -12479,7 +12479,7 @@
       "pantone": "",
       "sku": "M12ITI175CJ",
       "subrange": "",
-      "thumbnail_url": "",
+      "thumbnail_url": "assets/thumbs/grilon3/nylon12-titanio2-1-5b130e85.webp",
       "variant": "Nylon 12",
       "weight_g": 1000
     },
@@ -12525,9 +12525,9 @@
       "finish": "",
       "id": "nylon-nylon-6-verde-fluo-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/nylon6-600x600-3778f508.webp",
+      "image_url": "assets/grilon3/nylon6-2-e3cf8cc6.webp",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-nylon-6-verde-fluo/",
       "material": "Nylon",
       "offers": [
         {
@@ -12567,7 +12567,7 @@
       "pantone": "Pantone 375",
       "sku": "M01IVF175CJ",
       "subrange": "",
-      "thumbnail_url": "assets/thumbs/grilon3/nylon6-600x600-3778f508.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/nylon6-2-e3cf8cc6.webp",
       "variant": "Nylon 6",
       "weight_g": 1000
     },
@@ -13118,10 +13118,10 @@
       "ean": "7798049653693",
       "finish": "",
       "id": "petg-blanco-175-1000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/petg-blanco3-bd13c75b.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-petg-blanco/",
       "material": "PETG",
       "offers": [
         {
@@ -13161,7 +13161,7 @@
       "pantone": "",
       "sku": "M77IBL175CJ",
       "subrange": "",
-      "thumbnail_url": "",
+      "thumbnail_url": "assets/thumbs/grilon3/petg-blanco3-bd13c75b.webp",
       "variant": "",
       "weight_g": 1000
     },
@@ -13170,19 +13170,19 @@
       "color": "Blanco",
       "diameter_mm": 2.85,
       "display_name": "PETG Blanco Grilon3 1 kg 2.85 mm",
-      "ean": "",
+      "ean": "7798049653693",
       "finish": "",
       "id": "petg-blanco-285-1000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/petg-285-blanco2-94534e8a.jpg",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/petg-blanco-285/",
       "material": "PETG",
       "offers": [],
       "pantone": "",
-      "sku": "",
+      "sku": "M77IBL175CJ",
       "subrange": "",
-      "thumbnail_url": "",
+      "thumbnail_url": "assets/thumbs/grilon3/petg-285-blanco2-94534e8a.webp",
       "variant": "",
       "weight_g": 1000
     },
@@ -13224,13 +13224,13 @@
       "color": "Blanco",
       "diameter_mm": 1.75,
       "display_name": "PETG Blanco Grilon3 2.5 kg 1.75 mm",
-      "ean": "7798049653693",
+      "ean": "7798049654225",
       "finish": "",
       "id": "petg-blanco-175-2500-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/petg-maxicarrete-blanco1-6fb0854a.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/maxicarrete-petg-blanco/",
       "material": "PETG",
       "offers": [
         {
@@ -13268,9 +13268,9 @@
         }
       ],
       "pantone": "",
-      "sku": "M77IBL175CJ",
+      "sku": "M77IBL175CJ-1",
       "subrange": "",
-      "thumbnail_url": "",
+      "thumbnail_url": "assets/thumbs/grilon3/petg-maxicarrete-blanco1-6fb0854a.webp",
       "variant": "",
       "weight_g": 2500
     },
@@ -13279,13 +13279,13 @@
       "color": "Blanco",
       "diameter_mm": 1.75,
       "display_name": "PETG Blanco Grilon3 4 kg 1.75 mm",
-      "ean": "7798049653693",
+      "ean": "7798049657424",
       "finish": "",
       "id": "petg-blanco-175-4000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/petg-megafill-blanco2-061b9921.webp",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/petg-blanco-megafill/",
       "material": "PETG",
       "offers": [
         {
@@ -13311,10 +13311,10 @@
           "updated_at": "2026-07-14T10:52:54-03:00"
         }
       ],
-      "pantone": "",
-      "sku": "M77IBL175CJ",
+      "pantone": "Pantone Black",
+      "sku": "M77IBL175C4",
       "subrange": "",
-      "thumbnail_url": "",
+      "thumbnail_url": "assets/thumbs/grilon3/petg-megafill-blanco2-061b9921.webp",
       "variant": "",
       "weight_g": 4000
     },
@@ -13381,10 +13381,10 @@
       "ean": "7798049654065",
       "finish": "",
       "id": "petg-chocolate-175-1000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/petg-chocolate3-3ebf295c.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-petg-chocolate/",
       "material": "PETG",
       "offers": [
         {
@@ -13424,7 +13424,7 @@
       "pantone": "Pantone 477",
       "sku": "M77ICH175CJ",
       "subrange": "",
-      "thumbnail_url": "",
+      "thumbnail_url": "assets/thumbs/grilon3/petg-chocolate3-3ebf295c.webp",
       "variant": "",
       "weight_g": 1000
     },
@@ -13502,10 +13502,10 @@
       "ean": "7798049653754",
       "finish": "",
       "id": "petg-petg-clear-clear-amarillo-175-1000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/petg-clear-amarillo3-437d33ee.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-petg-clear-amarillo/",
       "material": "PETG",
       "offers": [
         {
@@ -13545,7 +13545,7 @@
       "pantone": "Pantone 107",
       "sku": "M77IAM175CJ",
       "subrange": "",
-      "thumbnail_url": "",
+      "thumbnail_url": "assets/thumbs/grilon3/petg-clear-amarillo3-437d33ee.webp",
       "variant": "PETG Clear",
       "weight_g": 1000
     },
@@ -13590,10 +13590,10 @@
       "ean": "7798049653785",
       "finish": "",
       "id": "petg-petg-clear-clear-ambar-175-1000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/petg-clear-ambar3-d32e9dab.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/petg-clear-ambar/",
       "material": "PETG",
       "offers": [
         {
@@ -13633,7 +13633,7 @@
       "pantone": "Pantone 716",
       "sku": "M77IAM175CJ-1",
       "subrange": "",
-      "thumbnail_url": "",
+      "thumbnail_url": "assets/thumbs/grilon3/petg-clear-ambar3-d32e9dab.webp",
       "variant": "PETG Clear",
       "weight_g": 1000
     },
@@ -13678,10 +13678,10 @@
       "ean": "7798049653778",
       "finish": "",
       "id": "petg-petg-clear-clear-azul-175-1000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/petg-clear-azul3-eac885a0.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-petg-clear-azul/",
       "material": "PETG",
       "offers": [
         {
@@ -13721,7 +13721,7 @@
       "pantone": "Pantone Reflex Blue",
       "sku": "M77IAZ175CJ",
       "subrange": "",
-      "thumbnail_url": "",
+      "thumbnail_url": "assets/thumbs/grilon3/petg-clear-azul3-eac885a0.webp",
       "variant": "PETG Clear",
       "weight_g": 1000
     },
@@ -13733,10 +13733,10 @@
       "ean": "7798049653747",
       "finish": "",
       "id": "petg-petg-clear-clear-rojo-175-1000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/petg-clear-rojo3-df60edc4.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-petg-clear-rojo/",
       "material": "PETG",
       "offers": [
         {
@@ -13776,7 +13776,7 @@
       "pantone": "Pantone 200",
       "sku": "M77IRJ175CJ",
       "subrange": "",
-      "thumbnail_url": "",
+      "thumbnail_url": "assets/thumbs/grilon3/petg-clear-rojo3-df60edc4.webp",
       "variant": "PETG Clear",
       "weight_g": 1000
     },
@@ -13821,10 +13821,10 @@
       "ean": "7798049653761",
       "finish": "",
       "id": "petg-petg-clear-clear-verde-175-1000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/petg-clear-verde3-8fc86d7f.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-petg-clear-verde/",
       "material": "PETG",
       "offers": [
         {
@@ -13864,7 +13864,7 @@
       "pantone": "Pantone 369",
       "sku": "M77IVR175CJ",
       "subrange": "",
-      "thumbnail_url": "",
+      "thumbnail_url": "assets/thumbs/grilon3/petg-clear-verde3-8fc86d7f.webp",
       "variant": "PETG Clear",
       "weight_g": 1000
     },
@@ -13953,10 +13953,10 @@
       "ean": "7798049653730",
       "finish": "",
       "id": "petg-gris-acero-175-1000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/petg-gris-acero3-edd66c9a.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-petg-gris-acero/",
       "material": "PETG",
       "offers": [
         {
@@ -13996,7 +13996,7 @@
       "pantone": "Pantone 432",
       "sku": "M77IGA175CJ",
       "subrange": "",
-      "thumbnail_url": "",
+      "thumbnail_url": "assets/thumbs/grilon3/petg-gris-acero3-edd66c9a.webp",
       "variant": "",
       "weight_g": 1000
     },
@@ -14096,10 +14096,10 @@
       "ean": "7798049654157",
       "finish": "",
       "id": "petg-gris-plata-175-1000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/petg-gris-plata3-2c751596.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/petg-gris-plata/",
       "material": "PETG",
       "offers": [
         {
@@ -14139,7 +14139,7 @@
       "pantone": "Pantone Cool Gray 10",
       "sku": "M77IGA175CJ-1",
       "subrange": "",
-      "thumbnail_url": "",
+      "thumbnail_url": "assets/thumbs/grilon3/petg-gris-plata3-2c751596.webp",
       "variant": "",
       "weight_g": 1000
     },
@@ -14184,10 +14184,10 @@
       "ean": "7798049653716",
       "finish": "",
       "id": "petg-naranja-praga-175-1000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/petg-naranja-praga3-5b6869d0.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-petg-naranja-praga/",
       "material": "PETG",
       "offers": [
         {
@@ -14227,7 +14227,7 @@
       "pantone": "Pantone Orange 021",
       "sku": "M77INP175CJ",
       "subrange": "",
-      "thumbnail_url": "",
+      "thumbnail_url": "assets/thumbs/grilon3/petg-naranja-praga3-5b6869d0.webp",
       "variant": "",
       "weight_g": 1000
     },
@@ -14272,10 +14272,10 @@
       "ean": "7798049653723",
       "finish": "",
       "id": "petg-natural-175-1000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/petg-natural3-0d4317a5.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-petg-natural/",
       "material": "PETG",
       "offers": [
         {
@@ -14315,7 +14315,7 @@
       "pantone": "",
       "sku": "M77INT175CJ",
       "subrange": "",
-      "thumbnail_url": "",
+      "thumbnail_url": "assets/thumbs/grilon3/petg-natural3-0d4317a5.webp",
       "variant": "",
       "weight_g": 1000
     },
@@ -14416,7 +14416,7 @@
       "finish": "",
       "id": "petg-negro-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/petg-negro2-8218e01d.jpg",
+      "image_url": "assets/grilon3/petg-negro3-d49b6f4e.jpg",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-petg-negro/",
       "material": "PETG",
@@ -14458,7 +14458,7 @@
       "pantone": "Pantone Black",
       "sku": "M77ING175CJ",
       "subrange": "",
-      "thumbnail_url": "assets/thumbs/grilon3/petg-negro2-8218e01d.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/petg-negro3-d49b6f4e.webp",
       "variant": "",
       "weight_g": 1000
     },
@@ -14467,19 +14467,19 @@
       "color": "Negro",
       "diameter_mm": 2.85,
       "display_name": "PETG Negro Grilon3 1 kg 2.85 mm",
-      "ean": "",
+      "ean": "7798049653709",
       "finish": "",
       "id": "petg-negro-285-1000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/petg-285-negro3-ef38d557.jpg",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/petg-negro-285/",
       "material": "PETG",
       "offers": [],
-      "pantone": "",
-      "sku": "",
+      "pantone": "Pantone Black",
+      "sku": "M77ING175CJ",
       "subrange": "",
-      "thumbnail_url": "",
+      "thumbnail_url": "assets/thumbs/grilon3/petg-285-negro3-ef38d557.webp",
       "variant": "",
       "weight_g": 1000
     },
@@ -14521,13 +14521,13 @@
       "color": "Negro",
       "diameter_mm": 1.75,
       "display_name": "PETG Negro Grilon3 2.5 kg 1.75 mm",
-      "ean": "7798049653709",
+      "ean": "7798049654232",
       "finish": "",
       "id": "petg-negro-175-2500-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/petg-negro2-8218e01d.jpg",
+      "image_url": "assets/grilon3/petg-maxicarrete-negro1-83764fff.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-petg-negro/",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/maxicarrete-petg-negro/",
       "material": "PETG",
       "offers": [
         {
@@ -14565,9 +14565,9 @@
         }
       ],
       "pantone": "Pantone Black",
-      "sku": "M77ING175CJ",
+      "sku": "M77IBL175CJ-1-1",
       "subrange": "",
-      "thumbnail_url": "assets/thumbs/grilon3/petg-negro2-8218e01d.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/petg-maxicarrete-negro1-83764fff.webp",
       "variant": "",
       "weight_g": 2500
     },
@@ -14576,13 +14576,13 @@
       "color": "Negro",
       "diameter_mm": 1.75,
       "display_name": "PETG Negro Grilon3 4 kg 1.75 mm",
-      "ean": "7798049653709",
+      "ean": "7798049657431",
       "finish": "",
       "id": "petg-negro-175-4000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/petg-negro2-8218e01d.jpg",
+      "image_url": "assets/grilon3/petg-megafill-negro2-8f7b4157.webp",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-petg-negro/",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/petg-negro-megafill/",
       "material": "PETG",
       "offers": [
         {
@@ -14620,9 +14620,9 @@
         }
       ],
       "pantone": "Pantone Black",
-      "sku": "M77ING175CJ",
+      "sku": "M77ING175C4",
       "subrange": "",
-      "thumbnail_url": "assets/thumbs/grilon3/petg-negro2-8218e01d.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/petg-megafill-negro2-8f7b4157.webp",
       "variant": "",
       "weight_g": 4000
     },
@@ -14778,7 +14778,7 @@
       "finish": "",
       "id": "pp-pp-t-amarillo-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/ppt-amarillo-67e2e0b9.webp",
+      "image_url": "assets/grilon3/ppt-amarillo2-b2b8f845.webp",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/pp-t-amarillo/",
       "material": "PP",
@@ -14809,7 +14809,7 @@
       "pantone": "",
       "sku": "M04IAM175CJ",
       "subrange": "",
-      "thumbnail_url": "assets/thumbs/grilon3/ppt-amarillo-67e2e0b9.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/ppt-amarillo2-b2b8f845.webp",
       "variant": "PP-T",
       "weight_g": 1000
     },
@@ -14855,7 +14855,7 @@
       "finish": "",
       "id": "pp-pp-t-azul-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/ppt-azul-6a5e1c89.webp",
+      "image_url": "assets/grilon3/ppt-azul2-cd9bd826.webp",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/pp-t-azul/",
       "material": "PP",
@@ -14897,7 +14897,7 @@
       "pantone": "",
       "sku": "M04IAZ175CJ",
       "subrange": "",
-      "thumbnail_url": "assets/thumbs/grilon3/ppt-azul-6a5e1c89.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/ppt-azul2-cd9bd826.webp",
       "variant": "PP-T",
       "weight_g": 1000
     },
@@ -15119,7 +15119,7 @@
       "finish": "",
       "id": "pp-pp-t-natural-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/polipropileno1-9cb231ff.jpg",
+      "image_url": "assets/grilon3/polipropileno2-d26bf8c6.jpg",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/pp-natural/",
       "material": "PP",
@@ -15161,7 +15161,7 @@
       "pantone": "",
       "sku": "M04INT175CJ",
       "subrange": "",
-      "thumbnail_url": "assets/thumbs/grilon3/polipropileno1-9cb231ff.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/polipropileno2-d26bf8c6.webp",
       "variant": "PP-T",
       "weight_g": 1000
     },
@@ -15383,7 +15383,7 @@
       "finish": "",
       "id": "pp-pp-t-verde-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/ppt-verde-77cb9ea8.webp",
+      "image_url": "assets/grilon3/ppt-verde2-6301d158.webp",
       "manufacturer_name": "Grilon3",
       "manufacturer_product_url": "https://grilon3.com.ar/producto/pp-t-verde/",
       "material": "PP",
@@ -15414,7 +15414,7 @@
       "pantone": "",
       "sku": "M04IVR175CJ",
       "subrange": "",
-      "thumbnail_url": "assets/thumbs/grilon3/ppt-verde-77cb9ea8.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/ppt-verde2-6301d158.webp",
       "variant": "PP-T",
       "weight_g": 1000
     },
@@ -15669,9 +15669,9 @@
       "finish": "",
       "id": "tpu-simpliflex-blanco-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/simpliflex-blanco-600x600-eff26d67.jpg",
+      "image_url": "assets/grilon3/simpliflex-blanco2-25ea5e75.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/simpliflex-blanco/",
       "material": "TPU",
       "offers": [
         {
@@ -15711,7 +15711,7 @@
       "pantone": "",
       "sku": "M13IBL175CJ",
       "subrange": "",
-      "thumbnail_url": "assets/thumbs/grilon3/simpliflex-blanco-600x600-eff26d67.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/simpliflex-blanco2-25ea5e75.webp",
       "variant": "Simpliflex",
       "weight_g": 1000
     },
@@ -15845,9 +15845,9 @@
       "finish": "",
       "id": "tpu-simpliflex-celeste-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/simpliflex-celeste-600x600-bd049947.jpg",
+      "image_url": "assets/grilon3/simpliflex-celeste2-aeeb20d2.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/simpliflex-celeste/",
       "material": "TPU",
       "offers": [
         {
@@ -15887,7 +15887,7 @@
       "pantone": "Pantone 2925",
       "sku": "M13ICE175CJ",
       "subrange": "",
-      "thumbnail_url": "assets/thumbs/grilon3/simpliflex-celeste-600x600-bd049947.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/simpliflex-celeste2-aeeb20d2.webp",
       "variant": "Simpliflex",
       "weight_g": 1000
     },
@@ -16054,9 +16054,9 @@
       "finish": "",
       "id": "tpu-simpliflex-naranja-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/simpliflex-naranja-600x600-0d42c35b.jpg",
+      "image_url": "assets/grilon3/simpliflex-naranja2-67d2f0ab.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/simpliflex-naranja/",
       "material": "TPU",
       "offers": [
         {
@@ -16096,7 +16096,7 @@
       "pantone": "Pantone 172",
       "sku": "M13INA175CJ",
       "subrange": "",
-      "thumbnail_url": "assets/thumbs/grilon3/simpliflex-naranja-600x600-0d42c35b.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/simpliflex-naranja2-67d2f0ab.webp",
       "variant": "Simpliflex",
       "weight_g": 1000
     },
@@ -16142,9 +16142,9 @@
       "finish": "",
       "id": "tpu-simpliflex-natural-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/simpliflex-natural-600x600-90555472.jpg",
+      "image_url": "assets/grilon3/simpliflex-natural2-24941188.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/simpliflex-natural/",
       "material": "TPU",
       "offers": [
         {
@@ -16184,7 +16184,7 @@
       "pantone": "",
       "sku": "M13INT175CJ",
       "subrange": "",
-      "thumbnail_url": "assets/thumbs/grilon3/simpliflex-natural-600x600-90555472.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/simpliflex-natural2-24941188.webp",
       "variant": "Simpliflex",
       "weight_g": 1000
     },
@@ -16263,9 +16263,9 @@
       "finish": "",
       "id": "tpu-simpliflex-negro-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/simpliflex-negro-600x600-d65e3792.jpg",
+      "image_url": "assets/grilon3/simpliflex-negro2-20bbe125.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/simpliflex-negro/",
       "material": "TPU",
       "offers": [
         {
@@ -16305,7 +16305,7 @@
       "pantone": "Pantone Black",
       "sku": "M13ING175CJ",
       "subrange": "",
-      "thumbnail_url": "assets/thumbs/grilon3/simpliflex-negro-600x600-d65e3792.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/simpliflex-negro2-20bbe125.webp",
       "variant": "Simpliflex",
       "weight_g": 1000
     },
@@ -16438,10 +16438,10 @@
       "ean": "7798049653983",
       "finish": "",
       "id": "tpu-simpliflex-nova-175-1000-grilon3",
-      "image_source": "",
-      "image_url": "",
+      "image_source": "manufacturer",
+      "image_url": "assets/grilon3/simpliflex-nova2-b4bb202c.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/filamento-3d-simpliflex-nova/",
       "material": "TPU",
       "offers": [
         {
@@ -16481,7 +16481,7 @@
       "pantone": "",
       "sku": "M13INV175CJ",
       "subrange": "",
-      "thumbnail_url": "",
+      "thumbnail_url": "assets/thumbs/grilon3/simpliflex-nova2-b4bb202c.webp",
       "variant": "Simpliflex",
       "weight_g": 1000
     },
@@ -16681,9 +16681,9 @@
       "finish": "",
       "id": "tpu-simpliflex-verde-175-1000-grilon3",
       "image_source": "manufacturer",
-      "image_url": "assets/grilon3/simpliflex-verde-600x600-b9b2212c.jpg",
+      "image_url": "assets/grilon3/simpliflex-verde2-1c54747a.jpg",
       "manufacturer_name": "Grilon3",
-      "manufacturer_product_url": "",
+      "manufacturer_product_url": "https://grilon3.com.ar/producto/simpliflex-verde/",
       "material": "TPU",
       "offers": [
         {
@@ -16723,7 +16723,7 @@
       "pantone": "Pantone 347",
       "sku": "M13IVR175CJ",
       "subrange": "",
-      "thumbnail_url": "assets/thumbs/grilon3/simpliflex-verde-600x600-b9b2212c.webp",
+      "thumbnail_url": "assets/thumbs/grilon3/simpliflex-verde2-1c54747a.webp",
       "variant": "Simpliflex",
       "weight_g": 1000
     },
