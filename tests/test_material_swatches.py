@@ -61,6 +61,7 @@ def test_apply_material_swatches_updates_only_resolved_products_idempotently(tmp
                         "variant": "",
                         "color": "Rojo",
                         "offers": [{"original_name": "PLA rojo"}],
+                        "material_finish": "metallic",
                         "material_swatch_url": "",
                     },
                     {

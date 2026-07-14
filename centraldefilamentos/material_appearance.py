@@ -48,9 +48,9 @@ NUMERIC_PANTONE_PATTERN = re.compile(r"^(\d{2,4})(?:\s*([CU]))?$")
 VARIANT_RULES: tuple[tuple[tuple[str, ...], MaterialFinish], ...] = (
     (("transluc", "cristal"), "translucent"),
     (("fluor", "neon", "uv glow"), "fluorescent"),
-    (("glitter", "brillantina"), "glitter"),
+    (("glitter", "brillantina", "astra"), "glitter"),
     (("metal",), "metallic"),
-    (("silk", "seda", "astra"), "silk"),
+    (("silk", "seda"), "silk"),
     (("perla", "pearl"), "pearl"),
     (("madera", "wood"), "wood"),
     (("gloss", "brillante"), "gloss"),
