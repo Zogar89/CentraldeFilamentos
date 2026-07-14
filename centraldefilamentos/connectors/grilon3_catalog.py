@@ -16,6 +16,7 @@ BASE_URL = "https://grilon3.com.ar/productos/"
 SITEMAP_URL = "https://grilon3.com.ar/product-sitemap.xml"
 EMPTY_ENRICHMENT = {"manufacturer_product_url": "", "image_url": "", "image_source": "", "pantone": "", "sku": "", "ean": ""}
 VOID_TAGS = {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "param", "source", "track", "wbr"}
+COLOR_OPTIONAL_MATERIALS = {"PVA"}
 
 
 @dataclass(frozen=True)
@@ -404,7 +405,7 @@ def _catalog_product_from_raw(
         reasons.append("brand_not_grilon3")
     if fields.material == "Sin clasificar":
         reasons.append("material_unclassified")
-    if fields.color == "Sin color":
+    if fields.color == "Sin color" and fields.material not in COLOR_OPTIONAL_MATERIALS:
         reasons.append("color_missing")
     if reasons:
         return None, CatalogRejection(

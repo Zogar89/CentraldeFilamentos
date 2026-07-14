@@ -30,6 +30,49 @@ def test_normalizes_grilon3_pla_negro():
     assert fields.manufacturer_name == "Grilon3"
 
 
+def test_normalizes_grilon3_pla_magenta_as_distinct_canonical_color():
+    magenta = normalize_record(
+        raw("GRILON3 PLA MAGENTA 1.75 MM X 1 KG", brand_hint="Grilon3")
+    )
+    fucsia = normalize_record(
+        raw("GRILON3 PLA FUCSIA 1.75 MM X 1 KG", brand_hint="Grilon3")
+    )
+    rosa = normalize_record(
+        raw("GRILON3 PLA ROSA 1.75 MM X 1 KG", brand_hint="Grilon3")
+    )
+
+    assert (
+        magenta.material,
+        magenta.variant,
+        magenta.color,
+        magenta.diameter_mm,
+        magenta.weight_g,
+        magenta.brand,
+        magenta.subrange,
+        magenta.finish,
+    ) == ("PLA", "", "Magenta", 1.75, 1000, "Grilon3", "Standard", "")
+    assert build_product_id(magenta) == "pla-magenta-175-1000-grilon3"
+    assert {magenta.color, fucsia.color, rosa.color} == {"Magenta", "Fucsia", "Rosa"}
+
+
+def test_normalizes_official_colorless_pva_without_inventing_a_color():
+    fields = normalize_record(
+        raw("GRILON3 PVA SOLUBLE 1.75 MM X 500 GR", brand_hint="Grilon3")
+    )
+
+    assert (
+        fields.material,
+        fields.variant,
+        fields.color,
+        fields.diameter_mm,
+        fields.weight_g,
+        fields.brand,
+    ) == ("PVA", "PVA Soluble", "Sin color", 1.75, 500, "Grilon3")
+    assert build_product_id(fields) == (
+        "pva-pva-soluble-sin-color-175-500-grilon3"
+    )
+
+
 def test_normalizes_3n3_pla_plus_rojo():
     fields = normalize_record(raw("3N3 PLA+ Rojo 1 kg 1.75 mm", source_id="grupo_senz"))
 

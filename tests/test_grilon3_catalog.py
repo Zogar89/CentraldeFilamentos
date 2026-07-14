@@ -228,6 +228,50 @@ def test_parse_grilon3_catalog_page_audit_records_raw_links_and_exact_rejections
     ]
 
 
+def test_parse_grilon3_catalog_page_audit_accepts_magenta_and_colorless_pva_only():
+    html = """
+    <html><body>
+      <p class="woocommerce-result-count">Mostrando 1-5 de 5 resultados</p>
+      <a href="/producto/pla-magenta/">
+        <img alt="GRILON3 PLA MAGENTA 1.75 MM X 1 KG">
+      </a>
+      <a href="/producto/filamento-3d-pva/">
+        <img alt="GRILON3 PVA SOLUBLE 1.75 MM X 500 GR">
+      </a>
+      <a href="/producto/pla-sin-color/"><img alt="GRILON3 PLA 1 KG"></a>
+      <a href="/producto/abs-sin-color/"><img alt="GRILON3 ABS 1 KG"></a>
+      <a href="/producto/material-sin-color/"><img alt="GRILON3 FILAMENTO 1 KG"></a>
+    </body></html>
+    """
+
+    audit = grilon_catalog.parse_grilon3_catalog_page_audit(
+        html,
+        base_url="https://grilon3.com.ar/productos/",
+    )
+
+    assert [product.product_id for product in audit.page.products] == [
+        "pla-magenta-175-1000-grilon3",
+        "pva-pva-soluble-sin-color-175-500-grilon3",
+    ]
+    assert [rejection.to_dict() for rejection in audit.rejections] == [
+        {
+            "title": "GRILON3 PLA 1 KG",
+            "url": "https://grilon3.com.ar/producto/pla-sin-color/",
+            "reasons": ["color_missing"],
+        },
+        {
+            "title": "GRILON3 ABS 1 KG",
+            "url": "https://grilon3.com.ar/producto/abs-sin-color/",
+            "reasons": ["color_missing"],
+        },
+        {
+            "title": "GRILON3 FILAMENTO 1 KG",
+            "url": "https://grilon3.com.ar/producto/material-sin-color/",
+            "reasons": ["material_unclassified", "color_missing"],
+        },
+    ]
+
+
 def test_fetch_grilon3_active_catalog_audit_ignores_external_pagination_and_cycles(monkeypatch):
     pages = {
         "https://grilon3.com.ar/productos/": """

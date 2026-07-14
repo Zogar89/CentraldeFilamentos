@@ -104,6 +104,7 @@ COLOR_RULES = [
     ("ROJO CARMIN", "Rojo Carmin"),
     ("VERDE LIMA", "Verde Lima"),
     ("MAGENTA FLUO", "Magenta Fluo"),
+    ("MAGENTA", "Magenta"),
     ("GRIS ESPACIAL", "Gris Espacial"),
     ("BLANCO PERLA", "Blanco Perla"),
     ("CREMA DEL CIELO", "Crema del Cielo"),
