@@ -190,21 +190,46 @@ export function groupColorFamilies(groups) {
   return result;
 }
 
-export function buildColorMap(groups) {
-  return (groups || []).map((group) => {
-    const value = oklchFor(group);
-    return {
-      ...group,
-      oklch: value,
-      mapColumn: Math.min(12, Math.max(1, Math.floor(value.h / 30) + 1)),
-      mapRow: Math.min(6, Math.max(1, 7 - Math.floor(value.l * 6))),
-    };
-  }).sort((left, right) => (
-    left.mapRow - right.mapRow
-    || left.mapColumn - right.mapColumn
-    || right.oklch.c - left.oklch.c
-    || left.id.localeCompare(right.id, "es-AR")
+function clamp(value, lower, upper) {
+  return Math.min(upper, Math.max(lower, value));
+}
+
+function mapAnchor(value) {
+  return {
+    x: value.c < 0.035 ? 96 : value.h / 3.6,
+    y: 100 - value.l * 100,
+  };
+}
+
+function separateMapPoints(points) {
+  const ordered = points.slice().sort((left, right) => (
+    left.anchorY - right.anchorY || left.anchorX - right.anchorX || left.id.localeCompare(right.id, "es-AR")
   ));
+  const placed = [];
+  for (const point of ordered) {
+    let candidate = { x: point.anchorX, y: point.anchorY };
+    for (let attempt = 0; attempt < 48; attempt += 1) {
+      const collides = placed.some((other) => Math.hypot(candidate.x - other.mapX, candidate.y - other.mapY) < 3.4);
+      if (!collides) break;
+      const angle = (attempt + 1) * 2.399963;
+      const radius = 2 + Math.floor(attempt / 6) * 1.5;
+      candidate = {
+        x: clamp(point.anchorX + Math.cos(angle) * radius, 2, 98),
+        y: clamp(point.anchorY + Math.sin(angle) * radius, 2, 98),
+      };
+    }
+    placed.push({ ...point, mapX: candidate.x, mapY: candidate.y });
+  }
+  return placed;
+}
+
+export function buildColorMap(groups) {
+  const points = (groups || []).map((group) => {
+    const oklch = oklchFor(group);
+    const anchor = mapAnchor(oklch);
+    return { ...group, oklch, anchorX: anchor.x, anchorY: anchor.y, mapSize: clamp(12 + oklch.c * 55, 12, 24) };
+  });
+  return separateMapPoints(points).sort((left, right) => left.mapY - right.mapY || left.mapX - right.mapX || left.id.localeCompare(right.id, "es-AR"));
 }
 
 export function findSimilarColors(groups, referenceHex, excludedGroupId = "", limit = 3) {

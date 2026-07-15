@@ -94,7 +94,25 @@ test("sorts, groups, and maps from current OKLCH values", () => {
   ]).groups;
   assert.equal(sortPerceptually(groups).length, 3);
   assert.equal(groupColorFamilies(groups).get("Neutros").length, 1);
-  assert.ok(buildColorMap(groups).every((item) => item.mapColumn >= 1 && item.mapColumn <= 12 && item.mapRow >= 1 && item.mapRow <= 6));
+  assert.ok(buildColorMap(groups).every((item) => item.mapX >= 0 && item.mapX <= 100 && item.mapY >= 0 && item.mapY <= 100));
+});
+
+test("separates perceptual map points that share a tone and luminosity anchor", () => {
+  const groups = buildPlaColorCatalog([
+    product({ id: "red-a", color: "Rojo A", pantone_hex: "#CC3333" }),
+    product({ id: "red-b", color: "Rojo B", pantone_hex: "#CC3333" }),
+    product({ id: "white", color: "Blanco", pantone_hex: "#F7F7F7" }),
+  ]).groups;
+  const points = buildColorMap(groups);
+
+  assert.equal(points.length, 3);
+  assert.ok(points.every((point) => point.mapX >= 0 && point.mapX <= 100));
+  assert.ok(points.every((point) => point.mapY >= 0 && point.mapY <= 100));
+  assert.ok(points.every((point) => point.mapSize >= 12 && point.mapSize <= 24));
+  assert.notDeepEqual(
+    [points[0].mapX, points[0].mapY],
+    [points[1].mapX, points[1].mapY],
+  );
 });
 
 test("separates the continuous palette into intense, muted, earth, and neutral bands", () => {
