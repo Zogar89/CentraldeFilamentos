@@ -1369,5 +1369,3 @@ git log --oneline --decorate -6
 ```
 
 Expected: clean `codex/color-picker` worktree with the design/spec commits followed by six implementation commits.
-
-
