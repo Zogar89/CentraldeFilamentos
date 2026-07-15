@@ -157,6 +157,8 @@ main:focus {
 .color-picker-tile::after { content: attr(data-tooltip); position: absolute; left: 50%; bottom: calc(100% + 7px); z-index: 20; width: max-content; max-width: 240px; padding: 6px 8px; color: var(--surface); background: var(--text); font-size: .75rem; line-height: 1.25; opacity: 0; pointer-events: none; transform: translate(-50%, 4px); transition: opacity .14s ease, transform .14s ease; }
 .color-picker-tile:hover::after, .color-picker-tile:focus-visible::after { opacity: 1; transform: translate(-50%, 0); }
 .color-picker-tile:focus-visible, .color-picker-similar button:focus-visible, .color-picker-comparator button:focus-visible { outline: 3px solid var(--text); outline-offset: 2px; }
+.color-picker-map-point .color-picker-tile:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--accent), inset 0 0 0 4px var(--surface); }
+.color-picker-map-point .color-picker-tile[aria-pressed="true"]:focus-visible { box-shadow: inset 0 0 0 2px var(--accent), inset 0 0 0 4px var(--surface), inset 0 0 0 6px var(--text); }
 
 @media (max-width: 900px) {
   .color-picker-comparator-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
