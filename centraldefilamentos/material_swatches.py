@@ -6,7 +6,7 @@ import math
 from pathlib import Path
 import random
 import re
-from typing import Mapping
+from typing import Callable, Mapping
 
 from PIL import Image, ImageDraw
 
@@ -78,6 +78,12 @@ def material_swatch_url(pantone: str, finish: str) -> str:
     slug = re.sub(r"[^a-z0-9]+", "-", canonical.lower()).strip("-")
     finish_slug = re.sub(r"[^a-z0-9]+", "-", finish.lower()).strip("-")
     return f"assets/material-swatches/pantone-{slug}-{finish_slug}-v{RENDERER_VERSION}.webp"
+
+
+def estimated_material_swatch_url(product_id: str, finish: str) -> str:
+    product_slug = re.sub(r"[^a-z0-9]+", "-", product_id.lower()).strip("-")
+    finish_slug = re.sub(r"[^a-z0-9]+", "-", finish.lower()).strip("-")
+    return f"assets/material-swatches/estimated-{product_slug}-{finish_slug}-v{RENDERER_VERSION}.webp"
 
 
 def _finish_adjustment(
@@ -223,13 +229,29 @@ def _offer_names(product: Mapping[str, object]) -> list[str]:
     ]
 
 
-def apply_material_swatches_to_stock(stock_json: Path, public_dir: Path) -> int:
+def apply_material_swatches_to_stock(
+    stock_json: Path,
+    public_dir: Path,
+    progress: Callable[[int, int], None] | None = None,
+) -> int:
     payload = json.loads(stock_json.read_text(encoding="utf-8"))
     products = payload.get("products", [])
+    product_rows = [product for product in products if isinstance(product, dict)] if isinstance(products, list) else []
+    estimated_total = sum(
+        1
+        for product in product_rows
+        if not resolve_material_appearance(
+            product_id=str(product.get("id", "")),
+            pantone=str(product.get("pantone", "")),
+            variant=str(product.get("variant", "")),
+            color=str(product.get("color", "")),
+            original_names=_offer_names(product),
+        ).pantone_hex
+        and bool(product.get("estimated_color_hex"))
+    )
+    estimated_completed = 0
     generated = 0
-    for product in products if isinstance(products, list) else []:
-        if not isinstance(product, dict):
-            continue
+    for product in product_rows:
         appearance = resolve_material_appearance(
             product_id=str(product.get("id", "")),
             pantone=str(product.get("pantone", "")),
@@ -241,14 +263,32 @@ def apply_material_swatches_to_stock(stock_json: Path, public_dir: Path) -> int:
         finish = appearance.finish
         product["pantone_hex"] = pantone_hex
         product["material_finish"] = finish
-        if not pantone_hex or finish not in MATERIAL_FINISHES:
+        if pantone_hex and finish in MATERIAL_FINISHES:
+            url = material_swatch_url(str(product.get("pantone", "")), finish)
+            output_path = public_dir / url
+            if not output_path.exists():
+                render_material_swatch(pantone_hex, finish, output_path)
+                generated += 1
+            product["material_swatch_url"] = url
+            continue
+
+        estimated_hex = str(product.get("estimated_color_hex", ""))
+        if not estimated_hex or finish not in MATERIAL_FINISHES:
             product["material_swatch_url"] = ""
             continue
-        url = material_swatch_url(str(product.get("pantone", "")), finish)
+
+        url = estimated_material_swatch_url(str(product.get("id", "")), finish)
         output_path = public_dir / url
-        if not output_path.exists():
-            render_material_swatch(pantone_hex, finish, output_path)
+        temporary_path = output_path.with_suffix(".tmp.webp")
+        render_material_swatch(estimated_hex, finish, temporary_path)
+        if not output_path.exists() or output_path.read_bytes() != temporary_path.read_bytes():
+            temporary_path.replace(output_path)
             generated += 1
+        else:
+            temporary_path.unlink()
         product["material_swatch_url"] = url
+        estimated_completed += 1
+        if progress:
+            progress(estimated_completed, estimated_total)
     _write_json_if_changed(stock_json, payload)
     return generated
