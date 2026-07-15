@@ -12,6 +12,10 @@ const toRgb = converter("rgb");
 const ciede2000 = differenceCiede2000();
 const familyOrder = ["Rojos", "Naranjas", "Amarillos", "Verdes", "Turquesas", "Azules", "Violetas", "Rosas", "Neutros"];
 const continuousBandOrder = ["intense", "muted", "earth", "neutral"];
+const mapCanvasWidth = 820;
+const mapCanvasHeight = 520;
+const mapPointGap = 4;
+const maxMapPointSize = 24;
 
 export function normalizeHex(value) {
   const raw = String(value || "").trim().toUpperCase();
@@ -201,24 +205,65 @@ function mapAnchor(value) {
   };
 }
 
-function isMapPositionFree(candidate, placed) {
-  return placed.every((other) => Math.hypot(candidate.x - other.mapX, candidate.y - other.mapY) >= 3.4);
+function mapPercentToPixels(x, y) {
+  return {
+    x: x / 100 * mapCanvasWidth,
+    y: y / 100 * mapCanvasHeight,
+  };
+}
+
+function mapPixelsToPercent(x, y) {
+  return {
+    x: x / mapCanvasWidth * 100,
+    y: y / mapCanvasHeight * 100,
+  };
+}
+
+function mapBoundsFor(point) {
+  const radius = point.mapSize / 2;
+  return {
+    minX: radius / mapCanvasWidth * 100,
+    maxX: 100 - radius / mapCanvasWidth * 100,
+    minY: radius / mapCanvasHeight * 100,
+    maxY: 100 - radius / mapCanvasHeight * 100,
+  };
+}
+
+function clampMapPosition(point, candidate) {
+  const bounds = mapBoundsFor(point);
+  return {
+    x: clamp(candidate.x, bounds.minX, bounds.maxX),
+    y: clamp(candidate.y, bounds.minY, bounds.maxY),
+  };
+}
+
+function isMapPositionFree(candidate, point, placed) {
+  const candidatePixels = mapPercentToPixels(candidate.x, candidate.y);
+  return placed.every((other) => {
+    const otherPixels = mapPercentToPixels(other.mapX, other.mapY);
+    const minimumDistance = point.mapSize / 2 + other.mapSize / 2 + mapPointGap;
+    const physicalDistance = Math.hypot(candidatePixels.x - otherPixels.x, candidatePixels.y - otherPixels.y);
+    const percentageDistance = Math.hypot(candidate.x - other.mapX, candidate.y - other.mapY);
+    return physicalDistance >= minimumDistance && percentageDistance >= 3.4;
+  });
 }
 
 function fallbackMapPosition(point, placed) {
   const candidates = [];
-  for (let y = 2; y <= 98; y += 3.5) {
-    for (let x = 2; x <= 98; x += 3.5) {
-      candidates.push({ x, y });
+  const radius = point.mapSize / 2;
+  for (let y = radius; y <= mapCanvasHeight - radius; y += 12) {
+    for (let x = radius; x <= mapCanvasWidth - radius; x += 12) {
+      candidates.push(mapPixelsToPercent(x, y));
     }
   }
+  const anchorPixels = mapPercentToPixels(point.anchorX, point.anchorY);
   candidates.sort((left, right) => (
-    Math.hypot(left.x - point.anchorX, left.y - point.anchorY)
-    - Math.hypot(right.x - point.anchorX, right.y - point.anchorY)
+    Math.hypot(mapPercentToPixels(left.x, left.y).x - anchorPixels.x, mapPercentToPixels(left.x, left.y).y - anchorPixels.y)
+    - Math.hypot(mapPercentToPixels(right.x, right.y).x - anchorPixels.x, mapPercentToPixels(right.x, right.y).y - anchorPixels.y)
     || left.y - right.y
     || left.x - right.x
   ));
-  return candidates.find((candidate) => isMapPositionFree(candidate, placed));
+  return candidates.find((candidate) => isMapPositionFree(candidate, point, placed));
 }
 
 function separateMapPoints(points) {
@@ -227,17 +272,17 @@ function separateMapPoints(points) {
   ));
   const placed = [];
   for (const point of ordered) {
-    let candidate = { x: point.anchorX, y: point.anchorY };
-    for (let attempt = 0; attempt < 48; attempt += 1) {
-      if (isMapPositionFree(candidate, placed)) break;
+    let candidate = clampMapPosition(point, { x: point.anchorX, y: point.anchorY });
+    for (let attempt = 0; attempt < 384; attempt += 1) {
+      if (isMapPositionFree(candidate, point, placed)) break;
       const angle = (attempt + 1) * 2.399963;
-      const radius = 2 + Math.floor(attempt / 6) * 1.5;
-      candidate = {
-        x: clamp(point.anchorX + Math.cos(angle) * radius, 2, 98),
-        y: clamp(point.anchorY + Math.sin(angle) * radius, 2, 98),
-      };
+      const radius = point.mapSize / 2 + maxMapPointSize / 2 + mapPointGap + Math.floor(attempt / 12) * 10;
+      candidate = clampMapPosition(point, {
+        x: point.anchorX + Math.cos(angle) * radius / mapCanvasWidth * 100,
+        y: point.anchorY + Math.sin(angle) * radius / mapCanvasHeight * 100,
+      });
     }
-    if (!isMapPositionFree(candidate, placed)) candidate = fallbackMapPosition(point, placed);
+    if (!isMapPositionFree(candidate, point, placed)) candidate = fallbackMapPosition(point, placed);
     if (!candidate) throw new Error("No hay una posición libre para el punto de color.");
     placed.push({ ...point, mapX: candidate.x, mapY: candidate.y });
   }

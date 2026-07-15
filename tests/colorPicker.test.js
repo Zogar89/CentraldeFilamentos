@@ -133,6 +133,24 @@ test("separates dense map clusters without duplicate final coordinates", () => {
   }
 });
 
+test("separates map points using their physical radii on the 820 by 520 canvas", () => {
+  const groups = Array.from({ length: 64 }, (_, index) => ({ id: `physical-red-${index}`, hex: "#CC3333" }));
+  const points = buildColorMap(groups);
+
+  for (let left = 0; left < points.length; left += 1) {
+    for (let right = left + 1; right < points.length; right += 1) {
+      const horizontalDistance = ((points[left].mapX - points[right].mapX) / 100) * 820;
+      const verticalDistance = ((points[left].mapY - points[right].mapY) / 100) * 520;
+      const requiredDistance = points[left].mapSize / 2 + points[right].mapSize / 2 + 4;
+
+      assert.ok(
+        Math.hypot(horizontalDistance, verticalDistance) >= requiredDistance,
+        `points ${points[left].id} and ${points[right].id} must not physically overlap`,
+      );
+    }
+  }
+});
+
 test("separates the continuous palette into intense, muted, earth, and neutral bands", () => {
   const groups = buildPlaColorCatalog([
     product({ id: "red", color: "Rojo", pantone_hex: "#E63424" }),
