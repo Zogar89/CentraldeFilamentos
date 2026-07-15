@@ -3,6 +3,7 @@ import {
   comparePresentations,
   foldText,
   formatPresentation,
+  isSamplerProduct,
   lineLabel,
   slugText,
 } from "./shared.js";
@@ -109,6 +110,7 @@ function buildGroup(products) {
     warning: representative.estimated_color_warning || "",
     materialSwatchUrl: representative.material_swatch_url || "",
     inStock: products.some(productInStock),
+    isSampler: products.some(isSamplerProduct),
     representative,
     products: products.slice(),
     presentations,

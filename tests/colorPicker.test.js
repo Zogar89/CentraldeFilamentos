@@ -86,6 +86,19 @@ test("derives stock and de-duplicates identical presentations", () => {
   assert.equal(catalog.groups[0].presentations[0].product.id, "in");
 });
 
+test("marks sampler logical colors using the shared sampler detection", () => {
+  const catalog = buildPlaColorCatalog([
+    product({
+      id: "sampler-rojo",
+      color: "Rojo sampler",
+      weight_g: null,
+      offers: [{ original_name: "PLA ROJO SAMPLER X 10 M", stock_status: "in_stock" }],
+    }),
+  ]);
+
+  assert.equal(catalog.groups[0].isSampler, true);
+});
+
 test("sorts, groups, and maps from current OKLCH values", () => {
   const groups = buildPlaColorCatalog([
     product({ id: "red", color: "Rojo", pantone_hex: "#FF0000" }),

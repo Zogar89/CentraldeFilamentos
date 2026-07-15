@@ -27,7 +27,8 @@
   let sources = [];
   let generatedAt = "";
   let activeView = "continuous";
-  let hideOutOfStock = false;
+  let hideOutOfStock = true;
+  let hideSamplers = true;
   let selectedIds = [];
   let referenceHex = "";
   let referenceGroupId = "";
@@ -44,7 +45,10 @@
   let quoteMessage = "";
   let quoteWarning = "";
 
-  $: visibleGroups = hideOutOfStock ? groups.filter((group) => group.inStock) : groups;
+  $: visibleGroups = groups.filter((group) => (
+    (!hideOutOfStock || group.inStock)
+    && (!hideSamplers || !group.isSampler)
+  ));
   $: selectedGroups = selectedIds.map((id) => groups.find((group) => group.id === id)).filter(Boolean);
   $: normalizedSimilarHex = normalizeHex(similarHex);
   $: if (searchActive && isValidHex(normalizedSimilarHex)) {
@@ -120,6 +124,10 @@
     hideOutOfStock = value;
   }
 
+  function setHideSamplers(value) {
+    hideSamplers = value;
+  }
+
   function removeComparedGroup(group) {
     const result = toggleComparedColor(selectedIds, group.id);
     selectedIds = result.ids;
@@ -173,6 +181,10 @@
       <label class="color-picker-stock-toggle">
         <input type="checkbox" checked={hideOutOfStock} on:change={(event) => setHideOutOfStock(event.currentTarget.checked)}>
         <span>Ocultar sin stock</span>
+      </label>
+      <label class="color-picker-stock-toggle">
+        <input type="checkbox" checked={hideSamplers} on:change={(event) => setHideSamplers(event.currentTarget.checked)}>
+        <span>Ocultar samplers</span>
       </label>
     </section>
 

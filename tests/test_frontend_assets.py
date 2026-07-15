@@ -670,6 +670,10 @@ def test_color_picker_page_is_linked_and_built():
     assert "Tierras y marrones" in palette
     assert "Neutros" in palette
     assert "Ocultar sin stock" in app
+    assert "let hideOutOfStock = true;" in app
+    assert "let hideSamplers = true;" in app
+    assert "Ocultar samplers" in app
+    assert "!group.isSampler" in app
 
     similar = (SRC / "components" / "SimilarColorSearch.svelte").read_text(encoding="utf-8")
     assert "Buscar colores similares" in similar
