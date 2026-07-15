@@ -1,0 +1,3614 @@
+{
+  "abs-blanco-175-1000-grilon3": {
+    "confidence_band": "high",
+    "confidence_interval": [
+      0.8,
+      1.0
+    ],
+    "estimated_hex": "#F1F1F1",
+    "evidence": "Imagen local y nombre normalizado Blanco; señal cromática compatible 89%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "abs-blanco-175-2500-grilon3": {
+    "confidence_band": "high",
+    "confidence_interval": [
+      0.8,
+      1.0
+    ],
+    "estimated_hex": "#F1F1F1",
+    "evidence": "Imagen local y nombre normalizado Blanco; señal cromática compatible 89%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "abs-blanco-285-1000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#F2F1EC",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Blanco.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "abs-natural-175-1000-grilon3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#EDEBE7",
+    "evidence": "Imagen local y nombre normalizado Natural; señal cromática compatible 89%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "abs-negro-285-1000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#111418",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Negro.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "abs-turquesa-175-2500-grilon3": {
+    "confidence_band": "high",
+    "confidence_interval": [
+      0.8,
+      1.0
+    ],
+    "estimated_hex": "#0E89AD",
+    "evidence": "Imagen local y nombre normalizado Turquesa; señal cromática compatible 23%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "acetal-acetal-pom-blanco-175-1000-grilon3": {
+    "confidence_band": "high",
+    "confidence_interval": [
+      0.8,
+      1.0
+    ],
+    "estimated_hex": "#ECEEF0",
+    "evidence": "Imagen local y nombre normalizado Blanco; señal cromática compatible 86%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "acetal-acetal-pom-gris-acero-175-1000-grilon3": {
+    "confidence_band": "high",
+    "confidence_interval": [
+      0.8,
+      1.0
+    ],
+    "estimated_hex": "#6D7076",
+    "evidence": "Imagen local y nombre normalizado Gris Acero; señal cromática compatible 24%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "acetal-acetal-pom-gris-acero-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#707980",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Gris Acero.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "acetal-acetal-pom-gris-plata-175-1000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#A9ACB2",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Gris Plata.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "acetal-acetal-pom-gris-plata-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#A9ACB2",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Gris Plata.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "acetal-acetal-pom-negro-175-1000-grilon3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#19242D",
+    "evidence": "Imagen local y nombre normalizado Negro; señal cromática compatible 8%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "acetal-acetal-pom-negro-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#111418",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Negro.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "acetal-acetal-pom-rojo-175-1000-grilon3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#B41A22",
+    "evidence": "Imagen local y nombre normalizado Rojo; señal cromática compatible 16%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "acetal-acetal-pom-rojo-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#C92F32",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Rojo.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "asa-blanco-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#F2F1EC",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Blanco.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "asa-negro-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#111418",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Negro.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "hips-blanco-175-1000-grilon3": {
+    "confidence_band": "high",
+    "confidence_interval": [
+      0.8,
+      1.0
+    ],
+    "estimated_hex": "#ECEBF3",
+    "evidence": "Imagen local y nombre normalizado Blanco; señal cromática compatible 86%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "hips-natural-175-1000-grilon3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#E1DEE3",
+    "evidence": "Imagen local y nombre normalizado Natural; señal cromática compatible 81%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "nylon-nylon-12-azul-175-1000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#1464B4",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Azul.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "nylon-nylon-12-azul-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#1464B4",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Azul.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "nylon-nylon-12-blanco-175-1000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#F2F1EC",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Blanco.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "nylon-nylon-12-blanco-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#F2F1EC",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Blanco.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "nylon-nylon-12-natural-175-1000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#E5E0CF",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Natural.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "nylon-nylon-12-natural-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#E5E0CF",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Natural.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "nylon-nylon-12-negro-175-1000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#111418",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Negro.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "nylon-nylon-12-negro-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#111418",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Negro.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "nylon-nylon-12-titanio-175-1000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#777D83",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Titanio.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "nylon-nylon-12-titanio-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#777D83",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Titanio.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "nylon-nylon-6-blanco-175-1000-grilon3": {
+    "confidence_band": "high",
+    "confidence_interval": [
+      0.8,
+      1.0
+    ],
+    "estimated_hex": "#EDECF2",
+    "evidence": "Imagen local y nombre normalizado Blanco; señal cromática compatible 88%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "nylon-nylon-6-blanco-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#F2F1EC",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Blanco.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "nylon-nylon-6-naranja-fluo-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#FF6A00",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Naranja Fluo.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "RGB no reproduce la fluorescencia física; el tono es sólo orientativo."
+  },
+  "nylon-nylon-6-natural-175-1000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#E5E0CF",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Natural.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "nylon-nylon-6-natural-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#E5E0CF",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Natural.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "nylon-nylon-6-negro-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#111418",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Negro.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "nylon-nylon-6-optico-175-1000-grilon3": {
+    "confidence_band": "high",
+    "confidence_interval": [
+      0.8,
+      1.0
+    ],
+    "estimated_hex": "#EBEDF5",
+    "evidence": "Imagen local y nombre normalizado Optico; señal cromática compatible 89%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "nylon-nylon-6-optico-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#E8F0F2",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Optico.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "nylon-nylon-6-verde-fluo-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#63E52B",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Verde Fluo.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "RGB no reproduce la fluorescencia física; el tono es sólo orientativo."
+  },
+  "pet-e-pet-azul-traful-175-1000-3n3": {
+    "confidence_band": "high",
+    "confidence_interval": [
+      0.8,
+      1.0
+    ],
+    "estimated_hex": "#0068C9",
+    "evidence": "El bobinado ocupa una región amplia y limpia de azul saturado; los reflejos lineales no alteran el tono base.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pet-e-pet-azul-traful-unknown-1000-3n3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#0068C9",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Azul Traful.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pet-e-pet-blanco-175-1000-3n3": {
+    "confidence_band": "high",
+    "confidence_interval": [
+      0.8,
+      1.0
+    ],
+    "estimated_hex": "#FBFBF9",
+    "evidence": "Imagen local y nombre normalizado Blanco; señal cromática compatible 88%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pet-e-pet-blanco-unknown-1000-3n3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#F2F1EC",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Blanco.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pet-e-pet-gris-espacial-175-1000-3n3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#C8C7D1",
+    "evidence": "El bobinado se ve gris muy claro con un matiz frío; la iluminación blanca eleva perceptiblemente la luminosidad.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "El fondo y los reflejos pueden hacer que el tono real sea algo más oscuro."
+  },
+  "pet-e-pet-gris-espacial-unknown-1000-3n3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#8D9099",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Gris Espacial.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pet-e-pet-negro-175-1000-3n3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#454456",
+    "evidence": "Imagen local y nombre normalizado Negro; señal cromática compatible 11%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pet-e-pet-negro-unknown-1000-3n3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#111418",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Negro.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pet-e-pet-rojo-carmin-175-1000-3n3": {
+    "confidence_band": "high",
+    "confidence_interval": [
+      0.8,
+      1.0
+    ],
+    "estimated_hex": "#A02633",
+    "evidence": "Imagen local y nombre normalizado Rojo Carmin; señal cromática compatible 16%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pet-e-pet-rojo-carmin-unknown-1000-3n3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#A51F35",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Rojo Carmin.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pet-e-pet-verde-lima-175-1000-3n3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#6C9F29",
+    "evidence": "Imagen local y nombre normalizado Verde Lima; señal cromática compatible 15%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pet-e-pet-verde-lima-unknown-1000-3n3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#82C832",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Verde Lima.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "petg-azul-175-1000-3n3": {
+    "confidence_band": "high",
+    "confidence_interval": [
+      0.8,
+      1.0
+    ],
+    "estimated_hex": "#0D58B3",
+    "evidence": "Imagen local y nombre normalizado Azul; señal cromática compatible 16%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "petg-blanco-175-1000-3n3": {
+    "confidence_band": "high",
+    "confidence_interval": [
+      0.8,
+      1.0
+    ],
+    "estimated_hex": "#FBFBF9",
+    "evidence": "Imagen local y nombre normalizado Blanco; señal cromática compatible 88%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "petg-blanco-175-1000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#F2F1EC",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Blanco.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "petg-blanco-175-2500-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#F2F1EC",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Blanco.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "petg-blanco-175-4000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#F2F1EC",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Blanco.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "petg-blanco-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#F2F1EC",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Blanco.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "petg-blanco-285-1000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#F2F1EC",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Blanco.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "petg-bronce-175-1000-3n3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#785D35",
+    "evidence": "Imagen local y nombre normalizado Bronce; señal cromática compatible 12%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "petg-chocolate-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#5A352A",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Chocolate.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "petg-clear-amarillo-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#E8D74A",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Clear Amarillo.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "petg-clear-ambar-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#B56A22",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Clear Ambar.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "petg-clear-azul-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#3D82B8",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Clear Azul.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "petg-clear-rojo-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#C94A4A",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Clear Rojo.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "petg-clear-verde-175-4000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#4F9B75",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Clear Verde.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "petg-clear-verde-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#4F9B75",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Clear Verde.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "petg-gris-acero-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#707980",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Gris Acero.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "petg-gris-espacial-175-1000-3n3": {
+    "confidence_band": "high",
+    "confidence_interval": [
+      0.8,
+      1.0
+    ],
+    "estimated_hex": "#90908F",
+    "evidence": "Imagen local y nombre normalizado Gris Espacial; señal cromática compatible 23%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "petg-gris-plata-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#A9ACB2",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Gris Plata.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "petg-naranja-praga-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#D95A24",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Naranja Praga.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "petg-natural-175-1000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#E5E0CF",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Natural.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "petg-natural-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#E5E0CF",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Natural.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "petg-negro-175-1000-3n3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#111418",
+    "evidence": "Imagen local y nombre normalizado Negro; señal cromática compatible 0%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "petg-negro-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#111418",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Negro.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "petg-negro-285-1000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#111418",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Negro.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "petg-nova-175-1000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#8D6AB8",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Nova.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "petg-nova-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#8D6AB8",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Nova.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "petg-rojo-175-1000-3n3": {
+    "confidence_band": "high",
+    "confidence_interval": [
+      0.8,
+      1.0
+    ],
+    "estimated_hex": "#C91E26",
+    "evidence": "Imagen local y nombre normalizado Rojo; señal cromática compatible 17%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-amarillo-175-1000-3n3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#DC9A0B",
+    "evidence": "Imagen local y nombre normalizado Amarillo; señal cromática compatible 12%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-amarillo-175-500-3n3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#F2D21B",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Amarillo.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-amarillo-fluo-175-1000-3n3": {
+    "confidence_band": "high",
+    "confidence_interval": [
+      0.8,
+      1.0
+    ],
+    "estimated_hex": "#D9FF00",
+    "evidence": "El filamento visible es amarillo verdoso neón y coincide con el nombre Amarillo Fluo.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "RGB no reproduce la fluorescencia física; el tono es sólo orientativo."
+  },
+  "pla-azul-175-1000-3n3": {
+    "confidence_band": "high",
+    "confidence_interval": [
+      0.8,
+      1.0
+    ],
+    "estimated_hex": "#0A49A8",
+    "evidence": "Imagen local y nombre normalizado Azul; señal cromática compatible 45%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-azul-175-500-3n3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#1464B4",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Azul.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-azul-285-1000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#1464B4",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Azul.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-blanco-175-1000-3n3": {
+    "confidence_band": "high",
+    "confidence_interval": [
+      0.8,
+      1.0
+    ],
+    "estimated_hex": "#FBFBF9",
+    "evidence": "Imagen local y nombre normalizado Blanco; señal cromática compatible 68%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-blanco-175-1000-grilon3": {
+    "confidence_band": "high",
+    "confidence_interval": [
+      0.8,
+      1.0
+    ],
+    "estimated_hex": "#E8E9EB",
+    "evidence": "Imagen local y nombre normalizado Blanco; señal cromática compatible 88%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-blanco-175-4000-grilon3": {
+    "confidence_band": "high",
+    "confidence_interval": [
+      0.8,
+      1.0
+    ],
+    "estimated_hex": "#E8E9EB",
+    "evidence": "Imagen local y nombre normalizado Blanco; señal cromática compatible 88%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-blanco-175-500-3n3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#F2F1EC",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Blanco.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-blanco-285-1000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#F2F1EC",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Blanco.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-bordo-175-1000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#6E1F35",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Bordo.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-bronce-175-1000-3n3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#815F3F",
+    "evidence": "Imagen local y nombre normalizado Bronce; señal cromática compatible 9%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-bronce-175-1000-grilon3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#715732",
+    "evidence": "Imagen local y nombre normalizado Bronce; señal cromática compatible 12%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-bronce-175-500-3n3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#8C5A2B",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Bronce.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-celeste-175-1000-3n3": {
+    "confidence_band": "high",
+    "confidence_interval": [
+      0.8,
+      1.0
+    ],
+    "estimated_hex": "#2867B7",
+    "evidence": "Imagen local y nombre normalizado Celeste; señal cromática compatible 41%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-celeste-175-500-3n3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#69B9E6",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Celeste.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-cobre-175-1000-3n3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#944837",
+    "evidence": "Imagen local y nombre normalizado Cobre; señal cromática compatible 12%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-fucsia-175-1000-3n3": {
+    "confidence_band": "high",
+    "confidence_interval": [
+      0.8,
+      1.0
+    ],
+    "estimated_hex": "#D6007B",
+    "evidence": "El bobinado visible es fucsia intenso y uniforme; el carrete azul se distingue claramente como material ajeno.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-fucsia-175-500-3n3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#D6007B",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Fucsia.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-gris-acero-175-1000-3n3": {
+    "confidence_band": "high",
+    "confidence_interval": [
+      0.8,
+      1.0
+    ],
+    "estimated_hex": "#515459",
+    "evidence": "Imagen local y nombre normalizado Gris Acero; señal cromática compatible 23%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-gris-plata-285-1000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#A9ACB2",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Gris Plata.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-gris-plomo-175-1000-3n3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#6C7082",
+    "evidence": "Imagen local y nombre normalizado Gris Plomo; señal cromática compatible 10%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-gris-plomo-175-500-3n3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#555B61",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Gris Plomo.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-habano-175-1000-3n3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#5E4034",
+    "evidence": "Imagen local y nombre normalizado Habano; señal cromática compatible 11%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-hueso-175-1000-3n3": {
+    "confidence_band": "high",
+    "confidence_interval": [
+      0.8,
+      1.0
+    ],
+    "estimated_hex": "#F7F4ED",
+    "evidence": "Imagen local y nombre normalizado Hueso; señal cromática compatible 69%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-kit-10-colores-unknown-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#7A7A7A",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Kit 10 Colores.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-kit-20-colores-unknown-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#7A7A7A",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Kit 20 Colores.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-naranja-175-1000-3n3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#D7490E",
+    "evidence": "Imagen local y nombre normalizado Naranja; señal cromática compatible 12%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-naranja-175-500-3n3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#E86F24",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Naranja.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-natural-175-1000-3n3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#F7F5F0",
+    "evidence": "Imagen local y nombre normalizado Natural; señal cromática compatible 67%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-natural-175-1000-grilon3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#E8E7E6",
+    "evidence": "Imagen local y nombre normalizado Natural; señal cromática compatible 77%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-negro-175-1000-3n3": {
+    "confidence_band": "high",
+    "confidence_interval": [
+      0.8,
+      1.0
+    ],
+    "estimated_hex": "#102C69",
+    "evidence": "Imagen local y nombre normalizado Negro; señal cromática compatible 34%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-negro-175-500-3n3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#111418",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Negro.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-negro-285-1000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#111418",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Negro.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-oro-175-1000-3n3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#8E6D28",
+    "evidence": "Imagen local y nombre normalizado Oro; señal cromática compatible 13%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pla-850-azul-175-1000-grilon3": {
+    "confidence_band": "high",
+    "confidence_interval": [
+      0.8,
+      1.0
+    ],
+    "estimated_hex": "#08459E",
+    "evidence": "Imagen local y nombre normalizado Azul; señal cromática compatible 19%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pla-850-azul-175-2500-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#1464B4",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Azul.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pla-850-blanco-175-1000-grilon3": {
+    "confidence_band": "high",
+    "confidence_interval": [
+      0.8,
+      1.0
+    ],
+    "estimated_hex": "#FBFBF9",
+    "evidence": "Imagen local y nombre normalizado Blanco; señal cromática compatible 90%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pla-850-blanco-175-2500-grilon3": {
+    "confidence_band": "high",
+    "confidence_interval": [
+      0.8,
+      1.0
+    ],
+    "estimated_hex": "#EFF0F3",
+    "evidence": "Imagen local y nombre normalizado Blanco; señal cromática compatible 93%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pla-850-bordo-175-1000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#6E1F35",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Bordo.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pla-850-bronce-175-1000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#8C5A2B",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Bronce.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pla-850-bronce-175-2500-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#8C5A2B",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Bronce.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pla-850-gris-plata-175-1000-grilon3": {
+    "confidence_band": "high",
+    "confidence_interval": [
+      0.8,
+      1.0
+    ],
+    "estimated_hex": "#757A86",
+    "evidence": "Imagen local y nombre normalizado Gris Plata; señal cromática compatible 32%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pla-850-gris-plata-175-2500-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#A9ACB2",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Gris Plata.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pla-850-naranja-uv-glow-175-1000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#FF7420",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Naranja UV Glow.",
+    "material_finish": "fluorescent",
+    "source": "name_only",
+    "warning": "RGB no reproduce la fluorescencia física; el tono es sólo orientativo."
+  },
+  "pla-pla-850-negro-175-1000-grilon3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#184694",
+    "evidence": "Imagen local y nombre normalizado Negro; señal cromática compatible 4%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pla-850-negro-175-2500-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#111418",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Negro.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pla-850-rojo-175-1000-grilon3": {
+    "confidence_band": "high",
+    "confidence_interval": [
+      0.8,
+      1.0
+    ],
+    "estimated_hex": "#AA1317",
+    "evidence": "Imagen local y nombre normalizado Rojo; señal cromática compatible 19%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pla-850-rojo-175-2500-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#C92F32",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Rojo.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pla-850-turquesa-175-1000-grilon3": {
+    "confidence_band": "high",
+    "confidence_interval": [
+      0.8,
+      1.0
+    ],
+    "estimated_hex": "#09849C",
+    "evidence": "Imagen local y nombre normalizado Turquesa; señal cromática compatible 22%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pla-850-verde-uv-glow-175-1000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#62E43A",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Verde UV Glow.",
+    "material_finish": "fluorescent",
+    "source": "name_only",
+    "warning": "RGB no reproduce la fluorescencia física; el tono es sólo orientativo."
+  },
+  "pla-pla-870-blanco-175-1000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#F2F1EC",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Blanco.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pla-870-bordo-175-1000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#6E1F35",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Bordo.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pla-870-gris-plata-175-1000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#A9ACB2",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Gris Plata.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pla-870-natural-175-1000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#E5E0CF",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Natural.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pla-870-negro-175-1000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#111418",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Negro.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pla-870-turquesa-175-1000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#18A6A6",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Turquesa.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pla-astra-calipso-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#17A6B6",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Calipso.",
+    "material_finish": "glitter",
+    "source": "name_only",
+    "warning": "El acabado modifica el color percibido según el ángulo y la iluminación."
+  },
+  "pla-pla-astra-dark-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#252A32",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Dark.",
+    "material_finish": "glitter",
+    "source": "name_only",
+    "warning": "El acabado modifica el color percibido según el ángulo y la iluminación."
+  },
+  "pla-pla-astra-jade-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#56A887",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Jade.",
+    "material_finish": "glitter",
+    "source": "name_only",
+    "warning": "El acabado modifica el color percibido según el ángulo y la iluminación."
+  },
+  "pla-pla-astra-nebula-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#4D4A72",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Nebula.",
+    "material_finish": "glitter",
+    "source": "name_only",
+    "warning": "El acabado modifica el color percibido según el ángulo y la iluminación."
+  },
+  "pla-pla-astra-noche-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#151B2D",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Noche.",
+    "material_finish": "glitter",
+    "source": "name_only",
+    "warning": "El acabado modifica el color percibido según el ángulo y la iluminación."
+  },
+  "pla-pla-astra-roby-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#A63E62",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Roby.",
+    "material_finish": "glitter",
+    "source": "name_only",
+    "warning": "El acabado modifica el color percibido según el ángulo y la iluminación."
+  },
+  "pla-pla-boutique-acqua-175-1000-grilon3": {
+    "confidence_band": "high",
+    "confidence_interval": [
+      0.8,
+      1.0
+    ],
+    "estimated_hex": "#009DCE",
+    "evidence": "El bobinado visible es un cian azulado intenso y uniforme; el nombre Acqua respalda esa lectura.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pla-boutique-arena-175-1000-grilon3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#E8D247",
+    "evidence": "El bobinado se ve amarillo cálido y poco saturado, aunque el nombre Arena normalmente sugeriría un beige más terroso.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "La foto y el nombre no coinciden del todo; conviene revisión humana."
+  },
+  "pla-pla-boutique-carbon-175-1000-grilon3": {
+    "confidence_band": "high",
+    "confidence_interval": [
+      0.8,
+      1.0
+    ],
+    "estimated_hex": "#353638",
+    "evidence": "Imagen local y nombre normalizado Carbon; señal cromática compatible 34%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pla-boutique-caribe-175-1000-grilon3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#0E6CA3",
+    "evidence": "Imagen local y nombre normalizado Caribe; señal cromática compatible 4%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pla-boutique-chocolate-175-1000-grilon3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#4E3329",
+    "evidence": "Imagen local y nombre normalizado Chocolate; señal cromática compatible 13%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pla-boutique-crema-del-cielo-175-1000-grilon3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#DDE5C2",
+    "evidence": "Imagen local y nombre normalizado Crema del Cielo; señal cromática compatible 1%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pla-boutique-dulce-de-leche-175-1000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#C98E61",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Dulce de Leche.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pla-boutique-esmeralda-175-1000-grilon3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#036361",
+    "evidence": "Imagen local y nombre normalizado Esmeralda; señal cromática compatible 12%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pla-boutique-frutilla-175-1000-grilon3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#B82C61",
+    "evidence": "Imagen local y nombre normalizado Frutilla; señal cromática compatible 14%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pla-boutique-lavanda-175-1000-grilon3": {
+    "confidence_band": "high",
+    "confidence_interval": [
+      0.8,
+      1.0
+    ],
+    "estimated_hex": "#A879D0",
+    "evidence": "El bobinado visible muestra un lavanda medio uniforme y el nombre confirma el matiz violeta claro.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pla-boutique-perla-175-4000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#D9D3C4",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Perla.",
+    "material_finish": "pearl",
+    "source": "name_only",
+    "warning": "El acabado modifica el color percibido según el ángulo y la iluminación."
+  },
+  "pla-pla-boutique-perla-calido-175-1000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#DDD0B7",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Perla Calido.",
+    "material_finish": "pearl",
+    "source": "name_only",
+    "warning": "El acabado modifica el color percibido según el ángulo y la iluminación."
+  },
+  "pla-pla-boutique-perla-calido-175-4000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#DDD0B7",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Perla Calido.",
+    "material_finish": "pearl",
+    "source": "name_only",
+    "warning": "El acabado modifica el color percibido según el ángulo y la iluminación."
+  },
+  "pla-pla-boutique-perla-frio-175-1000-grilon3": {
+    "confidence_band": "high",
+    "confidence_interval": [
+      0.8,
+      1.0
+    ],
+    "estimated_hex": "#F1F2F4",
+    "evidence": "Imagen local y nombre normalizado Perla Frio; señal cromática compatible 78%.",
+    "material_finish": "pearl",
+    "source": "image_and_name",
+    "warning": "El acabado modifica el color percibido según el ángulo y la iluminación."
+  },
+  "pla-pla-boutique-perla-frio-175-4000-grilon3": {
+    "confidence_band": "high",
+    "confidence_interval": [
+      0.8,
+      1.0
+    ],
+    "estimated_hex": "#F1F2F4",
+    "evidence": "Imagen local y nombre normalizado Perla Frio; señal cromática compatible 78%.",
+    "material_finish": "pearl",
+    "source": "image_and_name",
+    "warning": "El acabado modifica el color percibido según el ángulo y la iluminación."
+  },
+  "pla-pla-boutique-rubi-175-1000-grilon3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#9B091B",
+    "evidence": "Imagen local y nombre normalizado Rubi; señal cromática compatible 15%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pla-boutique-salmon-175-1000-grilon3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#D87162",
+    "evidence": "Imagen local y nombre normalizado Salmon; señal cromática compatible 15%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pla-boutique-verde-aviador-175-1000-grilon3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#2E4434",
+    "evidence": "Imagen local y nombre normalizado Verde Aviador; señal cromática compatible 10%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pla-boutique-zafiro-175-1000-grilon3": {
+    "confidence_band": "high",
+    "confidence_interval": [
+      0.8,
+      1.0
+    ],
+    "estimated_hex": "#0A469C",
+    "evidence": "Imagen local y nombre normalizado Zafiro; señal cromática compatible 18%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pla-flexible-amarillo-175-1000-3n3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#B18F12",
+    "evidence": "Imagen local y nombre normalizado Amarillo; señal cromática compatible 7%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pla-flexible-azul-de-prusia-175-1000-3n3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#1A4E73",
+    "evidence": "Imagen local y nombre normalizado Azul de Prusia; señal cromática compatible 9%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pla-flexible-blanco-175-1000-3n3": {
+    "confidence_band": "high",
+    "confidence_interval": [
+      0.8,
+      1.0
+    ],
+    "estimated_hex": "#FBFBF9",
+    "evidence": "Imagen local y nombre normalizado Blanco; señal cromática compatible 87%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pla-flexible-bronce-175-1000-3n3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#8C5A2B",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Bronce.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pla-flexible-gris-plomo-175-1000-3n3": {
+    "confidence_band": "high",
+    "confidence_interval": [
+      0.8,
+      1.0
+    ],
+    "estimated_hex": "#A38F8B",
+    "evidence": "Imagen local y nombre normalizado Gris Plomo; señal cromática compatible 16%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pla-flexible-naranja-175-1000-3n3": {
+    "confidence_band": "high",
+    "confidence_interval": [
+      0.8,
+      1.0
+    ],
+    "estimated_hex": "#D18A62",
+    "evidence": "Imagen local y nombre normalizado Naranja; señal cromática compatible 26%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pla-flexible-negro-175-1000-3n3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#111418",
+    "evidence": "Imagen local y nombre normalizado Negro; señal cromática compatible 0%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pla-flexible-piel-162-175-1000-3n3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#DAA68E",
+    "evidence": "Imagen local y nombre normalizado Piel 162; señal cromática compatible 8%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pla-flexible-piel-720-175-1000-3n3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#CB9770",
+    "evidence": "Imagen local y nombre normalizado Piel 720; señal cromática compatible 11%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pla-flexible-rojo-175-1000-3n3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#CC212E",
+    "evidence": "Imagen local y nombre normalizado Rojo; señal cromática compatible 10%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pla-flexible-rosa-175-1000-3n3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#D666B2",
+    "evidence": "Imagen local y nombre normalizado Rosa; señal cromática compatible 7%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pla-flexible-verde-175-1000-3n3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#0CA27B",
+    "evidence": "Imagen local y nombre normalizado Verde; señal cromática compatible 12%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pla-flexible-verde-manzana-175-1000-3n3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#7EAE14",
+    "evidence": "Imagen local y nombre normalizado Verde Manzana; señal cromática compatible 9%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pla-silk-azabache-175-1000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#0B0F1A",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Azabache.",
+    "material_finish": "silk",
+    "source": "name_only",
+    "warning": "El acabado modifica el color percibido según el ángulo y la iluminación."
+  },
+  "pla-pla-silk-azabache-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#0B0F1A",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Azabache.",
+    "material_finish": "silk",
+    "source": "name_only",
+    "warning": "El acabado modifica el color percibido según el ángulo y la iluminación."
+  },
+  "pla-pla-silk-azul-175-1000-grilon3": {
+    "confidence_band": "high",
+    "confidence_interval": [
+      0.8,
+      1.0
+    ],
+    "estimated_hex": "#095297",
+    "evidence": "Imagen local y nombre normalizado Azul; señal cromática compatible 16%.",
+    "material_finish": "silk",
+    "source": "image_and_name",
+    "warning": "El acabado modifica el color percibido según el ángulo y la iluminación."
+  },
+  "pla-pla-silk-azul-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#1464B4",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Azul.",
+    "material_finish": "silk",
+    "source": "name_only",
+    "warning": "El acabado modifica el color percibido según el ángulo y la iluminación."
+  },
+  "pla-pla-silk-blanco-perla-175-1000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#EEEDE5",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Blanco Perla.",
+    "material_finish": "silk",
+    "source": "name_only",
+    "warning": "El acabado modifica el color percibido según el ángulo y la iluminación."
+  },
+  "pla-pla-silk-blanco-perla-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#EEEDE5",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Blanco Perla.",
+    "material_finish": "silk",
+    "source": "name_only",
+    "warning": "El acabado modifica el color percibido según el ángulo y la iluminación."
+  },
+  "pla-pla-silk-cobre-175-1000-grilon3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#A6534D",
+    "evidence": "Las zonas medias del bobinado muestran un cobre rojizo apagado; se evita tomar los reflejos rosados del acabado silk.",
+    "material_finish": "silk",
+    "source": "image_and_name",
+    "warning": "El acabado modifica el color percibido según el ángulo y la iluminación."
+  },
+  "pla-pla-silk-cobre-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#A6534D",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Cobre.",
+    "material_finish": "silk",
+    "source": "name_only",
+    "warning": "El acabado modifica el color percibido según el ángulo y la iluminación."
+  },
+  "pla-pla-silk-dorado-175-1000-grilon3": {
+    "confidence_band": "high",
+    "confidence_interval": [
+      0.8,
+      1.0
+    ],
+    "estimated_hex": "#CA9017",
+    "evidence": "Imagen local y nombre normalizado Dorado; señal cromática compatible 18%.",
+    "material_finish": "silk",
+    "source": "image_and_name",
+    "warning": "El acabado modifica el color percibido según el ángulo y la iluminación."
+  },
+  "pla-pla-silk-dorado-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#C99A27",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Dorado.",
+    "material_finish": "silk",
+    "source": "name_only",
+    "warning": "El acabado modifica el color percibido según el ángulo y la iluminación."
+  },
+  "pla-pla-silk-platino-175-1000-grilon3": {
+    "confidence_band": "high",
+    "confidence_interval": [
+      0.8,
+      1.0
+    ],
+    "estimated_hex": "#696971",
+    "evidence": "Imagen local y nombre normalizado Platino; señal cromática compatible 18%.",
+    "material_finish": "silk",
+    "source": "image_and_name",
+    "warning": "El acabado modifica el color percibido según el ángulo y la iluminación."
+  },
+  "pla-pla-silk-platino-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#AAAEB2",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Platino.",
+    "material_finish": "silk",
+    "source": "name_only",
+    "warning": "El acabado modifica el color percibido según el ángulo y la iluminación."
+  },
+  "pla-pla-silk-tutti-frutti-175-1000-grilon3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#D00078",
+    "evidence": "La foto y la caja muestran un bobinado magenta uniforme pese al nombre Tutti Frutti; se toma el magenta visible como orientación.",
+    "material_finish": "silk",
+    "source": "image_and_name",
+    "warning": "El acabado modifica el color percibido según el ángulo y la iluminación."
+  },
+  "pla-pla-silk-tutti-frutti-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#D00078",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Tutti Frutti.",
+    "material_finish": "silk",
+    "source": "name_only",
+    "warning": "El acabado modifica el color percibido según el ángulo y la iluminación."
+  },
+  "pla-pla-silk-verde-175-1000-grilon3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#228B20",
+    "evidence": "Imagen local y nombre normalizado Verde; señal cromática compatible 11%.",
+    "material_finish": "silk",
+    "source": "image_and_name",
+    "warning": "El acabado modifica el color percibido según el ángulo y la iluminación."
+  },
+  "pla-pla-silk-verde-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#278447",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Verde.",
+    "material_finish": "silk",
+    "source": "name_only",
+    "warning": "El acabado modifica el color percibido según el ángulo y la iluminación."
+  },
+  "pla-pla-wood-caoba-175-1000-grilon3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#673A33",
+    "evidence": "El bobinado visible es marrón caoba oscuro y cálido; las variaciones lineales corresponden a textura y sombra.",
+    "material_finish": "wood",
+    "source": "image_and_name",
+    "warning": "La transparencia o carga del material puede variar la apariencia física."
+  },
+  "pla-pla-wood-caoba-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#673A33",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Caoba.",
+    "material_finish": "wood",
+    "source": "name_only",
+    "warning": "La transparencia o carga del material puede variar la apariencia física."
+  },
+  "pla-pla-wood-cerezo-175-1000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#A92E43",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Cerezo.",
+    "material_finish": "wood",
+    "source": "name_only",
+    "warning": "La transparencia o carga del material puede variar la apariencia física."
+  },
+  "pla-pla-wood-cerezo-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#A92E43",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Cerezo.",
+    "material_finish": "wood",
+    "source": "name_only",
+    "warning": "La transparencia o carga del material puede variar la apariencia física."
+  },
+  "pla-pla-wood-nogal-175-1000-grilon3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#49352D",
+    "evidence": "Imagen local y nombre normalizado Nogal; señal cromática compatible 11%.",
+    "material_finish": "wood",
+    "source": "image_and_name",
+    "warning": "La transparencia o carga del material puede variar la apariencia física."
+  },
+  "pla-pla-wood-nogal-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#5B3D2B",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Nogal.",
+    "material_finish": "wood",
+    "source": "name_only",
+    "warning": "La transparencia o carga del material puede variar la apariencia física."
+  },
+  "pla-pla-wood-pino-175-1000-grilon3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#A28461",
+    "evidence": "Imagen local y nombre normalizado Pino; señal cromática compatible 13%.",
+    "material_finish": "wood",
+    "source": "image_and_name",
+    "warning": "La transparencia o carga del material puede variar la apariencia física."
+  },
+  "pla-pla-wood-pino-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#C6A56F",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Pino.",
+    "material_finish": "wood",
+    "source": "name_only",
+    "warning": "La transparencia o carga del material puede variar la apariencia física."
+  },
+  "pla-pla-zeta-azabache-175-1000-grilon3": {
+    "confidence_band": "high",
+    "confidence_interval": [
+      0.8,
+      1.0
+    ],
+    "estimated_hex": "#0B0F1A",
+    "evidence": "El filamento expuesto es casi negro con un leve matiz azul frío, separado visualmente del carrete negro.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pla-zeta-clear-cristal-175-1000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#DDE6E8",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Clear Cristal.",
+    "material_finish": "translucent",
+    "source": "name_only",
+    "warning": "La transparencia o carga del material puede variar la apariencia física."
+  },
+  "pla-plaplus-amarillo-175-1000-3n3": {
+    "confidence_band": "high",
+    "confidence_interval": [
+      0.8,
+      1.0
+    ],
+    "estimated_hex": "#C8AB5A",
+    "evidence": "Imagen local y nombre normalizado Amarillo; señal cromática compatible 22%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-plaplus-amarillo-175-750-3n3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#F2D21B",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Amarillo.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-plaplus-azul-175-1000-3n3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#1866C1",
+    "evidence": "Imagen local y nombre normalizado Azul; señal cromática compatible 12%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-plaplus-azul-175-750-3n3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#1464B4",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Azul.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-plaplus-blanco-175-1000-3n3": {
+    "confidence_band": "high",
+    "confidence_interval": [
+      0.8,
+      1.0
+    ],
+    "estimated_hex": "#F0EFF3",
+    "evidence": "Imagen local y nombre normalizado Blanco; señal cromática compatible 100%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-plaplus-blanco-175-750-3n3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#F2F1EC",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Blanco.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-plaplus-bronce-175-1000-3n3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#9C7B64",
+    "evidence": "Imagen local y nombre normalizado Bronce; señal cromática compatible 8%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-plaplus-bronce-175-750-3n3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#8C5A2B",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Bronce.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-plaplus-celeste-175-1000-3n3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#5398DC",
+    "evidence": "Imagen local y nombre normalizado Celeste; señal cromática compatible 9%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-plaplus-celeste-175-750-3n3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#69B9E6",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Celeste.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-plaplus-chocolate-175-1000-3n3": {
+    "confidence_band": "high",
+    "confidence_interval": [
+      0.8,
+      1.0
+    ],
+    "estimated_hex": "#8B6F62",
+    "evidence": "Imagen local y nombre normalizado Chocolate; señal cromática compatible 24%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-plaplus-chocolate-175-750-3n3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#5A352A",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Chocolate.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-plaplus-gris-plomo-175-1000-3n3": {
+    "confidence_band": "high",
+    "confidence_interval": [
+      0.8,
+      1.0
+    ],
+    "estimated_hex": "#857C81",
+    "evidence": "Imagen local y nombre normalizado Gris Plomo; señal cromática compatible 44%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-plaplus-gris-plomo-175-750-3n3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#555B61",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Gris Plomo.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-plaplus-lila-175-1000-3n3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#8758BB",
+    "evidence": "Imagen local y nombre normalizado Lila; señal cromática compatible 10%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-plaplus-lila-175-750-3n3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#B58ACB",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Lila.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-plaplus-naranja-175-1000-3n3": {
+    "confidence_band": "high",
+    "confidence_interval": [
+      0.8,
+      1.0
+    ],
+    "estimated_hex": "#B87650",
+    "evidence": "Imagen local y nombre normalizado Naranja; señal cromática compatible 25%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-plaplus-naranja-175-750-3n3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#E86F24",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Naranja.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-plaplus-negro-175-1000-3n3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#111418",
+    "evidence": "Imagen local y nombre normalizado Negro; señal cromática compatible 2%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-plaplus-negro-175-750-3n3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#111418",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Negro.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-plaplus-rojo-175-1000-3n3": {
+    "confidence_band": "high",
+    "confidence_interval": [
+      0.8,
+      1.0
+    ],
+    "estimated_hex": "#A65453",
+    "evidence": "Imagen local y nombre normalizado Rojo; señal cromática compatible 24%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-plaplus-rojo-175-750-3n3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#C92F32",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Rojo.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-plaplus-rosa-175-1000-3n3": {
+    "confidence_band": "high",
+    "confidence_interval": [
+      0.8,
+      1.0
+    ],
+    "estimated_hex": "#B7838E",
+    "evidence": "Imagen local y nombre normalizado Rosa; señal cromática compatible 20%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-plaplus-rosa-175-750-3n3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#E99AB3",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Rosa.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-plaplus-uva-175-1000-3n3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#4D2A67",
+    "evidence": "Imagen local y nombre normalizado Uva; señal cromática compatible 10%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-plaplus-uva-175-750-3n3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#6E3B76",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Uva.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-plaplus-verde-175-1000-3n3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#278447",
+    "evidence": "Imagen local y nombre normalizado Verde; señal cromática compatible 0%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-plaplus-verde-175-750-3n3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#278447",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Verde.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pro-azul-175-1000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#1464B4",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Azul.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pro-azul-175-2500-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#1464B4",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Azul.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pro-blanco-175-1000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#F2F1EC",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Blanco.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pro-blanco-175-2500-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#F2F1EC",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Blanco.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pro-bordo-175-1000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#6E1F35",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Bordo.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pro-bronce-175-1000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#8C5A2B",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Bronce.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pro-bronce-175-2500-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#8C5A2B",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Bronce.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pro-gris-plata-175-1000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#A9ACB2",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Gris Plata.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pro-gris-plata-175-2500-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#A9ACB2",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Gris Plata.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pro-naranja-fluo-175-1000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#FF6A00",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Naranja Fluo.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "RGB no reproduce la fluorescencia física; el tono es sólo orientativo."
+  },
+  "pla-pro-naranja-uv-glow-175-1000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#FF7420",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Naranja UV Glow.",
+    "material_finish": "fluorescent",
+    "source": "name_only",
+    "warning": "RGB no reproduce la fluorescencia física; el tono es sólo orientativo."
+  },
+  "pla-pro-negro-175-1000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#111418",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Negro.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pro-negro-175-2500-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#111418",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Negro.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pro-rojo-175-1000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#C92F32",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Rojo.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pro-rojo-175-2500-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#C92F32",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Rojo.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pro-turquesa-175-1000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#18A6A6",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Turquesa.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-pro-verde-fluo-175-1000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#63E52B",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Verde Fluo.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "RGB no reproduce la fluorescencia física; el tono es sólo orientativo."
+  },
+  "pla-pro-verde-uv-glow-175-1000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#62E43A",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Verde UV Glow.",
+    "material_finish": "fluorescent",
+    "source": "name_only",
+    "warning": "RGB no reproduce la fluorescencia física; el tono es sólo orientativo."
+  },
+  "pla-rojo-175-1000-3n3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#BD101A",
+    "evidence": "Imagen local y nombre normalizado Rojo; señal cromática compatible 13%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-rojo-175-500-3n3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#C92F32",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Rojo.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-rojo-285-1000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#C92F32",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Rojo.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-rosa-175-1000-3n3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#D671A7",
+    "evidence": "Imagen local y nombre normalizado Rosa; señal cromática compatible 9%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-rustico-175-1000-3n3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#6F3929",
+    "evidence": "Imagen local y nombre normalizado Rustico; señal cromática compatible 12%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-verde-175-1000-3n3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#266C41",
+    "evidence": "Imagen local y nombre normalizado Verde; señal cromática compatible 10%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-verde-285-1000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#278447",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Verde.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pla-verde-fluo-175-1000-3n3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#20E622",
+    "evidence": "Imagen local y nombre normalizado Verde Fluo; señal cromática compatible 9%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "RGB no reproduce la fluorescencia física; el tono es sólo orientativo."
+  },
+  "pla-verde-fluo-175-1000-grilon3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#28D912",
+    "evidence": "Imagen local y nombre normalizado Verde Fluo; señal cromática compatible 16%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "RGB no reproduce la fluorescencia física; el tono es sólo orientativo."
+  },
+  "pla-verde-fluo-175-500-3n3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#63E52B",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Verde Fluo.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "RGB no reproduce la fluorescencia física; el tono es sólo orientativo."
+  },
+  "pla-violeta-175-1000-3n3": {
+    "confidence_band": "high",
+    "confidence_interval": [
+      0.8,
+      1.0
+    ],
+    "estimated_hex": "#462B95",
+    "evidence": "Imagen local y nombre normalizado Violeta; señal cromática compatible 18%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pp-pp-t-amarillo-175-1000-grilon3": {
+    "confidence_band": "high",
+    "confidence_interval": [
+      0.8,
+      1.0
+    ],
+    "estimated_hex": "#DABA1B",
+    "evidence": "Imagen local y nombre normalizado Amarillo; señal cromática compatible 22%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pp-pp-t-amarillo-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#F2D21B",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Amarillo.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pp-pp-t-azul-175-1000-grilon3": {
+    "confidence_band": "high",
+    "confidence_interval": [
+      0.8,
+      1.0
+    ],
+    "estimated_hex": "#1C4197",
+    "evidence": "Imagen local y nombre normalizado Azul; señal cromática compatible 18%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pp-pp-t-azul-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#1464B4",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Azul.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pp-pp-t-blanco-175-1000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#F2F1EC",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Blanco.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pp-pp-t-blanco-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#F2F1EC",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Blanco.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pp-pp-t-gris-acero-175-1000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#707980",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Gris Acero.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pp-pp-t-gris-acero-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#707980",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Gris Acero.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pp-pp-t-natural-175-1000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#E5E6EC",
+    "evidence": "El material se ve blanco translúcido con un leve matiz frío, pero el fondo blanco atraviesa y contamina casi toda la muestra.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "No hay una región opaca que permita estimar con confianza el color base."
+  },
+  "pp-pp-t-natural-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#E5E0CF",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Natural.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pp-pp-t-negro-175-1000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#111418",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Negro.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pp-pp-t-negro-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#111418",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Negro.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pp-pp-t-rojo-175-1000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#C92F32",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Rojo.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pp-pp-t-rojo-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#C92F32",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Rojo.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pp-pp-t-verde-175-1000-grilon3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#43943F",
+    "evidence": "Imagen local y nombre normalizado Verde; señal cromática compatible 10%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pp-pp-t-verde-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#278447",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Verde.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "pva-pva-soluble-natural-175-500-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#E5E0CF",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Natural.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "tpu-azul-175-1000-3n3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#1464B4",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Azul.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "tpu-azul-175-500-3n3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#1464B4",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Azul.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "tpu-blanco-175-1000-3n3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#F2F1EC",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Blanco.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "tpu-blanco-175-500-3n3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#F2F1EC",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Blanco.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "tpu-flex-azul-unknown-500-3n3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#1464B4",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Azul.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "tpu-flex-blanco-unknown-500-3n3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#F2F1EC",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Blanco.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "tpu-flex-gris-plomo-unknown-500-3n3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#555B61",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Gris Plomo.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "tpu-flex-negro-unknown-500-3n3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#111418",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Negro.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "tpu-flex-rojo-unknown-500-3n3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#C92F32",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Rojo.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "tpu-flex-verde-unknown-500-3n3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#278447",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Verde.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "tpu-gris-plomo-175-1000-3n3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#555B61",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Gris Plomo.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "tpu-gris-plomo-175-500-3n3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#555B61",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Gris Plomo.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "tpu-negro-175-1000-3n3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#111418",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Negro.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "tpu-negro-175-500-3n3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#111418",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Negro.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "tpu-rojo-175-1000-3n3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#C92F32",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Rojo.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "tpu-rojo-175-500-3n3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#C92F32",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Rojo.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "tpu-simpliflex-blanco-175-1000-grilon3": {
+    "confidence_band": "high",
+    "confidence_interval": [
+      0.8,
+      1.0
+    ],
+    "estimated_hex": "#EBEDF1",
+    "evidence": "Imagen local y nombre normalizado Blanco; señal cromática compatible 89%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "tpu-simpliflex-blanco-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#F2F1EC",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Blanco.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "tpu-simpliflex-celeste-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#69B9E6",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Celeste.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "tpu-simpliflex-naranja-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#E86F24",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Naranja.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "tpu-simpliflex-natural-175-1000-grilon3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#E8E7E7",
+    "evidence": "Imagen local y nombre normalizado Natural; señal cromática compatible 89%.",
+    "material_finish": "satin",
+    "source": "image_and_name",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "tpu-simpliflex-natural-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#E5E0CF",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Natural.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "tpu-simpliflex-negro-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#111418",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Negro.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "tpu-simpliflex-nova-175-1000-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#8D6AB8",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Nova.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "tpu-simpliflex-nova-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#8D6AB8",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Nova.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "tpu-simpliflex-verde-175-unknown-grilon3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#278447",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Verde.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "tpu-verde-175-1000-3n3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#278447",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Verde.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  },
+  "tpu-verde-175-500-3n3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#278447",
+    "evidence": "Estimación orientativa basada únicamente en el nombre normalizado Verde.",
+    "material_finish": "satin",
+    "source": "name_only",
+    "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
+  }
+}
