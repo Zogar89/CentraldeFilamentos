@@ -1,6 +1,7 @@
 <script>
   import { onMount } from "svelte";
   import ColorPalette from "./components/ColorPalette.svelte";
+  import ColorComparator from "./components/ColorComparator.svelte";
   import SimilarColorSearch from "./components/SimilarColorSearch.svelte";
   import SiteFooter from "./components/SiteFooter.svelte";
   import SiteHeader from "./components/SiteHeader.svelte";
@@ -12,6 +13,12 @@
     toggleComparedColor,
   } from "./lib/colorPicker.js";
   import { fetchJson } from "./lib/shared.js";
+  import {
+    incrementQuoteListItem,
+    initializeQuoteList,
+    loadQuoteList,
+    saveQuoteList,
+  } from "./lib/quoteList.js";
 
   let loading = true;
   let loadError = "";
@@ -29,8 +36,16 @@
   let similarResults = [];
   let similarError = "";
   let searchActive = false;
+  let products = [];
+  let quoteItems = [];
+  let quoteSettings = { showQuickControls: false };
+  let quoteReadOnly = false;
+  let preservedQuotePayload = null;
+  let quoteMessage = "";
+  let quoteWarning = "";
 
   $: visibleGroups = hideOutOfStock ? groups.filter((group) => group.inStock) : groups;
+  $: selectedGroups = selectedIds.map((id) => groups.find((group) => group.id === id)).filter(Boolean);
 
   onMount(loadCatalog);
 
@@ -43,11 +58,29 @@
       loadError = "No pudimos cargar los colores publicados.";
       return;
     }
-    const catalog = buildPlaColorCatalog(payload.products);
+    products = payload.products;
+    const catalog = buildPlaColorCatalog(products);
     groups = catalog.groups;
     excludedCount = catalog.excludedCount;
     sources = Array.isArray(payload.sources) ? payload.sources : [];
     generatedAt = payload.generated_at || "";
+    const loadedQuote = loadQuoteList();
+    const reconciled = initializeQuoteList(loadedQuote, { ok: true, products });
+    quoteItems = reconciled.items;
+    quoteSettings = reconciled.settings;
+    quoteReadOnly = loadedQuote.readOnly;
+    preservedQuotePayload = loadedQuote.preservedPayload;
+    if (reconciled.shouldSave) {
+      saveQuoteList({
+        items: quoteItems,
+        settings: quoteSettings,
+        readOnly: quoteReadOnly,
+        preservedPayload: preservedQuotePayload,
+      });
+    }
+    quoteWarning = loadedQuote.readOnly
+      ? "La lista guardada usa una versión más nueva. La conservamos sin cambios."
+      : (loadedQuote.storageAvailable ? "" : "No pudimos guardar la lista; los cambios durarán sólo durante esta sesión.");
     loading = false;
   }
 
@@ -84,6 +117,28 @@
     if (searchActive) {
       const nextGroups = value ? groups.filter((group) => group.inStock) : groups;
       similarResults = findSimilarColors(nextGroups, similarHex, referenceGroupId, 3);
+    }
+  }
+
+  function removeComparedGroup(group) {
+    const result = toggleComparedColor(selectedIds, group.id);
+    selectedIds = result.ids;
+    selectionMessage = result.message;
+  }
+
+  function addPresentation(product) {
+    if (quoteReadOnly) return;
+    quoteItems = incrementQuoteListItem(quoteItems, product);
+    const saveResult = saveQuoteList({
+      items: quoteItems,
+      settings: quoteSettings,
+      readOnly: quoteReadOnly,
+      preservedPayload: preservedQuotePayload,
+    });
+    const current = quoteItems.find((item) => item.productId === product.id);
+    quoteMessage = `${current.productName} · ${current.presentation}: ${current.quantity} unidad(es) en la lista.`;
+    if (!saveResult.ok && !saveResult.blocked) {
+      quoteWarning = "No pudimos guardar la lista; los cambios durarán sólo durante esta sesión.";
     }
   }
 </script>
@@ -136,6 +191,14 @@
     />
 
     <ColorPalette groups={visibleGroups} view={activeView} {selectedIds} onSelect={selectGroup} />
+    <ColorComparator
+      groups={selectedGroups}
+      addDisabled={quoteReadOnly}
+      onRemove={removeComparedGroup}
+      onAddPresentation={addPresentation}
+    />
+    {#if quoteWarning}<p class="color-picker-quote-warning" role="status">{quoteWarning}</p>{/if}
+    <p class="sr-only" aria-live="polite">{quoteMessage}</p>
     <p class="sr-only" aria-live="polite">{selectionMessage}</p>
   {/if}
 </main>

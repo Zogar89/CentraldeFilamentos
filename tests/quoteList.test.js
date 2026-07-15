@@ -3,6 +3,7 @@ import { afterEach, test } from "node:test";
 
 import {
   combineQuoteListItems,
+  incrementQuoteListItem,
   initializeQuoteList,
   loadQuoteList,
   normalizeQuoteList,
@@ -208,4 +209,22 @@ test("combine keeps local-only items and imported duplicates win", () => {
   assert.deepEqual(combined.map((item) => [item.productId, item.quantity]), [
     ["local", 2], ["shared", 12], ["new", 3],
   ]);
+});
+
+test("increments one concrete product without changing other quote items", () => {
+  const product = {
+    id: "pla-rojo-175-1000-grilon3",
+    display_name: "Grilon3 PLA Rojo 1 kg",
+    material: "PLA",
+    color: "Rojo",
+    brand: "Grilon3",
+    diameter_mm: 1.75,
+    weight_g: 1000,
+    offers: [{ stock_status: "in_stock", stock_quantity: 2 }],
+  };
+  const once = incrementQuoteListItem([], product);
+  const twice = incrementQuoteListItem(once, product);
+  assert.equal(twice.length, 1);
+  assert.equal(twice[0].productId, product.id);
+  assert.equal(twice[0].quantity, 2);
 });

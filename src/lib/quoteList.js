@@ -243,6 +243,15 @@ export function snapshotQuoteItem(product, quantity = 1) {
   };
 }
 
+export function incrementQuoteListItem(items, product) {
+  const current = items || [];
+  const existing = current.find((item) => item.productId === product.id);
+  const quantity = Number(existing?.quantity || 0) + 1;
+  return existing
+    ? current.map((item) => item.productId === product.id ? snapshotQuoteItem(product, quantity) : item)
+    : [...current, snapshotQuoteItem(product, 1)];
+}
+
 export function reconcileQuoteList(items, products) {
   const productById = new Map((products || []).map((product) => [product.id, product]));
   const nextItems = [];

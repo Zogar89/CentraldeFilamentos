@@ -669,3 +669,10 @@ def test_color_picker_page_is_linked_and_built():
     assert "result.distance.toFixed(1)" in similar
     assert "onCompare(result.group)" in similar
     assert "findSimilarColors(visibleGroups, normalized, referenceGroupId, 3)" in app
+
+    comparator = (SRC / "components" / "ColorComparator.svelte").read_text(encoding="utf-8")
+    assert "group.materialSwatchUrl" in comparator
+    assert "rgbFromHex(group.hex)" in comparator
+    assert "onAddPresentation(presentation.product)" in comparator
+    assert "incrementQuoteListItem(quoteItems, product)" in app
+    assert "saveQuoteList({" in app
