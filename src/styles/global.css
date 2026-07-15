@@ -3065,6 +3065,75 @@ input {
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .35);
 }
 
+.summary-material-swatch-button {
+  display: inline-grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  cursor: zoom-in;
+}
+
+.summary-material-swatch-button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.summary-material-swatch {
+  display: block;
+  object-fit: cover;
+}
+
+.material-swatch-preview {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(17, 20, 24, .72);
+  backdrop-filter: blur(5px);
+}
+
+.material-swatch-preview-dialog {
+  position: relative;
+  display: grid;
+  gap: 8px;
+  width: min(368px, 100%);
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  box-shadow: 0 22px 60px rgba(0, 0, 0, .35);
+}
+
+.material-swatch-preview-dialog img {
+  display: block;
+  width: min(320px, 100%);
+  height: auto;
+  margin: 0 auto;
+  border-radius: 12px;
+}
+
+.material-swatch-preview-dialog small {
+  color: var(--muted);
+}
+
+.material-swatch-preview-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 1;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .9);
+  font-size: 24px;
+  line-height: 1;
+}
+
 .summary-product-name {
   display: grid;
   gap: 1px;

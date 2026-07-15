@@ -248,6 +248,14 @@ export function pantoneSwatchLabel(pantone) {
   return String(pantone || "").replace(/^Pantone\s+/i, "P ");
 }
 
+export function materialSwatchAlt(product) {
+  const pantone = pantoneSwatchLabel(product?.pantone);
+  const finish = String(product?.material_finish || product?.materialFinish || "satin");
+  return pantone
+    ? `Muestra orientativa ${pantone}, acabado ${finish}`
+    : `Muestra orientativa, acabado ${finish}`;
+}
+
 function transparentSwatch(folded) {
   const base = baseColorFor(folded);
   return `linear-gradient(135deg, rgba(255,255,255,.85), ${base}66), repeating-linear-gradient(45deg, #ffffff 0 6px, #d7d7dc 6px 12px)`;

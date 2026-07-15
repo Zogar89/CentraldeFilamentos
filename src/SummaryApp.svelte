@@ -20,6 +20,7 @@
     lineLabel,
     lineRank,
     lineVariantDisambiguator,
+    materialSwatchAlt,
     matchesSearchTerms,
     productBaseName,
     slugText,
@@ -50,6 +51,7 @@
   let quoteAddFeedback = {};
   let quoteFeedbackMessage = "";
   let quotePulseKey = 0;
+  let materialSwatchPreview = null;
   let quoteWorkspace = null;
   let stockWatchWorkspace = null;
   let unsubscribeQuoteWorkspace = () => {};
@@ -391,7 +393,23 @@
     quoteDrawerOpen = false;
   }
 
+  function openMaterialSwatchPreview(product) {
+    materialSwatchPreview = {
+      url: product.material_swatch_url,
+      alt: materialSwatchAlt(product),
+      title: productSummaryName(product),
+    };
+  }
+
+  function closeMaterialSwatchPreview() {
+    materialSwatchPreview = null;
+  }
+
   function handleQuoteDrawerKeydown(event) {
+    if (event.key === "Escape" && materialSwatchPreview) {
+      closeMaterialSwatchPreview();
+      return;
+    }
     if (event.key === "Escape" && (quoteImportPreview || quoteImportError)) {
       closeQuoteImport();
       return;
@@ -475,7 +493,13 @@
                     {#if summaryProductImage(row.product)}
                       <img class="summary-product-thumbnail" src={assetPath(summaryProductImage(row.product))} alt={row.product.display_name || productSummaryName(row.product)} width="42" height="42" loading="lazy">
                     {/if}
-                    <span class="summary-color-swatch" style={colorSwatchStyle(row.product)} title={[row.product.color || "Sin color", row.product.pantone].filter(Boolean).join(" · ")} aria-label={[row.product.color || "Sin color", row.product.pantone].filter(Boolean).join(" · ")}></span>
+                    {#if row.product.material_swatch_url}
+                      <button class="summary-material-swatch-button" type="button" aria-label={"Ampliar color renderizado de " + productSummaryName(row.product)} on:click={() => openMaterialSwatchPreview(row.product)}>
+                        <img class="summary-color-swatch summary-material-swatch" src={assetPath(row.product.material_swatch_url)} alt={materialSwatchAlt(row.product)} width="24" height="24" loading="lazy" decoding="async">
+                      </button>
+                    {:else}
+                      <span class="summary-color-swatch" style={colorSwatchStyle(row.product)} title={[row.product.color || "Sin color", row.product.pantone].filter(Boolean).join(" · ")} aria-label={[row.product.color || "Sin color", row.product.pantone].filter(Boolean).join(" · ")}></span>
+                    {/if}
                     <span class="summary-product-name">
                       {#if row.product.manufacturer_product_url}
                         <a href={row.product.manufacturer_product_url} target="_blank" rel="noopener">{productSummaryName(row.product)}</a>
@@ -610,6 +634,17 @@
           <button class="soft-button" type="button" disabled={quoteListReadOnly} on:click={() => applyQuoteImport("replace")}>Reemplazar</button>
         </div>
       {/if}
+    </div>
+  </div>
+{/if}
+
+{#if materialSwatchPreview}
+  <div class="material-swatch-preview" role="presentation" on:click={closeMaterialSwatchPreview}>
+    <div class="material-swatch-preview-dialog" role="dialog" aria-modal="true" aria-label={materialSwatchPreview.title} tabindex="-1" on:click|stopPropagation on:keydown|stopPropagation>
+      <button class="material-swatch-preview-close" type="button" aria-label="Cerrar vista ampliada" on:click={closeMaterialSwatchPreview}>×</button>
+      <img src={assetPath(materialSwatchPreview.url)} alt={materialSwatchPreview.alt} width="320" height="320">
+      <strong>{materialSwatchPreview.title}</strong>
+      <small>{materialSwatchPreview.alt}</small>
     </div>
   </div>
 {/if}

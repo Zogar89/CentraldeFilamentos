@@ -21,6 +21,18 @@ def test_material_swatches_are_generated_and_published_by_workflows():
     assert "public/assets/material-swatches" in thumbnails_workflow
 
 
+def test_summary_uses_high_resolution_material_swatches_with_zoom_preview():
+    summary_source = (SRC / "SummaryApp.svelte").read_text(encoding="utf-8")
+    shared_source = (SRC / "lib" / "shared.js").read_text(encoding="utf-8")
+    css = (SRC / "styles" / "global.css").read_text(encoding="utf-8")
+
+    assert "material_swatch_url" in summary_source
+    assert "materialSwatchAlt" in shared_source
+    assert "summary-material-swatch" in summary_source
+    assert "material-swatch-preview" in summary_source
+    assert "material-swatch-preview" in css
+
+
 def test_static_frontend_files_exist_and_are_linked():
     index = Path("index.html").read_text(encoding="utf-8")
     catalog = Path("catalogo.html").read_text(encoding="utf-8")
