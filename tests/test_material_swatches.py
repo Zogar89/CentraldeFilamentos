@@ -13,10 +13,10 @@ from centraldefilamentos.material_swatches import (
 
 def test_asset_name_is_stable() -> None:
     assert material_swatch_url("179 C", "satin") == (
-        "assets/material-swatches/pantone-179-c-satin-v1.webp"
+        "assets/material-swatches/pantone-179-c-satin-v2.webp"
     )
     assert estimated_material_swatch_url("pla-acqua-175-1000", "satin") == (
-        "assets/material-swatches/estimated-pla-acqua-175-1000-satin-v1.webp"
+        "assets/material-swatches/estimated-pla-acqua-175-1000-satin-v2.webp"
     )
 
 
@@ -26,11 +26,11 @@ def test_render_has_transparent_rounded_corners_and_upper_left_light(tmp_path: P
     render_material_swatch("#E03C31", "satin", output)
     image = Image.open(output).convert("RGBA")
 
-    assert image.size == (160, 160)
+    assert image.size == (320, 320)
     assert image.getpixel((0, 0))[3] == 0
-    assert image.getpixel((80, 80))[3] == 255
-    upper_left = ImageStat.Stat(image.crop((24, 24, 64, 64)).convert("RGB")).mean
-    lower_right = ImageStat.Stat(image.crop((96, 96, 136, 136)).convert("RGB")).mean
+    assert image.getpixel((160, 160))[3] == 255
+    upper_left = ImageStat.Stat(image.crop((48, 48, 128, 128)).convert("RGB")).mean
+    lower_right = ImageStat.Stat(image.crop((192, 192, 272, 272)).convert("RGB")).mean
     assert sum(upper_left) > sum(lower_right)
 
 
@@ -91,7 +91,7 @@ def test_apply_material_swatches_updates_only_resolved_products_idempotently(tmp
     payload = json.loads(stock_json.read_text(encoding="utf-8"))
     assert stock_json.read_bytes() == first_run
     assert payload["products"][0]["material_swatch_url"] == (
-        "assets/material-swatches/pantone-179-c-satin-v1.webp"
+        "assets/material-swatches/pantone-179-c-satin-v2.webp"
     )
     assert payload["products"][0]["pantone_hex"] == "#E03C31"
     assert payload["products"][0]["material_finish"] == "satin"
@@ -137,7 +137,7 @@ def test_apply_material_swatches_prioritizes_pantone_and_renders_estimate(tmp_pa
     products = json.loads(stock_json.read_text(encoding="utf-8"))["products"]
     assert products[0]["material_swatch_url"].startswith("assets/material-swatches/pantone-")
     assert products[1]["material_swatch_url"] == (
-        "assets/material-swatches/estimated-pla-acqua-satin-v1.webp"
+        "assets/material-swatches/estimated-pla-acqua-satin-v2.webp"
     )
     assert (public_dir / products[1]["material_swatch_url"]).is_file()
     assert progress == [(1, 1)]
