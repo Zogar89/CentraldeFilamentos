@@ -659,6 +659,7 @@ def test_color_picker_page_is_linked_and_built():
 
     palette = (SRC / "components" / "ColorPalette.svelte").read_text(encoding="utf-8")
     assert 'aria-pressed={selectedIds.includes(group.id)}' in palette
+    assert 'title={tooltip(group)}' in palette
     assert 'view === "continuous"' in palette
     assert 'view === "families"' in palette
     assert 'view === "map"' in palette
@@ -668,7 +669,10 @@ def test_color_picker_page_is_linked_and_built():
     assert "Buscar colores similares" in similar
     assert "result.distance.toFixed(1)" in similar
     assert "onCompare(result.group)" in similar
-    assert "findSimilarColors(visibleGroups, normalized, referenceGroupId, 3)" in app
+    assert 'role="status"' in similar
+    assert "Se encontraron" in similar
+    assert "findSimilarColors(visibleGroups, normalizedSimilarHex, referenceGroupId, 3)" in app
+    assert "if (searchActive && isValidHex(normalizedSimilarHex))" in app
 
     comparator = (SRC / "components" / "ColorComparator.svelte").read_text(encoding="utf-8")
     assert "group.materialSwatchUrl" in comparator

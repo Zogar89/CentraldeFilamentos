@@ -24,6 +24,7 @@
     aria-label={tooltip(group)}
     aria-pressed={selectedIds.includes(group.id)}
     data-tooltip={tooltip(group)}
+    title={tooltip(group)}
     on:click={() => onSelect(group)}
   >
     <span class="sr-only">{group.name}</span>

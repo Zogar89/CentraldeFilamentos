@@ -46,6 +46,12 @@
 
   $: visibleGroups = hideOutOfStock ? groups.filter((group) => group.inStock) : groups;
   $: selectedGroups = selectedIds.map((id) => groups.find((group) => group.id === id)).filter(Boolean);
+  $: normalizedSimilarHex = normalizeHex(similarHex);
+  $: if (searchActive && isValidHex(normalizedSimilarHex)) {
+    similarResults = findSimilarColors(visibleGroups, normalizedSimilarHex, referenceGroupId, 3);
+  } else if (searchActive) {
+    similarResults = [];
+  }
 
   onMount(loadCatalog);
 
@@ -101,23 +107,17 @@
   }
 
   function runSimilarSearch() {
-    const normalized = normalizeHex(similarHex);
-    if (!isValidHex(normalized)) {
+    if (!isValidHex(normalizedSimilarHex)) {
       similarError = "Ingresá un HEX válido, por ejemplo #009DCE.";
       return;
     }
-    similarHex = normalized;
+    similarHex = normalizedSimilarHex;
     similarError = "";
     searchActive = true;
-    similarResults = findSimilarColors(visibleGroups, normalized, referenceGroupId, 3);
   }
 
   function setHideOutOfStock(value) {
     hideOutOfStock = value;
-    if (searchActive) {
-      const nextGroups = value ? groups.filter((group) => group.inStock) : groups;
-      similarResults = findSimilarColors(nextGroups, similarHex, referenceGroupId, 3);
-    }
   }
 
   function removeComparedGroup(group) {
@@ -185,6 +185,9 @@
       hex={similarHex}
       results={similarResults}
       error={similarError}
+      searchActive={searchActive}
+      hideOutOfStock={hideOutOfStock}
+      hasValidHex={isValidHex(normalizedSimilarHex)}
       onHexChange={setSimilarHex}
       onSearch={runSimilarSearch}
       onCompare={selectGroup}

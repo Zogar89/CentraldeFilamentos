@@ -4,6 +4,9 @@
   export let hex = "";
   export let results = [];
   export let error = "";
+  export let searchActive = false;
+  export let hideOutOfStock = false;
+  export let hasValidHex = false;
   export let onHexChange = () => {};
   export let onSearch = () => {};
   export let onCompare = () => {};
@@ -33,8 +36,19 @@
 
   {#if error}<p class="color-picker-error" role="alert">{error}</p>{/if}
 
+  {#if searchActive && hasValidHex && results.length < 3}
+    <p class="color-picker-similar-warning" role="status">
+      {#if results.length}
+        Se encontraron {results.length} de los tres colores similares disponibles.
+      {:else}
+        No encontramos colores similares con esta referencia y los filtros actuales.
+      {/if}
+      {#if hideOutOfStock} Desmarcá “Ocultar sin stock” para ampliar la búsqueda.{/if}
+    </p>
+  {/if}
+
   {#if results.length}
-    <div class="color-picker-similar-results" aria-label={`${results.length} colores similares`}>
+    <div class="color-picker-similar-results" role="region" aria-label={`${results.length} colores similares`}>
       {#each results as result (result.group.id)}
         <article class="color-picker-similar-card" style={`--picker-color: ${result.group.hex}`}>
           <button class="color-picker-similar-swatch" type="button" aria-label={`Comparar ${result.group.name}`} on:click={() => onCompare(result.group)}></button>

@@ -110,6 +110,18 @@ test("returns exactly three ordered CIEDE2000 neighbors and excludes the source 
   assert.ok(results[0].distance <= results[1].distance && results[1].distance <= results[2].distance);
 });
 
+test("returns the available neighbors when a stock filter leaves fewer than three", () => {
+  const groups = buildPlaColorCatalog([
+    product({ id: "ref", color: "Referencia", pantone_hex: "#FF0000" }),
+    product({ id: "one", color: "Uno", pantone_hex: "#F01010" }),
+    product({ id: "out", color: "Sin stock", pantone_hex: "#EE2020", offers: [{ stock_status: "out_of_stock" }] }),
+  ]).groups;
+  const source = groups.find((group) => group.name === "Referencia");
+  const stockedGroups = groups.filter((group) => group.inStock);
+
+  assert.equal(findSimilarColors(stockedGroups, source.hex, source.id, 3).length, 1);
+});
+
 test("labels distances and enforces four compared colors", () => {
   assert.equal(distanceLabel(2.9), "Muy cercano");
   assert.equal(distanceLabel(3), "Cercano");
