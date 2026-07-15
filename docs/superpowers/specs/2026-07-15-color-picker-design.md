@@ -15,7 +15,7 @@ La pantalla consume `public/data/stock.json` directamente en el navegador. No ag
 - Usar `Continuo` como vista inicial.
 - Permitir una comparación de hasta cuatro colores.
 - Mostrar en cada comparación HEX, RGB, Pantone o procedencia estimada, disponibilidad, render de material y presentaciones concretas.
-- Permitir buscar seis colores similares desde un filamento o desde cualquier HEX válido.
+- Permitir buscar tres colores similares desde un filamento o desde cualquier HEX válido.
 - Sumar una unidad de una presentación concreta a la lista de cotización existente mediante un botón `+1`.
 
 Quedan fuera de esta primera versión otros materiales, la comparación de precios, la conversión automática desde Pantone hacia filamentos y la edición manual de datos desde el frontend.
@@ -106,11 +106,11 @@ La búsqueda acepta dos orígenes:
 - el último cuadrado seleccionado;
 - un `<input type="color">` sincronizado con un campo de texto HEX.
 
-El botón `Buscar similares` valida y normaliza el HEX. Culori calcula la distancia CIEDE2000 entre la referencia y cada grupo visible. Los resultados se ordenan de menor a mayor distancia y luego por nombre estable, excluyen el mismo grupo cuando la referencia proviene de la paleta y muestran los seis primeros.
+El botón `Buscar similares` valida y normaliza el HEX. Culori calcula la distancia CIEDE2000 entre la referencia y cada grupo visible. Los resultados se ordenan de menor a mayor distancia y luego por nombre estable, excluyen el mismo grupo cuando la referencia proviene de la paleta y muestran los tres primeros.
 
 Cada resultado incluye muestra, nombre, marca, línea, HEX, valor `ΔE`, una etiqueta orientativa y la acción `Comparar`. Las bandas son `Muy cercano` para `ΔE < 3`, `Cercano` para `3 ≤ ΔE < 8` y `Alternativa` para `ΔE ≥ 8`. No se comunica la distancia como garantía física: se muestra una advertencia permanente sobre acabado, iluminación, lote y calibración de pantalla.
 
-Cuando cambia `Ocultar sin stock`, una búsqueda activa se recalcula con la colección filtrada. Si quedan menos de seis candidatos se muestran todos y se informa la cantidad.
+Cuando cambia `Ocultar sin stock`, una búsqueda activa se recalcula con la colección filtrada. Si quedan menos de tres candidatos se muestran todos y se informa la cantidad.
 
 ## Integración con la lista de cotización
 
@@ -135,7 +135,7 @@ La página sigue el patrón multipágina existente:
 - `src/color-picker.js`: montaje Svelte, sin lógica de dominio.
 - `src/ColorPickerApp.svelte`: carga de datos, estado de vista, filtro, selección, búsqueda y coordinación de la lista.
 - `src/components/ColorPalette.svelte`: vistas Continuo, Familias y Mapa 2D.
-- `src/components/SimilarColorSearch.svelte`: formulario y seis resultados.
+- `src/components/SimilarColorSearch.svelte`: formulario y tres resultados.
 - `src/components/ColorComparator.svelte`: tarjetas comparativas y presentaciones.
 - `src/lib/colorPicker.js`: funciones puras de agrupamiento, color representativo, orden, familias, mapa y similitud.
 
@@ -154,7 +154,7 @@ stock.json
   -> convertir HEX con Culori
   -> renderizar una de las tres vistas
        -> seleccionar referencia/comparador
-       -> buscar seis similares por CIEDE2000
+       -> buscar tres similares por CIEDE2000
        -> sumar product.id concreto a quoteList.v1
 ```
 
@@ -191,7 +191,7 @@ Las funciones puras se cubren con `node:test` en `tests/colorPicker.test.js`:
 - el stock agregado responde a cualquier oferta `in_stock`;
 - las presentaciones conservan el producto concreto y no se duplican;
 - cambiar el HEX cambia el orden OKLCH, la familia o el mapa según corresponda;
-- CIEDE2000 devuelve exactamente seis vecinos ordenados y respeta el filtro;
+- CIEDE2000 devuelve exactamente tres vecinos ordenados y respeta el filtro;
 - la referencia de catálogo se excluye de sus propios resultados;
 - el quinto color no entra en el comparador.
 
@@ -206,7 +206,7 @@ npm.cmd run build
 python -m pytest -v --basetemp C:\tmp\pytest-centraldefilamentos-color-picker
 ```
 
-La revisión visual se realiza en Chrome en escritorio y móvil, comprobando las tres vistas, el filtro, HEX libre, seis similares, límite de cuatro y `+1` persistido.
+La revisión visual se realiza en Chrome en escritorio y móvil, comprobando las tres vistas, el filtro, HEX libre, tres similares, límite de cuatro y `+1` persistido.
 
 ## Decisiones aprobadas
 
@@ -218,4 +218,4 @@ La revisión visual se realiza en Chrome en escritorio y móvil, comprobando las
 - Comparador de cuatro colores.
 - Render de material de alta resolución en vez de fotografía genérica.
 - Presentaciones concretas con `+1` dentro de cada tarjeta.
-- Búsqueda de seis similares por CIEDE2000 desde selección o HEX libre.
+- Búsqueda de tres similares por CIEDE2000 desde selección o HEX libre.
