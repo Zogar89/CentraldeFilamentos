@@ -66,6 +66,11 @@ class ProductGroup:
     pantone_hex: str
     material_finish: str
     material_swatch_url: str
+    estimated_color_hex: str
+    estimated_color_confidence_band: str
+    estimated_color_confidence_interval: list[float]
+    estimated_color_source: str
+    estimated_color_warning: str
     sku: str
     ean: str
     display_name: str
@@ -74,6 +79,10 @@ class ProductGroup:
     def to_dict(self) -> dict[str, object]:
         payload = asdict(self)
         payload["offers"] = [offer.to_dict() for offer in self.offers]
+        if not self.estimated_color_hex:
+            for key in tuple(payload):
+                if key.startswith("estimated_color_"):
+                    payload.pop(key)
         return payload
 
 

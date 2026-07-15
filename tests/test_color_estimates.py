@@ -3,6 +3,8 @@ import json
 import pytest
 
 from centraldefilamentos.color_estimates import (
+    ColorEstimate,
+    apply_color_estimates_to_stock,
     estimate_public_fields,
     load_color_estimates,
     resolve_color_estimate,
@@ -111,3 +113,46 @@ def test_resolve_color_estimate_returns_none_when_pantone_exists(tmp_path):
         estimates=estimates,
         public_dir=tmp_path,
     ) is None
+
+
+def test_apply_color_estimates_to_stock_enriches_only_no_pantone_products(tmp_path):
+    stock_path = tmp_path / "stock.json"
+    stock_path.write_text(
+        json.dumps(
+            {
+                "products": [
+                    {
+                        "id": "pla-acqua",
+                        "pantone_hex": "",
+                        "image_url": "",
+                        "material_finish": "satin",
+                    },
+                    {
+                        "id": "pla-rojo",
+                        "pantone_hex": "#E03C31",
+                        "image_url": "",
+                        "material_finish": "satin",
+                        "estimated_color_hex": "#FFFFFF",
+                    },
+                ]
+            }
+        ),
+        encoding="utf-8",
+    )
+    estimate = ColorEstimate(
+        "#009DCE", "low", (0.2, 0.49), "name_only", "satin", "Nombre Acqua.", "Color estimado."
+    )
+
+    applied = apply_color_estimates_to_stock(
+        stock_path,
+        {"pla-acqua": estimate, "pla-rojo": estimate},
+        public_dir=tmp_path,
+    )
+    payload = json.loads(stock_path.read_text(encoding="utf-8"))
+
+    assert applied == 1
+    assert payload["products"][0]["estimated_color_hex"] == "#009DCE"
+    assert not any(key.startswith("estimated_color_") for key in payload["products"][1])
+    first_bytes = stock_path.read_bytes()
+    apply_color_estimates_to_stock(stock_path, {"pla-acqua": estimate}, public_dir=tmp_path)
+    assert stock_path.read_bytes() == first_bytes
