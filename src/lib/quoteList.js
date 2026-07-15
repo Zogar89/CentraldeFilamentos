@@ -95,6 +95,10 @@ export function normalizeQuoteList(payload) {
       originalName: item.originalName || item.original_name || "",
       thumbnailUrl: item.thumbnailUrl || item.thumbnail_url || "",
       imageUrl: item.imageUrl || item.image_url || "",
+      pantone: item.pantone || "",
+      pantoneHex: item.pantoneHex || item.pantone_hex || "",
+      materialFinish: item.materialFinish || item.material_finish || "",
+      materialSwatchUrl: item.materialSwatchUrl || item.material_swatch_url || "",
       hasOnlineStock: Boolean(item.hasOnlineStock),
       quantity: clampQuoteQuantity(item.quantity),
     }));
@@ -105,9 +109,7 @@ export function normalizeQuoteList(payload) {
     settings: {
       ...defaultSettings,
       ...(payload.settings && typeof payload.settings === "object" ? payload.settings : {}),
-      showQuickControls: payload.settings && "showQuickControls" in payload.settings
-        ? Boolean(payload.settings.showQuickControls)
-        : defaultSettings.showQuickControls,
+      showQuickControls: Boolean(payload.settings?.showQuickControls),
     },
     storageAvailable: true,
     resetReason: "",
@@ -117,30 +119,20 @@ export function normalizeQuoteList(payload) {
   };
 }
 
-export function resolveQuoteListStorage(storage) {
-  if (storage !== undefined) return storage;
-  try {
-    return globalThis.localStorage;
-  } catch {
-    return undefined;
-  }
-}
-
-export function loadQuoteList(storage) {
-  const resolvedStorage = resolveQuoteListStorage(storage);
-  if (!resolvedStorage || typeof resolvedStorage.getItem !== "function") {
+export function loadQuoteList() {
+  if (typeof localStorage === "undefined") {
     return { ...normalizeQuoteList(null), storageAvailable: false, resetReason: "storage", saveError: "unavailable" };
   }
 
   try {
-    const raw = resolvedStorage.getItem(quoteListStorageKey);
+    const raw = localStorage.getItem(quoteListStorageKey);
     return { ...normalizeQuoteList(raw ? JSON.parse(raw) : null), storageAvailable: true, saveError: "" };
   } catch {
     return { ...normalizeQuoteList(null), storageAvailable: false, resetReason: "storage", saveError: "read" };
   }
 }
 
-export function saveQuoteList(state, storage) {
+export function saveQuoteList(state) {
   if (state?.readOnly) {
     return {
       ok: false,
@@ -151,24 +143,18 @@ export function saveQuoteList(state, storage) {
     };
   }
 
-  const normalized = normalizeQuoteList({
+  const payload = normalizeQuoteList({
     schemaVersion: quoteListSchemaVersion,
     items: state?.items || [],
     settings: state?.settings || defaultSettings,
   });
-  const payload = {
-    schemaVersion: quoteListSchemaVersion,
-    items: normalized.items,
-    settings: normalized.settings,
-  };
 
-  const resolvedStorage = resolveQuoteListStorage(storage);
-  if (!resolvedStorage || typeof resolvedStorage.setItem !== "function") {
+  if (typeof localStorage === "undefined") {
     return { ok: false, storageAvailable: false, saveError: "unavailable", payload };
   }
 
   try {
-    resolvedStorage.setItem(quoteListStorageKey, JSON.stringify(payload));
+    localStorage.setItem(quoteListStorageKey, JSON.stringify(payload));
     return { ok: true, storageAvailable: true, saveError: "", payload };
   } catch {
     return { ok: false, storageAvailable: false, saveError: "write", payload };
@@ -256,6 +242,10 @@ export function snapshotQuoteItem(product, quantity = 1) {
     originalName: firstOffer.original_name || "",
     thumbnailUrl: product?.thumbnail_url || "",
     imageUrl: product?.image_url || "",
+    pantone: product?.pantone || "",
+    pantoneHex: product?.pantone_hex || "",
+    materialFinish: product?.material_finish || "",
+    materialSwatchUrl: product?.material_swatch_url || "",
     hasOnlineStock: (product?.offers || []).some((offer) => offer.stock_status === "in_stock" && Number(offer.stock_quantity || 0) > 0),
     quantity: clampQuoteQuantity(quantity),
   };

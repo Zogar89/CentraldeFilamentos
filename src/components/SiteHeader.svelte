@@ -1,14 +1,12 @@
 <script>
   import { formatDate } from "../lib/shared.js";
 
-  export let active = "catalog";
+  export let active = "summary";
   export let updatedAt = "";
   export let subtitle = "";
   export let showCatalogHelp = false;
   export let stockAlerts = [];
   export let onDismissStockAlerts = () => {};
-
-  const baseUrl = import.meta.env.BASE_URL;
 
   $: updatedLabel = updatedAt ? `Actualizado: ${formatDate(updatedAt)}` : subtitle;
   $: firstStockAlert = stockAlerts[0];
@@ -19,8 +17,8 @@
       : "";
 
   const navItems = [
-    { id: "summary", label: "Resumen", href: baseUrl },
-    { id: "providers", label: "Proveedores", href: `${baseUrl}#site-footer` },
+    { id: "summary", label: "Resumen", href: "index.html" },
+    { id: "providers", label: "Proveedores", href: "index.html#site-footer" },
   ];
 
   function stockAlertLabel(alert) {
@@ -35,7 +33,7 @@
 <a class="skip-link" href="#main-content">Saltar al contenido</a>
 
 <header class="site-header">
-  <a class="brand-lockup" href={baseUrl} aria-label="Ir al resumen">
+  <a class="brand-lockup" href="index.html" aria-label="Ir al resumen">
     <span class="brand-mark" aria-hidden="true">CF</span>
     <span class="brand-copy">
       <span class="brand-title">Central de Filamentos</span>

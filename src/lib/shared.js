@@ -99,22 +99,6 @@ export function lineLabel(product) {
   return product.variant || product.material || "Sin clasificar";
 }
 
-export function subrangeLabel(product) {
-  if (product?.subrange) return product.subrange;
-  if (product?.material !== "PLA") return "";
-  return lineLabel(product).replace(/^PLA\s+/, "") || "Standard";
-}
-
-export function finishLabel(product) {
-  return product?.finish || "";
-}
-
-export function lineVariantDisambiguator(product) {
-  const variant = product?.variant || "";
-  if (!variant || !isSamplerProduct(product) || lineLabel(product) === variant) return "";
-  return product?.material === "PLA" ? variant.replace(/^PLA\s+/, "") : variant;
-}
-
 export function lineOptionLabel(line) {
   return lineMeta[line]?.label || line;
 }
@@ -246,6 +230,10 @@ export function colorSwatchLabel(color) {
 
 export function pantoneSwatchLabel(pantone) {
   return String(pantone || "").replace(/^Pantone\s+/i, "P ");
+}
+
+export function materialSwatchPath(product) {
+  return String(product?.material_swatch_url || product?.materialSwatchUrl || "");
 }
 
 export function materialSwatchAlt(product) {

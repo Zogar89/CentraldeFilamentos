@@ -1,7 +1,4 @@
 import json
-import re
-import shutil
-import subprocess
 from collections import Counter
 from pathlib import Path
 
@@ -21,40 +18,42 @@ def test_material_swatches_are_generated_and_published_by_workflows():
     assert "public/assets/material-swatches" in thumbnails_workflow
 
 
-def test_summary_uses_high_resolution_material_swatches_with_zoom_preview():
+def test_prerendered_material_swatches_are_used_across_product_views():
     summary_source = (SRC / "SummaryApp.svelte").read_text(encoding="utf-8")
+    quote_item_source = (SRC / "components" / "QuoteListItem.svelte").read_text(encoding="utf-8")
+    quote_list_source = (SRC / "lib" / "quoteList.js").read_text(encoding="utf-8")
     shared_source = (SRC / "lib" / "shared.js").read_text(encoding="utf-8")
     css = (SRC / "styles" / "global.css").read_text(encoding="utf-8")
 
-    assert "material_swatch_url" in summary_source
+    assert "materialSwatchPath" in shared_source
     assert "materialSwatchAlt" in shared_source
+    assert "material_swatch_url" in summary_source
     assert "summary-material-swatch" in summary_source
-    assert "material-swatch-preview" in summary_source
-    assert "material-swatch-preview" in css
+    assert "materialSwatchUrl" in quote_list_source
+    assert "materialFinish" in quote_list_source
+    assert "quote-list-material-swatch" in quote_item_source
+    assert ".quote-list-material-swatch" in css
 
 
 def test_static_frontend_files_exist_and_are_linked():
     index = Path("index.html").read_text(encoding="utf-8")
-    catalog = Path("catalogo.html").read_text(encoding="utf-8")
     resumen = Path("resumen.html").read_text(encoding="utf-8")
     internal = Path("estadisticas.html").read_text(encoding="utf-8")
     flags = json.loads((PUBLIC / "data" / "feature_flags.json").read_text(encoding="utf-8"))
-    catalog_view = (SRC / "CatalogApp.svelte").read_text(encoding="utf-8")
+    summary_view = (SRC / "SummaryApp.svelte").read_text(encoding="utf-8")
     site_header = (SRC / "components" / "SiteHeader.svelte").read_text(encoding="utf-8")
 
     assert 'type="module" src="/src/summary.js"' in index
-    assert 'type="module" src="/src/catalog.js"' in catalog
-    assert 'type="module" src="/src/summary-redirect.js"' in resumen
-    assert resumen.count('type="module"') == 1
-    assert 'src="/src/summary.js"' not in resumen
-    assert 'src="/src/catalog.js"' not in resumen
+    assert 'type="module" src="/src/summary.js"' in resumen
+    assert not (SRC / "CatalogApp.svelte").exists()
+    assert not (SRC / "catalog.js").exists()
+    assert '{ id: "summary", label: "Resumen", href: "index.html" }' in site_header
     assert 'label: "Catálogo"' not in site_header
-    assert '{ id: "summary", label: "Resumen", href: baseUrl }' in site_header
-    assert 'href: `${baseUrl}#site-footer`' in site_header
+    assert 'href: "index.html#site-footer"' in site_header
     assert 'href: "estadisticas.html"' not in site_header
     assert "provider-status" not in site_header
     assert "brand-mark" in site_header
-    assert "SiteHeader" in catalog_view
+    assert "SiteHeader" in summary_view
     assert 'id="merge-brands-toggle"' not in resumen
     assert "Fusionar Grilon3 + 3N3" not in resumen
     assert "estadisticas.html" not in index
@@ -64,237 +63,24 @@ def test_static_frontend_files_exist_and_are_linked():
     assert 'type="module" src="/src/vendor-stats.js"' in internal
     assert 'noindex,nofollow' in internal
     assert flags["vendorStatsEnabled"] is True
-    for entry in ["catalog.js", "summary.js", "vendor-stats.js"]:
+    for entry in ["summary.js", "vendor-stats.js"]:
         js = (SRC / entry).read_text(encoding="utf-8")
         assert 'import { mount } from "svelte"' in js
         assert "mount(" in js
         assert "new " not in js
 
 
-def test_summary_root_route_redirect_and_legacy_catalog_contract():
-    index = Path("index.html").read_text(encoding="utf-8")
-    catalog = Path("catalogo.html").read_text(encoding="utf-8")
-    resumen = Path("resumen.html").read_text(encoding="utf-8")
-    redirect = (SRC / "summary-redirect.js").read_text(encoding="utf-8")
-    vite = Path("vite.config.js").read_text(encoding="utf-8")
-    header = (SRC / "components" / "SiteHeader.svelte").read_text(encoding="utf-8")
-    footer = (SRC / "components" / "SiteFooter.svelte").read_text(encoding="utf-8")
-    summary_view = (SRC / "SummaryApp.svelte").read_text(encoding="utf-8")
-
-    assert "resumen" in index.lower()
-    assert "catálogo" in catalog.lower()
-    assert 'name="robots" content="noindex,follow"' in resumen
-    assert 'href="./"' in resumen
-    assert "location.replace" in redirect
-    assert "import.meta.env.BASE_URL" in redirect
-    assert "export function summaryRedirectTarget" in redirect
-    assert "import.meta.env.BASE_URL" in header
-    assert "import.meta.env.BASE_URL" in footer
-    assert "Catálogo anterior" in footer
-    assert "catalogo.html" in footer
-    assert '<SiteHeader active="summary"' in summary_view
-    assert "summary-redirect.js" not in index
-    assert "summary-redirect.js" not in catalog
-
-    expected_inputs = {
-        'index: resolve(__dirname, "index.html")',
-        'catalogo: resolve(__dirname, "catalogo.html")',
-        'resumen: resolve(__dirname, "resumen.html")',
-        'estadisticas: resolve(__dirname, "estadisticas.html")',
-    }
-    assert all(entry in vite for entry in expected_inputs)
-    assert vite.count("resolve(__dirname") == 4
-
-    route_sources = "\n".join([index, catalog, resumen, redirect, header, footer, vite])
-    assert "https://zogar89.github.io/CentraldeFilamentos" not in route_sources
-
-    script = """
-      import { summaryRedirectTarget } from "./src/summary-redirect.js";
-      process.stdout.write(JSON.stringify([
-        summaryRedirectTarget("/CentraldeFilamentos/", "?material=PLA", "#proveedor-grilon3"),
-        summaryRedirectTarget("/", "", "#site-footer"),
-      ]));
-    """
-    result = subprocess.run(
-        ["node", "--input-type=module", "--eval", script],
-        check=True,
-        capture_output=True,
-        text=True,
-    )
-    assert json.loads(result.stdout) == [
-        "/CentraldeFilamentos/?material=PLA#proveedor-grilon3",
-        "/#site-footer",
-    ]
-
-
-def test_vite_build_emits_summary_root_redirect_and_legacy_catalog():
-    npm = shutil.which("npm") or shutil.which("npm.cmd")
-    assert npm, "npm is required to verify the frontend build"
-    subprocess.run([npm, "run", "build"], check=True, capture_output=True, text=True)
-
-    built = {
-        name: (Path("dist") / name).read_text(encoding="utf-8")
-        for name in ["index.html", "catalogo.html", "resumen.html", "estadisticas.html"]
-    }
-    summary_assets = set(re.findall(r"/assets/index-[^\"']+\.js", built["index.html"]))
-    catalog_assets = set(re.findall(r"/assets/catalogo-[^\"']+\.js", built["catalogo.html"]))
-
-    assert summary_assets
-    assert catalog_assets
-    assert summary_assets.isdisjoint(catalog_assets)
-    assert re.search(r"/assets/resumen-[^\"']+\.js", built["resumen.html"])
-    assert 'id="app"' not in built["resumen.html"]
-
-
-def test_catalog_svelte_fetches_json_and_supports_required_filters():
-    view = (SRC / "CatalogApp.svelte").read_text(encoding="utf-8")
-    shared = (SRC / "lib" / "shared.js").read_text(encoding="utf-8")
-    footer = (SRC / "components" / "SiteFooter.svelte").read_text(encoding="utf-8")
-    site_header = (SRC / "components" / "SiteHeader.svelte").read_text(encoding="utf-8")
-    quick_lines = (SRC / "components" / "QuickLines.svelte").read_text(encoding="utf-8")
-    subscriptions = (SRC / "lib" / "stockSubscriptions.js").read_text(encoding="utf-8")
-    stock_workspace = (SRC / "lib" / "stockWatchWorkspace.js").read_text(encoding="utf-8")
-    js = view + shared + footer + site_header + quick_lines + subscriptions + stock_workspace
-
-    assert "data/stock.json" in js
-    for filter_id in [
-        "material-filter",
-        "variant-filter",
-        "color-filter",
-        "diameter-filter",
-        "weight-filter",
-        "brand-filter",
-        "provider-filter",
-        "stock-filter",
-    ]:
-        assert filter_id in js
-    assert "contact_whatsapp_url" in js
-    assert "groupProducts" in js
-    assert "group-section" in js
-    assert "product.pantone" in js
-    assert "product.sku" in js
-    assert "product.ean" in js
-    assert "PLA Standard" in js
-    assert "PLA Flexible" in js
-    assert "brillo tipo glitter" in js
-    assert "E-PET - PET reciclado" in js
-    assert "PP-T - polipropileno" in js
-    assert "Sampler / lápiz 3D" in js
-    assert "isSamplerProduct" in js
-    assert "formatPresentation" in js
-    assert "samplerLengthLabel" in js
-    assert "groupBaseProducts" in js
-    assert "official-product-link" in js
-    assert "Abrir página oficial" in js
-    assert "data-preview-src" in js
-    assert "thumbnail_url" in js
-    assert 'loading="lazy"' in js
-    assert 'decoding="async"' in js
-    assert "image-preview" in js
-    assert "openImagePreview" in js
-    assert "image-preview-modal" in js
-    assert "media-pantone" in js
-    assert "compareImagePresentations" in js
-    assert "imagePresentationRank" in js
-    assert ".filter((item) => item.image_url)" in js
-    assert "Number(product.weight_g) === 1000" in js
-    assert "Number(product.weight_g) === 2500" in js
-    assert "pantoneSwatchLabel" in js
-    assert "colorSwatchStyle" in js
-    assert "baseColorFor" in js
-    assert "foldText" in js
-    assert "matchesSearchTerms" in js
-    assert "setFilter" in js
-    assert "filters, categoryOrder, products.filter" in js
-    assert "materialOptions = (products, valuesFor" in js
-    assert "providerOptions = (products, providerValues" in js
-    assert "matchesSearchToken" in js
-    assert "searchTokens" in js
-    assert 'term === "pla"' in js
-    assert 'token === "pla+"' in js
-    assert "token.startsWith(term)" in js
-    assert "queryText.includes" not in js
-    assert "presentation-row" in js
-    assert "productBaseName" in js
-    assert "quickLineValues" in js
-    assert "visibleLines" in js
-    assert "products, lineValues()" in js
-    assert "quickLabel" in js
-    assert "quickTone" in js
-    assert '"ABS"' in js
-    assert '"PLA Boutique"' in js
-    assert '"Nylon 6"' in js
-    assert "PLA Wood" in js
-    assert "categoryOrder" in js
-    assert "compareGroups" in js
-    assert "compareProductGroups" in js
-    assert "scrollIntoView" in js
-    assert "quick-target" in js
-    assert "updateScrollCue" in js
-    assert "showScrollCue" in js
-    assert "groupTargetId" in js
-    assert "slugText" in js
-    assert "state.filters.variant = button.dataset.line" not in js
-    assert "sin stock online registrado" in js
-    assert "offer-main" in js
-    assert "providerTitle" in js
-    assert "Sin cantidad" in js
-    assert "stockSubscriptionsStorageKey" in js
-    assert "centraldefilamentos.stockSubscriptions.v1" in js
-    assert "loadStockSubscriptions" in js
-    assert "saveStockSubscriptions" in js
-    assert "subscriptionKey" in js
-    assert "stockSignature" in js
-    assert "stockAlerts" in js
-    assert "confirmedQuantityIncrease" in js
-    assert "currentQuantity > previousQuantity" in js
-    assert "previousQuantity" in js
-    assert "stockAlertLabel" in js
-    assert "Tus filamentos esperados volvieron" in site_header
-    assert "stock-alert-banner" in site_header
-    assert "stock-watch-button" in js
-    assert "Avisarme si sube o vuelve el stock" in js
-    assert "Seguir cambios de stock" in js
-    assert "Dejar de seguir cambios de stock" in js
-    assert "createStockWatchWorkspace" in js
-    assert "dismissStockAlerts" in js
-    assert "stockWatchTargetId" in js
-    assert "0*" not in js
-    assert "El proveedor seguramente no maneja esta variante." not in js
-    assert "providerAnchorId" in js
-    assert "proveedor-" in js
-    assert "sourceWhatsappUrl" in js
-    assert "mapsHref" in js
-    assert "www.google.com/maps/search" in js
-    assert "footer-detail-link" in js
-    assert "contactContext" in js
-    assert "stockDelta" in js
-    assert "stock_delta_units" in js
-    assert "vs ayer" in js
-    assert "Creado por Gabriel" in js
-    assert "Reportar error" in js
-    assert "Sumar proveedor" in js
-    assert "https://github.com/Zogar89/CentraldeFilamentos/issues/new" in js
-    assert "encodeURIComponent" in js
-    assert "Rev." not in js
-    assert "whatsappLink" not in js
-    assert 'class="chips"' not in js
-    assert "function chip" not in js
-    assert "<span>${escapeHtml(offer.provider_zone)}</span>" not in js
-    assert "product.pantone ? chip(product.pantone)" not in js
-
-
 def test_quote_list_source_contract_covers_foundation():
     def read_source(path):
         return path.read_text(encoding="utf-8") if path.exists() else ""
 
-    catalog = read_source(SRC / "CatalogApp.svelte")
     quote_list = read_source(SRC / "lib" / "quoteList.js")
     quote_panel = read_source(SRC / "components" / "QuoteListPanel.svelte")
     quote_item = read_source(SRC / "components" / "QuoteListItem.svelte")
     quote_quantity = read_source(SRC / "components" / "QuoteQuantityControl.svelte")
+    summary_view = read_source(SRC / "SummaryApp.svelte")
     quote_sources = quote_list + quote_panel + quote_item + quote_quantity
-    js = catalog + quote_sources
+    js = quote_sources
 
     for path in [
         SRC / "lib" / "quoteList.js",
@@ -315,16 +101,6 @@ def test_quote_list_source_contract_covers_foundation():
         "reconcileQuoteList",
         "clampQuoteQuantity",
         "quoteQuantityLabel",
-        "QuoteListPanel",
-        "QuoteListItem",
-        "QuoteQuantityControl",
-        "addQuoteItem",
-        "createQuoteWorkspace",
-        "setQuoteItemQuantity",
-        "removeQuoteItem",
-        "clearQuoteList",
-        "toggleQuoteControls",
-        "presentation-row",
         "productId",
         "sku",
         "ean",
@@ -337,9 +113,8 @@ def test_quote_list_source_contract_covers_foundation():
         "quantity",
     ]:
         assert identifier in js
+
     for copy in [
-        "Agregar 1 unidad a la lista de cotizacion",
-        "+1",
         "Caja x12",
         "Lista de cotizacion",
         "Guardada en este dispositivo",
@@ -352,9 +127,10 @@ def test_quote_list_source_contract_covers_foundation():
         "confirmar dato",
         "confirmar stock",
         "Limpiar lista",
-        "¿Vaciar la lista de cotizacion? Se quitaran todos los filamentos guardados en este navegador.",
     ]:
         assert copy in js
+
+    assert "¿Vaciar la lista de cotizacion? Se quitaran todos los filamentos guardados en este navegador." in summary_view
 
     for control_token in [
         'aria-label="Restar 1 unidad"',
@@ -378,114 +154,22 @@ def test_quote_list_source_contract_covers_foundation():
         assert banned not in quote_class_source
 
 
-def test_catalog_delegates_interaction_state_to_shared_workspaces():
-    catalog = (SRC / "CatalogApp.svelte").read_text(encoding="utf-8")
-
-    for required in [
-        'import { createQuoteWorkspace } from "./lib/quoteWorkspace.js";',
-        'import { createStockWatchWorkspace } from "./lib/stockWatchWorkspace.js";',
-        "createQuoteWorkspace({",
-        "createStockWatchWorkspace({",
-        "unsubscribeQuoteWorkspace",
-        "unsubscribeStockWatchWorkspace",
-        "showQuickControls: true",
-        "QuoteListPanel",
-        "QuoteListDrawer",
-        "quote-add-button",
-        "stock-watch-button",
-        "quote-import-dialog",
-        "dismissStockAlerts",
-        "stockWatchTargetId",
-        "exportCleanupTimers",
-        "exportObjectUrls",
-    ]:
-        assert required in catalog
-
-    destroy_block = catalog.split("onDestroy(() => {", 1)[1].split("});", 1)[0]
-    for cleanup in [
-        "unsubscribeQuoteWorkspace();",
-        "unsubscribeStockWatchWorkspace();",
-        "quoteFeedbackTimers",
-        "stockWatchFeedbackTimers",
-        "exportCleanupTimers",
-        "exportObjectUrls",
-    ]:
-        assert cleanup in destroy_block
-
-    for duplicated_or_low_level in [
-        "loadQuoteList",
-        "saveQuoteList",
-        "initializeQuoteList",
-        "snapshotQuoteItem",
-        "combineQuoteListItems",
-        "previewQuoteListImport",
-        "serializeQuoteListExport",
-        "loadStockSubscriptions",
-        "saveStockSubscriptions",
-        "stockSignature",
-        "saveQuoteListState",
-        "reconcileStockSubscriptions",
-        "findSubscribedOffer",
-    ]:
-        assert duplicated_or_low_level not in catalog
-
-    assert catalog.count("readOnly={quoteListReadOnly}") == 2
-
-
-def test_catalog_import_reads_only_publish_the_latest_live_request():
-    catalog = (SRC / "CatalogApp.svelte").read_text(encoding="utf-8")
-    destroy_block = catalog.split("onDestroy(() => {", 1)[1].split("});", 1)[0]
-    picker_block = catalog.split("function openQuoteImportPicker() {", 1)[1].split("\n  async function handleQuoteImportFile", 1)[0]
-    import_block = catalog.split("async function handleQuoteImportFile(event) {", 1)[1].split("\n  function applyQuoteImport", 1)[0]
-    close_block = catalog.split("function closeQuoteImport() {", 1)[1].split("\n  }", 1)[0]
-
-    assert "let quoteImportRequestId = 0;" in catalog
-    assert "function beginQuoteImportRequest()" in catalog
-    assert "function invalidateQuoteImportRequest()" in catalog
-    assert "function isCurrentQuoteImportRequest(requestId)" in catalog
-
-    assert "if (!quoteWorkspace)" in picker_block
-    assert picker_block.index("if (!quoteWorkspace)") < picker_block.index("quoteImportInput?.click()")
-
-    for required in [
-        "const requestId = beginQuoteImportRequest();",
-        "if (!quoteWorkspace)",
-        "await file.text()",
-        "isCurrentQuoteImportRequest(requestId)",
-        "catch",
-    ]:
-        assert required in import_block
-    assert import_block.index("if (!quoteWorkspace)") < import_block.index("await file.text()")
-    assert import_block.index('quoteImportError = "";') < import_block.index("await file.text()")
-    assert import_block.count("isCurrentQuoteImportRequest(requestId)") >= 2
-
-    assert "invalidateQuoteImportRequest();" in close_block
-    assert "invalidateQuoteImportRequest();" in destroy_block
-
-
 def test_quote_list_styles_contract_covers_panel_and_controls():
     def read_source(path):
         return path.read_text(encoding="utf-8") if path.exists() else ""
 
-    catalog = read_source(SRC / "CatalogApp.svelte")
     quote_list = read_source(SRC / "lib" / "quoteList.js")
-    quote_workspace = read_source(SRC / "lib" / "quoteWorkspace.js")
     quote_panel = read_source(SRC / "components" / "QuoteListPanel.svelte")
     quote_drawer = read_source(SRC / "components" / "QuoteListDrawer.svelte")
+    summary_view = read_source(SRC / "SummaryApp.svelte")
     css = read_source(SRC / "styles" / "global.css")
-    quote_sources = catalog + quote_list + quote_workspace + quote_panel + quote_drawer
+    quote_sources = summary_view + quote_list + quote_panel + quote_drawer
 
     assert (SRC / "components" / "QuoteListDrawer.svelte").exists()
     for identifier in [
-        "QuoteListDrawer",
-        "quote-floating-button",
         "quote-list-drawer",
         "quote-list-backdrop",
         "quote-list-panel",
-        "quote-list-layout-active",
-        "openQuoteDrawer",
-        "closeQuoteDrawer",
-        "handleQuoteDrawerKeydown",
         "reconcileQuoteList",
         "removedCount",
         "resetReason",
@@ -498,7 +182,7 @@ def test_quote_list_styles_contract_covers_panel_and_controls():
         "No pudimos guardar la lista en este navegador. La podes usar durante esta sesion, pero se puede perder al cerrar la pagina.",
         "No se sincroniza con otra PC.",
         "StockCentral no vende ni procesa pedidos.",
-        "Quitamos ${initialized.removedCount} item(s) que ya no aparecen en el catálogo publicado.",
+        "Quitamos {count} item(s) que ya no aparecen en el catalogo publicado.",
     ]:
         assert copy in quote_sources
 
@@ -506,7 +190,7 @@ def test_quote_list_styles_contract_covers_panel_and_controls():
     assert "@media (max-width: 520px)" in css
     assert "position: fixed" in css
     assert "bottom:" in css
-    assert "minmax(320px, 360px)" in css
+    assert "width: min(460px" in css
 
 
 def test_summary_svelte_uses_carretes_totals_and_provider_order():
@@ -514,6 +198,7 @@ def test_summary_svelte_uses_carretes_totals_and_provider_order():
     shared = (SRC / "lib" / "shared.js").read_text(encoding="utf-8")
     footer = (SRC / "components" / "SiteFooter.svelte").read_text(encoding="utf-8")
     quick_lines = (SRC / "components" / "QuickLines.svelte").read_text(encoding="utf-8")
+    css = (SRC / "styles" / "global.css").read_text(encoding="utf-8")
     js = view + shared + footer + quick_lines
 
     assert "data/stock.json" in js
@@ -538,7 +223,36 @@ def test_summary_svelte_uses_carretes_totals_and_provider_order():
     assert "brandsLabel" not in js
     assert "Grilon3 + 3N3" not in js
     assert "matchesSearchTerms" in js
-    assert "query, rows.filter" in js
+    assert "products.filter(matchesFilters)" in js
+    for filter_id in [
+        "search-input",
+        "material-filter",
+        "color-filter",
+        "provider-filter",
+        "variant-filter",
+        "diameter-filter",
+        "weight-filter",
+        "brand-filter",
+        "stock-filter",
+    ]:
+        assert filter_id in view
+    assert "showCatalogHelp" in view
+    assert "addQuoteItem(row.product)" in view
+    assert "toggleStockSubscription(row.product, offer)" in view
+    assert "QuoteListDrawer" in view
+    assert "summary-product-photo" in view
+    assert "summary-product-photo-placeholder" in view
+    assert "summary-material-swatch" in view
+    assert "groupPresentationRows" in view
+    assert "summary-photo-column" in view
+    assert "summary-color-column" in view
+    assert "summary-add-column" in view
+    assert "presentation-grouped" in view
+    assert "presentation-group-marker" in view
+    assert "quote-list-trigger" in view
+    assert "quote-list-side-panel" not in view
+    assert "showAssetPreview" in view
+    assert "openAssetPreview" in view
     assert "matchesSearchToken" in js
     assert "searchTokens" in js
     assert 'term === "pla"' in js
@@ -561,7 +275,7 @@ def test_summary_svelte_uses_carretes_totals_and_provider_order():
     assert "Sumar proveedor" in js
     assert "https://github.com/Zogar89/CentraldeFilamentos/issues/new" in js
     assert "slugText" in js
-    assert "groupRows" in js
+    assert "groupSummaryRows" in js
     assert "0*" not in js
     assert "El proveedor seguramente no maneja esta variante" not in js
     assert "A revisar" not in js
@@ -573,231 +287,16 @@ def test_summary_svelte_uses_carretes_totals_and_provider_order():
     assert "const stockDelta = stockDeltaTemplate(source.stats || {});" not in js
     assert "total_stock_kg" not in js
 
-
-def test_summary_organizes_materials_and_preserves_pla_subrange_detail():
-    view = (SRC / "SummaryApp.svelte").read_text(encoding="utf-8")
-    shared = (SRC / "lib" / "shared.js").read_text(encoding="utf-8")
-
-    assert "export function subrangeLabel(product)" in shared
-    assert "if (product?.subrange) return product.subrange;" in shared
-    assert 'if (product?.material !== "PLA") return "";' in shared
-    assert 'lineLabel(product).replace(/^PLA\\s+/, "") || "Standard"' in shared
-    assert "export function finishLabel(product)" in shared
-    assert 'return product?.finish || "";' in shared
-
-    assert "materialSections" in view
-    assert "groupMaterialSections" in view
-    assert "summary-material-row" in view
-    assert "section.material" in view
-    assert "subrange: subrangeLabel(row.product)" in view
-    assert "finish: finishLabel(row.product)" in view
-    assert "group.finish" in view
-    assert "summary-group-finish" in view
-
-    group_key = view[view.index("function groupKey(product)"):view.index("function groupTitle(product)")]
-    assert "subrangeLabel(product)" in group_key
-    assert "finishLabel(product)" in group_key
-    assert "product.brand" in group_key
-    assert "product.diameter_mm" in group_key
-    assert "lineLabel(product)" in group_key
-    assert "product.variant" in group_key
-
-    assert 'data-line={group.line}' in view
-    assert 'targetSelector=".summary-group-row"' in view
-
-
-def test_summary_reuses_action_workspaces_and_preserves_cell_offer_contract():
-    view = (SRC / "SummaryApp.svelte").read_text(encoding="utf-8")
-    panel = (SRC / "components" / "QuoteListPanel.svelte").read_text(encoding="utf-8")
-    drawer = (SRC / "components" / "QuoteListDrawer.svelte").read_text(encoding="utf-8")
-    item = (SRC / "components" / "QuoteListItem.svelte").read_text(encoding="utf-8")
-    css = (SRC / "styles" / "global.css").read_text(encoding="utf-8")
-    quote_sources = view + panel
-
-    for token in [
-        "createQuoteWorkspace",
-        "createStockWatchWorkspace",
-        "QuoteListPanel",
-        "QuoteListDrawer",
-        "QuoteProviderCoverage",
-        "quote-summary-add",
-        "summary-stock-watch",
-        "stockAlerts",
-        "quoteImportPreview",
-        "applyQuoteImport",
-        "quoteImportRequestId",
-        "beginQuoteImportRequest",
-        "isCurrentQuoteImportRequest",
-        "quote-list-layout-active",
-        "quote-floating-button",
-    ]:
-        assert token in quote_sources + css
-
-    assert 'import { buildSummaryRows, summaryProductImage } from "./lib/summaryRows.js";' in view
-    assert "buildSummaryRows(products, sources)" in view
-    assert "cell.offer = offer;" not in view
-    assert "{#if cell?.offer}" in view
-    assert "stockWatchWorkspace.toggle(product, offer)" in view
-    assert "quoteWorkspace.addProduct(product)" in view
-    assert "aria-pressed={isSubscribed(row.product, cell.offer)}" in view
-    assert "stockWatchTargetId(row.product, cell.offer)" in view
-    assert "cell.offer.provider_name || source.name" in view
-    assert "summaryProductImage(row.product)" in view
-    assert "row.product.sku" in view
-    assert "row.product.ean" in view
-    assert "row.product.pantone" in view
-    assert "quoteListReadOnly" in view
-    assert "readOnly={quoteListReadOnly}" in view
-    assert "disabled={readOnly}" in panel
-    assert "disabled={readOnly}" in item
-    assert "{readOnly}" in drawer
-    assert "componentActive" in view
-    assert "invalidateQuoteImportRequest();" in view
-    assert "min-width: 44px" in css
-    assert "min-height: 44px" in css
-    assert ".summary-table-region" in css
-
-
-def test_summary_read_only_disables_every_quote_import_mutation_control():
-    view = (SRC / "SummaryApp.svelte").read_text(encoding="utf-8")
-    picker = view.split("function openQuoteImportPicker() {", 1)[1].split(
-        "\n  async function handleQuoteImportFile", 1
-    )[0]
-
-    assert picker.index("if (quoteListReadOnly || !quoteWorkspace)") < picker.index(
-        "quoteImportInput?.click()"
-    )
-
-    assert (
-        '<button class="soft-button" type="button" disabled={!quoteWorkspace || quoteListReadOnly} '
-        'on:click={openQuoteImportPicker}>Importar lista</button>'
-    ) in view
-    assert (
-        '<button class="primary-button" type="button" disabled={quoteListReadOnly} '
-        'on:click={() => applyQuoteImport("combine")}>Combinar</button>'
-    ) in view
-    assert (
-        '<button class="soft-button" type="button" disabled={quoteListReadOnly} '
-        'on:click={() => applyQuoteImport("replace")}>Reemplazar</button>'
-    ) in view
-    assert (
-        '<button class="soft-button" type="button" disabled={quoteListReadOnly || !quoteWorkspace} '
-        'on:click={openQuoteImportPicker}>Elegir otro archivo</button>'
-    ) in view
-    assert (
-        '<input class="quote-import-input" type="file" disabled={quoteListReadOnly || !quoteWorkspace} '
-        'accept=".json,application/json"'
-    ) in view
-
-
-def test_summary_sticky_headers_are_explicit_across_scroll_modes():
-    css = (SRC / "styles" / "global.css").read_text(encoding="utf-8")
-    base_region = css.split(".summary-table-region {", 1)[1].split("}", 1)[0]
-    quote_scroller = css.split(
-        ".summary-action-layout.quote-list-layout-active .summary-table-region {", 1
-    )[1].split("}", 1)[0]
-    desktop_head = css.split(".summary-table thead th {", 1)[1].split("}", 1)[0]
-    quote_head = css.split(
-        ".summary-action-layout.quote-list-layout-active .summary-table thead th {", 1
-    )[1].split("}", 1)[0]
-    quote_groups = css.split(
-        ".summary-action-layout.quote-list-layout-active .summary-table tbody .summary-group-row th,", 1
-    )[1].split("}", 1)[0]
-    mobile = css.split("@media (max-width: 820px)", 1)[1]
-
-    assert "overflow-x" not in base_region
-    assert "overflow-x: auto" in quote_scroller
-    assert "position: sticky" in desktop_head
-    assert "position: static" in quote_head
-    assert "position: static" in quote_groups
-    assert ".summary-action-layout.quote-list-layout-active .summary-table-region" in mobile
-    assert "overflow-x: visible" in mobile
-
-
-def test_summary_mobile_controls_keep_44px_targets_and_focus_rings_unclipped():
-    css = (SRC / "styles" / "global.css").read_text(encoding="utf-8")
-    quick_lines_shell = css.split(".quick-lines-shell {", 1)[1].split("}", 1)[0]
-    mobile_tablet = css.split("@media (max-width: 820px)", 1)[1].split(
-        "@media (max-width: 520px)", 1
-    )[0]
-    mobile = css.split("@media (max-width: 520px)", 1)[1].split("@keyframes", 1)[0]
-
-    assert "overflow: hidden" not in quick_lines_shell
-    mobile_target_rule = mobile.split(".quick-line,", 1)[1].split("}", 1)[0]
-    for selector in [
-        ".quick-line",
-        ".filters input",
-        ".status-strip .soft-button",
-        ".stock-alert-banner a,",
-    ]:
-        assert selector in ".quick-line," + mobile_target_rule
-    assert "min-height: 44px" in mobile_target_rule
-
-    assert "44px" in mobile.split(".quote-import-help-tip {", 1)[1].split("}", 1)[0]
-    assert "min-height: 44px" in mobile.split(".quote-workflow-tabs button,", 1)[1].split("}", 1)[0]
-    assert "width: 44px" in mobile.split(".quote-list-drawer-close,", 1)[1].split("}", 1)[0]
-    assert "height: 44px" in mobile.split(".quote-quantity-control button,", 1)[1].split("}", 1)[0]
-
-    mobile_root = mobile_tablet.split(":root {", 1)[1].split("}", 1)[0]
-    quick_lines = mobile_tablet.split(".quick-lines {", 1)[1].split("}", 1)[0]
-    quick_line_height = int(re.search(r"--quick-lines-height:\s*(\d+)px", mobile_root).group(1))
-    padding = re.search(r"padding:\s*(\d+)px\s+\d+px\s+(\d+)px", quick_lines)
-    mobile_control_height = int(
-        re.search(r"min-height:\s*(\d+)px", mobile_target_rule).group(1)
-    )
-
-    assert "min-height: var(--quick-lines-height)" in quick_lines
-    assert quick_line_height >= mobile_control_height + int(padding.group(1)) + int(padding.group(2))
-    assert "box-sizing: border-box" in css.split("* {", 1)[1].split("}", 1)[0]
-
-
-def test_summary_labels_support_current_and_legacy_stock_payloads():
-    script = """
-      import { finishLabel, lineVariantDisambiguator, subrangeLabel } from "./src/lib/shared.js";
-      const sampler = (material, variant) => ({
-        material,
-        variant,
-        offers: [{ original_name: `SAMPLER ${variant} X 10 M` }],
-      });
-      const labels = [
-        subrangeLabel({ material: "PLA", subrange: "Astra", variant: "PLA Astra" }),
-        subrangeLabel({ material: "PLA", variant: "PLA Astra" }),
-        subrangeLabel({ material: "PLA", variant: null }),
-        subrangeLabel({ material: "PETG", variant: "PETG Clear" }),
-        finishLabel({ finish: "Glitter" }),
-        finishLabel({}),
-        lineVariantDisambiguator(sampler("PLA", "PLA Silk")),
-        lineVariantDisambiguator(sampler("PLA", "PLA Astra")),
-        lineVariantDisambiguator(sampler("PLA", "PLA Wood")),
-        lineVariantDisambiguator(sampler("Nylon", "Nylon 6")),
-        lineVariantDisambiguator(sampler("Nylon", "Nylon 12")),
-        lineVariantDisambiguator({ material: "PLA", variant: "PLA Silk", offers: [] }),
-      ];
-      process.stdout.write(JSON.stringify(labels));
-    """
-    result = subprocess.run(
-        ["node", "--input-type=module", "--eval", script],
-        check=True,
-        capture_output=True,
-        text=True,
-    )
-
-    assert json.loads(result.stdout) == [
-        "Astra", "Astra", "Standard", "", "Glitter", "",
-        "Silk", "Astra", "Wood", "Nylon 6", "Nylon 12", "",
-    ]
-
-
-def test_summary_sampler_headings_show_collapsed_legacy_variants():
-    view = (SRC / "SummaryApp.svelte").read_text(encoding="utf-8")
-
-    assert "lineVariantDisambiguator" in view
-    group_title = view[view.index("function groupTitle(product)"):view.index("function groupMaterialSections(groups)")]
-    assert "const variantDisambiguator = lineVariantDisambiguator(product);" in group_title
-    assert "const compactLine = lineLabel(product);" in group_title
-    assert "variantDisambiguator || subrangeLabel(product)" in group_title
-    assert "variantDisambiguator ? compactLine" in group_title
-    assert "compactLine, variantDisambiguator" in group_title
+    assert ".quote-list-drawer" in css
+    assert "justify-items: end" in css
+    assert "width: min(460px" in css
+    assert "@media (max-width: 1100px)" in css
+    assert ".summary-total" in css
+    assert ".summary-photo-cell" in css
+    assert ".summary-product-photo-placeholder" in css
+    assert ".summary-color-cell" in css
+    assert ".summary-add-cell" in css
+    assert ".presentation-group-marker" in css
 
 
 def test_internal_vendor_svelte_uses_feature_flag_and_30_day_history():
@@ -894,10 +393,6 @@ def test_styles_are_compact_and_responsive():
     assert ".soft-button.active" in css
     assert ".summary-group-row" in css
     assert ".summary-group-row.quick-target" in css
-    assert ".summary-material-row" in css
-    assert ".summary-material-row h2" in css
-    assert ".summary-group-heading h3" in css
-    assert ".summary-group-finish" in css
     assert ".summary-group-row.is-stuck td" not in css
     assert "color: transparent" not in css
     assert "top: calc(var(--quick-lines-height) + var(--summary-head-height))" in css

@@ -9,7 +9,6 @@
   export let showQuickControls = false;
   export let storageWarning = "";
   export let reconcileNotice = "";
-  export let readOnly = false;
   export let onClose = () => {};
   export let onToggleControls = () => {};
   export let onSetQuantity = () => {};
@@ -108,7 +107,6 @@
         {showQuickControls}
         {storageWarning}
         {reconcileNotice}
-        {readOnly}
         {onToggleControls}
         {onSetQuantity}
         {onRemoveItem}
