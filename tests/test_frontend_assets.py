@@ -656,3 +656,10 @@ def test_color_picker_page_is_linked_and_built():
     assert 'active="color-picker"' in app
     assert 'href: "color-picker.html"' in header
     assert 'colorPicker: resolve(__dirname, "color-picker.html")' in vite
+
+    palette = (SRC / "components" / "ColorPalette.svelte").read_text(encoding="utf-8")
+    assert 'aria-pressed={selectedIds.includes(group.id)}' in palette
+    assert 'view === "continuous"' in palette
+    assert 'view === "families"' in palette
+    assert 'view === "map"' in palette
+    assert "Ocultar sin stock" in app

@@ -93,6 +93,29 @@ main:focus {
   padding: 18px 0 28px;
 }
 
+.color-picker-page { width: min(1180px, calc(100% - 32px)); margin: 0 auto; padding: 28px 0 56px; }
+.color-picker-hero h1 { margin: 4px 0 8px; }
+.color-picker-hero p { max-width: 720px; margin: 0; color: var(--muted); }
+.color-picker-state { margin-top: 20px; }
+.color-picker-controls, .color-picker-summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 20px; }
+.color-picker-view-tabs { display: flex; flex-wrap: wrap; gap: 8px; }
+.color-picker-view-tabs button.active { color: var(--surface); background: var(--text); }
+.color-picker-stock-toggle { display: inline-flex; align-items: center; gap: 8px; }
+.color-picker-palette-continuous, .color-picker-family-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(42px, 1fr)); gap: 4px; margin-top: 12px; }
+.color-picker-tile { position: relative; min-width: 0; aspect-ratio: 1; padding: 0; border: 1px solid color-mix(in srgb, var(--line) 72%, var(--picker-color)); background: var(--picker-color); }
+.color-picker-tile.without-stock { border-style: dashed; filter: saturate(.58); }
+.color-picker-tile[aria-pressed="true"] { outline: 3px solid var(--text); outline-offset: 2px; z-index: 1; }
+.color-picker-stock-mark { position: absolute; top: 2px; right: 4px; color: var(--text); text-shadow: 0 1px 2px var(--surface); }
+.color-picker-palette-families { display: grid; gap: 20px; margin-top: 16px; }
+.color-picker-family h2 { margin: 0; font-size: 1rem; }
+.color-picker-map-scroll { overflow-x: auto; margin-top: 12px; }
+.color-picker-map { position: relative; display: grid; grid-template-columns: repeat(12, minmax(64px, 1fr)); grid-template-rows: repeat(6, minmax(64px, auto)); gap: 4px; min-width: 820px; padding: 22px 0 20px 30px; }
+.color-picker-map-cell { display: flex; flex-wrap: wrap; gap: 3px; min-width: 0; }
+.color-picker-map-cell .color-picker-tile { flex: 1 1 30px; }
+.color-picker-map-y, .color-picker-map-x { position: absolute; color: var(--muted); font-size: .75rem; }
+.color-picker-map-y { top: 0; left: 30px; }
+.color-picker-map-x { right: 0; bottom: 0; }
+
 .site-header {
   display: grid;
   grid-template-columns: minmax(260px, 1fr) auto minmax(190px, auto);

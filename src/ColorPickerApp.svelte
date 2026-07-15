@@ -1,8 +1,9 @@
 <script>
   import { onMount } from "svelte";
+  import ColorPalette from "./components/ColorPalette.svelte";
   import SiteFooter from "./components/SiteFooter.svelte";
   import SiteHeader from "./components/SiteHeader.svelte";
-  import { buildPlaColorCatalog } from "./lib/colorPicker.js";
+  import { buildPlaColorCatalog, toggleComparedColor } from "./lib/colorPicker.js";
   import { fetchJson } from "./lib/shared.js";
 
   let loading = true;
@@ -11,6 +12,14 @@
   let excludedCount = 0;
   let sources = [];
   let generatedAt = "";
+  let activeView = "continuous";
+  let hideOutOfStock = false;
+  let selectedIds = [];
+  let referenceHex = "";
+  let referenceGroupId = "";
+  let selectionMessage = "";
+
+  $: visibleGroups = hideOutOfStock ? groups.filter((group) => group.inStock) : groups;
 
   onMount(loadCatalog);
 
@@ -29,6 +38,14 @@
     sources = Array.isArray(payload.sources) ? payload.sources : [];
     generatedAt = payload.generated_at || "";
     loading = false;
+  }
+
+  function selectGroup(group) {
+    referenceHex = group.hex;
+    referenceGroupId = group.id;
+    const result = toggleComparedColor(selectedIds, group.id);
+    selectedIds = result.ids;
+    selectionMessage = result.message;
   }
 </script>
 
@@ -53,7 +70,25 @@
   {:else if !groups.length}
     <p class="color-picker-state">No hay filamentos PLA con datos HEX disponibles.</p>
   {:else}
-    <p class="color-picker-state">{groups.length} colores PLA{excludedCount ? ` · ${excludedCount} sin datos cromáticos` : ""}</p>
+    <section class="color-picker-controls" aria-label="Organización de la paleta">
+      <div class="color-picker-view-tabs">
+        {#each [["continuous", "Continuo"], ["families", "Familias"], ["map", "Mapa 2D"]] as [id, label]}
+          <button type="button" class:active={activeView === id} aria-pressed={activeView === id} on:click={() => activeView = id}>{label}</button>
+        {/each}
+      </div>
+      <label class="color-picker-stock-toggle">
+        <input type="checkbox" bind:checked={hideOutOfStock}>
+        <span>Ocultar sin stock</span>
+      </label>
+    </section>
+
+    <div class="color-picker-summary">
+      <span>{visibleGroups.length} colores</span>
+      {#if excludedCount}<span>{excludedCount} productos PLA sin HEX</span>{/if}
+    </div>
+
+    <ColorPalette groups={visibleGroups} view={activeView} {selectedIds} onSelect={selectGroup} />
+    <p class="sr-only" aria-live="polite">{selectionMessage}</p>
   {/if}
 </main>
 
