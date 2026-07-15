@@ -11,6 +11,7 @@ const toOklch = converter("oklch");
 const toRgb = converter("rgb");
 const ciede2000 = differenceCiede2000();
 const familyOrder = ["Rojos", "Naranjas", "Amarillos", "Verdes", "Turquesas", "Azules", "Violetas", "Rosas", "Neutros"];
+const continuousBandOrder = ["intense", "muted", "earth", "neutral"];
 
 export function normalizeHex(value) {
   const raw = String(value || "").trim().toUpperCase();
@@ -131,6 +132,28 @@ function oklchFor(group) {
     c: Number(value.c || 0),
     h: Number.isFinite(value.h) ? value.h : 0,
   };
+}
+
+export function colorOrderBand(group) {
+  const { l, c, h } = oklchFor(group);
+  if (c < 0.035) return "neutral";
+  if (h >= 15 && h < 85 && l < 0.62 && c < 0.11) return "earth";
+  return c >= 0.11 ? "intense" : "muted";
+}
+
+export function groupContinuousBands(groups) {
+  const result = new Map(continuousBandOrder.map((band) => [band, []]));
+  for (const group of groups || []) result.get(colorOrderBand(group)).push(group);
+  for (const [band, items] of result) {
+    items.sort((left, right) => {
+      const a = oklchFor(left);
+      const b = oklchFor(right);
+      if (band === "neutral") return b.l - a.l || left.id.localeCompare(right.id, "es-AR");
+      return a.h - b.h || b.l - a.l || b.c - a.c || left.id.localeCompare(right.id, "es-AR");
+    });
+    if (!items.length) result.delete(band);
+  }
+  return result;
 }
 
 export function sortPerceptually(groups) {

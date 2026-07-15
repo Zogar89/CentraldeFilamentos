@@ -3,8 +3,10 @@ import assert from "node:assert/strict";
 import {
   buildColorMap,
   buildPlaColorCatalog,
+  colorOrderBand,
   distanceLabel,
   findSimilarColors,
+  groupContinuousBands,
   groupColorFamilies,
   isValidHex,
   normalizeHex,
@@ -93,6 +95,23 @@ test("sorts, groups, and maps from current OKLCH values", () => {
   assert.equal(sortPerceptually(groups).length, 3);
   assert.equal(groupColorFamilies(groups).get("Neutros").length, 1);
   assert.ok(buildColorMap(groups).every((item) => item.mapColumn >= 1 && item.mapColumn <= 12 && item.mapRow >= 1 && item.mapRow <= 6));
+});
+
+test("separates the continuous palette into intense, muted, earth, and neutral bands", () => {
+  const groups = buildPlaColorCatalog([
+    product({ id: "red", color: "Rojo", pantone_hex: "#E63424" }),
+    product({ id: "pastel", color: "Pastel", pantone_hex: "#DFA0BA" }),
+    product({ id: "earth", color: "Tierra", pantone_hex: "#7B432D" }),
+    product({ id: "white", color: "Blanco", pantone_hex: "#FBFAF4" }),
+    product({ id: "black", color: "Negro", pantone_hex: "#17191C" }),
+  ]).groups;
+  const bands = groupContinuousBands(groups);
+
+  assert.deepEqual([...bands.keys()], ["intense", "muted", "earth", "neutral"]);
+  assert.equal(colorOrderBand(groups.find((group) => group.id.includes("rojo"))), "intense");
+  assert.equal(colorOrderBand(groups.find((group) => group.id.includes("pastel"))), "muted");
+  assert.equal(colorOrderBand(groups.find((group) => group.id.includes("tierra"))), "earth");
+  assert.deepEqual(bands.get("neutral").map((group) => group.id), ["grilon3-pla-standard-blanco", "grilon3-pla-standard-negro"]);
 });
 
 test("returns exactly three ordered CIEDE2000 neighbors and excludes the source group", () => {
