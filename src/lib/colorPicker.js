@@ -201,6 +201,26 @@ function mapAnchor(value) {
   };
 }
 
+function isMapPositionFree(candidate, placed) {
+  return placed.every((other) => Math.hypot(candidate.x - other.mapX, candidate.y - other.mapY) >= 3.4);
+}
+
+function fallbackMapPosition(point, placed) {
+  const candidates = [];
+  for (let y = 2; y <= 98; y += 3.5) {
+    for (let x = 2; x <= 98; x += 3.5) {
+      candidates.push({ x, y });
+    }
+  }
+  candidates.sort((left, right) => (
+    Math.hypot(left.x - point.anchorX, left.y - point.anchorY)
+    - Math.hypot(right.x - point.anchorX, right.y - point.anchorY)
+    || left.y - right.y
+    || left.x - right.x
+  ));
+  return candidates.find((candidate) => isMapPositionFree(candidate, placed));
+}
+
 function separateMapPoints(points) {
   const ordered = points.slice().sort((left, right) => (
     left.anchorY - right.anchorY || left.anchorX - right.anchorX || left.id.localeCompare(right.id, "es-AR")
@@ -209,8 +229,7 @@ function separateMapPoints(points) {
   for (const point of ordered) {
     let candidate = { x: point.anchorX, y: point.anchorY };
     for (let attempt = 0; attempt < 48; attempt += 1) {
-      const collides = placed.some((other) => Math.hypot(candidate.x - other.mapX, candidate.y - other.mapY) < 3.4);
-      if (!collides) break;
+      if (isMapPositionFree(candidate, placed)) break;
       const angle = (attempt + 1) * 2.399963;
       const radius = 2 + Math.floor(attempt / 6) * 1.5;
       candidate = {
@@ -218,6 +237,8 @@ function separateMapPoints(points) {
         y: clamp(point.anchorY + Math.sin(angle) * radius, 2, 98),
       };
     }
+    if (!isMapPositionFree(candidate, placed)) candidate = fallbackMapPosition(point, placed);
+    if (!candidate) throw new Error("No hay una posición libre para el punto de color.");
     placed.push({ ...point, mapX: candidate.x, mapY: candidate.y });
   }
   return placed;

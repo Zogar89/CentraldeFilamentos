@@ -98,21 +98,39 @@ test("sorts, groups, and maps from current OKLCH values", () => {
 });
 
 test("separates perceptual map points that share a tone and luminosity anchor", () => {
-  const groups = buildPlaColorCatalog([
-    product({ id: "red-a", color: "Rojo A", pantone_hex: "#CC3333" }),
-    product({ id: "red-b", color: "Rojo B", pantone_hex: "#CC3333" }),
-    product({ id: "white", color: "Blanco", pantone_hex: "#F7F7F7" }),
-  ]).groups;
+  const groups = [
+    { id: "red-a", hex: "#CC3333" },
+    { id: "red-b", hex: "#CC3333" },
+    { id: "white", hex: "#F7F7F7" },
+  ];
   const points = buildColorMap(groups);
+  const redA = points.find((point) => point.id === "red-a");
+  const redB = points.find((point) => point.id === "red-b");
 
   assert.equal(points.length, 3);
   assert.ok(points.every((point) => point.mapX >= 0 && point.mapX <= 100));
   assert.ok(points.every((point) => point.mapY >= 0 && point.mapY <= 100));
   assert.ok(points.every((point) => point.mapSize >= 12 && point.mapSize <= 24));
   assert.notDeepEqual(
-    [points[0].mapX, points[0].mapY],
-    [points[1].mapX, points[1].mapY],
+    [redA.mapX, redA.mapY],
+    [redB.mapX, redB.mapY],
   );
+});
+
+test("separates dense map clusters without duplicate final coordinates", () => {
+  const groups = Array.from({ length: 64 }, (_, index) => ({ id: `red-${index}`, hex: "#CC3333" }));
+  const points = buildColorMap(groups);
+  const coordinates = new Set(points.map((point) => `${point.mapX},${point.mapY}`));
+
+  assert.equal(coordinates.size, points.length);
+  for (let left = 0; left < points.length; left += 1) {
+    for (let right = left + 1; right < points.length; right += 1) {
+      assert.ok(
+        Math.hypot(points[left].mapX - points[right].mapX, points[left].mapY - points[right].mapY) >= 3.4,
+        `points ${points[left].id} and ${points[right].id} must remain separated`,
+      );
+    }
+  }
 });
 
 test("separates the continuous palette into intense, muted, earth, and neutral bands", () => {
