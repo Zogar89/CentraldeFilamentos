@@ -1,1 +1,0 @@
-import"./modulepreload-polyfill-CSRv37U6.js";function e(e,t=``,n=``){return`${e}${t}${n}`}typeof window<`u`&&window.location.replace(e(`/CentraldeFilamentos/`,window.location.search,window.location.hash));
