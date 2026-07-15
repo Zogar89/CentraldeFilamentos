@@ -663,6 +663,12 @@ def test_color_picker_page_is_linked_and_built():
     assert 'view === "continuous"' in palette
     assert 'view === "families"' in palette
     assert 'view === "map"' in palette
+    assert "groupContinuousBands" in palette
+    assert "color-picker-continuous-band" in palette
+    assert "Rueda cromática intensa" in palette
+    assert "Claros y apagados" in palette
+    assert "Tierras y marrones" in palette
+    assert "Neutros" in palette
     assert "Ocultar sin stock" in app
 
     similar = (SRC / "components" / "SimilarColorSearch.svelte").read_text(encoding="utf-8")
@@ -688,3 +694,4 @@ def test_color_picker_page_is_linked_and_built():
     assert ".color-picker-tile:focus-visible::after" in styles
     assert "grid-template-columns: repeat(2, minmax(0, 1fr))" in styles
     assert "grid-template-columns: minmax(0, 1fr)" in styles
+    assert ".color-picker-continuous-band" in styles

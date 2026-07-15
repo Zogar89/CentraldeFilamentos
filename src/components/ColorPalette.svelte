@@ -1,14 +1,23 @@
 <script>
-  import { buildColorMap, groupColorFamilies, sortPerceptually } from "../lib/colorPicker.js";
+  import { buildColorMap, groupColorFamilies, groupContinuousBands } from "../lib/colorPicker.js";
 
   export let groups = [];
   export let view = "continuous";
   export let selectedIds = [];
   export let onSelect = () => {};
 
-  $: continuousGroups = sortPerceptually(groups);
+  $: continuousBands = groupContinuousBands(groups);
   $: familyGroups = [...groupColorFamilies(groups)];
   $: mapGroups = buildColorMap(groups);
+
+  function continuousBandLabel(band) {
+    return {
+      intense: "Rueda cromática intensa",
+      muted: "Claros y apagados",
+      earth: "Tierras y marrones",
+      neutral: "Neutros",
+    }[band] || band;
+  }
 
   function tooltip(group) {
     return `${group.brand} · ${group.line} · ${group.name} · ${group.hex} · ${group.inStock ? "con stock" : "sin stock"}`;
@@ -34,7 +43,14 @@
 
 {#if view === "continuous"}
   <div class="color-picker-palette color-picker-palette-continuous" aria-label="Paleta continua de colores PLA">
-    {#each continuousGroups as group (group.id)}{@render tile(group)}{/each}
+    {#each continuousBands as [band, items] (band)}
+      <section class="color-picker-continuous-band" aria-labelledby={`continuous-band-${band}`}>
+        <h2 id={`continuous-band-${band}`}>{continuousBandLabel(band)}</h2>
+        <div class="color-picker-continuous-grid">
+          {#each items as group (group.id)}{@render tile(group)}{/each}
+        </div>
+      </section>
+    {/each}
   </div>
 {:else if view === "families"}
   <div class="color-picker-palette color-picker-palette-families">
