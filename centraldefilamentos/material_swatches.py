@@ -18,9 +18,9 @@ from centraldefilamentos.material_appearance import (
 )
 
 
-RENDERER_VERSION = 1
-SWATCH_SIZE = 160
-SUPERSAMPLING = 2
+RENDERER_VERSION = 2
+SWATCH_SIZE = 320
+SUPERSAMPLING = 1
 
 FINISH_PROFILES: dict[str, dict[str, float]] = {
     "matte": {"roughness": 0.90, "metallic": 0.00, "clearcoat": 0.00},
