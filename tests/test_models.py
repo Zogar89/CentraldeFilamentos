@@ -3,7 +3,7 @@ from dataclasses import replace
 from centraldefilamentos.models import Offer, ProductGroup, ProviderStats, SourceStatus
 
 
-def test_product_group_serializes_for_public_json():
+def test_product_group_serializes_subrange_for_public_json():
     offer = Offer(
         source_id="filamentos3d",
         provider_name="Filamentos3D",
@@ -40,6 +40,8 @@ def test_product_group_serializes_for_public_json():
         estimated_color_warning="Color estimado.",
         sku="M09INE175CJ",
         ean="7798049653037",
+        subrange="Astra",
+        finish="Glitter",
         display_name="PLA Negro Grilon3 1 kg",
         offers=[offer],
     )
@@ -61,6 +63,18 @@ def test_product_group_serializes_for_public_json():
     assert payload["estimated_color_confidence_interval"] == [0.5, 0.79]
     assert payload["sku"] == "M09INE175CJ"
     assert payload["ean"] == "7798049653037"
+    assert payload["subrange"] == "Astra"
+    assert payload["finish"] == "Glitter"
+
+    without_estimate = replace(
+        product,
+        estimated_color_hex="",
+        estimated_color_confidence_band="",
+        estimated_color_confidence_interval=[],
+        estimated_color_source="",
+        estimated_color_warning="",
+    ).to_dict()
+    assert not any(key.startswith("estimated_color_") for key in without_estimate)
 
     without_estimate = replace(
         product,

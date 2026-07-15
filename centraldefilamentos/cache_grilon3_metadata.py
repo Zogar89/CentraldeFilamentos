@@ -149,6 +149,10 @@ def _asset_filename(remote_url: str) -> str:
     return f"{stem}-{digest}{suffix}"
 
 
+def grilon3_asset_filename(remote_url: str) -> str:
+    return _asset_filename(remote_url)
+
+
 def _is_remote_url(value: str) -> bool:
     return value.startswith("http://") or value.startswith("https://")
 
@@ -199,6 +203,10 @@ def main() -> None:
         )
         write_metadata_cache(cache, args.output)
     else:
+        print(
+            "AVISO: el refresco completo por esta vía está deprecado. "
+            "Use el flujo scan → curate → apply; --images-only sigue disponible para compatibilidad."
+        )
         cache = write_grilon3_metadata_cache(
             output_path=args.output,
             timeout_seconds=args.timeout_seconds,

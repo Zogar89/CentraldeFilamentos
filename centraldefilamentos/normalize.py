@@ -66,6 +66,17 @@ VARIANT_RULES = [
     ("PRO", "Pro"),
 ]
 
+PLA_SUBRANGES = {
+    "": ("Standard", ""),
+    "PLA Astra": ("Astra", "Glitter"),
+    "PLA Silk": ("Silk", "Brillo metálico"),
+    "PLA Wood": ("Wood", "Madera"),
+    "PLA Boutique": ("Boutique", ""),
+    "PLA 850": ("PLA 850", ""),
+    "PLA 870": ("PLA 870", ""),
+    "PLA Zeta": ("Zeta", ""),
+}
+
 COLOR_RULES = [
     ("GRIS PLATA", "Gris Plata"),
     ("GRIS ACERO", "Gris Acero"),
@@ -93,6 +104,7 @@ COLOR_RULES = [
     ("ROJO CARMIN", "Rojo Carmin"),
     ("VERDE LIMA", "Verde Lima"),
     ("MAGENTA FLUO", "Magenta Fluo"),
+    ("MAGENTA", "Magenta"),
     ("GRIS ESPACIAL", "Gris Espacial"),
     ("BLANCO PERLA", "Blanco Perla"),
     ("CREMA DEL CIELO", "Crema del Cielo"),
@@ -181,6 +193,7 @@ def normalize_record(item: RawStockItem) -> NormalizedFields:
     diameter_mm = _detect_diameter(text)
     weight_g = _detect_weight(text)
     brand = _detect_brand(text, item.brand_hint)
+    subrange, finish = pla_subrange(variant, material)
 
     return NormalizedFields(
         material=material,
@@ -190,7 +203,15 @@ def normalize_record(item: RawStockItem) -> NormalizedFields:
         weight_g=weight_g,
         brand=brand,
         manufacturer_name=brand,
+        subrange=subrange,
+        finish=finish,
     )
+
+
+def pla_subrange(variant: str, material: str) -> tuple[str, str]:
+    if material != "PLA":
+        return "", ""
+    return PLA_SUBRANGES.get(variant, (variant, ""))
 
 
 def build_product_id(fields: NormalizedFields) -> str:

@@ -18,22 +18,42 @@ def test_material_swatches_are_generated_and_published_by_workflows():
     assert "public/assets/material-swatches" in thumbnails_workflow
 
 
+def test_prerendered_material_swatches_are_used_across_product_views():
+    summary_source = (SRC / "SummaryApp.svelte").read_text(encoding="utf-8")
+    quote_item_source = (SRC / "components" / "QuoteListItem.svelte").read_text(encoding="utf-8")
+    quote_list_source = (SRC / "lib" / "quoteList.js").read_text(encoding="utf-8")
+    shared_source = (SRC / "lib" / "shared.js").read_text(encoding="utf-8")
+    css = (SRC / "styles" / "global.css").read_text(encoding="utf-8")
+
+    assert "materialSwatchPath" in shared_source
+    assert "materialSwatchAlt" in shared_source
+    assert "material_swatch_url" in summary_source
+    assert "summary-material-swatch" in summary_source
+    assert "materialSwatchUrl" in quote_list_source
+    assert "materialFinish" in quote_list_source
+    assert "quote-list-material-swatch" in quote_item_source
+    assert ".quote-list-material-swatch" in css
+
+
 def test_static_frontend_files_exist_and_are_linked():
     index = Path("index.html").read_text(encoding="utf-8")
     resumen = Path("resumen.html").read_text(encoding="utf-8")
     internal = Path("estadisticas.html").read_text(encoding="utf-8")
     flags = json.loads((PUBLIC / "data" / "feature_flags.json").read_text(encoding="utf-8"))
-    catalog_view = (SRC / "CatalogApp.svelte").read_text(encoding="utf-8")
+    summary_view = (SRC / "SummaryApp.svelte").read_text(encoding="utf-8")
     site_header = (SRC / "components" / "SiteHeader.svelte").read_text(encoding="utf-8")
 
-    assert 'type="module" src="/src/catalog.js"' in index
-    assert 'href: "resumen.html"' in site_header
+    assert 'type="module" src="/src/summary.js"' in index
+    assert 'type="module" src="/src/summary.js"' in resumen
+    assert not (SRC / "CatalogApp.svelte").exists()
+    assert not (SRC / "catalog.js").exists()
+    assert '{ id: "summary", label: "Resumen", href: "index.html" }' in site_header
+    assert 'label: "Catálogo"' not in site_header
     assert 'href: "index.html#site-footer"' in site_header
     assert 'href: "estadisticas.html"' not in site_header
     assert "provider-status" not in site_header
     assert "brand-mark" in site_header
-    assert "SiteHeader" in catalog_view
-    assert 'type="module" src="/src/summary.js"' in resumen
+    assert "SiteHeader" in summary_view
     assert 'id="merge-brands-toggle"' not in resumen
     assert "Fusionar Grilon3 + 3N3" not in resumen
     assert "estadisticas.html" not in index
@@ -43,161 +63,24 @@ def test_static_frontend_files_exist_and_are_linked():
     assert 'type="module" src="/src/vendor-stats.js"' in internal
     assert 'noindex,nofollow' in internal
     assert flags["vendorStatsEnabled"] is True
-    for entry in ["catalog.js", "summary.js", "vendor-stats.js"]:
+    for entry in ["summary.js", "vendor-stats.js"]:
         js = (SRC / entry).read_text(encoding="utf-8")
         assert 'import { mount } from "svelte"' in js
         assert "mount(" in js
         assert "new " not in js
 
 
-def test_catalog_svelte_fetches_json_and_supports_required_filters():
-    view = (SRC / "CatalogApp.svelte").read_text(encoding="utf-8")
-    shared = (SRC / "lib" / "shared.js").read_text(encoding="utf-8")
-    footer = (SRC / "components" / "SiteFooter.svelte").read_text(encoding="utf-8")
-    site_header = (SRC / "components" / "SiteHeader.svelte").read_text(encoding="utf-8")
-    quick_lines = (SRC / "components" / "QuickLines.svelte").read_text(encoding="utf-8")
-    subscriptions = (SRC / "lib" / "stockSubscriptions.js").read_text(encoding="utf-8")
-    js = view + shared + footer + site_header + quick_lines + subscriptions
-
-    assert "data/stock.json" in js
-    for filter_id in [
-        "material-filter",
-        "variant-filter",
-        "color-filter",
-        "diameter-filter",
-        "weight-filter",
-        "brand-filter",
-        "provider-filter",
-        "stock-filter",
-    ]:
-        assert filter_id in js
-    assert "contact_whatsapp_url" in js
-    assert "groupProducts" in js
-    assert "group-section" in js
-    assert "product.pantone" in js
-    assert "product.sku" in js
-    assert "product.ean" in js
-    assert "PLA Standard" in js
-    assert "PLA Flexible" in js
-    assert "brillo tipo glitter" in js
-    assert "E-PET - PET reciclado" in js
-    assert "PP-T - polipropileno" in js
-    assert "Sampler / lápiz 3D" in js
-    assert "isSamplerProduct" in js
-    assert "formatPresentation" in js
-    assert "samplerLengthLabel" in js
-    assert "groupBaseProducts" in js
-    assert "official-product-link" in js
-    assert "Abrir página oficial" in js
-    assert "data-preview-src" in js
-    assert "thumbnail_url" in js
-    assert 'loading="lazy"' in js
-    assert 'decoding="async"' in js
-    assert "image-preview" in js
-    assert "openImagePreview" in js
-    assert "image-preview-modal" in js
-    assert "media-pantone" in js
-    assert "compareImagePresentations" in js
-    assert "imagePresentationRank" in js
-    assert ".filter((item) => item.image_url)" in js
-    assert "Number(product.weight_g) === 1000" in js
-    assert "Number(product.weight_g) === 2500" in js
-    assert "pantoneSwatchLabel" in js
-    assert "colorSwatchStyle" in js
-    assert "baseColorFor" in js
-    assert "foldText" in js
-    assert "matchesSearchTerms" in js
-    assert "setFilter" in js
-    assert "filters, categoryOrder, products.filter" in js
-    assert "materialOptions = (products, valuesFor" in js
-    assert "providerOptions = (products, providerValues" in js
-    assert "matchesSearchToken" in js
-    assert "searchTokens" in js
-    assert 'term === "pla"' in js
-    assert 'token === "pla+"' in js
-    assert "token.startsWith(term)" in js
-    assert "queryText.includes" not in js
-    assert "presentation-row" in js
-    assert "productBaseName" in js
-    assert "quickLineValues" in js
-    assert "visibleLines" in js
-    assert "products, lineValues()" in js
-    assert "quickLabel" in js
-    assert "quickTone" in js
-    assert '"ABS"' in js
-    assert '"PLA Boutique"' in js
-    assert '"Nylon 6"' in js
-    assert "PLA Wood" in js
-    assert "categoryOrder" in js
-    assert "compareGroups" in js
-    assert "compareProductGroups" in js
-    assert "scrollIntoView" in js
-    assert "quick-target" in js
-    assert "updateScrollCue" in js
-    assert "showScrollCue" in js
-    assert "groupTargetId" in js
-    assert "slugText" in js
-    assert "state.filters.variant = button.dataset.line" not in js
-    assert "sin stock online registrado" in js
-    assert "offer-main" in js
-    assert "providerTitle" in js
-    assert "Sin cantidad" in js
-    assert "stockSubscriptionsStorageKey" in js
-    assert "centraldefilamentos.stockSubscriptions.v1" in js
-    assert "loadStockSubscriptions" in js
-    assert "saveStockSubscriptions" in js
-    assert "subscriptionKey" in js
-    assert "stockSignature" in js
-    assert "stockAlerts" in js
-    assert "increasedStock" in js
-    assert "currentQuantity > previousQuantity" in js
-    assert "previousQuantity" in js
-    assert "stockAlertLabel" in js
-    assert "Tus filamentos esperados volvieron" in site_header
-    assert "stock-alert-banner" in site_header
-    assert "stock-watch-button" in js
-    assert "Avisarme si sube o vuelve el stock" in js
-    assert "Seguir cambios de stock" in js
-    assert "Dejar de seguir cambios de stock" in js
-    assert "reconcileStockSubscriptions" in js
-    assert "dismissStockAlerts" in js
-    assert "stockWatchTargetId" in js
-    assert "0*" not in js
-    assert "El proveedor seguramente no maneja esta variante." not in js
-    assert "providerAnchorId" in js
-    assert "proveedor-" in js
-    assert "sourceWhatsappUrl" in js
-    assert "mapsHref" in js
-    assert "www.google.com/maps/search" in js
-    assert "footer-detail-link" in js
-    assert "contactContext" in js
-    assert "stockDelta" in js
-    assert "stock_delta_units" in js
-    assert "vs ayer" in js
-    assert "Creado por Gabriel" in js
-    assert "Reportar error" in js
-    assert "Sumar proveedor" in js
-    assert "https://github.com/Zogar89/CentraldeFilamentos/issues/new" in js
-    assert "encodeURIComponent" in js
-    assert "Rev." not in js
-    assert "whatsappLink" not in js
-    assert 'class="chips"' not in js
-    assert "function chip" not in js
-    assert "<span>${escapeHtml(offer.provider_zone)}</span>" not in js
-    assert "product.pantone ? chip(product.pantone)" not in js
-
-
 def test_quote_list_source_contract_covers_foundation():
     def read_source(path):
         return path.read_text(encoding="utf-8") if path.exists() else ""
 
-    catalog = read_source(SRC / "CatalogApp.svelte")
     quote_list = read_source(SRC / "lib" / "quoteList.js")
     quote_panel = read_source(SRC / "components" / "QuoteListPanel.svelte")
     quote_item = read_source(SRC / "components" / "QuoteListItem.svelte")
     quote_quantity = read_source(SRC / "components" / "QuoteQuantityControl.svelte")
+    summary_view = read_source(SRC / "SummaryApp.svelte")
     quote_sources = quote_list + quote_panel + quote_item + quote_quantity
-    js = catalog + quote_sources
+    js = quote_sources
 
     for path in [
         SRC / "lib" / "quoteList.js",
@@ -218,16 +101,6 @@ def test_quote_list_source_contract_covers_foundation():
         "reconcileQuoteList",
         "clampQuoteQuantity",
         "quoteQuantityLabel",
-        "QuoteListPanel",
-        "QuoteListItem",
-        "QuoteQuantityControl",
-        "addQuoteItem",
-        "saveQuoteListState",
-        "setQuoteItemQuantity",
-        "removeQuoteItem",
-        "clearQuoteList",
-        "toggleQuoteControls",
-        "presentation-row",
         "productId",
         "sku",
         "ean",
@@ -242,8 +115,6 @@ def test_quote_list_source_contract_covers_foundation():
         assert identifier in js
 
     for copy in [
-        "Agregar 1 unidad a la lista de cotizacion",
-        "+1",
         "Caja x12",
         "Lista de cotizacion",
         "Guardada en este dispositivo",
@@ -256,9 +127,10 @@ def test_quote_list_source_contract_covers_foundation():
         "confirmar dato",
         "confirmar stock",
         "Limpiar lista",
-        "¿Vaciar la lista de cotizacion? Se quitaran todos los filamentos guardados en este navegador.",
     ]:
         assert copy in js
+
+    assert "¿Vaciar la lista de cotizacion? Se quitaran todos los filamentos guardados en este navegador." in summary_view
 
     for control_token in [
         'aria-label="Restar 1 unidad"',
@@ -286,24 +158,18 @@ def test_quote_list_styles_contract_covers_panel_and_controls():
     def read_source(path):
         return path.read_text(encoding="utf-8") if path.exists() else ""
 
-    catalog = read_source(SRC / "CatalogApp.svelte")
     quote_list = read_source(SRC / "lib" / "quoteList.js")
     quote_panel = read_source(SRC / "components" / "QuoteListPanel.svelte")
     quote_drawer = read_source(SRC / "components" / "QuoteListDrawer.svelte")
+    summary_view = read_source(SRC / "SummaryApp.svelte")
     css = read_source(SRC / "styles" / "global.css")
-    quote_sources = catalog + quote_list + quote_panel + quote_drawer
+    quote_sources = summary_view + quote_list + quote_panel + quote_drawer
 
     assert (SRC / "components" / "QuoteListDrawer.svelte").exists()
     for identifier in [
-        "QuoteListDrawer",
-        "quote-floating-button",
         "quote-list-drawer",
         "quote-list-backdrop",
         "quote-list-panel",
-        "quote-list-layout-active",
-        "openQuoteDrawer",
-        "closeQuoteDrawer",
-        "handleQuoteDrawerKeydown",
         "reconcileQuoteList",
         "removedCount",
         "resetReason",
@@ -324,7 +190,7 @@ def test_quote_list_styles_contract_covers_panel_and_controls():
     assert "@media (max-width: 520px)" in css
     assert "position: fixed" in css
     assert "bottom:" in css
-    assert "minmax(320px, 360px)" in css
+    assert "width: min(460px" in css
 
 
 def test_summary_svelte_uses_carretes_totals_and_provider_order():
@@ -332,6 +198,7 @@ def test_summary_svelte_uses_carretes_totals_and_provider_order():
     shared = (SRC / "lib" / "shared.js").read_text(encoding="utf-8")
     footer = (SRC / "components" / "SiteFooter.svelte").read_text(encoding="utf-8")
     quick_lines = (SRC / "components" / "QuickLines.svelte").read_text(encoding="utf-8")
+    css = (SRC / "styles" / "global.css").read_text(encoding="utf-8")
     js = view + shared + footer + quick_lines
 
     assert "data/stock.json" in js
@@ -356,7 +223,36 @@ def test_summary_svelte_uses_carretes_totals_and_provider_order():
     assert "brandsLabel" not in js
     assert "Grilon3 + 3N3" not in js
     assert "matchesSearchTerms" in js
-    assert "query, rows.filter" in js
+    assert "products.filter(matchesFilters)" in js
+    for filter_id in [
+        "search-input",
+        "material-filter",
+        "color-filter",
+        "provider-filter",
+        "variant-filter",
+        "diameter-filter",
+        "weight-filter",
+        "brand-filter",
+        "stock-filter",
+    ]:
+        assert filter_id in view
+    assert "showCatalogHelp" in view
+    assert "addQuoteItem(row.product)" in view
+    assert "toggleStockSubscription(row.product, offer)" in view
+    assert "QuoteListDrawer" in view
+    assert "summary-product-photo" in view
+    assert "summary-product-photo-placeholder" in view
+    assert "summary-material-swatch" in view
+    assert "groupPresentationRows" in view
+    assert "summary-photo-column" in view
+    assert "summary-color-column" in view
+    assert "summary-add-column" in view
+    assert "presentation-grouped" in view
+    assert "presentation-group-marker" in view
+    assert "quote-list-trigger" in view
+    assert "quote-list-side-panel" not in view
+    assert "showAssetPreview" in view
+    assert "openAssetPreview" in view
     assert "matchesSearchToken" in js
     assert "searchTokens" in js
     assert 'term === "pla"' in js
@@ -379,7 +275,7 @@ def test_summary_svelte_uses_carretes_totals_and_provider_order():
     assert "Sumar proveedor" in js
     assert "https://github.com/Zogar89/CentraldeFilamentos/issues/new" in js
     assert "slugText" in js
-    assert "groupRows" in js
+    assert "groupSummaryRows" in js
     assert "0*" not in js
     assert "El proveedor seguramente no maneja esta variante" not in js
     assert "A revisar" not in js
@@ -390,6 +286,17 @@ def test_summary_svelte_uses_carretes_totals_and_provider_order():
     assert "vs ayer" in js
     assert "const stockDelta = stockDeltaTemplate(source.stats || {});" not in js
     assert "total_stock_kg" not in js
+
+    assert ".quote-list-drawer" in css
+    assert "justify-items: end" in css
+    assert "width: min(460px" in css
+    assert "@media (max-width: 1100px)" in css
+    assert ".summary-total" in css
+    assert ".summary-photo-cell" in css
+    assert ".summary-product-photo-placeholder" in css
+    assert ".summary-color-cell" in css
+    assert ".summary-add-cell" in css
+    assert ".presentation-group-marker" in css
 
 
 def test_internal_vendor_svelte_uses_feature_flag_and_30_day_history():

@@ -1,7 +1,7 @@
 <script>
   import { formatDate } from "../lib/shared.js";
 
-  export let active = "catalog";
+  export let active = "summary";
   export let updatedAt = "";
   export let subtitle = "";
   export let showCatalogHelp = false;
@@ -17,9 +17,8 @@
       : "";
 
   const navItems = [
-    { id: "catalog", label: "Catálogo", href: "index.html" },
+    { id: "summary", label: "Resumen", href: "index.html" },
     { id: "color-picker", label: "Color Picker", href: "color-picker.html" },
-    { id: "summary", label: "Resumen", href: "resumen.html" },
     { id: "providers", label: "Proveedores", href: "index.html#site-footer" },
   ];
 
@@ -35,7 +34,7 @@
 <a class="skip-link" href="#main-content">Saltar al contenido</a>
 
 <header class="site-header">
-  <a class="brand-lockup" href="index.html" aria-label="Ir al catálogo">
+  <a class="brand-lockup" href="index.html" aria-label="Ir al resumen">
     <span class="brand-mark" aria-hidden="true">CF</span>
     <span class="brand-copy">
       <span class="brand-title">Central de Filamentos</span>

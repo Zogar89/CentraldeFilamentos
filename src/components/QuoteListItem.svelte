@@ -3,7 +3,7 @@
     quoteItemCode,
     quoteItemMissingBadges,
   } from "../lib/quoteList.js";
-  import { colorSwatchLabel, colorSwatchStyle, dataUrl } from "../lib/shared.js";
+  import { colorSwatchLabel, colorSwatchStyle, dataUrl, materialSwatchAlt } from "../lib/shared.js";
   import QuoteQuantityControl from "./QuoteQuantityControl.svelte";
 
   export let item;
@@ -28,6 +28,11 @@
     <div class="quote-list-item-visual">
       {#if item?.thumbnailUrl || item?.imageUrl}
         <img src={dataUrl(item.thumbnailUrl || item.imageUrl)} alt="" loading="lazy" decoding="async">
+        {#if item?.materialSwatchUrl}
+          <img class="quote-list-material-swatch" src={dataUrl(item.materialSwatchUrl)} alt={materialSwatchAlt(item)} loading="lazy" decoding="async">
+        {/if}
+      {:else if item?.materialSwatchUrl}
+        <img class="quote-list-color material-swatch-primary" src={dataUrl(item.materialSwatchUrl)} alt={materialSwatchAlt(item)} loading="lazy" decoding="async">
       {:else}
         <span class="quote-list-color" style={colorSwatchStyle(item)} aria-label={item?.color || "Color a confirmar"}>
           {colorSwatchLabel(item?.color) || "?"}

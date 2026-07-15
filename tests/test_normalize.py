@@ -30,6 +30,49 @@ def test_normalizes_grilon3_pla_negro():
     assert fields.manufacturer_name == "Grilon3"
 
 
+def test_normalizes_grilon3_pla_magenta_as_distinct_canonical_color():
+    magenta = normalize_record(
+        raw("GRILON3 PLA MAGENTA 1.75 MM X 1 KG", brand_hint="Grilon3")
+    )
+    fucsia = normalize_record(
+        raw("GRILON3 PLA FUCSIA 1.75 MM X 1 KG", brand_hint="Grilon3")
+    )
+    rosa = normalize_record(
+        raw("GRILON3 PLA ROSA 1.75 MM X 1 KG", brand_hint="Grilon3")
+    )
+
+    assert (
+        magenta.material,
+        magenta.variant,
+        magenta.color,
+        magenta.diameter_mm,
+        magenta.weight_g,
+        magenta.brand,
+        magenta.subrange,
+        magenta.finish,
+    ) == ("PLA", "", "Magenta", 1.75, 1000, "Grilon3", "Standard", "")
+    assert build_product_id(magenta) == "pla-magenta-175-1000-grilon3"
+    assert {magenta.color, fucsia.color, rosa.color} == {"Magenta", "Fucsia", "Rosa"}
+
+
+def test_normalizes_official_colorless_pva_without_inventing_a_color():
+    fields = normalize_record(
+        raw("GRILON3 PVA SOLUBLE 1.75 MM X 500 GR", brand_hint="Grilon3")
+    )
+
+    assert (
+        fields.material,
+        fields.variant,
+        fields.color,
+        fields.diameter_mm,
+        fields.weight_g,
+        fields.brand,
+    ) == ("PVA", "PVA Soluble", "Sin color", 1.75, 500, "Grilon3")
+    assert build_product_id(fields) == (
+        "pva-pva-soluble-sin-color-175-500-grilon3"
+    )
+
+
 def test_normalizes_3n3_pla_plus_rojo():
     fields = normalize_record(raw("3N3 PLA+ Rojo 1 kg 1.75 mm", source_id="grupo_senz"))
 
@@ -64,6 +107,74 @@ def test_product_id_includes_brand_and_format():
     fields = normalize_record(raw("PLA Silk Azul 1kg 1.75mm Grilon3"))
 
     assert build_product_id(fields) == "pla-pla-silk-azul-175-1000-grilon3"
+
+
+@pytest.mark.parametrize(
+    ("name", "expected_subrange", "expected_finish"),
+    [
+        ("GRILON3 PLA NEGRO 1.75 MM X 1 KG", "Standard", ""),
+        ("GRILON3 ASTRA DARK 1.75 MM X 1 KG", "Astra", "Glitter"),
+        ("GRILON3 PLA SILK AZUL 1.75 MM X 1 KG", "Silk", "Brillo metálico"),
+        ("GRILON3 PLA WOOD NOGAL 1.75 MM X 1 KG", "Wood", "Madera"),
+        ("GRILON3 BOUTIQUE PERLA 1.75 MM X 1 KG", "Boutique", ""),
+        ("GRILON3 PLA 850 NARANJA 1.75 MM X 1 KG", "PLA 850", ""),
+        ("GRILON3 PLA 870 VERDE 1.75 MM X 1 KG", "PLA 870", ""),
+        ("GRILON3 PLA ZETA ROBY 1.75 MM X 1 KG", "Zeta", ""),
+        ("GRILON3 PETG CLEAR AZUL 1.75 MM X 1 KG", "", ""),
+    ],
+)
+def test_classifies_explicit_pla_commercial_subranges(
+    name, expected_subrange, expected_finish
+):
+    fields = normalize_record(raw(name, brand_hint="Grilon3"))
+
+    assert (fields.subrange, fields.finish) == (expected_subrange, expected_finish)
+
+
+def test_keeps_unmapped_pla_variant_as_subrange_without_inferred_finish():
+    fields = normalize_record(raw("3N3 PLA+ ROJO 1.75 MM X 1 KG"))
+
+    assert (fields.subrange, fields.finish) == ("PLA+", "")
+
+
+@pytest.mark.parametrize(
+    ("name", "expected_id"),
+    [
+        ("GRILON3 PLA NEGRO 1.75 MM X 1 KG", "pla-negro-175-1000-grilon3"),
+        (
+            "GRILON3 ASTRA DARK 1.75 MM X 1 KG",
+            "pla-pla-astra-dark-175-1000-grilon3",
+        ),
+        (
+            "GRILON3 PLA SILK AZUL 1.75 MM X 1 KG",
+            "pla-pla-silk-azul-175-1000-grilon3",
+        ),
+        (
+            "GRILON3 PLA WOOD NOGAL 1.75 MM X 1 KG",
+            "pla-pla-wood-nogal-175-1000-grilon3",
+        ),
+        (
+            "GRILON3 BOUTIQUE PERLA 1.75 MM X 1 KG",
+            "pla-pla-boutique-perla-175-1000-grilon3",
+        ),
+        (
+            "GRILON3 PLA 850 NARANJA 1.75 MM X 1 KG",
+            "pla-pla-850-naranja-175-1000-grilon3",
+        ),
+        (
+            "GRILON3 PLA 870 VERDE 1.75 MM X 1 KG",
+            "pla-pla-870-verde-175-1000-grilon3",
+        ),
+        (
+            "GRILON3 PLA ZETA ROBY 1.75 MM X 1 KG",
+            "pla-pla-zeta-roby-175-1000-grilon3",
+        ),
+    ],
+)
+def test_pla_subrange_fields_do_not_change_historical_product_ids(name, expected_id):
+    fields = normalize_record(raw(name, brand_hint="Grilon3"))
+
+    assert build_product_id(fields) == expected_id
 
 
 def test_normalizes_grilon3_official_lines():

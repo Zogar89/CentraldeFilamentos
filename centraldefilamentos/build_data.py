@@ -642,7 +642,7 @@ def load_grilon3_metadata(path: str | Path = GRILON3_METADATA_CACHE) -> dict[str
             continue
         clean = {
             key: str(data.get(key, ""))
-            for key in ["manufacturer_product_url", "pantone", "sku", "ean", "image_url"]
+            for key in ["manufacturer_product_url", "pantone", "sku", "ean", "image_url", "image_remote_url"]
             if data.get(key)
         }
         if clean:
@@ -1008,6 +1008,8 @@ def _product_from_group(
         estimated_color_warning=str(estimated_fields.get("estimated_color_warning", "")),
         sku=str(enrichment["sku"]),
         ean=str(enrichment["ean"]),
+        subrange=fields.subrange,
+        finish=fields.finish,
         display_name=build_display_name(fields),
         offers=offers,
     )

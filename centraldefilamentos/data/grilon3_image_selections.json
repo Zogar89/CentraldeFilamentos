@@ -1,0 +1,1338 @@
+{
+  "selections": {
+    "https://grilon3.com.ar/producto/abs-amarillo/": {
+      "gallery_fingerprint": "874b4cab4205f1b8ed61ebf94180dafc196c58c9cbda8783a99d83746f9f9f4f",
+      "product_url": "https://grilon3.com.ar/producto/abs-amarillo/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2021/01/abs_amarillo3.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/abs-azul/": {
+      "gallery_fingerprint": "2a89aa95bd3aaebc2e03513c9c060dbe0fd2b2b73b6a908975c19a63c8bff908",
+      "product_url": "https://grilon3.com.ar/producto/abs-azul/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2021/01/abs_azul3.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/abs-blanco-285/": {
+      "gallery_fingerprint": "95bef7be4e93357bbc268fc8657f07a8040e2feeb85f97e2da83a5ed17c4a5ee",
+      "product_url": "https://grilon3.com.ar/producto/abs-blanco-285/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/12/abs_285_blanco2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/abs-fucsia/": {
+      "gallery_fingerprint": "d2be009cd8aa899b0226c86a47efd405a2880606df8aedab9bd95a5ee2e139bd",
+      "product_url": "https://grilon3.com.ar/producto/abs-fucsia/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2021/01/abs_fucsia3.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/abs-naranja-fluo/": {
+      "gallery_fingerprint": "4c0a9558d39db1ebb6856e89f96cda853d347a4e2dc9b88d9b37db843147be81",
+      "product_url": "https://grilon3.com.ar/producto/abs-naranja-fluo/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2021/01/abs_naranja_fluo3.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/abs-natural/": {
+      "gallery_fingerprint": "3433b8918e774c81a8b85138460e4bc6753d4d6a1bf6329d7e929392155f270d",
+      "product_url": "https://grilon3.com.ar/producto/abs-natural/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2021/01/abs_blanco3.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/abs-negro-285/": {
+      "gallery_fingerprint": "e3d1a6d78a41bd4b793019e3e216fa8dc8832f300d76390761d44140fe30165e",
+      "product_url": "https://grilon3.com.ar/producto/abs-negro-285/",
+      "reviewed_at": "2026-07-14T02:18:54.132Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/12/abs_285_negro-1.jpg",
+      "selection_reason": "official_primary"
+    },
+    "https://grilon3.com.ar/producto/abs-negro/": {
+      "gallery_fingerprint": "a5b6eec2d3ecc3765eff4ed37ed302186526b96ba8b069294ef0fc24419eea4a",
+      "product_url": "https://grilon3.com.ar/producto/abs-negro/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2021/01/abs_negro3.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/abs-verde/": {
+      "gallery_fingerprint": "bc0d4be4e3ec2412a3494e3931ccf687e815ad7682d4328bf1cf14f049e08ea0",
+      "product_url": "https://grilon3.com.ar/producto/abs-verde/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2021/01/abs_verde3.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/acetal-gris-plata/": {
+      "gallery_fingerprint": "bad3e58d438650291656d1d13212ab5a635ec3b2f38c644406baa33e3a42d177",
+      "product_url": "https://grilon3.com.ar/producto/acetal-gris-plata/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2026/06/acetal_gris_plata2.webp",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-abs-blanco/": {
+      "gallery_fingerprint": "773e12a81b4e705c1040ff80f71298cdb929c8b38d89bda9a847bce10f881e03",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-abs-blanco/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/abs_blanco3.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-abs-gris-plata/": {
+      "gallery_fingerprint": "077e8497c7320eab90d6a5a87537b4c11304f05b762d766376402bd4ebc1a4b6",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-abs-gris-plata/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/abs_gris_plata3.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-abs-rojo/": {
+      "gallery_fingerprint": "f7eeb97c61dc77eee6c06c249909437ba1c92589d5a04338db1602aa84bc6d96",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-abs-rojo/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/08/abs_rojo3.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-acetal-blanco/": {
+      "gallery_fingerprint": "85a5b92864f4ebb02e277492c3dc99ac74f9fbb6dafc96d1411cfdc7f31f859c",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-acetal-blanco/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/acetal_blanco3.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-acetal-gris-acero/": {
+      "gallery_fingerprint": "56fd0a4f39d7858079e3b593c83cd97cfe83bcedbc106adca2e4f149e4a4697b",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-acetal-gris-acero/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/acetal_gris_acero3.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-acetal-negro/": {
+      "gallery_fingerprint": "48aefa4e701aa69a6aa94efd960aca90f38f8a5fe41ed319cb07c4a0be9c61ce",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-acetal-negro/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/acetal_gris_acero3.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-acetal-rojo/": {
+      "gallery_fingerprint": "a43b912402966877b3843d1bd99a83359ed0a601535af6ba187ee9412e55595c",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-acetal-rojo/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/acetal_rojo3.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-hips-blanco/": {
+      "gallery_fingerprint": "db594142527b1a820938e53a90171aa68470e02fca7deee4a892bbeff9641b48",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-hips-blanco/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/hips_blanco2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-hips-natural/": {
+      "gallery_fingerprint": "340fcba227e57eba8c91b0245ab894aa2eb67ff33f7e9ec5ec70e7b0b1d63097",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-hips-natural/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/hips_natural2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-hips-negro/": {
+      "gallery_fingerprint": "91eaa963b7139dde56d472954cfe78314d5dc2be2c01eb6942812d09750ea388",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-hips-negro/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/hips_negro2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-nylon-12-azul/": {
+      "gallery_fingerprint": "151d3460ffec6736ed34569da195b247191c2db984d5dba8d92c6666282a7ba6",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-nylon-12-azul/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/nylon12_azul2-1.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-nylon-12-blanco/": {
+      "gallery_fingerprint": "4612f917fd965aeab290b8312580d33d154fe5ff188d48c154170d65867c71fa",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-nylon-12-blanco/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/nylon12_blanco2-1.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-nylon-12-natural/": {
+      "gallery_fingerprint": "2a9cd8eba6f2e118b48470c99d22f2f95a344e5c1bf08fee5d1218fa322b4723",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-nylon-12-natural/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/nylon12_natural2-1.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-nylon-12-negro/": {
+      "gallery_fingerprint": "6ae29cd7241672e6b31d54bb02e2784630004c7e73cde3e494761b2ea1e9ee4c",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-nylon-12-negro/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/nylon12_negro2-1.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-nylon-12-titanio/": {
+      "gallery_fingerprint": "12b1d7b1f003861fe4275211511fffb14a2f49c5b873af9c659ed6f6e9f0e9d5",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-nylon-12-titanio/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/nylon12_titanio2-1.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-nylon-6-blanco/": {
+      "gallery_fingerprint": "d2c3ef44e205b85ec765c416ac3900e91767a46222afd24dc52a57a54a541758",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-nylon-6-blanco/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/nylon6_blanco2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-nylon-6-naranja-fluo/": {
+      "gallery_fingerprint": "663792b9943f7e0c0f6d2a7f0b8ae86da5016f6c737c5c9e43a18f98d8ec3fdf",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-nylon-6-naranja-fluo/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/nylon6_naranja_fluo2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-nylon-6-negro/": {
+      "gallery_fingerprint": "89a184ee951444732a333f4ab5b86c74fe1d5afb3287b362a706fd0b1b75ae27",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-nylon-6-negro/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/nylon6_negro2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-nylon-6-optico/": {
+      "gallery_fingerprint": "41f2ddf3b51b85afd070fca351d3ab008aab6498ffaeaeb2f0632a8a14c9b3a5",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-nylon-6-optico/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/nylon6_optico2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-nylon-6-verde-fluo/": {
+      "gallery_fingerprint": "e5af519c0b26d1ce7c52811f7522b2302520756af5e3907a8b17d1175ad10595",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-nylon-6-verde-fluo/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/nylon6_2.webp",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-petg-blanco/": {
+      "gallery_fingerprint": "f9ad852d1664053b85f5ab8e453a3c387c3f4280c467abfdb5e5fa351886c40c",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-petg-blanco/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/petg_blanco3.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-petg-chocolate/": {
+      "gallery_fingerprint": "4dd38205e73d61e0563178aa97e53aa7c761b24459e8124278a2e3ebc75d2730",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-petg-chocolate/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/petg_chocolate3.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-petg-clear-amarillo/": {
+      "gallery_fingerprint": "f2f62c33afe69debe48335ed10850529ec2d1f4268326eb2d39bbd88dd22fdc4",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-petg-clear-amarillo/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/petg_clear_amarillo3.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-petg-clear-azul/": {
+      "gallery_fingerprint": "123bb6eaf40750eb07cf1292f8e40613928ee9f21aed508342966787a660d876",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-petg-clear-azul/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/petg_clear_azul3.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-petg-clear-nova/": {
+      "gallery_fingerprint": "e2e7ef3b0b5730afb1056993ae3d778ae9133220000f2166b339c95809d03cb2",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-petg-clear-nova/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/petg_nova3.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-petg-clear-rojo/": {
+      "gallery_fingerprint": "ee15c3564374086d304015aca779031096f6c97b72e2c679b61ab4a990307621",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-petg-clear-rojo/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/petg_clear_rojo3.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-petg-clear-verde/": {
+      "gallery_fingerprint": "ee741832f270f974a9b48ae74c7ea9d1b587bcbecefc67918058be9578ae6d30",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-petg-clear-verde/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/petg_clear_verde3.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-petg-gris-acero/": {
+      "gallery_fingerprint": "329af8faf5a0796f81c21877e7b520883f53eb5a01f7216f6c787a9e436e84ea",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-petg-gris-acero/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/petg_gris_acero3.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-petg-naranja-praga/": {
+      "gallery_fingerprint": "0c0f1e2e67374e774c3fdcd739f9e737eca85a788e0046e7ada87055add49ea0",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-petg-naranja-praga/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/petg_naranja_praga3.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-petg-natural/": {
+      "gallery_fingerprint": "5e2267aac473b5d9f0e99567766e5d24eff5bbb435720c3144684477c9cfa051",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-petg-natural/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/petg_natural3.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-petg-negro/": {
+      "gallery_fingerprint": "55b0c3c9f5589637f430f77f8cd8b767a4f812cb8154fe0b98d79e50fc418dcb",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-petg-negro/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/petg_negro3.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-pla-amarillo-fluo/": {
+      "gallery_fingerprint": "42ffedc9dd6d5bbbb8d496173ba1401b6b3358f65c7acadaa4b9eda9870886b8",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-amarillo-fluo/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_amarillo_fluo2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-pla-amarillo/": {
+      "gallery_fingerprint": "8008f3fb7634a02314c37c5f000e976d57cf64b380dd937507cb054bfbae246a",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-amarillo/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_amarillo2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-pla-azul-2/": {
+      "gallery_fingerprint": "0edf2fcf9ea0d10eeca2c3864f7bcda6fc1029eab05823bc11f2903f0669bccf",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-azul-2/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_850_azul2_ml.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-pla-azul/": {
+      "gallery_fingerprint": "dab7716519885655c5a4a4ed3c87323e0ccb131c31b3901b79370bde36e4e694",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-azul/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_azul2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-pla-blanco-2/": {
+      "gallery_fingerprint": "79e7e4c0ab134c92d91b88ca7ae68f4ea0eebc1e139b88a178b831e8e2d74b19",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-blanco-2/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_850_blanco2_ml.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-pla-blanco/": {
+      "gallery_fingerprint": "2f842f53d5e31cc94dd965afa508d687cd5f94e9e60feea9e3842fd8d2fbaceb",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-blanco/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_blanco2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-pla-bordo-2/": {
+      "gallery_fingerprint": "3d851ffdec97b544c2e7fe2113b813eaeff828f693542107011c2700ac129b98",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-bordo-2/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_850_bordo2_ml.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-pla-bordo/": {
+      "gallery_fingerprint": "16b6af7f62f598d63f5950cdbe9a3a833065d91fcc8bf64031186820a3a37539",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-bordo/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_bordo2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-pla-boutique-acqua/": {
+      "gallery_fingerprint": "6936bb02d959e60356a5319f4bba49d13b67df02fd80eb7b7a69557139bc0aa6",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-boutique-acqua/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_boutique_acqua2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-pla-boutique-arena/": {
+      "gallery_fingerprint": "21ad2e674e65e4bab0d64ab70203c3a945f6cb8acde0d2b71bb47ca8ad0e23b6",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-boutique-arena/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_boutique_arena2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-pla-boutique-carbon/": {
+      "gallery_fingerprint": "999b07c77cc700120f8bf30c899c0f7dc33533a29ba8f21e920b85e5eb19d64f",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-boutique-carbon/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_boutique_carbon2-1.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-pla-boutique-caribe/": {
+      "gallery_fingerprint": "6090d2fb3402f87ba7ede58a91d15e278427600fe491cc12a0708663ea9977d8",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-boutique-caribe/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_boutique_caribe2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-pla-boutique-chocolate/": {
+      "gallery_fingerprint": "58ed50e7d3625327a87de6043c699403d4f0d269875baa9c49a1ffb1f5c077f0",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-boutique-chocolate/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_boutique_chocolate2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-pla-boutique-crema-del-cielo/": {
+      "gallery_fingerprint": "98265aa2d61a57d0f07703b9dcca56101fbbf02c96437610188cff0efe8d052b",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-boutique-crema-del-cielo/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_boutique_cremadelcielo2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-pla-boutique-dulce-de-leche/": {
+      "gallery_fingerprint": "963b7b955154cc67ac37ec99e4c860da7ea887571e74bcb90febafa39b97dee2",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-boutique-dulce-de-leche/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_boutique_dulceleche2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-pla-boutique-esmeralda/": {
+      "gallery_fingerprint": "e6d7f4016b3aea6425ff2bd82c76526e49ed05ce4cc8d8e1a565910d8148c979",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-boutique-esmeralda/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_boutique_esmeralda2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-pla-boutique-frutilla/": {
+      "gallery_fingerprint": "86c25bbc932e0aeb560bf6fbaf3e8b5f1659a09db42a8b2f5e4dc52d2558c488",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-boutique-frutilla/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_boutique_frutilla2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-pla-boutique-lavanda/": {
+      "gallery_fingerprint": "271e8cffe12c32fb548618c042491b05dfc81d739f58d91f542ebf958dda3380",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-boutique-lavanda/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_boutique_lavanda2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-pla-boutique-perla/": {
+      "gallery_fingerprint": "a6691c21115da299c010352e37e06bfaab99f52ba91a9b5c46d27a043135a20a",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-boutique-perla/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_boutique_perla2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-pla-boutique-salmon/": {
+      "gallery_fingerprint": "5d2ccecb94f0dfcfae9d96fbe0a661737ed3fe7df5ad40a939f2ea54ce786e26",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-boutique-salmon/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_boutique_salmon2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-pla-boutique-zafiro/": {
+      "gallery_fingerprint": "98ab8cf40d126656777dfd5745a769805603ff92f6fc39ee07fe7316a063c85c",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-boutique-zafiro/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_boutique_zafiro2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-pla-bronce-2/": {
+      "gallery_fingerprint": "dbf126501558b6c66a49ddea7f6397161f511554a8417a7f7275951ec29ae71f",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-bronce-2/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_850_bronce2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-pla-bronce/": {
+      "gallery_fingerprint": "ad7b7039ecfa9164bf99081992e5ef31563bb81090d4b78f26afa19f3018cb1f",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-bronce/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_bronce2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-pla-celeste/": {
+      "gallery_fingerprint": "c8d0da6f84a194aa1a694599cbe58c67ec300a8bc80870203335d35f5dbdac73",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-celeste/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_celeste2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-pla-cobre/": {
+      "gallery_fingerprint": "052ee8c4e9588d60f38b662fc7db707b7c1db442f460fd0eb5bed00693ca76a5",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-cobre/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_cobre2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-pla-fucsia/": {
+      "gallery_fingerprint": "7946b051670c15fa89f9faaa0b1de7638071b10d14331fe19f64c8030d2dfe1c",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-fucsia/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_fucsia2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-pla-gris-espacial/": {
+      "gallery_fingerprint": "116086abc1588d04d7ba979b46039a50405729b433a18e1c96b9f69b3cc4cb9d",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-gris-espacial/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_gris_espacial2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-pla-gris-plata-2/": {
+      "gallery_fingerprint": "be38ae9c9c19563e9a64898d8397361e6e06ad333dae62d27c3b9f0148886463",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-gris-plata-2/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_850_grisplata2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-pla-gris-plata/": {
+      "gallery_fingerprint": "48ec41a3a0f6e250ad5459f117b228abe67a9ced5efc8db7d38f87bc59422438",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-gris-plata/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_grisplata.jpg",
+      "selection_reason": "official_primary"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-pla-naranja-fluo/": {
+      "gallery_fingerprint": "a287163eb8b075b873db8da63ad4f4eab96733e665ad0510920e80389dac7650",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-naranja-fluo/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_naranja_fluo2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-pla-natural/": {
+      "gallery_fingerprint": "05bc3613144867482bdae81f45e053c0b3a24ab623dc619bbf788815a5edfc00",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-natural/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_natural2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-pla-negro-2/": {
+      "gallery_fingerprint": "955914d6361ac5b2a31ac6fd64aa82ed1fc26229628d027e03c0562fe88082c5",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-negro-2/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_negro2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-pla-negro/": {
+      "gallery_fingerprint": "0e2809e9ad82af1242406ea3e577bfbec61ffcce7d72f17089dd0be4d30e4881",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-negro/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_850_negro2_ml.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-pla-nt-blanco/": {
+      "gallery_fingerprint": "c094dc05b9637fc5b8e95f27d3e62542bf85295ef8e107b4b8240271e9440470",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-nt-blanco/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/10/pla_870_blanco2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-pla-nt-bordo/": {
+      "gallery_fingerprint": "681c9e62d88c0e16ab7a4195c2119b594609a4346f520bb6762fb31418409bcc",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-nt-bordo/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/10/pla_870_bordo2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-pla-nt-gris-plata/": {
+      "gallery_fingerprint": "318fa94bbbd732dc87cb6807f21a9a66a85b62c038a79da657b2235456f882ff",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-nt-gris-plata/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_870_gris_plata1.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-pla-nt-natural/": {
+      "gallery_fingerprint": "4588aed3775ce9c820fa04b4920f4bae61b04bfbb902fd23e588949cbaa26b44",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-nt-natural/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/10/pla_870_natural2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-pla-nt-negro/": {
+      "gallery_fingerprint": "b650a47aab33a28c6c97347058b9be4c9d7b064b2a56e93d6c3b3409408b65cc",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-nt-negro/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/10/pla_870_negro2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-pla-nt-turquesa/": {
+      "gallery_fingerprint": "f5dc244dd34a5cbb5ef0c7a937bd0ff99957318ab1e680d6e323c293bddabba4",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-nt-turquesa/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/10/pla_870_turquesa2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-pla-piel/": {
+      "gallery_fingerprint": "a34b6296440e8b817f580102db6635aad95f375d5b55121d7c94888fa3c9f979",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-piel/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_piel162_2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-pla-rojo-2/": {
+      "gallery_fingerprint": "64abd4a432f97ae589bb60623a99f7586e2d3dc089db4d40466de5dd4be907df",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-rojo-2/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_850_rojo2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-pla-rojo/": {
+      "gallery_fingerprint": "c8c40d30377e830e0d46608e925d4189316208ae02d1f2027d4affe664b75677",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-rojo/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_roj2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-pla-rosa/": {
+      "gallery_fingerprint": "b30b75ed45511a2fd0ecf2532f053af2010ac9a82c8f1041ff943df15879b7d3",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-rosa/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_rosa2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-pla-turquesa-2/": {
+      "gallery_fingerprint": "fef83490950b615e24b129afa4224f85531c7de02d80745c1aa5ee3842eeaf51",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-turquesa-2/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_850_turquesa2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-pla-turquesa/": {
+      "gallery_fingerprint": "14bc428e4e40963f5c92cba7efc9d8c75a7e7184c745d2fd3b073b236030d882",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-turquesa/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_turquesa2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-pla-verde-fluo/": {
+      "gallery_fingerprint": "851d25d98f4885456b3f04a500aed3efd9353794871e9a7a34be081cddc8566a",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-verde-fluo/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_verde_fluo2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-pla-verde-manzana/": {
+      "gallery_fingerprint": "84a46931bee5fc1cfaa103d04df9770f968704164e8793cd6b515b924c961176",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-verde-manzana/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_verde_manzana2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-pla-verde/": {
+      "gallery_fingerprint": "cf42538dfb2c37ef8363e91f1aae13be4029b74cbd027047b38910718eaaab9e",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-verde/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_verde2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-pla-violeta/": {
+      "gallery_fingerprint": "676e8d4c1a80b6b9c35ee0e6c3017feb74eaf4eeaf078fc7d823be7568032f82",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-violeta/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pla_voleta2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-pla-zeta-azabache/": {
+      "gallery_fingerprint": "8898a7bfb4d192276130f53ec4d5e66ccbc5070f65a2edc8dd964136866f54c0",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-zeta-azabache/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/zeta_azabache2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-pla-zeta-cristal/": {
+      "gallery_fingerprint": "7eab9c2307a4ad583795b951d09b63a4f008ae46c57964ecb63ee13cfd0b6ae8",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-pla-zeta-cristal/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/10/zeta_cristal2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-pva/": {
+      "gallery_fingerprint": "a878b0cc78955048f1726d64920efdbc5b3cb37aa67e58ce9e15522b2b67a48c",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-pva/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/pva2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/filamento-3d-simpliflex-nova/": {
+      "gallery_fingerprint": "1a4a48a117af3de17e27135cd20f9c8d69f0a5f111568a5e8b9cd9b1de8fea3d",
+      "product_url": "https://grilon3.com.ar/producto/filamento-3d-simpliflex-nova/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/09/simpliflex_nova2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/hips-azul/": {
+      "gallery_fingerprint": "b567c6f4ef1c5fddde667a0740ba70b7812a6f12b62e3b8157b8655c1267ca9a",
+      "product_url": "https://grilon3.com.ar/producto/hips-azul/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2023/07/hips_azul_l2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/hips-rojo/": {
+      "gallery_fingerprint": "4f3a0b7d092f2802b3bd71297f414125efb55ba77660fbd26dc25383d2194373",
+      "product_url": "https://grilon3.com.ar/producto/hips-rojo/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2023/07/hips_rojo2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/hips-verde/": {
+      "gallery_fingerprint": "2cae708be29d60981fd594038cb3ecf79d33f3a255f59f042084908a44f9c80e",
+      "product_url": "https://grilon3.com.ar/producto/hips-verde/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2023/07/hips_verde2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/maxicarrete-abs-blanco/": {
+      "gallery_fingerprint": "6423cb5075686bad8fde1c47c318f892bc3fa6662dc8c3b91d8f03af4682531e",
+      "product_url": "https://grilon3.com.ar/producto/maxicarrete-abs-blanco/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2024/10/abs_maxicarrete_blanco_web.webp",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/maxicarrete-abs-negro/": {
+      "gallery_fingerprint": "048ea225994c2d2776c08c740c8d98f1c9d790ea3e8cb34b7be8b542c2113694",
+      "product_url": "https://grilon3.com.ar/producto/maxicarrete-abs-negro/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2024/10/abs_maxicarrete_negro_web.webp",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/maxicarrete-abs-turquesa/": {
+      "gallery_fingerprint": "71ced65766447d95e9db464c3b00a6dff83f7ffda7e870435c692e23634bbe71",
+      "product_url": "https://grilon3.com.ar/producto/maxicarrete-abs-turquesa/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2024/10/abs_maxicarrete_turquesa_web.webp",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/maxicarrete-petg-blanco/": {
+      "gallery_fingerprint": "1d1056b4140bacef1ef748186ab8c5c9f336d543992fe3af8f7b1030cefdcf76",
+      "product_url": "https://grilon3.com.ar/producto/maxicarrete-petg-blanco/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2021/04/petg_maxicarrete_blanco1.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/maxicarrete-petg-negro/": {
+      "gallery_fingerprint": "21532d3f39c63e79135a415ab8e080078ad2c56b8dc1e9ac0e657a274b736a4b",
+      "product_url": "https://grilon3.com.ar/producto/maxicarrete-petg-negro/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2021/04/petg_maxicarrete_negro1.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/maxicarrete-pla-850-azul/": {
+      "gallery_fingerprint": "ea51ed1654eb6bee8586e3c8c9f87a6bbc5ce8a006dda00cdfdb84e92c596f12",
+      "product_url": "https://grilon3.com.ar/producto/maxicarrete-pla-850-azul/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2021/05/pla850_maxicarrete_azul.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/maxicarrete-pla-850-blanco/": {
+      "gallery_fingerprint": "7b96683ae55e3f65d5b7fb487e9f6271ae025d2739d7af59accbf1a88739301b",
+      "product_url": "https://grilon3.com.ar/producto/maxicarrete-pla-850-blanco/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2021/05/pla850_maxicarrete_blanco.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/maxicarrete-pla-850-bronce/": {
+      "gallery_fingerprint": "9b0249cfaa686e8638b4c0a7becd08d1f47f3591934c0b136717d5657b8cb17a",
+      "product_url": "https://grilon3.com.ar/producto/maxicarrete-pla-850-bronce/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2021/05/pla850_maxicarrete_bronce.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/maxicarrete-pla-850-gris-plata/": {
+      "gallery_fingerprint": "671f39e5f86bf3201f39ac46e370bcd643f39dab303bf497b39cdd89a944e095",
+      "product_url": "https://grilon3.com.ar/producto/maxicarrete-pla-850-gris-plata/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2021/05/pla850_maxicarrete_gris_plata.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/maxicarrete-pla-850-negro/": {
+      "gallery_fingerprint": "95a3cf3d3c43a61e27235f50115b4c65c1b3424145b0e947ba0b8bfc649b9736",
+      "product_url": "https://grilon3.com.ar/producto/maxicarrete-pla-850-negro/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2021/05/pla850_maxicarrete_negro.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/maxicarrete-pla-850-rojo/": {
+      "gallery_fingerprint": "064557cb299012fb81bb3dacabd7a93f66dde7f40cc3e92ca72cfe425b36daf9",
+      "product_url": "https://grilon3.com.ar/producto/maxicarrete-pla-850-rojo/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2021/05/pla850_maxicarrete_rojo.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/megafill-pla-amarillo/": {
+      "gallery_fingerprint": "7fb08815b5cfee013ad66c48af1a17a24900a2279fe8abe535aa79662bc09d39",
+      "product_url": "https://grilon3.com.ar/producto/megafill-pla-amarillo/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2022/08/megafill_amarillo2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/megafill-pla-azul/": {
+      "gallery_fingerprint": "b5b6033cfceb2121f459f973e1266fa1501917f651fd667b663b4276f7dadb4d",
+      "product_url": "https://grilon3.com.ar/producto/megafill-pla-azul/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2022/08/megafill_azul2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/megafill-pla-blanco/": {
+      "gallery_fingerprint": "49de9e9538f990c7d09cbc01fa7b305d109416484bb22c1e2c747d5d9708f19f",
+      "product_url": "https://grilon3.com.ar/producto/megafill-pla-blanco/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2022/08/megafill_blanco2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/megafill-pla-gris-plata/": {
+      "gallery_fingerprint": "ca28f723c3d1dee150326f3342e41a62bc4c7bc02d6d6bbf61e7fe8a11c8eefb",
+      "product_url": "https://grilon3.com.ar/producto/megafill-pla-gris-plata/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2022/08/megafill_grisplata2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/megafill-pla-negro/": {
+      "gallery_fingerprint": "b1b9dd3d915be15d455f0edadd6360461905800f0abaa93a539aa494cc28d6a3",
+      "product_url": "https://grilon3.com.ar/producto/megafill-pla-negro/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2022/08/megafill_negro2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/megafill-pla-rojo/": {
+      "gallery_fingerprint": "604034526379c095df0af9994476447f73910afcc64e3acf579781cb6beda85f",
+      "product_url": "https://grilon3.com.ar/producto/megafill-pla-rojo/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2022/08/megafill_rojo2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/megafill-pla-turquesa/": {
+      "gallery_fingerprint": "005ba3a774d0afb695f8ef7fc569d94f7253ad9af3af851dcc18ff96e16f1775",
+      "product_url": "https://grilon3.com.ar/producto/megafill-pla-turquesa/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2022/08/megafill_turquesa2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/nylon-6-natural/": {
+      "gallery_fingerprint": "564d9d9a24da2e3e69b415664e234ffb29eaad855d77a8d8d5239684f6283906",
+      "product_url": "https://grilon3.com.ar/producto/nylon-6-natural/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2021/01/nylon6_natural2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/petg-blanco-285/": {
+      "gallery_fingerprint": "82ec2eda9e229f6ea329b71e80d467c1c2f734764ab5ba89d47002f1e8a1d0f8",
+      "product_url": "https://grilon3.com.ar/producto/petg-blanco-285/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/12/petg_285_blanco2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/petg-blanco-megafill/": {
+      "gallery_fingerprint": "08499bbcbd08e688b0cfb0b9b4547bfd5ebbe17a2bf1cc9951ec7dc61ca95db5",
+      "product_url": "https://grilon3.com.ar/producto/petg-blanco-megafill/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2024/10/PETG_megafill_blanco2.webp",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/petg-clear-ambar/": {
+      "gallery_fingerprint": "7ad5847c8dc1106f0969e4608a996ab705d1993ff1ca4e4073fa738c62525e02",
+      "product_url": "https://grilon3.com.ar/producto/petg-clear-ambar/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2021/04/petg_clear_ambar3.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/petg-clear-verde-megafill/": {
+      "gallery_fingerprint": "a98450bf1918ebb7eb65eceafefed66eb5d88b218e3b373656059e5b8575bb1e",
+      "product_url": "https://grilon3.com.ar/producto/petg-clear-verde-megafill/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2026/06/PETG_megafill_clear_verde2.webp",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/petg-gris-plata/": {
+      "gallery_fingerprint": "43b6606c0e6c5e2ffe64ec10c35889ad1320c7c24cf8c3740de18e293d901b03",
+      "product_url": "https://grilon3.com.ar/producto/petg-gris-plata/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2021/04/petg_gris_plata3.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/petg-negro-285/": {
+      "gallery_fingerprint": "251469b1745feae70435033bb703b5507c63cc77111ce3a5461742dfa128316e",
+      "product_url": "https://grilon3.com.ar/producto/petg-negro-285/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/12/petg_285_negro3.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/petg-negro-megafill/": {
+      "gallery_fingerprint": "76400d19782d1786afd5041be9f09429ce8befc7b6c65d5798d0ca3c0f314aa9",
+      "product_url": "https://grilon3.com.ar/producto/petg-negro-megafill/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2024/10/PETG_megafill_negro2.webp",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/pla-astra-calipso/": {
+      "gallery_fingerprint": "49c6d1b500d2e04992ea3489aad47c2131f0efdd1671b25010ca32cee02b7960",
+      "product_url": "https://grilon3.com.ar/producto/pla-astra-calipso/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2021/10/astra_calipso2_web.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/pla-astra-dark/": {
+      "gallery_fingerprint": "acfc4ca05b8bae16c73263d505c11a8985d6d5f4b0df2fb6bfa3594e67fd3ece",
+      "product_url": "https://grilon3.com.ar/producto/pla-astra-dark/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2021/10/astra_dark_web2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/pla-astra-jade/": {
+      "gallery_fingerprint": "2b1a58110ea68cdfb2d6c98b1c2229d3ff6d375934396157fc9e9880d8d1ff17",
+      "product_url": "https://grilon3.com.ar/producto/pla-astra-jade/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2021/10/astra_jade_web2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/pla-astra-nebula/": {
+      "gallery_fingerprint": "613636c282a6d77a5336182b2f4829e96222a15ad1d688a3c2ebe200b489afc8",
+      "product_url": "https://grilon3.com.ar/producto/pla-astra-nebula/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2021/10/astra_nebula2_web.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/pla-astra-noche/": {
+      "gallery_fingerprint": "182d710f5b669e2c1b0422c6712e4a9bc55ebc010bfd201076f1bda6407a14c1",
+      "product_url": "https://grilon3.com.ar/producto/pla-astra-noche/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2021/10/astra_noche2_web.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/pla-astra-roby/": {
+      "gallery_fingerprint": "3528cffefb0991e4232432c55abdbfa2b2770e0aba518919335b0cccdbbe57d0",
+      "product_url": "https://grilon3.com.ar/producto/pla-astra-roby/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2021/10/astra_roby2_web.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/pla-azul-285/": {
+      "gallery_fingerprint": "f9ea286b09723c55a86e46e3950d9fdb6cfdfac65e8d3b935fbe3bd50fab90aa",
+      "product_url": "https://grilon3.com.ar/producto/pla-azul-285/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2021/04/pla285_azul3.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/pla-azul-prusia/": {
+      "gallery_fingerprint": "cc8d33d09ec295256caec3723d5439193a422c79757624495393d45d84923b77",
+      "product_url": "https://grilon3.com.ar/producto/pla-azul-prusia/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2023/06/pla_azul_prusia2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/pla-blanco-285/": {
+      "gallery_fingerprint": "7ddd685037b5778d3b17ae6e9c0d1677ac8595626e3f508663059fe3e02ba23d",
+      "product_url": "https://grilon3.com.ar/producto/pla-blanco-285/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/12/pla_285_blanco2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/pla-boutique-perla-frio/": {
+      "gallery_fingerprint": "b4ae82fc0962ffe63bb9c22e1c041e98f3d4e74ff86e7dca8a3a123c3f164f75",
+      "product_url": "https://grilon3.com.ar/producto/pla-boutique-perla-frio/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2026/02/boutique_perla_frio2.png",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/pla-boutique-perla-megafill/": {
+      "gallery_fingerprint": "692f43c824591e4ed5846e2f2591797dfc333989be4146271929470767ac619c",
+      "product_url": "https://grilon3.com.ar/producto/pla-boutique-perla-megafill/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2024/10/megafill_perla_web2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/pla-boutique-rubi/": {
+      "gallery_fingerprint": "98223193428ace07b24e60159523e0d3d5abcb448d208be8329324a22c917994",
+      "product_url": "https://grilon3.com.ar/producto/pla-boutique-rubi/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2021/01/pla_boutique_rubi2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/pla-boutique-verde-aviador/": {
+      "gallery_fingerprint": "c0e0dbf64a1ab4a5dde9e564324f2ba69abca3bc1fbe63620f00c62413249df3",
+      "product_url": "https://grilon3.com.ar/producto/pla-boutique-verde-aviador/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2021/01/pla_boutique_verde_aviador2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/pla-carpincho-serie-limitada/": {
+      "gallery_fingerprint": "a1cf32a4b9d7fbd9c99d5ae5ff2c4759a854b70be20c1fbf5d9183a18e64a3a5",
+      "product_url": "https://grilon3.com.ar/producto/pla-carpincho-serie-limitada/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2025/06/pla_carpincho_web2.webp",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/pla-dorado/": {
+      "gallery_fingerprint": "742596065a5fc0e8dc67dd54441d18980cd2aa97d81bd404ce4bbacc39f3c5d6",
+      "product_url": "https://grilon3.com.ar/producto/pla-dorado/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2025/11/pla_dorado2.webp",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/pla-gris-plata-285/": {
+      "gallery_fingerprint": "9d3845515e720b249a2f92323aeeaf047957df60a66b36bbeebe7dcd70074ae7",
+      "product_url": "https://grilon3.com.ar/producto/pla-gris-plata-285/",
+      "reviewed_at": "2026-07-14T02:19:20.044Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/12/pla_285_grisplata2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/pla-magenta/": {
+      "gallery_fingerprint": "cd9ed84d8c524cd590a5bd6a1bdb68d98819c0f790e7d7950dbda29457c6ca19",
+      "product_url": "https://grilon3.com.ar/producto/pla-magenta/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2025/11/pla_magenta2.webp",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/pla-negro-285/": {
+      "gallery_fingerprint": "ce2a41d5fad14fe69698636025637d35d6a2b314e63934db6850920e9a8bfcb6",
+      "product_url": "https://grilon3.com.ar/producto/pla-negro-285/",
+      "reviewed_at": "2026-07-14T02:19:26.669Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/12/pla_285_negro2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/pla-piel-162-megafill/": {
+      "gallery_fingerprint": "3291a265e06cd17d392c09a4ba1dc3683233d5a19ff77b7d5465bcb3b62bbaaa",
+      "product_url": "https://grilon3.com.ar/producto/pla-piel-162-megafill/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2023/08/megafill_piel2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/pla-piel-720/": {
+      "gallery_fingerprint": "99e4d7caa34b94aab02f4543bb12d6ac3476a4cb70df8e6d2f2213fca63e8b35",
+      "product_url": "https://grilon3.com.ar/producto/pla-piel-720/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2022/07/pla_piel720_2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/pla-rojo-285/": {
+      "gallery_fingerprint": "e6b2385bbc22aea212085d878a1a097da158797788895fc7040a6213a702f609",
+      "product_url": "https://grilon3.com.ar/producto/pla-rojo-285/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/12/pla_285_rojo2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/pla-silk-azabache/": {
+      "gallery_fingerprint": "fbec590c4826ebfb9e16d3553b7eaa8eda9d4ba66a0f2f2e5b6fac114d7e9039",
+      "product_url": "https://grilon3.com.ar/producto/pla-silk-azabache/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2022/06/silk_azabache2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/pla-silk-azul/": {
+      "gallery_fingerprint": "1ae1d3a819a64c76949072217be2e0b1ca580bdd1168a8b02ff5882972843fed",
+      "product_url": "https://grilon3.com.ar/producto/pla-silk-azul/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2021/06/silk_azul2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/pla-silk-blanco-perla/": {
+      "gallery_fingerprint": "c9aa63c5e6634d8332e6aef54568a9f1b51c2172f3820201c8b66f3e037f05fd",
+      "product_url": "https://grilon3.com.ar/producto/pla-silk-blanco-perla/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2021/06/silk_blanco2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/pla-silk-cobre/": {
+      "gallery_fingerprint": "93067a62bb72bf4ba715d93c664e7c463ead6e717cf13878f8a8d2db8df97611",
+      "product_url": "https://grilon3.com.ar/producto/pla-silk-cobre/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2023/03/silk_cobre2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/pla-silk-dorado/": {
+      "gallery_fingerprint": "d002023085023b78ae35fc9e32ed7bd238078123ac6020e92b4123f62d337c86",
+      "product_url": "https://grilon3.com.ar/producto/pla-silk-dorado/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2021/06/silk_dorado2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/pla-silk-platino/": {
+      "gallery_fingerprint": "927ad62a0074b5c73ca1b134daabc595188ec375899dad648cf87741a7b70574",
+      "product_url": "https://grilon3.com.ar/producto/pla-silk-platino/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2023/03/silk_platino2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/pla-silk-tutti-frutti/": {
+      "gallery_fingerprint": "70da327a58dff6547500c22359f4b8c28460f9fb3edcd3049faa97548a06bbc2",
+      "product_url": "https://grilon3.com.ar/producto/pla-silk-tutti-frutti/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2023/03/silk_tuttifrutti2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/pla-silk-verde/": {
+      "gallery_fingerprint": "3710484622bb0fafdc9f23fdea63553f30be031b5d7824865770798c2beecec3",
+      "product_url": "https://grilon3.com.ar/producto/pla-silk-verde/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2021/06/silk_verde2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/pla-verde-285/": {
+      "gallery_fingerprint": "0f34ef6a2baa80d4eba370b8927fac08103ace3c16d061298ae41bef3145b133",
+      "product_url": "https://grilon3.com.ar/producto/pla-verde-285/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2020/12/pla_285_verde2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/pla-wood-cerezo/": {
+      "gallery_fingerprint": "0714a4fa108003626b3b6be34a2e6b848998f0fbbba0320ac580b2ba170e17d0",
+      "product_url": "https://grilon3.com.ar/producto/pla-wood-cerezo/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2021/07/wood_cerezo2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/pla-wood-nogal/": {
+      "gallery_fingerprint": "607a4730157506c81a330cdeeb00a30bd8caf9a8c36615b80382c50050278601",
+      "product_url": "https://grilon3.com.ar/producto/pla-wood-nogal/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2021/03/wood_nogal_3.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/pla-wood-pino/": {
+      "gallery_fingerprint": "348c8d2bf2ddbf7456667053fcf5e8dc46055f0b6b7e8dfceac913e6fb9171d9",
+      "product_url": "https://grilon3.com.ar/producto/pla-wood-pino/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2021/03/wood_pino3.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/pp-natural/": {
+      "gallery_fingerprint": "653e6304faa3f7343c69a6c5b65d870a73e82473d4ee8ea2876f4102a59eed47",
+      "product_url": "https://grilon3.com.ar/producto/pp-natural/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2022/04/polipropileno2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/pp-t-amarillo/": {
+      "gallery_fingerprint": "d34124d1145f82a0bdd437452f6c6e5089ee77e55d7df92e44caafdf8857df31",
+      "product_url": "https://grilon3.com.ar/producto/pp-t-amarillo/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2024/07/ppt_amarillo2.webp",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/pp-t-azul/": {
+      "gallery_fingerprint": "a9f61efd5bed400d21bb7e2cd12150300b9b8e43043e803e6fa4cfc0f9ced3fc",
+      "product_url": "https://grilon3.com.ar/producto/pp-t-azul/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2024/07/ppt_azul2.webp",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/pp-t-verde/": {
+      "gallery_fingerprint": "a425f7098afee2f9d6944439b755c0968d94301fe11b83a892bd695ce55f4ef9",
+      "product_url": "https://grilon3.com.ar/producto/pp-t-verde/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2024/07/ppt_verde2.webp",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/simpliflex-blanco/": {
+      "gallery_fingerprint": "804cc97ee891a2b552b1643836d332b545bfdf2539a93209b8ed1ba6d6100c95",
+      "product_url": "https://grilon3.com.ar/producto/simpliflex-blanco/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2021/01/simpliflex_blanco2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/simpliflex-celeste/": {
+      "gallery_fingerprint": "60c355e8b4959b01030cc6a308f0cea80d941290d9afd89e8cdd1d2b1d82f4ae",
+      "product_url": "https://grilon3.com.ar/producto/simpliflex-celeste/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2021/01/simpliflex_celeste2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/simpliflex-naranja/": {
+      "gallery_fingerprint": "440be8c92aa139833f58bde2d5b080ba8cbb6dd1003c1f3c5baf2895379cb089",
+      "product_url": "https://grilon3.com.ar/producto/simpliflex-naranja/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2021/01/simpliflex_naranja2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/simpliflex-natural/": {
+      "gallery_fingerprint": "20fb112a60c53f0f8c88b12a406dc1c6d202e5ebb4381ca2d0b4b6499a1b2661",
+      "product_url": "https://grilon3.com.ar/producto/simpliflex-natural/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2021/01/simpliflex_natural2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/simpliflex-negro/": {
+      "gallery_fingerprint": "60f06f9f2f22720afc4d44c869ef9a1a72bb957da2ca5d115be477c55be47798",
+      "product_url": "https://grilon3.com.ar/producto/simpliflex-negro/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2021/01/simpliflex_negro2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/simpliflex-verde/": {
+      "gallery_fingerprint": "7783e8edd353b3ae74400c26c9bef6ef4c5d8237b2af30ba288524311fef5621",
+      "product_url": "https://grilon3.com.ar/producto/simpliflex-verde/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2021/01/simpliflex_verde2.jpg",
+      "selection_reason": "preferred_angle"
+    },
+    "https://grilon3.com.ar/producto/wood-caoba/": {
+      "gallery_fingerprint": "f72299fd5762a8898ab819274be5cfd61df18f8825b320867d2fb55083847ec8",
+      "product_url": "https://grilon3.com.ar/producto/wood-caoba/",
+      "provenance": "vision_llm",
+      "reviewed_at": "2026-07-14T02:31:14.633351Z",
+      "selected_image_remote_url": "https://grilon3.com.ar/wp-content/uploads/2021/03/wood_caoba3.jpg",
+      "selection_reason": "preferred_angle"
+    }
+  },
+  "version": 1
+}

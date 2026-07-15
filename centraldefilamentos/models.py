@@ -30,6 +30,8 @@ class NormalizedFields:
     weight_g: int | None
     brand: str
     manufacturer_name: str
+    subrange: str = ""
+    finish: str = ""
 
 
 @dataclass(frozen=True)
@@ -73,11 +75,15 @@ class ProductGroup:
     estimated_color_warning: str
     sku: str
     ean: str
+    subrange: str
+    finish: str
     display_name: str
     offers: list[Offer]
 
     def to_dict(self) -> dict[str, object]:
         payload = asdict(self)
+        payload["subrange"] = str(self.subrange)
+        payload["finish"] = str(self.finish)
         payload["offers"] = [offer.to_dict() for offer in self.offers]
         if not self.estimated_color_hex:
             for key in tuple(payload):

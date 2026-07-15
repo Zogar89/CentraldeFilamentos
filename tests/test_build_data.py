@@ -235,6 +235,77 @@ def test_build_payload_adds_catalog_products_without_provider_stock():
     assert product["manufacturer_product_url"] == "https://grilon3.com.ar/producto/pla-blanco-285/"
 
 
+def test_build_payload_serializes_pla_subranges_without_changing_product_ids():
+    payload = build_payload(
+        [
+            raw(
+                "filamentos3d",
+                "Filamentos3D",
+                "Zona Sur",
+                "GRILON3 ASTRA DARK 1.75 MM X 1 KG",
+                4,
+                brand_hint="Grilon3",
+            ),
+            raw(
+                "mundoinsumos",
+                "MundoInsumos",
+                "Zona Norte",
+                "GRILON3 PLA NEGRO 1.75 MM X 1 KG",
+                2,
+                brand_hint="Grilon3",
+            ),
+            raw(
+                "grupo_senz",
+                "Grupo Senz",
+                "Zona Oeste",
+                "GRILON3 PETG CLEAR AZUL 1.75 MM X 1 KG",
+                None,
+                brand_hint="Grilon3",
+            ),
+        ],
+        sources=SOURCES,
+        manufacturers=MANUFACTURERS,
+        generated_at="2026-05-12T13:00:00-03:00",
+    )
+
+    products = {product["id"]: product for product in payload["products"]}
+
+    assert products["pla-pla-astra-dark-175-1000-grilon3"]["subrange"] == "Astra"
+    assert products["pla-pla-astra-dark-175-1000-grilon3"]["finish"] == "Glitter"
+    assert products["pla-negro-175-1000-grilon3"]["subrange"] == "Standard"
+    assert products["pla-negro-175-1000-grilon3"]["finish"] == ""
+    assert products["petg-petg-clear-clear-azul-175-1000-grilon3"]["subrange"] == ""
+    assert products["petg-petg-clear-clear-azul-175-1000-grilon3"]["finish"] == ""
+    assert all(
+        isinstance(product["subrange"], str) and isinstance(product["finish"], str)
+        for product in payload["products"]
+    )
+
+
+def test_build_payload_serializes_subrange_for_catalog_only_official_pla():
+    payload = build_payload(
+        [],
+        sources=SOURCES,
+        manufacturers=MANUFACTURERS,
+        generated_at="2026-05-12T13:00:00-03:00",
+        catalog_products={
+            "pla-pla-astra-dark-285-1000-grilon3": CatalogProduct(
+                product_id="pla-pla-astra-dark-285-1000-grilon3",
+                title="GRILON3 ASTRA DARK 2.85 MM X 1 KG",
+                product_url="https://grilon3.com.ar/producto/astra-dark-285/",
+                image_url="assets/grilon3/astra-dark-285.jpg",
+            )
+        },
+    )
+
+    product = payload["products"][0]
+
+    assert product["id"] == "pla-pla-astra-dark-285-1000-grilon3"
+    assert product["subrange"] == "Astra"
+    assert product["finish"] == "Glitter"
+    assert product["offers"] == []
+
+
 def test_build_payload_does_not_add_catalog_products_without_285_diameter():
     payload = build_payload(
         [],
