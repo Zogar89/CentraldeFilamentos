@@ -663,3 +663,9 @@ def test_color_picker_page_is_linked_and_built():
     assert 'view === "families"' in palette
     assert 'view === "map"' in palette
     assert "Ocultar sin stock" in app
+
+    similar = (SRC / "components" / "SimilarColorSearch.svelte").read_text(encoding="utf-8")
+    assert "Buscar colores similares" in similar
+    assert "result.distance.toFixed(1)" in similar
+    assert "onCompare(result.group)" in similar
+    assert "findSimilarColors(visibleGroups, normalized, referenceGroupId, 3)" in app

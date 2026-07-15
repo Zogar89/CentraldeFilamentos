@@ -1,9 +1,16 @@
 <script>
   import { onMount } from "svelte";
   import ColorPalette from "./components/ColorPalette.svelte";
+  import SimilarColorSearch from "./components/SimilarColorSearch.svelte";
   import SiteFooter from "./components/SiteFooter.svelte";
   import SiteHeader from "./components/SiteHeader.svelte";
-  import { buildPlaColorCatalog, toggleComparedColor } from "./lib/colorPicker.js";
+  import {
+    buildPlaColorCatalog,
+    findSimilarColors,
+    isValidHex,
+    normalizeHex,
+    toggleComparedColor,
+  } from "./lib/colorPicker.js";
   import { fetchJson } from "./lib/shared.js";
 
   let loading = true;
@@ -18,6 +25,10 @@
   let referenceHex = "";
   let referenceGroupId = "";
   let selectionMessage = "";
+  let similarHex = "";
+  let similarResults = [];
+  let similarError = "";
+  let searchActive = false;
 
   $: visibleGroups = hideOutOfStock ? groups.filter((group) => group.inStock) : groups;
 
@@ -43,9 +54,37 @@
   function selectGroup(group) {
     referenceHex = group.hex;
     referenceGroupId = group.id;
+    similarHex = group.hex;
+    similarError = "";
     const result = toggleComparedColor(selectedIds, group.id);
     selectedIds = result.ids;
     selectionMessage = result.message;
+  }
+
+  function setSimilarHex(value) {
+    similarHex = value;
+    referenceGroupId = "";
+    similarError = "";
+  }
+
+  function runSimilarSearch() {
+    const normalized = normalizeHex(similarHex);
+    if (!isValidHex(normalized)) {
+      similarError = "Ingresá un HEX válido, por ejemplo #009DCE.";
+      return;
+    }
+    similarHex = normalized;
+    similarError = "";
+    searchActive = true;
+    similarResults = findSimilarColors(visibleGroups, normalized, referenceGroupId, 3);
+  }
+
+  function setHideOutOfStock(value) {
+    hideOutOfStock = value;
+    if (searchActive) {
+      const nextGroups = value ? groups.filter((group) => group.inStock) : groups;
+      similarResults = findSimilarColors(nextGroups, similarHex, referenceGroupId, 3);
+    }
   }
 </script>
 
@@ -77,7 +116,7 @@
         {/each}
       </div>
       <label class="color-picker-stock-toggle">
-        <input type="checkbox" bind:checked={hideOutOfStock}>
+        <input type="checkbox" checked={hideOutOfStock} on:change={(event) => setHideOutOfStock(event.currentTarget.checked)}>
         <span>Ocultar sin stock</span>
       </label>
     </section>
@@ -86,6 +125,15 @@
       <span>{visibleGroups.length} colores</span>
       {#if excludedCount}<span>{excludedCount} productos PLA sin HEX</span>{/if}
     </div>
+
+    <SimilarColorSearch
+      hex={similarHex}
+      results={similarResults}
+      error={similarError}
+      onHexChange={setSimilarHex}
+      onSearch={runSimilarSearch}
+      onCompare={selectGroup}
+    />
 
     <ColorPalette groups={visibleGroups} view={activeView} {selectedIds} onSelect={selectGroup} />
     <p class="sr-only" aria-live="polite">{selectionMessage}</p>

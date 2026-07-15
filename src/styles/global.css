@@ -115,6 +115,22 @@ main:focus {
 .color-picker-map-y, .color-picker-map-x { position: absolute; color: var(--muted); font-size: .75rem; }
 .color-picker-map-y { top: 0; left: 30px; }
 .color-picker-map-x { right: 0; bottom: 0; }
+.color-picker-similar { display: grid; gap: 14px; margin-top: 18px; padding: 18px; border: 1px solid var(--line); background: var(--surface-soft); }
+.color-picker-similar > header { display: grid; grid-template-columns: minmax(0, 1fr) minmax(360px, 1fr); gap: 20px; align-items: end; }
+.color-picker-similar h2 { margin: 3px 0 5px; }
+.color-picker-similar p { margin: 0; color: var(--muted); }
+.color-picker-similar form { display: grid; grid-template-columns: 48px minmax(140px, 1fr) auto; gap: 8px; align-items: end; }
+.color-picker-similar form label { display: grid; gap: 3px; }
+.color-picker-similar form label span { font-size: .75rem; color: var(--muted); }
+.color-picker-similar input[type="color"] { width: 48px; height: 40px; padding: 2px; }
+.color-picker-similar-results { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.color-picker-similar-card { display: grid; grid-template-rows: 84px auto auto; min-width: 0; border: 1px solid var(--line); background: var(--surface); }
+.color-picker-similar-swatch { border: 0; background: var(--picker-color); }
+.color-picker-similar-card > div { display: grid; gap: 3px; padding: 10px; }
+.color-picker-similar-card > div span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: .8rem; color: var(--muted); }
+.color-picker-similar-card footer { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 0 10px 10px; }
+.color-picker-similar-card footer span { font-size: .75rem; color: var(--muted); }
+.color-picker-error { color: var(--warn) !important; }
 
 .site-header {
   display: grid;
