@@ -641,3 +641,18 @@ def test_generated_stock_data_uses_local_thumbnails_for_local_images():
             missing_or_broken.append((product["id"], product["image_url"], thumbnail_url))
 
     assert missing_or_broken == []
+
+
+def test_color_picker_page_is_linked_and_built():
+    html = Path("color-picker.html").read_text(encoding="utf-8")
+    entry = (SRC / "color-picker.js").read_text(encoding="utf-8")
+    app = (SRC / "ColorPickerApp.svelte").read_text(encoding="utf-8")
+    header = (SRC / "components" / "SiteHeader.svelte").read_text(encoding="utf-8")
+    vite = Path("vite.config.js").read_text(encoding="utf-8")
+
+    assert 'src="/src/color-picker.js"' in html
+    assert "mount(ColorPickerApp" in entry
+    assert 'fetchJson("data/stock.json", null)' in app
+    assert 'active="color-picker"' in app
+    assert 'href: "color-picker.html"' in header
+    assert 'colorPicker: resolve(__dirname, "color-picker.html")' in vite

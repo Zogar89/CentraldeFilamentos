@@ -18,6 +18,7 @@
 
   const navItems = [
     { id: "catalog", label: "Catálogo", href: "index.html" },
+    { id: "color-picker", label: "Color Picker", href: "color-picker.html" },
     { id: "summary", label: "Resumen", href: "resumen.html" },
     { id: "providers", label: "Proveedores", href: "index.html#site-footer" },
   ];
