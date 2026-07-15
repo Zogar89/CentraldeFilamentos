@@ -705,3 +705,10 @@ def test_color_picker_map_uses_dynamic_point_coordinates() -> None:
     assert "top: ${group.mapY}%" in source
     assert "--map-size: ${group.mapSize}px" in source
     assert ".color-picker-map-point" in css
+
+
+def test_color_picker_selected_tile_uses_internal_selection_indicator() -> None:
+    css = Path("src/styles/global.css").read_text(encoding="utf-8")
+
+    assert '.color-picker-tile[aria-pressed="true"] { box-shadow: inset' in css
+    assert '.color-picker-tile[aria-pressed="true"] { outline:' not in css
