@@ -4,7 +4,7 @@ from dataclasses import dataclass
 import json
 from pathlib import Path
 import re
-from typing import Literal, cast
+from typing import Literal, Mapping, cast
 
 from centraldefilamentos.material_appearance import MATERIAL_FINISHES, MaterialFinish
 
@@ -93,7 +93,7 @@ def resolve_color_estimate(
     pantone_hex: str,
     image_url: str,
     material_finish: str,
-    estimates: dict[str, ColorEstimate],
+    estimates: Mapping[str, ColorEstimate],
     public_dir: Path = Path("public"),
 ) -> ColorEstimate | None:
     if pantone_hex:
@@ -118,3 +118,33 @@ def estimate_public_fields(estimate: ColorEstimate) -> dict[str, object]:
         "estimated_color_source": estimate.source,
         "estimated_color_warning": estimate.warning,
     }
+
+
+def apply_color_estimates_to_stock(
+    stock_json: Path,
+    estimates: Mapping[str, ColorEstimate],
+    public_dir: Path = Path("public"),
+) -> int:
+    payload = json.loads(stock_json.read_text(encoding="utf-8"))
+    applied = 0
+    for product in payload.get("products", []):
+        for key in tuple(product):
+            if key.startswith("estimated_color_"):
+                product.pop(key)
+        estimate = resolve_color_estimate(
+            product_id=str(product.get("id", "")),
+            pantone_hex=str(product.get("pantone_hex", "")),
+            image_url=str(product.get("image_url", "")),
+            material_finish=str(product.get("material_finish", "")),
+            estimates=estimates,
+            public_dir=public_dir,
+        )
+        if estimate is None:
+            continue
+        product.update(estimate_public_fields(estimate))
+        applied += 1
+
+    serialized = json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
+    if stock_json.read_text(encoding="utf-8") != serialized:
+        stock_json.write_text(serialized, encoding="utf-8")
+    return applied

@@ -17,6 +17,7 @@ from centraldefilamentos.build_data import (
     write_payload,
 )
 from centraldefilamentos.connectors.grilon3_catalog import CatalogProduct
+from centraldefilamentos.color_estimates import ColorEstimate
 from centraldefilamentos.models import RawStockItem
 from centraldefilamentos.providers import MANUFACTURERS, SOURCES
 from centraldefilamentos.thumbnails import apply_thumbnails_to_stock, thumbnail_url_for
@@ -101,6 +102,53 @@ def test_build_payload_groups_products_and_keeps_unknown_stock_visible():
     ]
     assert payload["products"][0]["offers"][0]["stock_status"] == "out_of_stock"
     assert payload["products"][1]["offers"][0]["stock_status"] == "unknown"
+
+
+def test_build_payload_adds_estimated_color_only_without_pantone():
+    product_id = "pla-negro-175-1000-grilon3"
+    image_url = "assets/thumbs/grilon3/abs-negro-350x350-1ca3d6b8.webp"
+    estimate = ColorEstimate(
+        "#121820",
+        "high",
+        (0.8, 1.0),
+        "image_and_name",
+        "satin",
+        "Imagen local y nombre Negro.",
+        "Color estimado.",
+    )
+
+    payload = build_payload(
+        [raw("filamentos3d", "Filamentos3D", "Zona Sur", "GRILON3 PLA Negro 1kg 1.75mm", 4, "Grilon3")],
+        generated_at="2026-05-12T13:00:00-03:00",
+        enrichments={product_id: {"image_url": image_url}},
+        color_estimates={product_id: estimate},
+    )
+
+    product = payload["products"][0]
+    assert product["pantone_hex"] == ""
+    assert product["estimated_color_hex"] == "#121820"
+    assert product["estimated_color_confidence_band"] == "high"
+    assert product["estimated_color_confidence_interval"] == [0.8, 1.0]
+    assert product["estimated_color_source"] == "image_and_name"
+    assert product["material_finish"] == "satin"
+
+
+def test_build_payload_omits_estimated_color_when_pantone_exists():
+    product_id = "pla-negro-175-1000-grilon3"
+    estimate = ColorEstimate(
+        "#FFFFFF", "low", (0.2, 0.49), "name_only", "satin", "Nombre.", "Color estimado."
+    )
+
+    payload = build_payload(
+        [raw("filamentos3d", "Filamentos3D", "Zona Sur", "GRILON3 PLA Negro 1kg 1.75mm", 4, "Grilon3")],
+        generated_at="2026-05-12T13:00:00-03:00",
+        enrichments={product_id: {"pantone": "Pantone 179"}},
+        color_estimates={product_id: estimate},
+    )
+
+    product = payload["products"][0]
+    assert product["pantone_hex"] == "#E03C31"
+    assert not any(key.startswith("estimated_color_") for key in product)
 
 
 def test_build_payload_orders_sources_north_west_south_and_counts_carretes():
