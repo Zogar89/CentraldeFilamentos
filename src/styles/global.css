@@ -149,6 +149,31 @@ main:focus {
 .color-picker-presentations > span { color: var(--muted); font-size: .8rem; }
 .color-picker-presentations button { display: flex; justify-content: space-between; gap: 8px; width: 100%; }
 .color-picker-estimate-warning, .color-picker-quote-warning { font-size: .8rem; color: var(--muted); }
+.color-picker-tile::after { content: attr(data-tooltip); position: absolute; left: 50%; bottom: calc(100% + 7px); z-index: 20; width: max-content; max-width: 240px; padding: 6px 8px; color: var(--surface); background: var(--text); font-size: .75rem; line-height: 1.25; opacity: 0; pointer-events: none; transform: translate(-50%, 4px); transition: opacity .14s ease, transform .14s ease; }
+.color-picker-tile:hover::after, .color-picker-tile:focus-visible::after { opacity: 1; transform: translate(-50%, 0); }
+.color-picker-tile:focus-visible, .color-picker-similar button:focus-visible, .color-picker-comparator button:focus-visible { outline: 3px solid var(--text); outline-offset: 2px; }
+
+@media (max-width: 900px) {
+  .color-picker-comparator-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .color-picker-similar > header { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 760px) {
+  .color-picker-page { width: min(100% - 20px, 1180px); padding-top: 20px; }
+  .color-picker-controls { align-items: flex-start; flex-direction: column; }
+  .color-picker-palette-continuous, .color-picker-family-grid { grid-template-columns: repeat(auto-fill, minmax(34px, 1fr)); }
+  .color-picker-similar-results { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 460px) {
+  .color-picker-similar form { grid-template-columns: 46px minmax(0, 1fr); }
+  .color-picker-similar form button { grid-column: 1 / -1; }
+  .color-picker-comparator-grid { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .color-picker-tile::after { transition: none; }
+}
 
 .site-header {
   display: grid;

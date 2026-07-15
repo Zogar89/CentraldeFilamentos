@@ -676,3 +676,11 @@ def test_color_picker_page_is_linked_and_built():
     assert "onAddPresentation(presentation.product)" in comparator
     assert "incrementQuoteListItem(quoteItems, product)" in app
     assert "saveQuoteList({" in app
+
+    styles = (SRC / "styles" / "global.css").read_text(encoding="utf-8")
+    assert "data-tooltip" in palette
+    assert 'aria-live="polite"' in app
+    assert "@media (max-width: 760px)" in styles
+    assert ".color-picker-tile:focus-visible::after" in styles
+    assert "grid-template-columns: repeat(2, minmax(0, 1fr))" in styles
+    assert "grid-template-columns: minmax(0, 1fr)" in styles
