@@ -10,6 +10,12 @@ from pathlib import Path
 from typing import Mapping
 from zoneinfo import ZoneInfo
 
+from centraldefilamentos.color_estimates import (
+    ColorEstimate,
+    estimate_public_fields,
+    load_color_estimates,
+    resolve_color_estimate,
+)
 from centraldefilamentos.material_appearance import resolve_material_appearance
 from centraldefilamentos.models import (
     ManufacturerInfo,
@@ -61,6 +67,7 @@ def build_payload(
     enrichments: Mapping[str, Mapping[str, str]] | None = None,
     source_errors: Mapping[str, str] | None = None,
     catalog_products: Mapping[str, object] | None = None,
+    color_estimates: Mapping[str, ColorEstimate] | None = None,
 ) -> dict[str, object]:
     generated = generated_at or _now()
     enrichments = enrichments or {}
@@ -112,7 +119,7 @@ def build_payload(
         }
 
     products = [
-        _product_from_group(product_id, data)
+        _product_from_group(product_id, data, color_estimates or {})
         for product_id, data in grouped.items()
     ]
     products.sort(key=_product_sort_key)
@@ -897,6 +904,7 @@ def main() -> None:
         enrichments=enrichments,
         source_errors=source_errors,
         catalog_products=catalog_products,
+        color_estimates=load_color_estimates(),
     )
     snapshot = load_daily_provider_stock_snapshot(args.daily_snapshot)
     apply_provider_stock_deltas(payload, snapshot)
@@ -951,7 +959,11 @@ def _preferred_offer(left: Offer, right: Offer) -> Offer:
     return right if right_quantity > left_quantity else left
 
 
-def _product_from_group(product_id: str, data: Mapping[str, object]) -> ProductGroup:
+def _product_from_group(
+    product_id: str,
+    data: Mapping[str, object],
+    color_estimates: Mapping[str, ColorEstimate],
+) -> ProductGroup:
     fields = data["fields"]
     enrichment = data["enrichment"]
     offers = sorted(data["offers"], key=_offer_sort_key)  # type: ignore[arg-type]
@@ -963,6 +975,14 @@ def _product_from_group(product_id: str, data: Mapping[str, object]) -> ProductG
         color=fields.color,
         original_names=[offer.original_name for offer in offers],
     )
+    estimate = resolve_color_estimate(
+        product_id=product_id,
+        pantone_hex=appearance.pantone_hex,
+        image_url=str(enrichment["image_url"]),
+        material_finish=appearance.finish,
+        estimates=color_estimates,
+    )
+    estimated_fields = estimate_public_fields(estimate) if estimate else {}
 
     return ProductGroup(
         id=product_id,
@@ -981,6 +1001,11 @@ def _product_from_group(product_id: str, data: Mapping[str, object]) -> ProductG
         pantone_hex=appearance.pantone_hex,
         material_finish=appearance.finish,
         material_swatch_url="",
+        estimated_color_hex=str(estimated_fields.get("estimated_color_hex", "")),
+        estimated_color_confidence_band=str(estimated_fields.get("estimated_color_confidence_band", "")),
+        estimated_color_confidence_interval=list(estimated_fields.get("estimated_color_confidence_interval", [])),
+        estimated_color_source=str(estimated_fields.get("estimated_color_source", "")),
+        estimated_color_warning=str(estimated_fields.get("estimated_color_warning", "")),
         sku=str(enrichment["sku"]),
         ean=str(enrichment["ean"]),
         display_name=build_display_name(fields),

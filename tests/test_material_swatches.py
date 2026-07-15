@@ -5,6 +5,7 @@ from PIL import Image, ImageChops, ImageStat
 
 from centraldefilamentos.material_swatches import (
     apply_material_swatches_to_stock,
+    estimated_material_swatch_url,
     material_swatch_url,
     render_material_swatch,
 )
@@ -13,6 +14,9 @@ from centraldefilamentos.material_swatches import (
 def test_asset_name_is_stable() -> None:
     assert material_swatch_url("179 C", "satin") == (
         "assets/material-swatches/pantone-179-c-satin-v1.webp"
+    )
+    assert estimated_material_swatch_url("pla-acqua-175-1000", "satin") == (
+        "assets/material-swatches/estimated-pla-acqua-175-1000-satin-v1.webp"
     )
 
 
@@ -93,3 +97,77 @@ def test_apply_material_swatches_updates_only_resolved_products_idempotently(tmp
     assert payload["products"][0]["material_finish"] == "satin"
     assert payload["products"][1]["material_swatch_url"] == ""
     assert len(list((public_dir / "assets" / "material-swatches").glob("*.webp"))) == 1
+
+
+def test_apply_material_swatches_prioritizes_pantone_and_renders_estimate(tmp_path: Path) -> None:
+    stock_json = tmp_path / "stock.json"
+    public_dir = tmp_path / "public"
+    stock_json.write_text(
+        json.dumps(
+            {
+                "products": [
+                    {
+                        "id": "pla-rojo",
+                        "pantone": "Pantone 179",
+                        "estimated_color_hex": "#FFFFFF",
+                        "variant": "",
+                        "color": "Rojo",
+                        "offers": [],
+                    },
+                    {
+                        "id": "pla-acqua",
+                        "pantone": "",
+                        "estimated_color_hex": "#009DCE",
+                        "material_finish": "satin",
+                        "variant": "",
+                        "color": "Acqua",
+                        "offers": [],
+                    },
+                ]
+            }
+        ),
+        encoding="utf-8",
+    )
+    progress = []
+
+    assert apply_material_swatches_to_stock(
+        stock_json, public_dir, progress=lambda completed, total: progress.append((completed, total))
+    ) == 2
+
+    products = json.loads(stock_json.read_text(encoding="utf-8"))["products"]
+    assert products[0]["material_swatch_url"].startswith("assets/material-swatches/pantone-")
+    assert products[1]["material_swatch_url"] == (
+        "assets/material-swatches/estimated-pla-acqua-satin-v1.webp"
+    )
+    assert (public_dir / products[1]["material_swatch_url"]).is_file()
+    assert progress == [(1, 1)]
+
+
+def test_estimated_swatch_replaces_stale_bytes_and_then_is_idempotent(tmp_path: Path) -> None:
+    stock_json = tmp_path / "stock.json"
+    public_dir = tmp_path / "public"
+    product = {
+        "id": "pla-acqua",
+        "pantone": "",
+        "estimated_color_hex": "#009DCE",
+        "material_finish": "satin",
+        "variant": "",
+        "color": "Acqua",
+        "offers": [],
+    }
+    stock_json.write_text(json.dumps({"products": [product]}), encoding="utf-8")
+
+    assert apply_material_swatches_to_stock(stock_json, public_dir) == 1
+    url = json.loads(stock_json.read_text(encoding="utf-8"))["products"][0]["material_swatch_url"]
+    asset = public_dir / url
+    first_bytes = asset.read_bytes()
+
+    payload = json.loads(stock_json.read_text(encoding="utf-8"))
+    payload["products"][0]["estimated_color_hex"] = "#D6007B"
+    stock_json.write_text(json.dumps(payload), encoding="utf-8")
+    assert apply_material_swatches_to_stock(stock_json, public_dir) == 1
+    second_bytes = asset.read_bytes()
+    assert second_bytes != first_bytes
+
+    assert apply_material_swatches_to_stock(stock_json, public_dir) == 0
+    assert asset.read_bytes() == second_bytes
