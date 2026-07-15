@@ -65,11 +65,15 @@
   </div>
 {:else if view === "map"}
   <div class="color-picker-map-scroll">
-    <div class="color-picker-map">
+    <div class="color-picker-map" aria-label="Mapa perceptual de colores PLA">
       <span class="color-picker-map-y">Luminosidad ↑</span>
       <span class="color-picker-map-x">Tono →</span>
+      <span class="color-picker-map-note">Tamaño = intensidad</span>
       {#each mapGroups as group (group.id)}
-        <div class="color-picker-map-cell" style={`grid-column: ${group.mapColumn}; grid-row: ${group.mapRow}`}>
+        <div
+          class="color-picker-map-point"
+          style={`left: ${group.mapX}%; top: ${group.mapY}%; --map-size: ${group.mapSize}px`}
+        >
           {@render tile(group)}
         </div>
       {/each}

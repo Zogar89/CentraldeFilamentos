@@ -695,3 +695,13 @@ def test_color_picker_page_is_linked_and_built():
     assert "grid-template-columns: repeat(2, minmax(0, 1fr))" in styles
     assert "grid-template-columns: minmax(0, 1fr)" in styles
     assert ".color-picker-continuous-band" in styles
+
+
+def test_color_picker_map_uses_dynamic_point_coordinates() -> None:
+    source = Path("src/components/ColorPalette.svelte").read_text(encoding="utf-8")
+    css = Path("src/styles/global.css").read_text(encoding="utf-8")
+
+    assert "left: ${group.mapX}%" in source
+    assert "top: ${group.mapY}%" in source
+    assert "--map-size: ${group.mapSize}px" in source
+    assert ".color-picker-map-point" in css
