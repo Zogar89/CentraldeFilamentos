@@ -66,3 +66,12 @@ test("skip link transfers keyboard focus to the main content", async ({ page }) 
   await page.keyboard.press("Enter");
   await expect(page.locator("#main-content")).toBeFocused();
 });
+
+test("focused tooltips stay inside the viewport at both palette edges", async ({ page }) => {
+  const tiles = page.locator(".color-picker-continuous-grid .color-picker-tile");
+  for (const tile of [tiles.first(), tiles.last()]) {
+    await tile.focus();
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+    expect(overflow).toBeLessThanOrEqual(1);
+  }
+});
