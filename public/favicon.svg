@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Central de Filamentos">
+  <defs>
+    <linearGradient id="brand" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#f36b3d"/>
+      <stop offset="0.45" stop-color="#f1c743"/>
+      <stop offset="1" stop-color="#00a68a"/>
+    </linearGradient>
+    <radialGradient id="shine" cx="0" cy="0" r="1" gradientTransform="translate(45 16) rotate(135) scale(24)">
+      <stop stop-color="#fff" stop-opacity="0.78"/>
+      <stop offset="0.72" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="64" height="64" rx="17" fill="url(#brand)"/>
+  <rect width="64" height="64" rx="17" fill="url(#shine)"/>
+  <rect x="1" y="1" width="62" height="62" rx="16" fill="none" stroke="#fff" stroke-opacity="0.52" stroke-width="2"/>
+  <text x="32" y="41" fill="#fff" font-family="Arial, sans-serif" font-size="25" font-weight="900" text-anchor="middle">CF</text>
+</svg>
