@@ -1,0 +1,1 @@
+import"./modulepreload-polyfill-Dezn_h7o.js";var e=`/CentraldeFilamentos/${window.location.search}${window.location.hash}`;window.location.replace(e);
