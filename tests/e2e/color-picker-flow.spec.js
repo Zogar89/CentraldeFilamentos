@@ -10,6 +10,21 @@ test.beforeEach(async ({ page }, testInfo) => {
   await waitForStablePage(page);
 });
 
+test("exposes the active page and associates dynamic search feedback", async ({ page }) => {
+  await expect(page.getByRole("link", { name: "Color Picker" })).toHaveAttribute("aria-current", "page");
+
+  const hexInput = page.getByLabel("HEX de referencia");
+  await hexInput.fill("mal");
+  await page.getByRole("button", { name: "Buscar similares" }).click();
+  const error = page.getByRole("alert");
+  await expect(error).toHaveAttribute("id", /.+/);
+  await expect(hexInput).toHaveAttribute("aria-describedby", await error.getAttribute("id"));
+
+  await hexInput.fill("#00AEEF");
+  await page.getByRole("button", { name: "Buscar similares" }).click();
+  await expect(page.locator(".color-picker-similar-results")).toHaveAttribute("aria-live", "polite");
+});
+
 test("switches every color view and preserves a single active state", async ({ page }) => {
   const viewNames = ["Continuo", "Familias", "Mapa 2D"];
   for (const name of viewNames) {
@@ -40,7 +55,7 @@ test("validates HEX, exposes similar colors, and retains focus after choosing on
   await firstResult.focus();
   await firstResult.press("Enter");
   await expect(page.locator(".color-picker-compare-card")).toHaveCount(1);
-  await expect.poll(() => page.evaluate(() => document.activeElement?.tagName)).not.toBe("BODY");
+  await expect(page.locator(".color-picker-compare-card").getByRole("button", { name: /Quitar .+ del comparador/ })).toBeFocused();
 });
 
 test("skip link transfers keyboard focus to the main content", async ({ page }) => {

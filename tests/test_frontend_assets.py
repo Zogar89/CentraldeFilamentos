@@ -563,7 +563,6 @@ def test_color_picker_page_is_linked_and_built():
     assert 'active="color-picker"' in app
     assert 'href: "color-picker.html"' in header
     assert 'colorPicker: resolve(__dirname, "color-picker.html")' in vite
-
     palette = (SRC / "components" / "ColorPalette.svelte").read_text(encoding="utf-8")
     assert 'aria-pressed={selectedIds.includes(group.id)}' in palette
     assert 'title={tooltip(group)}' in palette
@@ -606,6 +605,28 @@ def test_color_picker_page_is_linked_and_built():
     assert "grid-template-columns: repeat(2, minmax(0, 1fr))" in styles
     assert "grid-template-columns: minmax(0, 1fr)" in styles
     assert ".color-picker-continuous-band" in styles
+
+
+def test_all_public_pages_declare_the_shared_favicon_and_are_publishable():
+    html_pages = [
+        "index.html",
+        "catalogo.html",
+        "resumen.html",
+        "color-picker.html",
+        "estadisticas.html",
+    ]
+    for page_path in html_pages:
+        html = Path(page_path).read_text(encoding="utf-8")
+        assert '<link rel="icon" href="%BASE_URL%favicon.svg" type="image/svg+xml">' in html
+
+    assert (PUBLIC / "favicon.svg").exists()
+
+    vite = Path("vite.config.js").read_text(encoding="utf-8")
+    assert 'catalogo: resolve(__dirname, "catalogo.html")' in vite
+
+    workflow = Path(".github/workflows/pages.yml").read_text(encoding="utf-8")
+    for watched_path in ["catalogo.html", "color-picker.html", "public/favicon.svg"]:
+        assert f'- "{watched_path}"' in workflow
 
 
 def test_color_picker_map_uses_dynamic_point_coordinates() -> None:
