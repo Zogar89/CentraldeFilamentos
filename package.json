@@ -6,11 +6,18 @@
     "dev": "vite --host 0.0.0.0",
     "test:color-picker": "node --test tests/colorPicker.test.js",
     "test:quote-list": "node --test tests/quoteList.test.js tests/quoteCoverage.test.js",
+    "test:ui": "playwright test",
+    "test:ui:update": "playwright test --update-snapshots",
+    "test:ui:report": "playwright show-report",
+    "audit:lighthouse": "npm run build && lhci autorun",
     "build": "vite build",
     "preview": "vite preview --host 0.0.0.0",
     "curate-images": "node tools/image-curation/server.mjs"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.12.1",
+    "@lhci/cli": "^0.15.1",
+    "@playwright/test": "^1.61.1",
     "@sveltejs/vite-plugin-svelte": "^7.1.2",
     "svelte": "^5.55.7",
     "vite": "^8.0.13"
