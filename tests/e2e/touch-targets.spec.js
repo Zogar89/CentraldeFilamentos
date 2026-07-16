@@ -65,8 +65,7 @@ test("summary restores compact visible controls", async ({ page }, testInfo) => 
   const stockWatch = await dimensions(page.locator(".summary-stock-watch").first());
   const quoteAdd = await dimensions(page.locator(".summary-quote-add").first());
 
-  expect(quickLine.height).toBeLessThanOrEqual(quickLinesMobile ? 32.5 : 30.5);
-  expect(quickLine.height).toBeGreaterThanOrEqual(23.5);
+  expect(quickLine.height).toBeCloseTo(quickLinesMobile ? 32 : 30, 0);
   expect(stockWatch.width).toBeCloseTo(24, 0);
   expect(stockWatch.height).toBeCloseTo(24, 0);
   expect(quoteAdd.width).toBeCloseTo(compactActionsMobile ? 40 : 42, 0);
