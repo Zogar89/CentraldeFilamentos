@@ -25,11 +25,11 @@
 - 390 x 844: PASS — Resumen sin solapamientos; medidas móviles esperadas y overflow 0.
 - Color Picker desktop/móvil: PASS — 1920 x 1080 y 390 x 844 mantienen dimensiones esperadas, foco/hitbox de mapa y overflow de página 0.
 - Evidencia visual retenida:
-  - `test-results/ui-density-review/summary-4k.png`
-  - `test-results/ui-density-review/summary-1080.png`
-  - `test-results/ui-density-review/summary-mobile-390.png`
-  - `test-results/ui-density-review/color-picker-1080.png`
-  - `test-results/ui-density-review/color-picker-mobile-390.png`
+  - `docs/qa/evidence/ui-density/summary-4k.png`
+  - `docs/qa/evidence/ui-density/summary-1080.png`
+  - `docs/qa/evidence/ui-density/summary-mobile-390.png`
+  - `docs/qa/evidence/ui-density/color-picker-1080.png`
+  - `docs/qa/evidence/ui-density/color-picker-mobile-390.png`
 
 ## Publicación
 
