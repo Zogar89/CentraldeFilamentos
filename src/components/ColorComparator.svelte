@@ -24,7 +24,7 @@
         <article class="color-picker-compare-card" style={`--picker-color: ${group.hex}`}>
           <header>
             <div><strong>{group.name}</strong><span>{group.brand} · {group.line}</span></div>
-            <button type="button" aria-label={`Quitar ${group.name} del comparador`} on:click={() => onRemove(group)}>×</button>
+            <button type="button" data-compare-id={group.id} aria-label={`Quitar ${group.name} del comparador`} on:click={() => onRemove(group)}>×</button>
           </header>
           <div class="color-picker-material-render">
             <span class="color-picker-render-fallback" aria-label={`Muestra plana ${group.hex}`}></span>

@@ -1,5 +1,5 @@
 <script>
-  import { onMount } from "svelte";
+  import { onMount, tick } from "svelte";
   import ColorPalette from "./components/ColorPalette.svelte";
   import ColorComparator from "./components/ColorComparator.svelte";
   import SimilarColorSearch from "./components/SimilarColorSearch.svelte";
@@ -94,7 +94,7 @@
     loading = false;
   }
 
-  function selectGroup(group) {
+  async function selectGroup(group) {
     referenceHex = group.hex;
     referenceGroupId = group.id;
     similarHex = group.hex;
@@ -102,6 +102,9 @@
     const result = toggleComparedColor(selectedIds, group.id);
     selectedIds = result.ids;
     selectionMessage = result.message;
+    if (!selectedIds.includes(group.id) || !result.ids.includes(group.id)) return;
+    await tick();
+    document.querySelector(`[data-compare-id="${CSS.escape(group.id)}"]`)?.focus();
   }
 
   function setSimilarHex(value) {
@@ -153,7 +156,7 @@
 
 <SiteHeader active="color-picker" updatedAt={generatedAt} subtitle="PLA · búsqueda por color" />
 
-<main id="main-content" class="color-picker-page">
+<main id="main-content" class="color-picker-page" tabindex="-1">
   <header class="color-picker-hero">
     <div>
       <span class="eyebrow">PLA · COLOR PICKER</span>

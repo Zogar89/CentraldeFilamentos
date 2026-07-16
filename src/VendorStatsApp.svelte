@@ -127,6 +127,7 @@
 </script>
 
 <main id="main-content" class="internal-shell" tabindex="-1">
+  <h1 class="sr-only">Estadísticas de vendedores</h1>
   <SiteHeader active="stats" updatedAt={generatedAt} subtitle="Estadísticas de vendedores" />
 
   <section class="status-strip">

@@ -46,7 +46,7 @@
 
   <nav class="view-switch" aria-label="Cambiar vista">
     {#each navItems as item}
-      <a class="nav-link" class:active={active === item.id} href={item.href}>{item.label}</a>
+      <a class="nav-link" class:active={active === item.id} aria-current={active === item.id ? "page" : undefined} href={item.href}>{item.label}</a>
     {/each}
   </nav>
 

@@ -777,6 +777,7 @@
 </script>
 
 <main id="main-content" class="shell" tabindex="-1">
+  <h1 class="sr-only">Resumen por proveedor</h1>
   <SiteHeader active="summary" updatedAt={generatedAt} subtitle="Resumen por proveedor" showCatalogHelp {stockAlerts} onDismissStockAlerts={dismissStockAlerts} />
   <p class="sr-only" aria-live="polite">{quoteFeedbackMessage}</p>
 
