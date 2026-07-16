@@ -565,7 +565,8 @@ def test_color_picker_page_is_linked_and_built():
     assert 'colorPicker: resolve(__dirname, "color-picker.html")' in vite
     palette = (SRC / "components" / "ColorPalette.svelte").read_text(encoding="utf-8")
     assert 'aria-pressed={selectedIds.includes(group.id)}' in palette
-    assert 'title={tooltip(group)}' in palette
+    assert 'class="color-picker-tooltip"' in palette
+    assert "on:focus={(event) => showTooltip(event, group)}" in palette
     assert 'view === "continuous"' in palette
     assert 'view === "families"' in palette
     assert 'view === "map"' in palette
@@ -598,10 +599,10 @@ def test_color_picker_page_is_linked_and_built():
     assert "saveQuoteList({" in app
 
     styles = (SRC / "styles" / "global.css").read_text(encoding="utf-8")
-    assert "data-tooltip" in palette
+    assert "color-picker-tooltip" in palette
     assert 'aria-live="polite"' in app
     assert "@media (max-width: 760px)" in styles
-    assert ".color-picker-tile:focus-visible::after" in styles
+    assert ".color-picker-tooltip" in styles
     assert "grid-template-columns: repeat(2, minmax(0, 1fr))" in styles
     assert "grid-template-columns: minmax(0, 1fr)" in styles
     assert ".color-picker-continuous-band" in styles
@@ -624,9 +625,20 @@ def test_all_public_pages_declare_the_shared_favicon_and_are_publishable():
     vite = Path("vite.config.js").read_text(encoding="utf-8")
     assert 'catalogo: resolve(__dirname, "catalogo.html")' in vite
 
+    catalog_html = Path("catalogo.html").read_text(encoding="utf-8")
+    assert '<link rel="canonical" href="https://zogar89.github.io/CentraldeFilamentos/">' in catalog_html
+    assert '/src/catalog-redirect.js' in catalog_html
+    redirect = Path("src/catalog-redirect.js").read_text(encoding="utf-8")
+    assert "location.replace" in redirect
+    assert "import.meta.env.BASE_URL" in redirect
+
     workflow = Path(".github/workflows/pages.yml").read_text(encoding="utf-8")
     for watched_path in ["catalogo.html", "color-picker.html", "public/favicon.svg"]:
         assert f'- "{watched_path}"' in workflow
+
+    audit_workflow = Path(".github/workflows/ui-audit.yml").read_text(encoding="utf-8")
+    for watched_path in ["vite.config.js", "lighthouserc.json", ".github/workflows/pages.yml", ".github/workflows/ui-audit.yml"]:
+        assert f'- "{watched_path}"' in audit_workflow
 
 
 def test_color_picker_map_uses_dynamic_point_coordinates() -> None:

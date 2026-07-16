@@ -93,4 +93,3 @@ The run writes Playwright HTML output, traces on failure, Lighthouse reports, an
 ## Failure policy
 
 Each distinct failure receives at most three evidence-driven attempts. Test-infrastructure faults may be corrected. Product defects are reproduced, captured, and reported; they are not silently fixed during this audit. The suite never retries indefinitely.
-

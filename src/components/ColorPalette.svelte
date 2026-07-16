@@ -6,6 +6,8 @@
   export let selectedIds = [];
   export let onSelect = () => {};
 
+  let activeTooltip = null;
+
   $: continuousBands = groupContinuousBands(groups);
   $: familyGroups = [...groupColorFamilies(groups)];
   $: mapGroups = buildColorMap(groups);
@@ -22,6 +24,20 @@
   function tooltip(group) {
     return `${group.brand} · ${group.line} · ${group.name} · ${group.hex} · ${group.inStock ? "con stock" : "sin stock"}`;
   }
+
+  function showTooltip(event, group) {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const width = Math.min(240, window.innerWidth - 24);
+    activeTooltip = {
+      text: tooltip(group),
+      left: Math.min(window.innerWidth - 12 - width / 2, Math.max(12 + width / 2, rect.left + rect.width / 2)),
+      top: rect.top - 8,
+    };
+  }
+
+  function hideTooltip() {
+    activeTooltip = null;
+  }
 </script>
 
 {#snippet tile(group)}
@@ -32,8 +48,10 @@
     style={`--picker-color: ${group.hex}`}
     aria-label={tooltip(group)}
     aria-pressed={selectedIds.includes(group.id)}
-    data-tooltip={tooltip(group)}
-    title={tooltip(group)}
+    on:mouseenter={(event) => showTooltip(event, group)}
+    on:mouseleave={hideTooltip}
+    on:focus={(event) => showTooltip(event, group)}
+    on:blur={hideTooltip}
     on:click={() => onSelect(group)}
   >
     <span class="sr-only">{group.name}</span>
@@ -79,4 +97,12 @@
       {/each}
     </div>
   </div>
+{/if}
+
+{#if activeTooltip}
+  <div
+    class="color-picker-tooltip"
+    role="tooltip"
+    style={`left: ${activeTooltip.left}px; top: ${activeTooltip.top}px`}
+  >{activeTooltip.text}</div>
 {/if}

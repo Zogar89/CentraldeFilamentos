@@ -36,6 +36,12 @@
 
   {#if error}<p id="similar-hex-error" class="color-picker-error" role="alert">{error}</p>{/if}
 
+  <p class="sr-only color-picker-similar-status" role="status" aria-live="polite" aria-atomic="true">
+    {#if searchActive && hasValidHex}
+      {results.length ? `${results.length} colores similares encontrados.` : "No se encontraron colores similares."}
+    {/if}
+  </p>
+
   {#if searchActive && hasValidHex && results.length < 3}
     <p class="color-picker-similar-warning" role="status">
       {#if results.length}
@@ -48,7 +54,7 @@
   {/if}
 
   {#if results.length}
-    <div class="color-picker-similar-results" role="region" aria-label={`${results.length} colores similares`} aria-live="polite">
+    <div class="color-picker-similar-results" role="region" aria-label={`${results.length} colores similares`}>
       {#each results as result (result.group.id)}
         <article class="color-picker-similar-card" style={`--picker-color: ${result.group.hex}`}>
           <button class="color-picker-similar-swatch" type="button" aria-label={`Comparar ${result.group.name}`} on:click={() => onCompare(result.group)}></button>

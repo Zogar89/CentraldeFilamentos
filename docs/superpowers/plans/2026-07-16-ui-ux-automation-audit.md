@@ -177,4 +177,3 @@ Run Python tests, configured Node tests, Vite build, all Playwright projects, vi
 - [ ] **Step 4: Write the final report**
 
 Include scope, step health, strengths, UX risks, accessibility risks, viewport table, performance measurements, failure attempts, evidence limits, and prioritized recommendations.
-

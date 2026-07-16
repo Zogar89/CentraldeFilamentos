@@ -12,6 +12,9 @@ test.beforeEach(async ({ page }, testInfo) => {
 
 test("exposes the active page and associates dynamic search feedback", async ({ page }) => {
   await expect(page.getByRole("link", { name: "Color Picker" })).toHaveAttribute("aria-current", "page");
+  const status = page.locator(".color-picker-similar-status");
+  await expect(status).toHaveAttribute("aria-live", "polite");
+  await expect(status).toHaveText("");
 
   const hexInput = page.getByLabel("HEX de referencia");
   await hexInput.fill("mal");
@@ -22,7 +25,7 @@ test("exposes the active page and associates dynamic search feedback", async ({ 
 
   await hexInput.fill("#00AEEF");
   await page.getByRole("button", { name: "Buscar similares" }).click();
-  await expect(page.locator(".color-picker-similar-results")).toHaveAttribute("aria-live", "polite");
+  await expect(status).toContainText("3 colores similares");
 });
 
 test("switches every color view and preserves a single active state", async ({ page }) => {
@@ -73,5 +76,13 @@ test("focused tooltips stay inside the viewport at both palette edges", async ({
     await tile.focus();
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
     expect(overflow).toBeLessThanOrEqual(1);
+    const tooltip = page.getByRole("tooltip");
+    await expect(tooltip).toBeVisible();
+    const tooltipBounds = await tooltip.evaluate((element) => {
+      const rect = element.getBoundingClientRect();
+      return { left: rect.left, right: rect.right, viewport: document.documentElement.clientWidth };
+    });
+    expect(tooltipBounds.left).toBeGreaterThanOrEqual(0);
+    expect(tooltipBounds.right).toBeLessThanOrEqual(tooltipBounds.viewport);
   }
 });
