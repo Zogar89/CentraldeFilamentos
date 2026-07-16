@@ -4011,6 +4011,18 @@ input {
     border-top: 0;
   }
 
+  .summary-table tbody tr:not(.summary-group-row) .summary-photo-cell::before,
+  .summary-table tbody tr:not(.summary-group-row) .summary-color-cell::before,
+  .summary-table tbody tr:not(.summary-group-row) .summary-add-cell::before {
+    content: none;
+  }
+
+  .summary-table tbody tr:not(.summary-group-row) .summary-product-name a {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+  }
+
   .summary-table tbody tr:not(.summary-group-row) .summary-add-cell {
     grid-column: 4;
     grid-row: 1 / span 2;
