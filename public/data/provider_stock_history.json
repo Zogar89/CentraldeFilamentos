@@ -1,41 +1,6 @@
 {
   "days": [
     {
-      "captured_at": "2026-06-04T10:18:20-03:00",
-      "checks": [
-        {
-          "captured_at": "2026-06-04T10:18:20-03:00",
-          "providers": {
-            "filamentos3d": 12880,
-            "grupo_senz": 9467,
-            "mundoinsumos": 12298
-          }
-        },
-        {
-          "captured_at": "2026-06-04T15:56:19-03:00",
-          "providers": {
-            "filamentos3d": 11976,
-            "grupo_senz": 9467,
-            "mundoinsumos": 10660
-          }
-        },
-        {
-          "captured_at": "2026-06-04T18:37:25-03:00",
-          "providers": {
-            "filamentos3d": 11959,
-            "grupo_senz": 9467,
-            "mundoinsumos": 10660
-          }
-        }
-      ],
-      "date": "2026-06-04",
-      "providers": {
-        "filamentos3d": 12880,
-        "grupo_senz": 9467,
-        "mundoinsumos": 12298
-      }
-    },
-    {
       "captured_at": "2026-06-05T10:13:12-03:00",
       "checks": [
         {
@@ -1113,9 +1078,44 @@
         "grupo_senz": 8326,
         "mundoinsumos": 9399
       }
+    },
+    {
+      "captured_at": "2026-07-16T11:02:07-03:00",
+      "checks": [
+        {
+          "captured_at": "2026-07-16T11:02:07-03:00",
+          "providers": {
+            "filamentos3d": 10589,
+            "grupo_senz": 8305,
+            "mundoinsumos": 7016
+          }
+        },
+        {
+          "captured_at": "2026-07-16T13:19:49-03:00",
+          "providers": {
+            "filamentos3d": 10549,
+            "grupo_senz": 8305,
+            "mundoinsumos": 6512
+          }
+        },
+        {
+          "captured_at": "2026-07-16T16:17:59-03:00",
+          "providers": {
+            "filamentos3d": 10449,
+            "grupo_senz": 8305,
+            "mundoinsumos": 6512
+          }
+        }
+      ],
+      "date": "2026-07-16",
+      "providers": {
+        "filamentos3d": 10589,
+        "grupo_senz": 8305,
+        "mundoinsumos": 7016
+      }
     }
   ],
-  "generated_at": "2026-07-15T19:05:00-03:00",
+  "generated_at": "2026-07-16T16:17:59-03:00",
   "providers": [
     {
       "id": "mundoinsumos",
