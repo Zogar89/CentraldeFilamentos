@@ -58,29 +58,31 @@ test("summary restores compact visible controls", async ({ page }, testInfo) => 
   await page.goto("./");
   await waitForStablePage(page);
 
-  const mobile = testInfo.project.name.startsWith("mobile-");
+  const viewportWidth = testInfo.project.use.viewport.width;
+  const quickLinesMobile = viewportWidth <= 860;
+  const compactActionsMobile = viewportWidth <= 520;
   const quickLine = await dimensions(page.locator(".quick-line").first());
   const stockWatch = await dimensions(page.locator(".summary-stock-watch").first());
   const quoteAdd = await dimensions(page.locator(".summary-quote-add").first());
 
-  expect(quickLine.height).toBeLessThanOrEqual(mobile ? 32.5 : 30.5);
+  expect(quickLine.height).toBeLessThanOrEqual(quickLinesMobile ? 32.5 : 30.5);
   expect(quickLine.height).toBeGreaterThanOrEqual(23.5);
   expect(stockWatch.width).toBeCloseTo(24, 0);
   expect(stockWatch.height).toBeCloseTo(24, 0);
-  expect(quoteAdd.width).toBeCloseTo(mobile ? 40 : 42, 0);
-  expect(quoteAdd.height).toBeCloseTo(mobile ? 36 : 28, 0);
+  expect(quoteAdd.width).toBeCloseTo(compactActionsMobile ? 40 : 42, 0);
+  expect(quoteAdd.height).toBeCloseTo(compactActionsMobile ? 36 : 28, 0);
 });
 
 test("compact overlay controls retain their intended size", async ({ page }, testInfo) => {
   await page.goto("./");
   await waitForStablePage(page);
   await page.locator(".summary-quote-add").first().click();
-  const mobile = testInfo.project.name.startsWith("mobile-");
+  const compactActionsMobile = testInfo.project.use.viewport.width <= 520;
   const removeButton = page.getByRole("dialog", { name: "Lista de cotizacion" }).locator(".quote-list-remove").first();
   const drawerClose = page.getByRole("button", { name: "Cerrar lista de cotizacion" });
   await expect(removeButton).toBeVisible();
-  expect(await dimensions(removeButton)).toEqual(expect.objectContaining({ width: mobile ? 40 : 28, height: mobile ? 40 : 28 }));
-  expect(await dimensions(drawerClose)).toEqual(expect.objectContaining({ width: mobile ? 40 : 32, height: mobile ? 40 : 32 }));
+  expect(await dimensions(removeButton)).toEqual(expect.objectContaining({ width: compactActionsMobile ? 40 : 28, height: compactActionsMobile ? 40 : 28 }));
+  expect(await dimensions(drawerClose)).toEqual(expect.objectContaining({ width: compactActionsMobile ? 40 : 32, height: compactActionsMobile ? 40 : 32 }));
 
   await drawerClose.click();
   await page.locator(".summary-media-button").first().click();
