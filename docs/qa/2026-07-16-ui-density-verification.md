@@ -34,8 +34,9 @@
 
 ## Publicación
 
-- Publicación: pendiente en el estado local actual; no se realizó merge, push ni publicación.
-- Merge: no realizado.
-- Push: no realizado.
-- Rama verificada: `codex/restore-ui-density`.
-- La documentación de esta evidencia se commitea localmente por separado; no se declara un hash futuro dentro de este archivo.
+- Merge: fast-forward de `codex/restore-ui-density` a `master`, con actualización previa de los datos remotos, commit publicado `8a1acf0`.
+- Push: `master` publicado correctamente en `origin`.
+- CI: workflow `29536387306`, success.
+- Publish UI: workflow `29536389427`, success.
+- GitHub Pages: build `1099276790`, estado `built`, commit servido `b5e9b2f` de `gh-pages`.
+- Verificación pública: index y CSS respondieron HTTP 200; el CSS servido contiene quick lines 43/48 px, campanas 24 px, shell 1180 px y no contiene el override de 1920 px.
