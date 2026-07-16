@@ -2,9 +2,18 @@
 
 ## Veredicto
 
-La UI funciona bien en el flujo principal de cotización y mantiene presupuestos locales de carga razonables, pero todavía no está lista para tratar la auditoría responsive y WCAG como una barrera de calidad obligatoria. Los defectos más importantes son el desbordamiento horizontal del Color Picker, dos pérdidas de foco por teclado y contrastes AA insuficientes.
+La UI quedó corregida y lista para usar la auditoría responsive y WCAG automatizable como barrera de calidad. La verificación final pasó en Chrome para 4K, 2K, 1080p, laptop, tres anchos móviles y móvil horizontal, sin overflow, fallas de foco ni violaciones axe serias o críticas.
 
-Esta auditoría no modifica componentes de producción. Agrega infraestructura reproducible, pruebas y evidencia en la rama aislada `codex/ui-ux-automation-audit`.
+La rama aislada `codex/ui-ux-automation-audit` contiene tanto la infraestructura reproducible como las correcciones de producción y sus regresiones automatizadas.
+
+## Estado posterior a las correcciones
+
+- Overflow, breakpoints, header horizontal, totales móviles, modal y densidad responsive: corregidos.
+- H1, skip link, foco tras elegir un color, `aria-current`, errores asociados y región live: corregidos.
+- Contrastes AA y objetivos táctiles, incluidos mapa y lista de cotización: corregidos.
+- Favicon, entradas Vite y disparadores de publicación de las cinco páginas: corregidos.
+- Vite actualizado a 8.0.16; ya no figura entre las vulnerabilidades de `npm audit`.
+- Permanecen cinco avisos sólo de desarrollo, transitivos de `@lhci/cli`; no existe una actualización segura sin forzar un downgrade mayor a 0.1.0.
 
 ## Alcance
 
@@ -33,16 +42,21 @@ Se verificaron carga, errores de consola/red, imágenes rotas, overflow, control
 
 | Suite | Resultado | Lectura |
 |---|---:|---|
-| Runtime smoke | 8/8 pasan | Las cuatro familias de tamaño cargan en Chrome sin fallos fatales. |
-| Responsive estructural | 3 pasan, 21 fallan | Las fallas se concentran en H1 ausente y overflow, no en 21 defectos distintos. |
+| Matriz UI completa | 59 pasan, 109 omisiones por proyecto | 168 casos declarados; las omisiones evitan repetir flujos profundos fuera de sus viewports representativos. |
+| Runtime y responsive | 32/32 pasan | Ocho resoluciones; tres vistas; sin overflow, controles recortados ni jerarquía rota. |
 | Cotización profunda | 2/2 pasan | Desktop 1080p y móvil 390: agregar, foco del drawer, caja x12, cobertura, mensaje y WhatsApp. |
-| Color Picker profundo | 2 pasan, 4 fallan | Cambio de vistas pasa; foco post-selección y skip link fallan en desktop y móvil. |
-| Axe dinámico | 8 fallan | Contraste AA insuficiente en las tres vistas y estados dinámicos. |
-| Presupuestos locales | 3/3 pasan | Tres muestras por vista, sin exceder 3 s DCL, 5 s load, 2 MB total, 250 KB JS o 120 KB CSS. |
-| Build Vite | Pasa | 287 módulos; CSS 70.49 KB y chunks JS individuales de 10.53–63.03 KB sin gzip. |
-| Lighthouse CI | Bloqueado | Chrome produjo una muestra parcial, pero Windows negó limpiar el perfil temporal en tres intentos. No se usa como resultado concluyente. |
+| Color Picker profundo | 10/10 pasan | Desktop y móvil: vistas, error/resultado accesible, foco, skip link y tooltips de borde. |
+| Axe representativo | 8/8 pasan | Resumen, Color Picker, Estadísticas y estado HEX dinámico sin violaciones serias o críticas. |
+| Objetivos táctiles | 4/4 pasan | Controles primarios, quitar ítem y puntos del mapa alcanzan 44 × 44 px. |
+| Presupuestos locales | 24/24 pasan | Tres vistas en las ocho resoluciones dentro de los límites de navegación y peso. |
+| Python | 251/251 pasan | Contratos de frontend y pipeline completos. |
+| JavaScript unitario | 32/32 pasan | Color Picker 14/14; cotización y cobertura 18/18. |
+| Build Vite | Pasa | Vite 8.0.16, 288 módulos y las cinco páginas generadas. |
+| Lighthouse CI | Evidencia parcial; runner bloqueado | Completó tres auditorías de la primera URL y midió FCP ≈ 1,2 s, pero `chrome-launcher` falla al borrar el perfil temporal en Windows aun fuera del sandbox. |
 
-## Hallazgos prioritarios
+## Hallazgos iniciales — resueltos
+
+La lista siguiente conserva el diagnóstico que motivó las correcciones; todos los puntos de UI, accesibilidad y publicación quedaron cubiertos por la verificación posterior. Lighthouse sigue limitado por su limpieza temporal en Windows y los avisos transitivos de LHCI se documentan como riesgo de tooling.
 
 ### Alta prioridad
 
