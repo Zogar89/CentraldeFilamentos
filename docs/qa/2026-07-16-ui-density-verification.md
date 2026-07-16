@@ -6,6 +6,7 @@
 - Node tests: BASELINE KNOWN ISSUE — `node --test tests/*.test.js` terminó con 45 pass y 3 fail: las suites huérfanas `quoteWorkspace`, `stockWatchWorkspace` y `summaryRows` importan módulos que no existen. No pertenecen al cambio de densidad y no se modificaron.
 - Pytest: PASS — ejecución elevada del controlador con `python -m pytest -v --basetemp C:\tmp\pytest-centraldefilamentos`: 252 passed, 1 `PytestCacheWarning` no bloqueante, exit 0. La advertencia sigue siendo la ACL de `.pytest_cache` en el worktree.
 - Playwright (8 proyectos, Chrome): PASS — `npm.cmd run test:ui` sobre el HEAD exacto `2d82ab1` salió con exit 0. La matriz final completa enumeró 176 casos, con 95 passed, 81 skipped y 49.7 s totales. No hubo fallos responsive ni de overflow, y no aparecieron violaciones axe serious/critical.
+- Contrato exacto de quick lines: PASS — rerun focalizado en `desktop-1080`, `mobile-390` y `mobile-landscape`: 3 passed en 2.9 s, exit 0.
 
 ## Métricas observadas
 
