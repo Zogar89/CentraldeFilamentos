@@ -186,7 +186,7 @@ def test_quote_list_styles_contract_covers_panel_and_controls():
     ]:
         assert copy in quote_sources
 
-    assert "@media (max-width: 820px)" in css
+    assert "@media (max-width: 860px)" in css
     assert "@media (max-width: 520px)" in css
     assert "position: fixed" in css
     assert "bottom:" in css
@@ -649,5 +649,5 @@ def test_color_picker_selected_tile_uses_internal_selection_indicator() -> None:
 def test_color_picker_map_focus_indicator_stays_inside_tiles() -> None:
     css = Path("src/styles/global.css").read_text(encoding="utf-8")
 
-    assert '.color-picker-map-point .color-picker-tile:focus-visible { outline: none; box-shadow: inset' in css
-    assert '.color-picker-map-point .color-picker-tile[aria-pressed="true"]:focus-visible { box-shadow: inset' in css
+    assert '.color-picker-map-point .color-picker-tile:focus-visible::before { box-shadow: inset' in css
+    assert '.color-picker-map-point .color-picker-tile[aria-pressed="true"]:focus-visible::before { box-shadow: inset' in css
