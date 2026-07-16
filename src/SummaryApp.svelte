@@ -65,6 +65,7 @@
   let preview = null;
   let stockSubscriptions = [];
   let stockAlerts = [];
+  let stockWatchEnabled = false;
   let quoteItems = [];
   let quoteSettings = { showQuickControls: true };
   let quoteStorageWarning = "";
@@ -88,15 +89,21 @@
   const quoteRemovedNoticeTemplate = "Quitamos {count} item(s) que ya no aparecen en el catalogo publicado.";
 
   onMount(async () => {
-    const payload = await fetchJson("data/stock.json", null);
+    const [payload, featureFlags] = await Promise.all([
+      fetchJson("data/stock.json", null),
+      fetchJson("data/feature_flags.json", {}),
+    ]);
     const catalogResult = payload && Array.isArray(payload.products)
       ? { ok: true, products: payload.products }
       : { ok: false, products: [] };
     products = catalogResult.products;
     sources = Array.isArray(payload?.sources) ? payload.sources : [];
     generatedAt = payload?.generated_at || "";
-    stockSubscriptions = loadStockSubscriptions();
-    reconcileStockSubscriptions();
+    stockWatchEnabled = featureFlags.stockWatchEnabled === true;
+    if (stockWatchEnabled) {
+      stockSubscriptions = loadStockSubscriptions();
+      reconcileStockSubscriptions();
+    }
     const quoteList = loadQuoteList();
     quoteListReadOnly = quoteList.readOnly;
     preservedQuotePayload = quoteList.preservedPayload;
@@ -778,7 +785,7 @@
 
 <main id="main-content" class="shell" tabindex="-1">
   <h1 class="sr-only">Resumen por proveedor</h1>
-  <SiteHeader active="summary" updatedAt={generatedAt} subtitle="Resumen por proveedor" showCatalogHelp {stockAlerts} onDismissStockAlerts={dismissStockAlerts} />
+  <SiteHeader active="summary" updatedAt={generatedAt} subtitle="Resumen por proveedor" showCatalogHelp />
   <p class="sr-only" aria-live="polite">{quoteFeedbackMessage}</p>
 
   {#if quoteListReadOnly}
@@ -940,7 +947,7 @@
                     <td class={cell?.units > 0 ? "stock-in" : "stock-out"} data-label={source.name}>
                       <span class="summary-stock-cell">
                         <span>{formatInteger(cell?.units || 0)}</span>
-                        {#if offer}
+                        {#if stockWatchEnabled && offer}
                           {@const watchFeedbackKey = subscriptionKey(row.product, offer)}
                           <button id={stockWatchTargetId(row.product, offer)} class="stock-watch-button summary-stock-watch" class:active={isSubscribed(row.product, offer)} type="button" aria-pressed={isSubscribed(row.product, offer)} aria-label={(isSubscribed(row.product, offer) ? "Dejar de seguir cambios de stock" : "Seguir cambios de stock") + " de " + productBaseName(row.product) + " en " + offer.provider_name} title={isSubscribed(row.product, offer) ? "Dejar de seguir cambios de stock" : "Avisarme si sube o vuelve el stock"} on:click={() => toggleStockSubscription(row.product, offer)}>
                             {#key stockWatchFeedback[watchFeedbackKey] || 0}

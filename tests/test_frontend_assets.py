@@ -63,6 +63,12 @@ def test_static_frontend_files_exist_and_are_linked():
     assert 'type="module" src="/src/vendor-stats.js"' in internal
     assert 'noindex,nofollow' in internal
     assert flags["vendorStatsEnabled"] is True
+    assert flags["stockWatchEnabled"] is False
+    assert 'fetchJson("data/feature_flags.json", {})' in summary_view
+    assert "stockWatchEnabled && offer" in summary_view
+    assert "stockAlerts" not in site_header
+    assert "catalog-guide-bell" not in site_header
+    assert "filamentos esperados" not in site_header
     for entry in ["summary.js", "vendor-stats.js"]:
         js = (SRC / entry).read_text(encoding="utf-8")
         assert 'import { mount } from "svelte"' in js
