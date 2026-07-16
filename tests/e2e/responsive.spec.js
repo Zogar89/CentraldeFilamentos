@@ -25,6 +25,11 @@ for (const [name, path] of routes) {
     await waitForStablePage(page);
     await expect(page.locator("#main-content")).toBeVisible();
 
+    if (["desktop-4k", "desktop-2k"].includes(test.info().project.name)) {
+      const mainWidth = await page.locator("#main-content").evaluate((element) => element.getBoundingClientRect().width);
+      expect.soft(mainWidth, `${name} main width`).toBeLessThanOrEqual(1180.5);
+    }
+
     const layout = await inspectResponsiveLayout(page);
     await test.info().attach("responsive-layout.json", {
       body: Buffer.from(JSON.stringify(layout, null, 2)),

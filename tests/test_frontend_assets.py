@@ -414,6 +414,18 @@ def test_styles_are_compact_and_responsive():
     assert ".delta-negative" in css
 
 
+def test_ui_density_tokens_remain_compact():
+    css = (SRC / "styles" / "global.css").read_text(encoding="utf-8")
+
+    assert "--quick-lines-height: 43px" in css
+    assert "--quick-lines-height: 48px" in css
+    assert ".summary-stock-watch {" in css
+    assert "minmax(42px, 1fr)" in css
+    assert "minmax(34px, 1fr)" in css
+    assert "@media (min-width: 1800px)" not in css
+    assert "max-width: 1920px" not in css
+
+
 def test_generated_stock_data_has_one_offer_per_provider_per_card():
     payload = json.loads((PUBLIC / "data" / "stock.json").read_text(encoding="utf-8"))
 

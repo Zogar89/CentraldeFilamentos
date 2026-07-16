@@ -24,10 +24,6 @@ const routeSelectors = [
   ]],
 ];
 
-test.beforeEach(async ({}, testInfo) => {
-  test.skip(testInfo.project.name !== "mobile-390", "Touch target audit runs at the representative mobile viewport.");
-});
-
 async function dimensions(locator) {
   return locator.evaluate((element) => {
     const rect = element.getBoundingClientRect();
@@ -36,7 +32,7 @@ async function dimensions(locator) {
 }
 
 for (const [name, path, selectors] of routeSelectors) {
-  test(`${name} primary touch targets are at least 44 by 44 CSS pixels`, async ({ page }) => {
+  test(`${name} primary controls are at least 24 by 24 CSS pixels`, async ({ page }) => {
     await page.goto(path);
     await waitForStablePage(page);
 
@@ -51,28 +47,46 @@ for (const [name, path, selectors] of routeSelectors) {
           const rect = element.getBoundingClientRect();
           return { selector, label: element.getAttribute("aria-label") || element.textContent.trim(), width: rect.width, height: rect.height };
         })
-        .filter(({ width, height }) => width < 43.5 || height < 43.5)
+        .filter(({ width, height }) => width < 23.5 || height < 23.5)
     ), selectors);
 
     expect(undersized).toEqual([]);
   });
 }
 
-test("quote removal exposes a 44px touch area", async ({ page }) => {
+test("summary restores compact visible controls", async ({ page }, testInfo) => {
+  await page.goto("./");
+  await waitForStablePage(page);
+
+  const mobile = testInfo.project.name.startsWith("mobile-");
+  const quickLine = await dimensions(page.locator(".quick-line").first());
+  const stockWatch = await dimensions(page.locator(".summary-stock-watch").first());
+  const quoteAdd = await dimensions(page.locator(".summary-quote-add").first());
+
+  expect(quickLine.height).toBeLessThanOrEqual(mobile ? 32.5 : 30.5);
+  expect(quickLine.height).toBeGreaterThanOrEqual(23.5);
+  expect(stockWatch.width).toBeCloseTo(24, 0);
+  expect(stockWatch.height).toBeCloseTo(24, 0);
+  expect(quoteAdd.width).toBeCloseTo(mobile ? 40 : 42, 0);
+  expect(quoteAdd.height).toBeCloseTo(mobile ? 36 : 28, 0);
+});
+
+test("compact overlay controls retain their intended size", async ({ page }, testInfo) => {
   await page.goto("./");
   await waitForStablePage(page);
   await page.locator(".summary-quote-add").first().click();
+  const mobile = testInfo.project.name.startsWith("mobile-");
   const removeButton = page.getByRole("dialog", { name: "Lista de cotizacion" }).locator(".quote-list-remove").first();
   const drawerClose = page.getByRole("button", { name: "Cerrar lista de cotizacion" });
   await expect(removeButton).toBeVisible();
-  expect(await dimensions(removeButton)).toEqual(expect.objectContaining({ width: 44, height: 44 }));
-  expect(await dimensions(drawerClose)).toEqual(expect.objectContaining({ width: 44, height: 44 }));
+  expect(await dimensions(removeButton)).toEqual(expect.objectContaining({ width: mobile ? 40 : 28, height: mobile ? 40 : 28 }));
+  expect(await dimensions(drawerClose)).toEqual(expect.objectContaining({ width: mobile ? 40 : 32, height: mobile ? 40 : 32 }));
 
   await drawerClose.click();
   await page.locator(".summary-media-button").first().click();
   const imageClose = page.getByRole("button", { name: "Cerrar imagen ampliada" });
   await expect(imageClose).toBeVisible();
-  expect(await dimensions(imageClose)).toEqual(expect.objectContaining({ width: 44, height: 44 }));
+  expect(await dimensions(imageClose)).toEqual(expect.objectContaining({ width: 30, height: 30 }));
 });
 
 test("color-map points expose 44px touch areas", async ({ page }) => {
