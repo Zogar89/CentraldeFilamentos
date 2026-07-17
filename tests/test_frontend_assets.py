@@ -305,6 +305,16 @@ def test_option_1_material_first_catalog_contract():
     assert 'itemCount ? quoteQuantityLabel(itemCount) : "0 unidades"' in quote_panel
 
 
+def test_catalog_result_identity_keeps_columns_when_product_image_is_missing():
+    results = (SRC / "components" / "CatalogExplorerResults.svelte").read_text(encoding="utf-8")
+    css = (SRC / "styles" / "global.css").read_text(encoding="utf-8")
+
+    assert "{#if imagePath}" in results
+    assert ".catalog-explorer-result-image {\n  grid-column: 1;" in css
+    assert ".catalog-explorer-result-swatch {\n  grid-column: 2;" in css
+    assert ".catalog-explorer-result-identity > div {\n  grid-column: 3;" in css
+
+
 def test_internal_vendor_svelte_uses_feature_flag_and_30_day_history():
     js = (SRC / "VendorStatsApp.svelte").read_text(encoding="utf-8") + (SRC / "lib" / "shared.js").read_text(encoding="utf-8")
 

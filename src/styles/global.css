@@ -4566,6 +4566,7 @@ input {
 }
 
 .catalog-explorer-result-image {
+  grid-column: 1;
   display: grid;
   place-items: center;
   width: 74px;
@@ -4584,6 +4585,7 @@ input {
 }
 
 .catalog-explorer-result-swatch {
+  grid-column: 2;
   width: 32px;
   height: 32px;
   border: 1px solid rgba(25, 36, 39, .10);
@@ -4592,6 +4594,7 @@ input {
 }
 
 .catalog-explorer-result-identity > div {
+  grid-column: 3;
   display: grid;
   min-width: 0;
   gap: 3px;
