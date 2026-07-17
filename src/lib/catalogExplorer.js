@@ -1,6 +1,7 @@
 import { converter } from "culori";
 
 import { productColorHex } from "./colorPicker.js";
+import { presentationRank } from "./shared.js";
 
 const materialOrder = ["PLA", "PETG", "ABS", "TPU", "Nylon", "ASA"];
 const coreMaterials = new Set(materialOrder);
@@ -231,6 +232,30 @@ export function colorChoices(products, selectedMaterial) {
   return selectedMaterial === "PLA"
     ? familyColorChoices(scopedProducts)
     : exactColorChoices(scopedProducts);
+}
+
+function compareCatalogText(left, right) {
+  return String(left || "").localeCompare(String(right || ""), "es-AR", {
+    numeric: true,
+    sensitivity: "base",
+  });
+}
+
+function compareOptionalNumber(left, right) {
+  const leftNumber = Number(left);
+  const rightNumber = Number(right);
+  const leftRank = Number.isFinite(leftNumber) && leftNumber > 0 ? leftNumber : Number.POSITIVE_INFINITY;
+  const rightRank = Number.isFinite(rightNumber) && rightNumber > 0 ? rightNumber : Number.POSITIVE_INFINITY;
+  if (leftRank === rightRank) return 0;
+  return leftRank - rightRank;
+}
+
+export function compareCatalogProducts(left, right) {
+  return compareCatalogText(left?.color, right?.color)
+    || compareCatalogText(left?.brand, right?.brand)
+    || presentationRank(left || {}) - presentationRank(right || {})
+    || compareOptionalNumber(left?.diameter_mm, right?.diameter_mm)
+    || compareCatalogText(left?.display_name || left?.id, right?.display_name || right?.id);
 }
 
 export function compareExplorerProducts(left, right) {

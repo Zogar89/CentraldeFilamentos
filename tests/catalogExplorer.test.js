@@ -4,6 +4,7 @@ import test from "node:test";
 import {
   colorFamilyForHex,
   colorChoices,
+  compareCatalogProducts,
   compareExplorerProducts,
   materialChoices,
   matchesColorSelection,
@@ -135,4 +136,53 @@ test("stock totals ignore unknown or malformed quantities", () => {
 test("explorer products sort by total availability before their identity", () => {
   const sorted = [products[0], products[1], products[2]].sort(compareExplorerProducts);
   assert.deepEqual(sorted.map((product) => product.id), ["petg-yellow", "pla-yellow-fluo", "pla-yellow"]);
+});
+
+test("catalog products sort by color, brand, presentation, and diameter", () => {
+  const product = (id, color, brand, weight_g, diameter_mm) => ({
+    id,
+    color,
+    brand,
+    weight_g,
+    diameter_mm,
+    display_name: id,
+    offers: [],
+  });
+  const sorted = [
+    product("rojo-liviano", "Rojo", "3N3", 250, 1.75),
+    product("azul-grilon-liviano", "Azul", "Grilon3", 250, 1.75),
+    product("azul-3n3-pesado", "Azul", "3N3", 2500, 1.75),
+    product("azul-3n3-medio-285", "Azul", "3N3", 1000, 2.85),
+    product("azul-3n3-medio-175", "Azul", "3N3", 1000, 1.75),
+  ].sort(compareCatalogProducts);
+
+  assert.deepEqual(sorted.map((item) => item.id), [
+    "azul-3n3-medio-175",
+    "azul-3n3-medio-285",
+    "azul-3n3-pesado",
+    "azul-grilon-liviano",
+    "rojo-liviano",
+  ]);
+});
+
+test("catalog products place samplers before unknown presentations", () => {
+  const base = {
+    color: "Azul",
+    brand: "3N3",
+    diameter_mm: 1.75,
+    offers: [],
+  };
+  const sorted = [
+    { ...base, id: "unknown", display_name: "unknown", weight_g: null },
+    {
+      ...base,
+      id: "sampler",
+      display_name: "sampler",
+      weight_g: null,
+      offers: [{ original_name: "SAMPLER X 5 M" }],
+    },
+    { ...base, id: "weighted", display_name: "weighted", weight_g: 1000 },
+  ].sort(compareCatalogProducts);
+
+  assert.deepEqual(sorted.map((item) => item.id), ["weighted", "sampler", "unknown"]);
 });
