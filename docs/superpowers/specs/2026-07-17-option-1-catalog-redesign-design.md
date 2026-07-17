@@ -2,7 +2,7 @@
 
 ## Objective
 
-Replace the current table-first home screen with the approved Option 1 experience: the maker chooses a material first, explores colors only inside that material, checks exact provider stock, and builds a local quote list without leaving the catalog.
+Replace the current table-first home screen with the approved Option 1 experience: the maker chooses a material first, explores color families for PLA or exact colors for materials with shorter palettes, checks exact provider stock, and builds a local quote list without leaving the catalog.
 
 ## Product rule
 
@@ -13,7 +13,9 @@ Material is a hard constraint. A selected color never broadens the result set to
 - A compact header contains the brand, global search, access to color comparison, and the current quote count.
 - The main content and quote workspace form a two-column layout. The catalog is fluid; the quote workspace is a stable right rail.
 - The catalog begins with material cards. Each card uses a real catalog image when available and exposes a clear selected state.
-- A horizontal color ribbon contains only colors that exist for the selected material. Selecting a color filters the results and shows a compact context row with a link to compare tones.
+- A horizontal color ribbon changes its semantic level according to the material. PLA shows one visibly labeled control per color family because its exact palette is too large; PETG, ABS, TPU, Nylon, ASA, and Otros keep exact-color controls because their palettes are short enough to scan directly.
+- A PLA family control uses several real tones from that family in its swatch, displays the family name, and filters all exact PLA colors assigned to that family. Exact-color controls outside PLA filter only the named color.
+- The selected state states whether the active choice is a family or an exact color and shows how many catalog options it covers. PLA keeps the link to the detailed tone comparator.
 - Secondary filters are diameter, presentation, weight, brand, provider, and stock. They never remove or weaken the active material constraint.
 - Results use compact product rows instead of the old dense table. Every row shows a real product image, material color, product identity, exact presentation, stock by provider, and an add-to-quote action.
 - The right rail reuses the current local quote state, quantity editing, provider coverage, JSON import/export, and WhatsApp message workflow.
@@ -52,7 +54,10 @@ Material is a hard constraint. A selected color never broadens the result set to
 
 - The home route opens with PLA visibly selected.
 - Selecting a material limits colors and products to that material.
-- Selecting a color never shows the same color in another material.
+- PLA displays families instead of exact-color entries in the catalog selector.
+- Selecting a PLA family includes every exact PLA color assigned to it, such as Blanco and Hueso inside Claros.
+- Non-PLA selectors continue to display exact colors; selecting Blanco outside PLA does not include Hueso.
+- Selecting a family or color never shows products from another material.
 - Search and secondary filters combine with material and color.
 - Provider stock values remain exact and tied to the published source rows.
 - Adding a product updates the desktop quote rail without opening a redundant drawer; on mobile it opens the quote drawer.
