@@ -10,6 +10,7 @@
   import SiteHeader from "./components/SiteHeader.svelte";
   import {
     colorChoices,
+    compareCatalogProducts,
     compareExplorerProducts,
     materialChoices,
     matchesColorSelection,
@@ -35,7 +36,7 @@
   let generatedAt = "";
   let selectedMaterial = "PLA";
   let selectedColor = "";
-  let sortOrder = "availability";
+  let sortOrder = "identity";
   let showMoreFilters = false;
   let compactQuoteMode = false;
   let quoteDrawerOpen = false;
@@ -88,10 +89,7 @@
   $: filteredProducts = (selectedMaterial, selectedColor, selectedColorChoice, filters, sortOrder, products.filter(matchesFilters).sort((left, right) => (
     sortOrder === "availability"
       ? compareExplorerProducts(left, right)
-      : [left.color || "", left.brand || "", left.display_name].join(" ").localeCompare(
-        [right.color || "", right.brand || "", right.display_name].join(" "),
-        "es-AR",
-      )
+      : compareCatalogProducts(left, right)
   )));
   $: resultRows = buildSummaryRows(filteredProducts, sources);
   $: materialProducts = products.filter((product) => matchesMaterialSelection(product, selectedMaterial));
@@ -379,8 +377,8 @@
             <label>
               <span>Ordenar por</span>
               <select value={sortOrder} on:change={(event) => sortOrder = event.currentTarget.value}>
+                <option value="identity">Color · Marca · Presentación</option>
                 <option value="availability">Disponibilidad total</option>
-                <option value="alpha">Color A-Z</option>
               </select>
             </label>
           </div>

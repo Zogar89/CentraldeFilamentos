@@ -315,6 +315,17 @@ def test_catalog_result_identity_keeps_columns_when_product_image_is_missing():
     assert ".catalog-explorer-result-identity > div {\n  grid-column: 3;" in css
 
 
+def test_catalog_defaults_to_color_brand_presentation_order():
+    summary = (SRC / "SummaryApp.svelte").read_text(encoding="utf-8")
+
+    assert "compareCatalogProducts," in summary
+    assert 'let sortOrder = "identity";' in summary
+    assert '? compareExplorerProducts(left, right)' in summary
+    assert ': compareCatalogProducts(left, right)' in summary
+    assert '<option value="identity">Color · Marca · Presentación</option>' in summary
+    assert '<option value="availability">Disponibilidad total</option>' in summary
+
+
 def test_internal_vendor_svelte_uses_feature_flag_and_30_day_history():
     js = (SRC / "VendorStatsApp.svelte").read_text(encoding="utf-8") + (SRC / "lib" / "shared.js").read_text(encoding="utf-8")
 
