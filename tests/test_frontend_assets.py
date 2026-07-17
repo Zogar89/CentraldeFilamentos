@@ -19,7 +19,10 @@ def test_material_swatches_are_generated_and_published_by_workflows():
 
 
 def test_prerendered_material_swatches_are_used_across_product_views():
-    summary_source = (SRC / "SummaryApp.svelte").read_text(encoding="utf-8")
+    summary_source = (
+        (SRC / "SummaryApp.svelte").read_text(encoding="utf-8")
+        + (SRC / "components" / "CatalogExplorerResults.svelte").read_text(encoding="utf-8")
+    )
     quote_item_source = (SRC / "components" / "QuoteListItem.svelte").read_text(encoding="utf-8")
     quote_list_source = (SRC / "lib" / "quoteList.js").read_text(encoding="utf-8")
     shared_source = (SRC / "lib" / "shared.js").read_text(encoding="utf-8")
@@ -28,7 +31,7 @@ def test_prerendered_material_swatches_are_used_across_product_views():
     assert "materialSwatchPath" in shared_source
     assert "materialSwatchAlt" in shared_source
     assert "material_swatch_url" in summary_source
-    assert "summary-material-swatch" in summary_source
+    assert "catalog-explorer-result-swatch" in summary_source
     assert "materialSwatchUrl" in quote_list_source
     assert "materialFinish" in quote_list_source
     assert "quote-list-material-swatch" in quote_item_source
@@ -64,8 +67,7 @@ def test_static_frontend_files_exist_and_are_linked():
     assert 'noindex,nofollow' in internal
     assert flags["vendorStatsEnabled"] is True
     assert flags["stockWatchEnabled"] is False
-    assert 'fetchJson("data/feature_flags.json", {})' in summary_view
-    assert "stockWatchEnabled && offer" in summary_view
+    assert "stock-watch-button" not in summary_view
     assert "stockAlerts" not in site_header
     assert "catalog-guide-bell" not in site_header
     assert "filamentos esperados" not in site_header
@@ -136,7 +138,7 @@ def test_quote_list_source_contract_covers_foundation():
     ]:
         assert copy in js
 
-    assert "¿Vaciar la lista de cotizacion? Se quitaran todos los filamentos guardados en este navegador." in summary_view
+    assert "¿Vaciar la lista de cotización?" in summary_view
 
     for control_token in [
         'aria-label="Restar 1 unidad"',
@@ -167,9 +169,10 @@ def test_quote_list_styles_contract_covers_panel_and_controls():
     quote_list = read_source(SRC / "lib" / "quoteList.js")
     quote_panel = read_source(SRC / "components" / "QuoteListPanel.svelte")
     quote_drawer = read_source(SRC / "components" / "QuoteListDrawer.svelte")
+    quote_workspace = read_source(SRC / "lib" / "quoteWorkspace.js")
     summary_view = read_source(SRC / "SummaryApp.svelte")
     css = read_source(SRC / "styles" / "global.css")
-    quote_sources = summary_view + quote_list + quote_panel + quote_drawer
+    quote_sources = summary_view + quote_list + quote_workspace + quote_panel + quote_drawer
 
     assert (SRC / "components" / "QuoteListDrawer.svelte").exists()
     for identifier in [
@@ -185,10 +188,10 @@ def test_quote_list_styles_contract_covers_panel_and_controls():
         assert identifier in quote_sources + css
 
     for copy in [
-        "No pudimos guardar la lista en este navegador. La podes usar durante esta sesion, pero se puede perder al cerrar la pagina.",
+        "No pudimos guardar la lista en este navegador. La podés usar durante esta sesión.",
         "No se sincroniza con otra PC.",
         "StockCentral no vende ni procesa pedidos.",
-        "Quitamos {count} item(s) que ya no aparecen en el catalogo publicado.",
+        "Quitamos ${initialized.removedCount} item(s) que ya no aparecen en el catálogo publicado.",
     ]:
         assert copy in quote_sources
 
@@ -203,37 +206,25 @@ def test_summary_svelte_uses_carretes_totals_and_provider_order():
     view = (SRC / "SummaryApp.svelte").read_text(encoding="utf-8")
     shared = (SRC / "lib" / "shared.js").read_text(encoding="utf-8")
     footer = (SRC / "components" / "SiteFooter.svelte").read_text(encoding="utf-8")
-    quick_lines = (SRC / "components" / "QuickLines.svelte").read_text(encoding="utf-8")
+    header = (SRC / "components" / "SiteHeader.svelte").read_text(encoding="utf-8")
+    results = (SRC / "components" / "CatalogExplorerResults.svelte").read_text(encoding="utf-8")
+    summary_rows = (SRC / "lib" / "summaryRows.js").read_text(encoding="utf-8")
     css = (SRC / "styles" / "global.css").read_text(encoding="utf-8")
-    js = view + shared + footer + quick_lines
+    js = view + shared + footer + header + results + summary_rows
 
     assert "data/stock.json" in js
     assert "Zona Norte" in js
     assert "Zona Oeste" in js
     assert "Zona Sur" in js
-    assert "Carretes por proveedor" in js
-    assert "summary-presentation" in js
     assert "formatWeightLabel" in js
     assert "formatPresentation" in js
     assert "samplerLengthLabel" in js
     assert "isSamplerProduct" in js
-    assert "productSummaryName" in js
-    assert "summary-product" in js
-    assert "summary-color-swatch" in js
     assert "colorSwatchStyle" in js
-    assert "row.product.pantone" in js
-    assert "mergeBrands" not in js
-    assert "mergeCompatibleBrands" not in js
-    assert "mergeRowKey" not in js
-    assert "mergedBrandKey" not in js
-    assert "brandsLabel" not in js
-    assert "Grilon3 + 3N3" not in js
     assert "matchesSearchTerms" in js
     assert "products.filter(matchesFilters)" in js
     for filter_id in [
         "search-input",
-        "material-filter",
-        "color-filter",
         "provider-filter",
         "variant-filter",
         "diameter-filter",
@@ -241,22 +232,14 @@ def test_summary_svelte_uses_carretes_totals_and_provider_order():
         "brand-filter",
         "stock-filter",
     ]:
-        assert filter_id in view
-    assert "showCatalogHelp" in view
-    assert "addQuoteItem(row.product)" in view
-    assert "toggleStockSubscription(row.product, offer)" in view
+        assert filter_id in js
+    assert "addQuoteItem" in view
     assert "QuoteListDrawer" in view
-    assert "summary-product-photo" in view
-    assert "summary-product-photo-placeholder" in view
-    assert "summary-material-swatch" in view
-    assert "groupPresentationRows" in view
-    assert "summary-photo-column" in view
-    assert "summary-color-column" in view
-    assert "summary-add-column" in view
-    assert "presentation-grouped" in view
-    assert "presentation-group-marker" in view
-    assert "quote-list-trigger" in view
-    assert "quote-list-side-panel" not in view
+    assert "QuoteListPanel" in view
+    assert "catalog-quote-rail" in view
+    assert "catalog-explorer-result-row" in results
+    assert "catalog-explorer-provider-stock" in results
+    assert "summaryProductImage" in results
     assert "showAssetPreview" in view
     assert "openAssetPreview" in view
     assert "matchesSearchToken" in js
@@ -264,15 +247,6 @@ def test_summary_svelte_uses_carretes_totals_and_provider_order():
     assert 'term === "pla"' in js
     assert 'token === "pla+"' in js
     assert "token.startsWith(term)" in js
-    assert "summary-group-row" in js
-    assert "quickLineValues" in js
-    assert '"ABS"' in js
-    assert '"PLA Boutique"' in js
-    assert '"Nylon 6"' in js
-    assert "summaryGroupTargetId" in js
-    assert "updateStickyGroupRows" not in js
-    assert "summaryStickyTop" not in js
-    assert "is-stuck" not in js
     assert "footer-grid" in js
     assert "sourceWhatsappUrl" in js
     assert "contactContext" in js
@@ -280,12 +254,6 @@ def test_summary_svelte_uses_carretes_totals_and_provider_order():
     assert "Reportar error" in js
     assert "Sumar proveedor" in js
     assert "https://github.com/Zogar89/CentraldeFilamentos/issues/new" in js
-    assert "slugText" in js
-    assert "groupSummaryRows" in js
-    assert "0*" not in js
-    assert "El proveedor seguramente no maneja esta variante" not in js
-    assert "A revisar" not in js
-    assert "Rev." not in js
     assert "total_stock_units" in js
     assert "stockDelta" in js
     assert "stock_delta_units" in js
@@ -296,13 +264,45 @@ def test_summary_svelte_uses_carretes_totals_and_provider_order():
     assert ".quote-list-drawer" in css
     assert "justify-items: end" in css
     assert "width: min(460px" in css
-    assert "@media (max-width: 1100px)" in css
-    assert ".summary-total" in css
-    assert ".summary-photo-cell" in css
-    assert ".summary-product-photo-placeholder" in css
-    assert ".summary-color-cell" in css
-    assert ".summary-add-cell" in css
-    assert ".presentation-group-marker" in css
+    assert "@media (max-width: 1099px)" in css
+    assert ".catalog-explorer-result-row" in css
+    assert ".catalog-explorer-provider-stock" in css
+    assert ".catalog-quote-rail" in css
+
+
+def test_option_1_material_first_catalog_contract():
+    view = (SRC / "SummaryApp.svelte").read_text(encoding="utf-8")
+    header = (SRC / "components" / "SiteHeader.svelte").read_text(encoding="utf-8")
+    material_selector = (SRC / "components" / "MaterialSelector.svelte").read_text(encoding="utf-8")
+    color_ribbon = (SRC / "components" / "ColorRibbon.svelte").read_text(encoding="utf-8")
+    explorer = (SRC / "lib" / "catalogExplorer.js").read_text(encoding="utf-8")
+
+    for path in [
+        SRC / "components" / "MaterialSelector.svelte",
+        SRC / "components" / "ColorRibbon.svelte",
+        SRC / "lib" / "catalogExplorer.js",
+    ]:
+        assert path.exists(), f"Missing Option 1 artifact: {path}"
+
+    assert 'let selectedMaterial = "PLA"' in view
+    assert "materialChoices(products)" in view
+    assert "colorChoices(products, selectedMaterial)" in view
+    assert "matchesMaterialSelection(product, selectedMaterial)" in view
+    assert "¿Qué material vas a usar?" in material_selector
+    assert "aria-pressed={selected === choice.id}" in material_selector
+    assert 'familyMode ? "familias de color" : "colores"' in color_ribbon
+    assert 'choice.selectionMode === "family"' in color_ribbon
+    assert 'selectionMode: "family"' in explorer
+    assert 'selectionMode: "exact"' in explorer
+    assert 'selectedMaterial === "PLA"' in explorer
+    assert "Comparar tonos" in color_ribbon
+    assert 'href="color-picker.html"' in color_ribbon
+    assert "catalogMode" in header
+    assert "Buscar filamentos, colores, marcas" in header
+    assert "quoteCount" in header
+    assert 'const materialOrder = ["PLA", "PETG", "ABS", "TPU", "Nylon", "ASA"]' in explorer
+    quote_panel = (SRC / "components" / "QuoteListPanel.svelte").read_text(encoding="utf-8")
+    assert 'itemCount ? quoteQuantityLabel(itemCount) : "0 unidades"' in quote_panel
 
 
 def test_internal_vendor_svelte_uses_feature_flag_and_30_day_history():

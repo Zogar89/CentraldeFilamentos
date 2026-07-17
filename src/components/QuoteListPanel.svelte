@@ -58,7 +58,7 @@
       <h2>Lista de cotizacion</h2>
     </div>
     <div class="quote-list-total">
-      <strong class="quote-list-count">{quoteQuantityLabel(itemCount)}</strong>
+      <strong class="quote-list-count">{itemCount ? quoteQuantityLabel(itemCount) : "0 unidades"}</strong>
       {#if dozenCount}
         <small title="Los carretes suelen venir agrupados en cajas de 12 unidades.">{dozenCount} {dozenCount === "1" ? "docena" : "docenas"}</small>
       {/if}
@@ -116,20 +116,27 @@
         </details>
       </div>
 
-      <div class="quote-list-items">
-        {#each items as item (item.productId)}
-          <div class="quote-list-item-motion" animate:flip={{ duration: motionDuration }} in:fly={{ y: 6, duration: motionDuration }} out:fly={{ y: -4, duration: motionDuration ? 150 : 0 }}>
-            <QuoteListItem
-              {item}
-              showControls={showQuickControls}
-              onChange={(quantity) => onSetQuantity(item.productId, quantity)}
-              onRemove={() => onRemoveItem(item.productId)}
-            />
-          </div>
-        {/each}
-      </div>
+      {#if items.length}
+        <div class="quote-list-items">
+          {#each items as item (item.productId)}
+            <div class="quote-list-item-motion" animate:flip={{ duration: motionDuration }} in:fly={{ y: 6, duration: motionDuration }} out:fly={{ y: -4, duration: motionDuration ? 150 : 0 }}>
+              <QuoteListItem
+                {item}
+                showControls={showQuickControls}
+                onChange={(quantity) => onSetQuantity(item.productId, quantity)}
+                onRemove={() => onRemoveItem(item.productId)}
+              />
+            </div>
+          {/each}
+        </div>
+      {:else}
+        <div class="quote-list-empty">
+          <strong>Tu lista está vacía</strong>
+          <p>Agregá filamentos desde los resultados para comparar qué proveedor cubre mejor tu consulta.</p>
+        </div>
+      {/if}
 
-      <button type="button" class="quote-workflow-primary" on:click={() => activeView = "providers"}>Comparar proveedores</button>
+      <button type="button" class="quote-workflow-primary" disabled={!items.length} on:click={() => activeView = "providers"}>Comparar proveedores</button>
     </div>
   {:else if activeView === "providers"}
     <div class="quote-workflow-view" role="tabpanel" id={`${panelInstanceId}-view-providers`} aria-labelledby={`${panelInstanceId}-tab-providers`}>

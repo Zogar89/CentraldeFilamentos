@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Opción 1 · comparación visual</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: #1c2426; }
+    main { display: grid; grid-template-columns: 1536px 1536px; width: 3072px; }
+    figure { position: relative; width: 1536px; height: 1092px; margin: 0; overflow: hidden; background: white; }
+    img { display: block; width: 1536px; height: 1092px; object-fit: cover; object-position: top left; }
+    figcaption { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); z-index: 2; padding: 7px 12px; border-radius: 999px; background: rgba(28, 36, 38, .88); color: white; font: 700 14px/1 system-ui, sans-serif; }
+  </style>
+</head>
+<body>
+  <main>
+    <figure>
+      <figcaption>Referencia aprobada</figcaption>
+      <img src="reference-option-1.png" alt="Mock aprobado de la opción 1">
+    </figure>
+    <figure>
+      <figcaption>Implementación real</figcaption>
+      <img src="desktop-selected.png" alt="Implementación real de la opción 1">
+    </figure>
+  </main>
+</body>
+</html>
