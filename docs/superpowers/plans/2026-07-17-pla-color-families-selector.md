@@ -31,7 +31,7 @@
 - Consumes: `colorFamilyForProduct(product)`, `productColorHex(product)`, and the current material-first product list.
 - Produces: `colorChoices(products, material)` choices with `selectionMode: "family" | "exact"`, plus `matchesColorSelection(product, choice)`.
 
-- [ ] **Step 1: Write failing unit tests for PLA families and non-PLA exact colors**
+- [x] **Step 1: Write failing unit tests for PLA families and non-PLA exact colors**
 
 Add assertions equivalent to:
 
@@ -53,13 +53,13 @@ assert.equal(white.selectionMode, "exact");
 assert.equal(matchesColorSelection(petgProducts[1], white), false);
 ```
 
-- [ ] **Step 2: Run the unit test and verify RED**
+- [x] **Step 2: Run the unit test and verify RED**
 
 Run: `node --test tests/catalogExplorer.test.js`
 
 Expected: FAIL because PLA still returns exact colors and `matchesColorSelection` does not exist.
 
-- [ ] **Step 3: Implement family and exact choice builders**
+- [x] **Step 3: Implement family and exact choice builders**
 
 In `src/lib/catalogExplorer.js`, group PLA products by `colorFamilyForProduct(product).id`, retain the family label, aggregate stock and product counts, expose up to three real family HEX values for the swatch, and order families as neutrals followed by chromatic families. Keep the existing exact-name grouping for non-PLA materials. Implement:
 
@@ -71,15 +71,15 @@ export function matchesColorSelection(product, selectedChoice) {
 }
 ```
 
-- [ ] **Step 4: Render explicit family controls**
+- [x] **Step 4: Render explicit family controls**
 
 In `ColorRibbon.svelte`, use PLA copy such as `Explorá familias de color en PLA`, display each family name beside its multi-tone swatch, and describe the selected family by exact-color and option counts. For non-PLA materials, preserve the compact exact-color swatches and exact selection copy.
 
-- [ ] **Step 5: Wire the semantic matcher into the catalog**
+- [x] **Step 5: Wire the semantic matcher into the catalog**
 
 Replace `matchesColorFamilySelection` with `matchesColorSelection` in `SummaryApp.svelte`, keeping the active material check first. Update the Option 1 browser test to select `Amarillos` and verify every result remains PLA and belongs to that family.
 
-- [ ] **Step 6: Run focused tests and verify GREEN**
+- [x] **Step 6: Run focused tests and verify GREEN**
 
 Run: `node --test tests/catalogExplorer.test.js`
 
@@ -89,7 +89,7 @@ Run: `npx playwright test tests/e2e/option1-flow.spec.js --project=desktop-1080 
 
 Expected: PASS on both representative viewports.
 
-- [ ] **Step 7: Verify the production build and full relevant suite**
+- [x] **Step 7: Verify the production build and full relevant suite**
 
 Run: `npm run build`
 
@@ -98,4 +98,3 @@ Expected: Vite build succeeds without Svelte compile errors.
 Run: `python -m pytest -v --basetemp C:\tmp\pytest-centraldefilamentos`
 
 Expected: all Python tests pass.
-

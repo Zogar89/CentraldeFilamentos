@@ -4,6 +4,20 @@ import { productColorHex } from "./colorPicker.js";
 
 const materialOrder = ["PLA", "PETG", "ABS", "TPU", "Nylon", "ASA"];
 const coreMaterials = new Set(materialOrder);
+const colorFamilyOrder = [
+  "lights",
+  "blacks",
+  "grays",
+  "reds",
+  "oranges",
+  "yellows",
+  "greens",
+  "turquoises",
+  "blues",
+  "violets",
+  "pinks",
+  "unknown",
+];
 const toOklch = converter("oklch");
 
 function productImage(product) {
@@ -23,10 +37,19 @@ function representativeProduct(products) {
 function representativeColorProduct(products) {
   return products.slice().sort((left, right) => (
     Number(Boolean(productColorHex(right))) - Number(Boolean(productColorHex(left)))
-    || Number(Boolean(left.pantone_hex)) - Number(Boolean(right.pantone_hex))
+    || Number(Boolean(right.pantone_hex)) - Number(Boolean(left.pantone_hex))
     || productStockTotal(right) - productStockTotal(left)
     || String(left.id || "").localeCompare(String(right.id || ""), "es-AR")
   ))[0] || null;
+}
+
+function familySwatchHexes(products) {
+  const sorted = products.slice().sort((left, right) => (
+    Number(Boolean(right.pantone_hex)) - Number(Boolean(left.pantone_hex))
+    || productStockTotal(right) - productStockTotal(left)
+    || String(left.id || "").localeCompare(String(right.id || ""), "es-AR")
+  ));
+  return [...new Set(sorted.map((product) => productColorHex(product)).filter(Boolean))].slice(0, 3);
 }
 
 function colorPosition(choice) {
@@ -94,10 +117,9 @@ export function colorFamilyForProduct(product) {
   return colorFamilyForName(product?.color) || colorFamilyForHex(productColorHex(product));
 }
 
-export function matchesColorFamilySelection(product, selectedChoice) {
+export function matchesColorSelection(product, selectedChoice) {
   if (!selectedChoice) return true;
-  const hex = productColorHex(product);
-  if (!hex || selectedChoice.familyId === "unknown") return product?.color === selectedChoice.name;
+  if (selectedChoice.selectionMode === "exact") return product?.color === selectedChoice.name;
   return colorFamilyForProduct(product).id === selectedChoice.familyId;
 }
 
@@ -143,9 +165,9 @@ export function materialChoices(products) {
   return choices;
 }
 
-export function colorChoices(products, selectedMaterial) {
+function exactColorChoices(products) {
   const grouped = new Map();
-  for (const product of materialProducts(products, selectedMaterial)) {
+  for (const product of products) {
     const name = String(product.color || "").trim();
     if (!name || name === "Sin color") continue;
     if (!grouped.has(name)) grouped.set(name, []);
@@ -154,18 +176,61 @@ export function colorChoices(products, selectedMaterial) {
   return [...grouped.entries()].map(([name, items]) => {
     const representative = representativeColorProduct(items);
     const family = colorFamilyForProduct(representative);
+    const hex = productColorHex(representative);
     return {
-      id: name,
+      id: `exact:${name}`,
       name,
-      hex: productColorHex(representative),
+      hex,
+      swatchHexes: hex ? [hex] : [],
+      selectionMode: "exact",
       familyId: family.id,
       familyLabel: family.label,
       stockTotal: items.reduce((total, product) => total + productStockTotal(product), 0),
       productCount: items.length,
+      exactColorCount: 1,
       imageUrl: productImage(representative),
       representative,
     };
   }).sort(compareColorChoices);
+}
+
+function familyColorChoices(products) {
+  const grouped = new Map();
+  for (const product of products) {
+    const name = String(product.color || "").trim();
+    if (!name || name === "Sin color") continue;
+    const family = colorFamilyForProduct(product);
+    if (!grouped.has(family.id)) grouped.set(family.id, { family, items: [] });
+    grouped.get(family.id).items.push(product);
+  }
+  return [...grouped.values()].map(({ family, items }) => {
+    const representative = representativeColorProduct(items);
+    const swatchHexes = familySwatchHexes(items);
+    return {
+      id: `family:${family.id}`,
+      name: family.label,
+      hex: swatchHexes[0] || productColorHex(representative),
+      swatchHexes,
+      selectionMode: "family",
+      familyId: family.id,
+      familyLabel: family.label,
+      stockTotal: items.reduce((total, product) => total + productStockTotal(product), 0),
+      productCount: items.length,
+      exactColorCount: new Set(items.map((product) => product.color).filter(Boolean)).size,
+      imageUrl: productImage(representative),
+      representative,
+    };
+  }).sort((left, right) => (
+    colorFamilyOrder.indexOf(left.familyId) - colorFamilyOrder.indexOf(right.familyId)
+    || left.name.localeCompare(right.name, "es-AR")
+  ));
+}
+
+export function colorChoices(products, selectedMaterial) {
+  const scopedProducts = materialProducts(products, selectedMaterial);
+  return selectedMaterial === "PLA"
+    ? familyColorChoices(scopedProducts)
+    : exactColorChoices(scopedProducts);
 }
 
 export function compareExplorerProducts(left, right) {

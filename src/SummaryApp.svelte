@@ -12,7 +12,7 @@
     colorChoices,
     compareExplorerProducts,
     materialChoices,
-    matchesColorFamilySelection,
+    matchesColorSelection,
     matchesMaterialSelection,
   } from "./lib/catalogExplorer.js";
   import { createQuoteWorkspace } from "./lib/quoteWorkspace.js";
@@ -96,7 +96,7 @@
   $: resultRows = buildSummaryRows(filteredProducts, sources);
   $: materialProducts = products.filter((product) => matchesMaterialSelection(product, selectedMaterial));
   $: selectedColorProductCount = selectedColorChoice
-    ? materialProducts.filter((product) => matchesColorFamilySelection(product, selectedColorChoice)).length
+    ? materialProducts.filter((product) => matchesColorSelection(product, selectedColorChoice)).length
     : 0;
   $: variantOptions = valuesForMaterial((product) => lineLabel(product));
   $: diameterOptions = valuesForMaterial((product) => product.diameter_mm);
@@ -143,7 +143,7 @@
 
   function matchesFilters(product) {
     if (!matchesMaterialSelection(product, selectedMaterial)) return false;
-    if (selectedColorChoice && !matchesColorFamilySelection(product, selectedColorChoice)) return false;
+    if (selectedColorChoice && !matchesColorSelection(product, selectedColorChoice)) return false;
     const queryFields = [
       product.display_name,
       product.material,
@@ -317,7 +317,7 @@
     <div class="catalog-explorer-layout">
       <div class="catalog-explorer-main">
         <MaterialSelector choices={materialChoiceOptions} selected={selectedMaterial} onSelect={setMaterial} />
-        <ColorRibbon choices={availableColors} selected={selectedColor} material={selectedMaterial} familyProductCount={selectedColorProductCount} onSelect={selectColor} onClear={() => selectedColor = ""} />
+        <ColorRibbon choices={availableColors} selected={selectedColor} material={selectedMaterial} selectionProductCount={selectedColorProductCount} onSelect={selectColor} onClear={() => selectedColor = ""} />
 
         <section class="catalog-explorer-filters" class:expanded={showMoreFilters} aria-label="Filtros de presentación y proveedor">
           <label>

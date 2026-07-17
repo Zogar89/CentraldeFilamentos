@@ -17,9 +17,10 @@ test("keeps material as a hard constraint and builds the quote in the responsive
   await expect(page.getByRole("heading", { name: "¿Qué material vas a usar?" })).toBeVisible();
   await expect(page.getByRole("button", { name: /PLA, .* opciones/ })).toHaveAttribute("aria-pressed", "true");
 
-  const color = page.getByRole("button", { name: /Amarillo Fluo, .* unidades publicadas/ });
-  await expect(color).toBeVisible();
-  await color.click();
+  const family = page.getByRole("button", { name: /Amarillos, .* opciones, .* unidades publicadas/ });
+  await expect(family).toBeVisible();
+  await expect(family).toContainText("Amarillos");
+  await family.click();
 
   const rows = page.locator(".catalog-explorer-result-row");
   await expect(rows.first()).toBeVisible();

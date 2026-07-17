@@ -290,7 +290,11 @@ def test_option_1_material_first_catalog_contract():
     assert "matchesMaterialSelection(product, selectedMaterial)" in view
     assert "¿Qué material vas a usar?" in material_selector
     assert "aria-pressed={selected === choice.id}" in material_selector
-    assert "Explorá colores en" in color_ribbon
+    assert 'familyMode ? "familias de color" : "colores"' in color_ribbon
+    assert 'choice.selectionMode === "family"' in color_ribbon
+    assert 'selectionMode: "family"' in explorer
+    assert 'selectionMode: "exact"' in explorer
+    assert 'selectedMaterial === "PLA"' in explorer
     assert "Comparar tonos" in color_ribbon
     assert 'href="color-picker.html"' in color_ribbon
     assert "catalogMode" in header

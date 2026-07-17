@@ -6,7 +6,7 @@ import {
   colorChoices,
   compareExplorerProducts,
   materialChoices,
-  matchesColorFamilySelection,
+  matchesColorSelection,
   matchesMaterialSelection,
   productStockTotal,
 } from "../src/lib/catalogExplorer.js";
@@ -72,37 +72,58 @@ test("material matching treats Otros as a hard set instead of clearing the mater
   assert.equal(matchesMaterialSelection(products[0], "Otros"), false);
 });
 
-test("color choices stay inside the selected material and prefer published Pantone HEX", () => {
-  const plaColors = colorChoices(products, "PLA");
+test("PLA color choices collapse exact tones into explicit families", () => {
+  const plaFamilies = colorChoices(products, "PLA");
 
-  assert.deepEqual(plaColors.map((choice) => choice.name), ["Amarillo", "Amarillo Fluo"]);
-  assert.equal(plaColors[0].hex, "#FFD21A");
-  assert.equal(plaColors[0].stockTotal, 6);
-  assert.equal(plaColors.some((choice) => choice.hex === "#E0B20B"), false);
+  assert.deepEqual(plaFamilies.map((choice) => choice.name), ["Amarillos"]);
+  assert.equal(plaFamilies[0].selectionMode, "family");
+  assert.equal(plaFamilies[0].hex, "#FFD21A");
+  assert.deepEqual(plaFamilies[0].swatchHexes, ["#FFD21A", "#EAF11D"]);
+  assert.equal(plaFamilies[0].stockTotal, 15);
+  assert.equal(plaFamilies[0].productCount, 2);
+  assert.equal(plaFamilies[0].exactColorCount, 2);
+  assert.equal(plaFamilies.some((choice) => choice.swatchHexes.includes("#E0B20B")), false);
 });
 
 test("color choices for Otros include only uncommon materials", () => {
-  assert.deepEqual(colorChoices(products, "Otros").map((choice) => choice.name), ["Natural"]);
+  const choices = colorChoices(products, "Otros");
+
+  assert.deepEqual(choices.map((choice) => choice.name), ["Natural"]);
+  assert.equal(choices[0].selectionMode, "exact");
 });
 
 test("color families keep nearby maker-facing tones together without crossing material", () => {
-  const selected = colorChoices(products, "PLA").find((choice) => choice.name === "Amarillo");
+  const selected = colorChoices(products, "PLA").find((choice) => choice.name === "Amarillos");
 
   assert.equal(selected.familyLabel, "Amarillos");
   assert.equal(colorFamilyForHex("#EAF11D").label, "Amarillos");
-  assert.equal(matchesColorFamilySelection(products[1], selected), true);
-  assert.equal(matchesColorFamilySelection(products[2], selected), true);
+  assert.equal(matchesColorSelection(products[1], selected), true);
+  assert.equal(matchesColorSelection(products[2], selected), true);
   assert.equal(matchesMaterialSelection(products[2], "PLA"), false);
 });
 
-test("the color ribbon starts with light and dark neutrals before chromatic hues", () => {
+test("the PLA family ribbon starts with light and dark neutrals before chromatic families", () => {
   const ribbon = colorChoices([
     { material: "PLA", color: "Rojo", estimated_color_hex: "#D62929", offers: [] },
     { material: "PLA", color: "Negro", estimated_color_hex: "#151515", offers: [] },
     { material: "PLA", color: "Blanco", estimated_color_hex: "#F6F5F2", offers: [] },
   ], "PLA");
 
-  assert.deepEqual(ribbon.map((choice) => choice.name), ["Blanco", "Negro", "Rojo"]);
+  assert.deepEqual(ribbon.map((choice) => choice.name), ["Claros", "Negros", "Rojos"]);
+});
+
+test("non-PLA choices stay exact even when two colors share a visual family", () => {
+  const petgProducts = [
+    { material: "PETG", color: "Blanco", estimated_color_hex: "#F6F5F2", offers: [] },
+    { material: "PETG", color: "Hueso", estimated_color_hex: "#F7F4ED", offers: [] },
+  ];
+  const choices = colorChoices(petgProducts, "PETG");
+  const white = choices.find((choice) => choice.name === "Blanco");
+
+  assert.deepEqual(choices.map((choice) => choice.name), ["Blanco", "Hueso"]);
+  assert.equal(white.selectionMode, "exact");
+  assert.equal(matchesColorSelection(petgProducts[0], white), true);
+  assert.equal(matchesColorSelection(petgProducts[1], white), false);
 });
 
 test("stock totals ignore unknown or malformed quantities", () => {
