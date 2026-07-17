@@ -36,7 +36,7 @@
   let generatedAt = "";
   let selectedMaterial = "PLA";
   let selectedColor = "";
-  let sortOrder = "identity";
+  let sortOrder = "popular";
   let showMoreFilters = false;
   let compactQuoteMode = false;
   let quoteDrawerOpen = false;
@@ -377,7 +377,7 @@
             <label>
               <span>Ordenar por</span>
               <select value={sortOrder} on:change={(event) => sortOrder = event.currentTarget.value}>
-                <option value="identity">Color · Marca · Presentación</option>
+                <option value="popular">Popularidad</option>
                 <option value="availability">Disponibilidad total</option>
               </select>
             </label>

@@ -327,14 +327,14 @@ def test_catalog_result_identity_keeps_columns_when_product_image_is_missing():
     assert ".catalog-explorer-result-identity > div {\n  grid-column: 3;" in css
 
 
-def test_catalog_defaults_to_color_brand_presentation_order():
+def test_catalog_defaults_to_historical_popularity_order():
     summary = (SRC / "SummaryApp.svelte").read_text(encoding="utf-8")
 
     assert "compareCatalogProducts," in summary
-    assert 'let sortOrder = "identity";' in summary
+    assert 'let sortOrder = "popular";' in summary
     assert '? compareExplorerProducts(left, right)' in summary
     assert ': compareCatalogProducts(left, right)' in summary
-    assert '<option value="identity">Color · Marca · Presentación</option>' in summary
+    assert '<option value="popular">Popularidad</option>' in summary
     assert '<option value="availability">Disponibilidad total</option>' in summary
 
 

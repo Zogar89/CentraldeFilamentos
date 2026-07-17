@@ -138,9 +138,10 @@ test("explorer products sort by total availability before their identity", () =>
   assert.deepEqual(sorted.map((product) => product.id), ["petg-yellow", "pla-yellow-fluo", "pla-yellow"]);
 });
 
-test("catalog products sort by color, brand, presentation, and diameter", () => {
-  const product = (id, color, brand, weight_g, diameter_mm) => ({
+test("catalog products follow the historical line, brand, diameter, color, and presentation order", () => {
+  const product = (id, material, brand, diameter_mm, color, weight_g) => ({
     id,
+    material,
     color,
     brand,
     weight_g,
@@ -149,24 +150,27 @@ test("catalog products sort by color, brand, presentation, and diameter", () => 
     offers: [],
   });
   const sorted = [
-    product("rojo-liviano", "Rojo", "3N3", 250, 1.75),
-    product("azul-grilon-liviano", "Azul", "Grilon3", 250, 1.75),
-    product("azul-3n3-pesado", "Azul", "3N3", 2500, 1.75),
-    product("azul-3n3-medio-285", "Azul", "3N3", 1000, 2.85),
-    product("azul-3n3-medio-175", "Azul", "3N3", 1000, 1.75),
+    product("petg-grilon", "PETG", "Grilon3", 1.75, "Azul", 250),
+    product("pla-3n3-285-azul", "PLA", "3N3", 2.85, "Azul", 250),
+    product("pla-3n3-175-rojo", "PLA", "3N3", 1.75, "Rojo", 250),
+    product("pla-3n3-175-azul-pesado", "PLA", "3N3", 1.75, "Azul", 1000),
+    product("pla-grilon-285-rojo", "PLA", "Grilon3", 2.85, "Rojo", 250),
+    product("pla-3n3-175-azul-liviano", "PLA", "3N3", 1.75, "Azul", 250),
   ].sort(compareCatalogProducts);
 
   assert.deepEqual(sorted.map((item) => item.id), [
-    "azul-3n3-medio-175",
-    "azul-3n3-medio-285",
-    "azul-3n3-pesado",
-    "azul-grilon-liviano",
-    "rojo-liviano",
+    "pla-grilon-285-rojo",
+    "pla-3n3-175-azul-liviano",
+    "pla-3n3-175-azul-pesado",
+    "pla-3n3-175-rojo",
+    "pla-3n3-285-azul",
+    "petg-grilon",
   ]);
 });
 
-test("catalog products place samplers before unknown presentations", () => {
+test("catalog products keep the sampler line after standard PLA presentations", () => {
   const base = {
+    material: "PLA",
     color: "Azul",
     brand: "3N3",
     diameter_mm: 1.75,
@@ -184,5 +188,5 @@ test("catalog products place samplers before unknown presentations", () => {
     { ...base, id: "weighted", display_name: "weighted", weight_g: 1000 },
   ].sort(compareCatalogProducts);
 
-  assert.deepEqual(sorted.map((item) => item.id), ["weighted", "sampler", "unknown"]);
+  assert.deepEqual(sorted.map((item) => item.id), ["weighted", "unknown", "sampler"]);
 });

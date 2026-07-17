@@ -1,7 +1,12 @@
 import { converter } from "culori";
 
 import { productColorHex } from "./colorPicker.js";
-import { presentationRank } from "./shared.js";
+import {
+  brandRank,
+  lineLabel,
+  lineRank,
+  presentationRank,
+} from "./shared.js";
 
 const materialOrder = ["PLA", "PETG", "ABS", "TPU", "Nylon", "ASA"];
 const coreMaterials = new Set(materialOrder);
@@ -251,10 +256,14 @@ function compareOptionalNumber(left, right) {
 }
 
 export function compareCatalogProducts(left, right) {
-  return compareCatalogText(left?.color, right?.color)
-    || compareCatalogText(left?.brand, right?.brand)
-    || presentationRank(left || {}) - presentationRank(right || {})
+  const leftLine = lineLabel(left || {});
+  const rightLine = lineLabel(right || {});
+  return lineRank(leftLine) - lineRank(rightLine)
+    || brandRank(left?.brand).localeCompare(brandRank(right?.brand), "es-AR")
     || compareOptionalNumber(left?.diameter_mm, right?.diameter_mm)
+    || compareCatalogText(leftLine, rightLine)
+    || compareCatalogText(left?.color, right?.color)
+    || presentationRank(left || {}) - presentationRank(right || {})
     || compareCatalogText(left?.display_name || left?.id, right?.display_name || right?.id);
 }
 
