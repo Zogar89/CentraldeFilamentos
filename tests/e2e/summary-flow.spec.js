@@ -17,47 +17,53 @@ test.beforeEach(async ({ page }, testInfo) => {
   await waitForStablePage(page);
 });
 
-test("builds a quote, compares coverage, and prepares a provider message", async ({ page }) => {
+test("builds a quote, compares coverage, and prepares a provider message", async ({ page }, testInfo) => {
   const firstAddButton = page
-    .locator(`tr[data-product-id="${productIds[0]}"]`)
-    .getByRole("button", { name: "Agregar 1 unidad a la lista de cotizacion" });
+    .locator(`.catalog-explorer-result-row[data-product-id="${productIds[0]}"]`)
+    .getByRole("button", { name: /Agregar .* a la lista de cotización/ });
   const secondAddButton = page
-    .locator(`tr[data-product-id="${productIds[1]}"]`)
-    .getByRole("button", { name: "Agregar 1 unidad a la lista de cotizacion" });
+    .locator(`.catalog-explorer-result-row[data-product-id="${productIds[1]}"]`)
+    .getByRole("button", { name: /Agregar .* a la lista de cotización/ });
+  const desktop = testInfo.project.name === "desktop-1080";
+  const drawer = page.getByRole("dialog", { name: "Lista de cotizacion" });
+  const workspace = desktop ? page.locator(".catalog-quote-rail") : drawer;
 
   await expect(firstAddButton).toBeVisible();
   await expect(secondAddButton).toBeVisible();
   await firstAddButton.click();
-  const drawer = page.getByRole("dialog", { name: "Lista de cotizacion" });
-  await expect(drawer).toBeVisible();
-  await expect(drawer.getByRole("button", { name: "Cerrar lista de cotizacion" })).toBeFocused();
-  await drawer.getByRole("button", { name: "Cerrar lista de cotizacion" }).click();
-  await expect(firstAddButton).toBeFocused();
+  await expect(workspace).toBeVisible();
+  await expect(workspace.locator(".quote-list-item")).toHaveCount(1);
+  if (!desktop) {
+    await expect(drawer.getByRole("button", { name: "Cerrar lista de cotizacion" })).toBeFocused();
+    await drawer.getByRole("button", { name: "Cerrar lista de cotizacion" }).click();
+    await expect(firstAddButton).toBeFocused();
+  }
 
   await secondAddButton.click();
-  await expect(drawer).toBeVisible();
-  await expect(drawer.getByRole("button", { name: "Cerrar lista de cotizacion" })).toBeFocused();
-  await expect(drawer.locator(".quote-list-item")).toHaveCount(2);
+  await expect(workspace).toBeVisible();
+  await expect(workspace.locator(".quote-list-item")).toHaveCount(2);
 
-  const quantityInputs = drawer.getByRole("spinbutton", { name: "Cantidad de unidades" });
+  const quantityInputs = workspace.getByRole("spinbutton", { name: "Cantidad de unidades" });
   if ((await quantityInputs.count()) === 0) {
-    await drawer.getByRole("button", { name: "Controles rapidos", exact: true }).click();
+    await workspace.getByRole("button", { name: /cantidades|Controles rapidos/, exact: false }).click();
   }
   await expect(quantityInputs).toHaveCount(2);
   await quantityInputs.first().fill("11");
-  await drawer.getByRole("button", { name: "Completar siguiente caja de 12 unidades" }).first().click();
+  await workspace.getByRole("button", { name: "Completar siguiente caja de 12 unidades" }).first().click();
   await expect(quantityInputs.first()).toHaveValue("12");
 
-  await drawer.getByRole("button", { name: "Comparar proveedores" }).click();
-  await expect(drawer.getByRole("group", { name: "Cobertura de proveedores" })).toBeVisible();
-  await expect(drawer.getByText("Cubre toda la lista", { exact: true })).toBeVisible();
+  await workspace.getByRole("button", { name: "Comparar proveedores" }).click();
+  await expect(workspace.getByRole("group", { name: "Cobertura de proveedores" })).toBeVisible();
+  await expect(workspace.getByText("Cubre toda la lista", { exact: true })).toBeVisible();
 
-  await drawer.getByRole("button", { name: "Preparar consulta" }).click();
-  await expect(drawer.getByRole("tabpanel", { name: "Enviar" })).toBeVisible();
-  await expect(drawer.getByRole("textbox", { name: "Mensaje de consulta" })).not.toHaveValue("");
-  await expect(drawer.getByRole("link", { name: "Abrir WhatsApp" })).toHaveAttribute("href", /^https:\/\/wa\.me\//);
+  await workspace.getByRole("button", { name: "Preparar consulta" }).click();
+  await expect(workspace.getByRole("tabpanel", { name: "Enviar" })).toBeVisible();
+  await expect(workspace.getByRole("textbox", { name: "Mensaje de consulta" })).not.toHaveValue("");
+  await expect(workspace.getByRole("link", { name: "Abrir WhatsApp" })).toHaveAttribute("href", /^https:\/\/wa\.me\//);
 
-  await drawer.getByRole("button", { name: "Cerrar lista de cotizacion" }).click();
-  await expect(drawer).toBeHidden();
-  await expect(secondAddButton).toBeFocused();
+  if (!desktop) {
+    await drawer.getByRole("button", { name: "Cerrar lista de cotizacion" }).click();
+    await expect(drawer).toBeHidden();
+    await expect(secondAddButton).toBeFocused();
+  }
 });

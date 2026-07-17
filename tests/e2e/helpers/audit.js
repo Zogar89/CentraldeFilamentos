@@ -78,7 +78,7 @@ export async function inspectResponsiveLayout(page) {
       .map((image) => image.currentSrc || image.src)
       .slice(0, 20);
 
-    const scrollExceptions = ".color-picker-map-scroll, .quick-lines, .vendor-table-wrap";
+    const scrollExceptions = ".color-picker-map-scroll, .quick-lines, .vendor-table-wrap, .catalog-explorer-material-grid, .catalog-explorer-color-scroll";
     const clippedControls = [...document.querySelectorAll("button, a[href], input, select, textarea, [role='button'], [role='tab']")]
       .filter(isVisible)
       .filter((element) => !element.matches(".skip-link"))
