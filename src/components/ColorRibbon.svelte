@@ -25,7 +25,11 @@
     <span>{choices.length} {familyMode ? "familias publicadas" : "colores publicados"}</span>
   </header>
   {#if choices.length}
-    <div class="catalog-explorer-color-scroll" role="group" aria-label={`${familyMode ? "Familias de color" : "Colores"} disponibles en ${material}`}>
+    <div
+      class="catalog-explorer-color-scroll"
+      role="group"
+      aria-label={`${familyMode ? "Familias de color" : "Colores"} disponibles en ${material}`}
+    >
       {#each choices as choice (choice.id)}
         <button
           type="button"
@@ -42,7 +46,6 @@
           on:click={() => onSelect(choice.name)}
         >
           <span aria-hidden="true"></span>
-          {#if choice.selectionMode === "family"}<strong>{choice.name}</strong>{/if}
         </button>
       {/each}
     </div>

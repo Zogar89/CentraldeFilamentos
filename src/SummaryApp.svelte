@@ -96,10 +96,10 @@
   $: selectedColorProductCount = selectedColorChoice
     ? materialProducts.filter((product) => matchesColorSelection(product, selectedColorChoice)).length
     : 0;
-  $: variantOptions = valuesForMaterial((product) => lineLabel(product));
-  $: diameterOptions = valuesForMaterial((product) => product.diameter_mm);
-  $: weightOptions = valuesForMaterial((product) => product.weight_g);
-  $: brandOptions = valuesForMaterial((product) => product.brand);
+  $: variantOptions = valuesForMaterial(materialProducts, (product) => lineLabel(product));
+  $: diameterOptions = valuesForMaterial(materialProducts, (product) => product.diameter_mm);
+  $: weightOptions = valuesForMaterial(materialProducts, (product) => product.weight_g);
+  $: brandOptions = valuesForMaterial(materialProducts, (product) => product.brand);
   $: providerOptions = [...new Set(materialProducts.flatMap((product) => (product.offers || []).map((offer) => offer.provider_name)).filter(Boolean))].sort((left, right) => left.localeCompare(right, "es-AR"));
   $: secondaryFilterCount = [filters.variant, filters.diameter, filters.weight, filters.brand, filters.provider, filters.stock !== "all" ? filters.stock : ""].filter(Boolean).length;
   $: contactContext = [filters.query, selectedMaterial, selectedColor, filters.variant, filters.diameter ? `${filters.diameter} mm` : "", filters.weight ? formatWeightLabel(filters.weight) : "", filters.brand].filter(Boolean).join(", ");
@@ -134,8 +134,8 @@
     if (!compactQuoteMode) quoteDrawerOpen = false;
   }
 
-  function valuesForMaterial(selector) {
-    return [...new Set(materialProducts.map(selector).filter((value) => value !== "" && value !== null && value !== undefined))]
+  function valuesForMaterial(materialItems, selector) {
+    return [...new Set(materialItems.map(selector).filter((value) => value !== "" && value !== null && value !== undefined))]
       .sort((left, right) => String(left).localeCompare(String(right), "es-AR", { numeric: true }));
   }
 

@@ -4354,19 +4354,6 @@ input {
   cursor: pointer;
 }
 
-.catalog-explorer-color.family {
-  flex-basis: auto;
-  width: auto;
-  min-width: 86px;
-  height: 44px;
-  padding: 5px 8px;
-  border-color: var(--line);
-  background: var(--surface);
-  display: flex;
-  align-items: center;
-  gap: 7px;
-}
-
 .catalog-explorer-color > span,
 .catalog-explorer-color-context-swatch {
   display: block;
@@ -4377,26 +4364,9 @@ input {
   background: var(--catalog-color, #dfe3e2);
 }
 
-.catalog-explorer-color.family > span {
-  flex: 0 0 28px;
-  width: 28px;
-  height: 28px;
-}
-
-.catalog-explorer-color.family > strong {
-  color: var(--text);
-  font-size: 11px;
-  font-weight: 760;
-  white-space: nowrap;
-}
-
 .catalog-explorer-color.selected {
   border-color: var(--accent);
   box-shadow: 0 0 0 2px rgba(8, 127, 136, .13);
-}
-
-.catalog-explorer-color.family.selected {
-  background: rgba(8, 127, 136, .06);
 }
 
 .catalog-explorer-color.without-color > span {

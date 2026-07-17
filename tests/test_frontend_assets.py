@@ -305,6 +305,18 @@ def test_option_1_material_first_catalog_contract():
     assert 'itemCount ? quoteQuantityLabel(itemCount) : "0 unidades"' in quote_panel
 
 
+def test_catalog_filter_options_track_loaded_material_products():
+    view = (SRC / "SummaryApp.svelte").read_text(encoding="utf-8")
+
+    for selector in [
+        "(product) => lineLabel(product)",
+        "(product) => product.diameter_mm",
+        "(product) => product.weight_g",
+        "(product) => product.brand",
+    ]:
+        assert f"valuesForMaterial(materialProducts, {selector})" in view
+
+
 def test_catalog_result_identity_keeps_columns_when_product_image_is_missing():
     results = (SRC / "components" / "CatalogExplorerResults.svelte").read_text(encoding="utf-8")
     css = (SRC / "styles" / "global.css").read_text(encoding="utf-8")
