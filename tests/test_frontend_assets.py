@@ -2,6 +2,8 @@ import json
 from collections import Counter
 from pathlib import Path
 
+from PIL import Image
+
 
 PUBLIC = Path("public")
 SRC = Path("src")
@@ -317,11 +319,48 @@ def test_catalog_filter_options_track_loaded_material_products():
         assert f"valuesForMaterial(materialProducts, {selector})" in view
 
 
+def test_catalog_diameter_and_brand_filters_use_option_buttons():
+    view = (SRC / "SummaryApp.svelte").read_text(encoding="utf-8")
+    css = (SRC / "styles" / "global.css").read_text(encoding="utf-8")
+    brand_assets = PUBLIC / "assets" / "brands"
+
+    assert 'diameter: "1.75"' in view
+    assert '<select id="diameter-filter"' not in view
+    assert '<select id="brand-filter"' not in view
+    assert '{#each diameterOptions as value}' in view
+    assert 'id={`diameter-filter-${value}`}' in view
+    assert 'aria-pressed={filters.diameter === String(value)}' in view
+    assert '{value} mm</button>' in view
+    assert '{#each brandOptions as value}' in view
+    assert 'id={`brand-filter-${value}`}' in view
+    assert 'aria-pressed={filters.brand === value}' in view
+    assert ".catalog-explorer-filter-buttons" in css
+    assert '.catalog-explorer-filter-option[aria-pressed="true"]' in css
+    assert "background: var(--surface-soft);" in css
+    assert "background: color-mix(in srgb, var(--accent) 10%, var(--surface));" in css
+    assert "color: var(--accent);" in css
+    assert '.catalog-explorer-filter-option[aria-pressed="true"] {\n  border-color: var(--accent);\n  background: var(--accent);' not in css
+    assert '"3N3": "assets/brands/3n3.png"' in view
+    assert 'Grilon3: "assets/brands/grilon3.png"' in view
+    assert 'class="catalog-explorer-filter-brand-logo"' in view
+    assert "dataUrl(BRAND_LOGOS[value])" in view
+    assert ".catalog-explorer-filter-brand-logo" in css
+    assert (brand_assets / "3n3.png").exists()
+    assert (brand_assets / "grilon3.png").exists()
+    with Image.open(brand_assets / "3n3.png") as logo:
+        assert logo.mode == "RGBA"
+        assert logo.getchannel("A").getextrema() == (0, 255)
+        assert logo.getpixel((0, 0))[3] == 0
+        assert logo.width < 558
+        assert logo.height < 358
+
+
 def test_catalog_result_identity_keeps_columns_when_product_image_is_missing():
     results = (SRC / "components" / "CatalogExplorerResults.svelte").read_text(encoding="utf-8")
     css = (SRC / "styles" / "global.css").read_text(encoding="utf-8")
 
     assert "{#if imagePath}" in results
+    assert "{formatPresentation(product)} · {diameterLabel(product)}" in results
     assert ".catalog-explorer-result-image {\n  grid-column: 1;" in css
     assert ".catalog-explorer-result-swatch {\n  grid-column: 2;" in css
     assert ".catalog-explorer-result-identity > div {\n  grid-column: 3;" in css

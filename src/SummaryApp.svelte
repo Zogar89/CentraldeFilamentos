@@ -29,6 +29,11 @@
     productBaseName,
   } from "./lib/shared.js";
 
+  const BRAND_LOGOS = {
+    "3N3": "assets/brands/3n3.png",
+    Grilon3: "assets/brands/grilon3.png",
+  };
+
   let loading = true;
   let loadError = "";
   let products = [];
@@ -63,7 +68,7 @@
   let filters = {
     query: "",
     variant: "",
-    diameter: "",
+    diameter: "1.75",
     weight: "",
     brand: "",
     provider: "",
@@ -318,13 +323,20 @@
         <ColorRibbon choices={availableColors} selected={selectedColor} material={selectedMaterial} selectionProductCount={selectedColorProductCount} onSelect={selectColor} onClear={() => selectedColor = ""} />
 
         <section class="catalog-explorer-filters" class:expanded={showMoreFilters} aria-label="Filtros de presentación y proveedor">
-          <label>
+          <div class="catalog-explorer-filter-control">
             <span>Diámetro</span>
-            <select id="diameter-filter" value={filters.diameter} on:change={(event) => setFilter("diameter", event.currentTarget.value)}>
-              <option value="">Todos</option>
-              {#each diameterOptions as value}<option value={String(value)}>{value} mm</option>{/each}
-            </select>
-          </label>
+            <div class="catalog-explorer-filter-buttons" role="group" aria-label="Diámetro">
+              {#each diameterOptions as value}
+                <button
+                  id={`diameter-filter-${value}`}
+                  class="catalog-explorer-filter-option"
+                  type="button"
+                  aria-pressed={filters.diameter === String(value)}
+                  on:click={() => setFilter("diameter", filters.diameter === String(value) ? "" : String(value))}
+                >{value} mm</button>
+              {/each}
+            </div>
+          </div>
           <label>
             <span>Presentación</span>
             <select id="variant-filter" value={filters.variant} on:change={(event) => setFilter("variant", event.currentTarget.value)}>
@@ -339,13 +351,23 @@
               {#each weightOptions as value}<option value={String(value)}>{formatWeightLabel(value)}</option>{/each}
             </select>
           </label>
-          <label>
+          <div class="catalog-explorer-filter-control">
             <span>Marca</span>
-            <select id="brand-filter" value={filters.brand} on:change={(event) => setFilter("brand", event.currentTarget.value)}>
-              <option value="">Todas</option>
-              {#each brandOptions as value}<option value={value}>{value}</option>{/each}
-            </select>
-          </label>
+            <div class="catalog-explorer-filter-buttons" role="group" aria-label="Marca">
+              {#each brandOptions as value}
+                <button
+                  id={`brand-filter-${value}`}
+                  class="catalog-explorer-filter-option"
+                  type="button"
+                  aria-label={value}
+                  aria-pressed={filters.brand === value}
+                  on:click={() => setFilter("brand", filters.brand === value ? "" : value)}
+                >
+                  <img class="catalog-explorer-filter-brand-logo" src={dataUrl(BRAND_LOGOS[value])} alt="" aria-hidden="true">
+                </button>
+              {/each}
+            </div>
+          </div>
           <button class="catalog-explorer-more-filters" type="button" aria-expanded={showMoreFilters} on:click={() => showMoreFilters = !showMoreFilters}>
             {showMoreFilters ? "Menos filtros" : "Más filtros"}{secondaryFilterCount ? ` · ${secondaryFilterCount}` : ""}
           </button>

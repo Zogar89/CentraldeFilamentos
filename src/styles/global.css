@@ -4428,12 +4428,14 @@ input {
   border-top: 1px solid #e4e8e7;
 }
 
-.catalog-explorer-filters label {
+.catalog-explorer-filters label,
+.catalog-explorer-filter-control {
   display: grid;
   gap: 5px;
 }
 
 .catalog-explorer-filters label > span,
+.catalog-explorer-filter-control > span,
 .catalog-explorer-result-meta label > span {
   color: var(--muted);
   font-size: 11px;
@@ -4447,6 +4449,51 @@ input {
   padding: 0 34px 0 11px;
   font: inherit;
   font-size: 13px;
+}
+
+.catalog-explorer-filter-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 3px;
+  min-height: 42px;
+  padding: 3px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface-soft);
+}
+
+.catalog-explorer-filter-option {
+  display: grid;
+  place-items: center;
+  min-height: 34px;
+  min-width: 0;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 680;
+  cursor: pointer;
+  transition: background var(--motion-fast) ease, color var(--motion-fast) ease, box-shadow var(--motion-fast) ease;
+}
+
+.catalog-explorer-filter-brand-logo {
+  width: auto;
+  max-width: 64px;
+  height: 22px;
+  object-fit: contain;
+}
+
+.catalog-explorer-filter-option:hover {
+  background: color-mix(in srgb, var(--accent) 6%, var(--surface));
+}
+
+.catalog-explorer-filter-option[aria-pressed="true"] {
+  background: color-mix(in srgb, var(--accent) 10%, var(--surface));
+  color: var(--accent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 24%, var(--line));
 }
 
 .catalog-explorer-more-filters {

@@ -4,6 +4,7 @@
   import {
     colorSwatchStyle,
     dataUrl,
+    diameterLabel,
     formatInteger,
     formatPresentation,
     lineLabel,
@@ -73,7 +74,7 @@
             <div>
               <strong>{product.color || productBaseName(product)}</strong>
               <span>{product.brand} · {lineLabel(product)}</span>
-              <small>{formatPresentation(product)}</small>
+              <small>{formatPresentation(product)} · {diameterLabel(product)}</small>
             </div>
           </div>
 
