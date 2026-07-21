@@ -30,10 +30,34 @@
       "message": "Build quality checks passed."
     }
   ],
-  "generated_at": "2026-07-20T19:03:23-03:00",
+  "generated_at": "2026-07-21T11:01:44-03:00",
   "last_good_sources": {},
   "metrics": {
     "current": {
+      "product_count": 370,
+      "sources": {
+        "filamentos3d": {
+          "name": "Filamentos3D",
+          "product_count": 323,
+          "status": "ok",
+          "total_stock_units": 16004
+        },
+        "grupo_senz": {
+          "name": "Grupo Senz",
+          "product_count": 234,
+          "status": "ok",
+          "total_stock_units": 8301
+        },
+        "mundoinsumos": {
+          "name": "MundoInsumos",
+          "product_count": 233,
+          "status": "ok",
+          "total_stock_units": 7344
+        }
+      },
+      "total_stock_units": 31649
+    },
+    "previous": {
       "product_count": 370,
       "sources": {
         "filamentos3d": {
@@ -56,30 +80,6 @@
         }
       },
       "total_stock_units": 30394
-    },
-    "previous": {
-      "product_count": 370,
-      "sources": {
-        "filamentos3d": {
-          "name": "Filamentos3D",
-          "product_count": 323,
-          "status": "ok",
-          "total_stock_units": 16186
-        },
-        "grupo_senz": {
-          "name": "Grupo Senz",
-          "product_count": 234,
-          "status": "ok",
-          "total_stock_units": 8301
-        },
-        "mundoinsumos": {
-          "name": "MundoInsumos",
-          "product_count": 233,
-          "status": "ok",
-          "total_stock_units": 6316
-        }
-      },
-      "total_stock_units": 30803
     }
   },
   "should_publish": true,
