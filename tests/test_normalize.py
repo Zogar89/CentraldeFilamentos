@@ -85,6 +85,20 @@ def test_normalizes_3n3_pla_plus_rojo():
     assert fields.manufacturer_name == "3N3"
 
 
+def test_normalizes_3n3_silk_papaya_and_aluminio_as_distinct_colors():
+    papaya = normalize_record(raw("3N3 SILK PAPAYA 1.75 MM X 1 KG", source_id="grupo_senz"))
+    aluminio = normalize_record(raw("3N3 SILK ALUMINIO 1.75 MM X 1 KG", source_id="grupo_senz"))
+
+    assert (papaya.color, build_product_id(papaya)) == (
+        "Papaya",
+        "pla-pla-silk-papaya-175-1000-3n3",
+    )
+    assert (aluminio.color, build_product_id(aluminio)) == (
+        "Aluminio",
+        "pla-pla-silk-aluminio-175-1000-3n3",
+    )
+
+
 def test_keeps_other_weights_separate():
     fields = normalize_record(raw("PETG Transparente 750 GR 1.75mm"))
 
