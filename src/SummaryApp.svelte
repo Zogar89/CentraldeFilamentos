@@ -12,6 +12,7 @@
     colorChoices,
     compareCatalogProducts,
     compareExplorerProducts,
+    hasMultipleKnownDiameters,
     materialChoices,
     matchesColorSelection,
     matchesMaterialSelection,
@@ -68,7 +69,7 @@
   let filters = {
     query: "",
     variant: "",
-    diameter: "1.75",
+    diameter: "",
     weight: "",
     brand: "",
     provider: "",
@@ -103,6 +104,7 @@
     : 0;
   $: variantOptions = valuesForMaterial(materialProducts, (product) => lineLabel(product));
   $: diameterOptions = valuesForMaterial(materialProducts, (product) => product.diameter_mm);
+  $: showDiameterFilter = hasMultipleKnownDiameters(materialProducts);
   $: weightOptions = valuesForMaterial(materialProducts, (product) => product.weight_g);
   $: brandOptions = valuesForMaterial(materialProducts, (product) => product.brand);
   $: providerOptions = [...new Set(materialProducts.flatMap((product) => (product.offers || []).map((offer) => offer.provider_name)).filter(Boolean))].sort((left, right) => left.localeCompare(right, "es-AR"));
@@ -172,7 +174,7 @@
   function setMaterial(material) {
     selectedMaterial = material;
     selectedColor = "";
-    filters = { ...filters, variant: "", brand: "", provider: "" };
+    filters = { ...filters, variant: "", diameter: "", brand: "", provider: "" };
   }
 
   function selectColor(color) {
@@ -323,20 +325,22 @@
         <ColorRibbon choices={availableColors} selected={selectedColor} material={selectedMaterial} selectionProductCount={selectedColorProductCount} onSelect={selectColor} onClear={() => selectedColor = ""} />
 
         <section class="catalog-explorer-filters" class:expanded={showMoreFilters} aria-label="Filtros de presentación y proveedor">
-          <div class="catalog-explorer-filter-control">
-            <span>Diámetro</span>
-            <div class="catalog-explorer-filter-buttons" role="group" aria-label="Diámetro">
-              {#each diameterOptions as value}
-                <button
-                  id={`diameter-filter-${value}`}
-                  class="catalog-explorer-filter-option"
-                  type="button"
-                  aria-pressed={filters.diameter === String(value)}
-                  on:click={() => setFilter("diameter", filters.diameter === String(value) ? "" : String(value))}
-                >{value} mm</button>
-              {/each}
+          {#if showDiameterFilter}
+            <div class="catalog-explorer-filter-control">
+              <span>Diámetro</span>
+              <div class="catalog-explorer-filter-buttons" role="group" aria-label="Diámetro">
+                {#each diameterOptions as value}
+                  <button
+                    id={`diameter-filter-${value}`}
+                    class="catalog-explorer-filter-option"
+                    type="button"
+                    aria-pressed={filters.diameter === String(value)}
+                    on:click={() => setFilter("diameter", filters.diameter === String(value) ? "" : String(value))}
+                  >{value} mm</button>
+                {/each}
+              </div>
             </div>
-          </div>
+          {/if}
           <label>
             <span>Presentación</span>
             <select id="variant-filter" value={filters.variant} on:change={(event) => setFilter("variant", event.currentTarget.value)}>

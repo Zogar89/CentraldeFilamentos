@@ -324,7 +324,6 @@ def test_catalog_diameter_and_brand_filters_use_option_buttons():
     css = (SRC / "styles" / "global.css").read_text(encoding="utf-8")
     brand_assets = PUBLIC / "assets" / "brands"
 
-    assert 'diameter: "1.75"' in view
     assert '<select id="diameter-filter"' not in view
     assert '<select id="brand-filter"' not in view
     assert '{#each diameterOptions as value}' in view
@@ -353,6 +352,16 @@ def test_catalog_diameter_and_brand_filters_use_option_buttons():
         assert logo.getpixel((0, 0))[3] == 0
         assert logo.width < 558
         assert logo.height < 358
+
+
+def test_catalog_hides_the_diameter_filter_when_it_has_no_choice():
+    view = (SRC / "SummaryApp.svelte").read_text(encoding="utf-8")
+
+    assert 'let filters = {\n    query: "",\n    variant: "",\n    diameter: "",' in view
+    assert "hasMultipleKnownDiameters" in view
+    assert "$: showDiameterFilter = hasMultipleKnownDiameters(materialProducts);" in view
+    assert "{#if showDiameterFilter}" in view
+    assert 'filters = { ...filters, variant: "", diameter: "", brand: "", provider: "" };' in view
 
 
 def test_catalog_result_identity_keeps_columns_when_product_image_is_missing():

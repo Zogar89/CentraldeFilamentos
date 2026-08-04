@@ -6,6 +6,7 @@ import {
   colorChoices,
   compareCatalogProducts,
   compareExplorerProducts,
+  hasMultipleKnownDiameters,
   materialChoices,
   matchesColorSelection,
   matchesMaterialSelection,
@@ -166,6 +167,19 @@ test("catalog products follow the historical line, brand, diameter, color, and p
     "pla-3n3-285-azul",
     "petg-grilon",
   ]);
+});
+
+test("a diameter filter is only useful when material products have multiple known sizes", () => {
+  assert.equal(hasMultipleKnownDiameters([
+    { diameter_mm: 1.75 },
+    { diameter_mm: 1.75 },
+    { diameter_mm: null },
+  ]), false);
+  assert.equal(hasMultipleKnownDiameters([
+    { diameter_mm: 1.75 },
+    { diameter_mm: 2.85 },
+    { diameter_mm: null },
+  ]), true);
 });
 
 test("catalog products keep the sampler line after standard PLA presentations", () => {

@@ -142,6 +142,13 @@ export function matchesMaterialSelection(product, selectedMaterial) {
   return material === selectedMaterial;
 }
 
+export function hasMultipleKnownDiameters(products) {
+  const diameters = new Set((products || [])
+    .map((product) => product?.diameter_mm)
+    .filter((value) => value !== "" && value !== null && value !== undefined));
+  return diameters.size > 1;
+}
+
 export function materialChoices(products) {
   const choices = materialOrder.flatMap((material) => {
     const matches = products.filter((product) => product.material === material);
