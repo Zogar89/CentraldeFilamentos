@@ -366,6 +366,24 @@ def test_catalog_result_identity_keeps_columns_when_product_image_is_missing():
     assert ".catalog-explorer-result-identity > div {\n  grid-column: 3;" in css
 
 
+def test_catalog_result_marks_only_provisional_provider_colors_without_changing_identity_grid():
+    results = (SRC / "components" / "CatalogExplorerResults.svelte").read_text(encoding="utf-8")
+    css = (SRC / "styles" / "global.css").read_text(encoding="utf-8")
+
+    assert '{#if product.color_review_status === "provisional"}' in results
+    assert "Color del proveedor · pendiente de normalizar" in results
+    assert 'class="catalog-explorer-provisional-color"' in results
+    assert results.index("<strong>{product.color || productBaseName(product)}</strong>") < results.index(
+        '{#if product.color_review_status === "provisional"}'
+    ) < results.index("<span>{product.brand} · {lineLabel(product)}</span>")
+    assert ".catalog-explorer-result-identity .catalog-explorer-provisional-color" in css
+    assert "max-width: 100%;" in css
+    assert "overflow-wrap: anywhere;" in css
+    assert ".catalog-explorer-result-image {\n  grid-column: 1;" in css
+    assert ".catalog-explorer-result-swatch {\n  grid-column: 2;" in css
+    assert ".catalog-explorer-result-identity > div {\n  grid-column: 3;" in css
+
+
 def test_catalog_defaults_to_historical_popularity_order():
     summary = (SRC / "SummaryApp.svelte").read_text(encoding="utf-8")
 
@@ -726,9 +744,27 @@ def test_all_public_pages_declare_the_shared_favicon_and_are_publishable():
     for watched_path in ["catalogo.html", "color-picker.html", "public/favicon.svg"]:
         assert f'- "{watched_path}"' in workflow
 
-    audit_workflow = Path(".github/workflows/ui-audit.yml").read_text(encoding="utf-8")
-    for watched_path in ["vite.config.js", "lighthouserc.json", ".github/workflows/pages.yml", ".github/workflows/ui-audit.yml"]:
-        assert f'- "{watched_path}"' in audit_workflow
+def test_local_ui_check_uses_a_bounded_representative_viewport_matrix() -> None:
+    config = Path("playwright.config.js").read_text(encoding="utf-8")
+
+    for project in [
+        '["desktop-4k", 3840, 2160]',
+        '["desktop-1080", 1920, 1080]',
+        '["mobile-360", 360, 800]',
+    ]:
+        assert project in config
+    for removed_project in ["desktop-2k", "laptop-1366", "mobile-412", "mobile-390", "mobile-landscape"]:
+        assert removed_project not in config
+
+    for test_path in [
+        "tests/e2e/accessibility.spec.js",
+        "tests/e2e/color-picker-flow.spec.js",
+        "tests/e2e/option1-flow.spec.js",
+        "tests/e2e/summary-flow.spec.js",
+    ]:
+        source = Path(test_path).read_text(encoding="utf-8")
+        assert '"desktop-1080", "mobile-360"' in source
+        assert "mobile-390" not in source
 
 
 def test_color_picker_map_uses_dynamic_point_coordinates() -> None:

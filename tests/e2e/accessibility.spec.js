@@ -3,7 +3,7 @@ import { expect, test } from "@playwright/test";
 
 import { waitForStablePage } from "./helpers/audit.js";
 
-const auditedProjects = new Set(["desktop-1080", "mobile-390"]);
+const auditedProjects = new Set(["desktop-1080", "mobile-360"]);
 const routes = [
   ["summary", "./"],
   ["color picker", "./color-picker.html"],

@@ -4635,6 +4635,22 @@ input {
   font-size: 11px;
 }
 
+.catalog-explorer-result-identity .catalog-explorer-provisional-color {
+  width: fit-content;
+  max-width: 100%;
+  padding: 2px 5px;
+  border: 1px solid color-mix(in srgb, var(--warn) 38%, var(--line));
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--warn) 10%, var(--surface));
+  color: color-mix(in srgb, var(--warn) 82%, var(--text));
+  font-size: 9px;
+  font-weight: 700;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+  text-overflow: clip;
+  white-space: normal;
+}
+
 .catalog-explorer-provider-stock {
   display: grid;
   grid-template-columns: repeat(3, minmax(90px, 1fr));

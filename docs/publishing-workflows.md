@@ -25,6 +25,7 @@ Responsabilidad:
 - Correr el scraper.
 - Generar `public/data/stock.json`.
 - Actualizar snapshots e historial de proveedores.
+- Mantener el registro interno de colores provisionales detectados en titulos de proveedores.
 - Escribir logs publicos de salud del build.
 - Committear los datos generados en `master`.
 - Copiar `public/data/*.json` a `gh-pages/data/`.
@@ -34,6 +35,7 @@ No debe:
 - Ejecutar `npm run build`.
 - Generar miniaturas.
 - Tocar assets de UI.
+- Copiar `centraldefilamentos/data/color_registry.json` a GitHub Pages.
 
 Schedule:
 
@@ -124,6 +126,19 @@ Para regenerar miniaturas:
 1. Cambiar o agregar imagenes fuente en `public/assets/`.
 2. Push a `master`, o ejecutar `Publish Thumbnails` manualmente.
 3. Verificar que `public/assets/thumbs/` y `gh-pages/assets/` queden actualizados.
+
+### Revision de colores provisionales
+
+`centraldefilamentos/data/color_registry.json` es estado interno versionado. Cuando un titulo de proveedor tiene un color que aun no coincide con `COLOR_RULES`, la captura lo incorpora con una identidad estable y estado `provisional`; el catalogo indica que es una etiqueta del proveedor pendiente de normalizar.
+
+Despues de una captura exitosa:
+
+1. Revisar el diff del registry y el warning `provisional_colors` de `public/data/build_technical_log.json`.
+2. Confirmar el titulo fuente del proveedor. No usar este registro para inferir Pantone, RGB, foto o equivalencia fisica.
+3. Si se acepta la etiqueta tal como viene del proveedor, cambiar solo su `status` de `provisional` a `approved`. Se conserva la misma identidad y en la proxima captura desaparece el aviso del catalogo.
+4. Si se quiere agregar una equivalencia canonica a `COLOR_RULES`, hacerlo en un cambio revisado aparte que considere la migracion de identidad; nunca se fusiona automaticamente desde el registry.
+
+Una captura bloqueada por controles de calidad no actualiza el registry, los snapshots, el historial ni `stock.json`.
 
 ## Checks utiles
 

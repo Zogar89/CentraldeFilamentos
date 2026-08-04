@@ -127,6 +127,7 @@ Validaciones de resiliencia del build:
 - Si un proveedor tenia al menos 100 carretes y su total baja mas de 60% contra el ultimo `stock.json` bueno, la publicacion se bloquea. Esta validacion mira el total del proveedor, no movimientos por color o producto.
 - El JSON final debe tener `generated_at`, listas de `products`, `sources` y `manufacturers`, todas las fuentes esperadas y productos con `id` y `offers`.
 - Si falla el enriquecimiento de imagenes o metadata, no se bloquea el stock: se publica con los datos disponibles y queda un warning en los logs.
+- Si aparece un color nuevo del proveedor, se publica con identidad estable y estado provisional; queda un warning de revision y `centraldefilamentos/data/color_registry.json` se actualiza solo si la captura supera todos los controles bloqueantes.
 
 La cache `centraldefilamentos/data/grilon3_metadata.json` se versiona en el repositorio. Guarda datos oficiales como Pantone, SKU, EAN y la ruta local de imagen. Las imagenes oficiales descargadas se versionan en `public/assets/grilon3/`. La actualizacion normal de stock no consulta las fichas individuales de Grilon3 ni descarga imagenes; solo lee esa cache local.
 

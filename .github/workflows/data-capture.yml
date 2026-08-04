@@ -47,6 +47,7 @@ jobs:
           DATA_FILES="
           centraldefilamentos/data/daily_provider_stock_snapshot.json
           centraldefilamentos/data/provider_stock_history.json
+          centraldefilamentos/data/color_registry.json
           public/data/build_business_log.json
           public/data/build_technical_log.json
           public/data/provider_stock_history.json
