@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 
 import { waitForStablePage } from "./helpers/audit.js";
 
-const auditedProjects = new Set(["desktop-1080", "mobile-390"]);
+const auditedProjects = new Set(["desktop-1080", "mobile-360"]);
 
 test.beforeEach(async ({ page }, testInfo) => {
   test.skip(!auditedProjects.has(testInfo.project.name), "Deep Color Picker flow runs on representative desktop and mobile viewports.");

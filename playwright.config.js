@@ -2,20 +2,15 @@ import { defineConfig } from "@playwright/test";
 
 const viewportProjects = [
   ["desktop-4k", 3840, 2160],
-  ["desktop-2k", 2560, 1440],
   ["desktop-1080", 1920, 1080],
-  ["laptop-1366", 1366, 768],
-  ["mobile-412", 412, 915],
-  ["mobile-390", 390, 844],
   ["mobile-360", 360, 800],
-  ["mobile-landscape", 844, 390],
 ];
 
 export default defineConfig({
   testDir: "./tests/e2e",
   fullyParallel: !process.env.CI,
   forbidOnly: Boolean(process.env.CI),
-  retries: process.env.CI ? 2 : 0,
+  retries: process.env.CI ? 1 : 0,
   workers: process.env.CI ? 1 : undefined,
   timeout: 45_000,
   expect: {

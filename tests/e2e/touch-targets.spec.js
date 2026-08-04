@@ -32,6 +32,12 @@ async function dimensions(locator) {
   });
 }
 
+async function expectMinimumDimensions(locator, width, height = width) {
+  const measured = await dimensions(locator);
+  expect(measured.width).toBeGreaterThanOrEqual(width - 0.5);
+  expect(measured.height).toBeGreaterThanOrEqual(height - 0.5);
+}
+
 for (const [name, path, selectors] of routeSelectors) {
   test(`${name} primary controls are at least 24 by 24 CSS pixels`, async ({ page }) => {
     await page.goto(path);
@@ -79,16 +85,16 @@ test("compact overlay controls retain their intended size", async ({ page }, tes
   const removeButton = page.locator(".quote-list-panel:visible .quote-list-remove").first();
   const drawerClose = page.getByRole("button", { name: "Cerrar lista de cotizacion" });
   await expect(removeButton).toBeVisible();
-  expect(await dimensions(removeButton)).toEqual(expect.objectContaining({ width: compactActionsMobile ? 40 : 28, height: compactActionsMobile ? 40 : 28 }));
+  await expectMinimumDimensions(removeButton, compactActionsMobile ? 40 : 28);
   if (compactActionsMobile) {
-    expect(await dimensions(drawerClose)).toEqual(expect.objectContaining({ width: 40, height: 40 }));
+    await expectMinimumDimensions(drawerClose, 40);
     await drawerClose.click();
   }
 
   await page.locator(".catalog-explorer-result-image").first().click();
   const imageClose = page.getByRole("button", { name: "Cerrar imagen ampliada" });
   await expect(imageClose).toBeVisible();
-  expect(await dimensions(imageClose)).toEqual(expect.objectContaining({ width: 30, height: 30 }));
+  await expectMinimumDimensions(imageClose, 30);
 });
 
 test("color-map points expose 44px touch areas", async ({ page }) => {

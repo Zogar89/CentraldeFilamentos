@@ -749,6 +749,32 @@ def test_all_public_pages_declare_the_shared_favicon_and_are_publishable():
         assert f'- "{watched_path}"' in audit_workflow
 
 
+def test_ui_audit_uses_a_bounded_representative_viewport_matrix() -> None:
+    config = Path("playwright.config.js").read_text(encoding="utf-8")
+    workflow = Path(".github/workflows/ui-audit.yml").read_text(encoding="utf-8")
+
+    for project in [
+        '["desktop-4k", 3840, 2160]',
+        '["desktop-1080", 1920, 1080]',
+        '["mobile-360", 360, 800]',
+    ]:
+        assert project in config
+    for removed_project in ["desktop-2k", "laptop-1366", "mobile-412", "mobile-390", "mobile-landscape"]:
+        assert removed_project not in config
+    assert "retries: process.env.CI ? 1 : 0" in config
+    assert "timeout-minutes: 15" in workflow
+
+    for test_path in [
+        "tests/e2e/accessibility.spec.js",
+        "tests/e2e/color-picker-flow.spec.js",
+        "tests/e2e/option1-flow.spec.js",
+        "tests/e2e/summary-flow.spec.js",
+    ]:
+        source = Path(test_path).read_text(encoding="utf-8")
+        assert '"desktop-1080", "mobile-360"' in source
+        assert "mobile-390" not in source
+
+
 def test_color_picker_map_uses_dynamic_point_coordinates() -> None:
     source = Path("src/components/ColorPalette.svelte").read_text(encoding="utf-8")
     css = Path("src/styles/global.css").read_text(encoding="utf-8")
