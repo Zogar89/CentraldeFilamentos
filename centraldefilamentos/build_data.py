@@ -5,9 +5,10 @@ import json
 import re
 import unicodedata
 from collections import Counter
+from dataclasses import replace
 from datetime import datetime
 from pathlib import Path
-from typing import Mapping
+from typing import Iterable, Mapping
 from zoneinfo import ZoneInfo
 
 from centraldefilamentos.color_estimates import (
@@ -15,6 +16,12 @@ from centraldefilamentos.color_estimates import (
     estimate_public_fields,
     load_color_estimates,
     resolve_color_estimate,
+)
+from centraldefilamentos.color_registry import (
+    ColorRegistry,
+    load_color_registry,
+    resolve_provisional_color,
+    write_color_registry,
 )
 from centraldefilamentos.material_appearance import resolve_material_appearance
 from centraldefilamentos.models import (
@@ -37,6 +44,7 @@ PROVIDER_STOCK_HISTORY = Path("centraldefilamentos/data/provider_stock_history.j
 PUBLIC_PROVIDER_STOCK_HISTORY = Path("public/data/provider_stock_history.json")
 PUBLIC_BUSINESS_LOG = Path("public/data/build_business_log.json")
 PUBLIC_TECHNICAL_LOG = Path("public/data/build_technical_log.json")
+COLOR_REGISTRY = Path("centraldefilamentos/data/color_registry.json")
 
 MIN_PRODUCTS_FOR_DROP_CHECK = 50
 MIN_PROVIDER_STOCK_FOR_DROP_CHECK = 100
@@ -68,14 +76,21 @@ def build_payload(
     source_errors: Mapping[str, str] | None = None,
     catalog_products: Mapping[str, object] | None = None,
     color_estimates: Mapping[str, ColorEstimate] | None = None,
+    color_registry: ColorRegistry | None = None,
 ) -> dict[str, object]:
     generated = generated_at or _now()
     enrichments = enrichments or {}
     source_errors = source_errors or {}
+    registry = color_registry or ColorRegistry.empty()
     grouped: dict[str, dict[str, object]] = {}
 
     for item in raw_items:
         fields = normalize_record(item)
+        color_resolution = resolve_provisional_color(item, fields, registry, generated)
+        color_review_status = ""
+        if color_resolution is not None:
+            fields = replace(fields, color=color_resolution.display_color)
+            color_review_status = color_resolution.review_status
         product_id = build_product_id(fields)
         enrichment = {**DEFAULT_ENRICHMENT, **enrichments.get(product_id, {})}
 
@@ -84,6 +99,7 @@ def build_payload(
                 "fields": fields,
                 "enrichment": enrichment,
                 "offers": [],
+                "color_review_status": color_review_status,
             }
 
         _add_offer_to_group(grouped[product_id], _offer_from_raw(item))
@@ -116,6 +132,7 @@ def build_payload(
                 "ean": getattr(catalog_product, "ean", ""),
             },
             "offers": [],
+            "color_review_status": "",
         }
 
     products = [
@@ -166,6 +183,7 @@ def evaluate_build_quality(
     previous_payload: Mapping[str, object] | None = None,
     source_errors: Mapping[str, str] | None = None,
     enrichment_errors: Mapping[str, str] | None = None,
+    provisional_color_keys: Iterable[str] = (),
 ) -> dict[str, object]:
     previous_payload = previous_payload or {}
     source_errors = {str(source_id): _clean_error_message(error) for source_id, error in (source_errors or {}).items() if error}
@@ -177,6 +195,7 @@ def evaluate_build_quality(
     business_events: list[dict[str, object]] = []
     checks: list[dict[str, object]] = []
     schema_errors = _stock_payload_schema_errors(payload)
+    provisional_keys = sorted({str(key) for key in provisional_color_keys if str(key)})
 
     if source_errors:
         checks.append({"name": "source_errors", "status": "failed", "failed_sources": sorted(source_errors)})
@@ -224,6 +243,33 @@ def evaluate_build_quality(
             )
     else:
         checks.append({"name": "enrichment", "status": "passed"})
+
+    if provisional_keys:
+        checks.append(
+            {
+                "name": "provisional_colors",
+                "status": "warning",
+                "candidate_count": len(provisional_keys),
+                "candidate_keys": provisional_keys,
+            }
+        )
+        technical_events.append(
+            {
+                "level": "warning",
+                "code": "provisional_colors",
+                "candidate_keys": provisional_keys,
+                "message": f"Observed {len(provisional_keys)} provisional supplier color candidates.",
+            }
+        )
+        business_events.append(
+            {
+                "level": "warning",
+                "code": "provisional_colors",
+                "message": "Se incorporaron colores etiquetados por el proveedor, pendientes de normalizar.",
+            }
+        )
+    else:
+        checks.append({"name": "provisional_colors", "status": "passed", "candidate_count": 0})
 
     if schema_errors:
         checks.append({"name": "schema", "status": "failed", "errors": schema_errors})
@@ -378,6 +424,17 @@ def write_build_logs(
     }
     _write_json(business_path, business_log)
     _write_json(technical_path, technical_log)
+
+
+def write_color_registry_if_publishable(
+    quality_report: Mapping[str, object],
+    color_registry: ColorRegistry,
+    color_registry_path: str | Path,
+) -> bool:
+    if not bool(quality_report.get("should_publish", False)):
+        return False
+    write_color_registry(color_registry, color_registry_path)
+    return True
 
 
 def load_daily_provider_stock_snapshot(path: str | Path = DAILY_PROVIDER_STOCK_SNAPSHOT) -> dict[str, object]:
@@ -879,9 +936,11 @@ def main() -> None:
     parser.add_argument("--public-provider-history", default=str(PUBLIC_PROVIDER_STOCK_HISTORY))
     parser.add_argument("--business-log", default=str(PUBLIC_BUSINESS_LOG))
     parser.add_argument("--technical-log", default=str(PUBLIC_TECHNICAL_LOG))
+    parser.add_argument("--color-registry", default=str(COLOR_REGISTRY))
     parser.add_argument("--snapshot-hour", type=int, default=9)
     args = parser.parse_args()
 
+    color_registry = load_color_registry(args.color_registry)
     raw_items, source_errors = collect_raw_items()
     enrichment_errors: dict[str, str] = {}
     catalog_products = {}
@@ -905,10 +964,17 @@ def main() -> None:
         source_errors=source_errors,
         catalog_products=catalog_products,
         color_estimates=load_color_estimates(),
+        color_registry=color_registry,
     )
     snapshot = load_daily_provider_stock_snapshot(args.daily_snapshot)
     apply_provider_stock_deltas(payload, snapshot)
-    quality_report = evaluate_build_quality(payload, load_payload(args.output), source_errors, enrichment_errors)
+    quality_report = evaluate_build_quality(
+        payload,
+        load_payload(args.output),
+        source_errors,
+        enrichment_errors,
+        provisional_color_keys=color_registry.observed_provisional_keys,
+    )
     write_build_logs(quality_report, args.business_log, args.technical_log)
     if not quality_report["should_publish"]:
         print(str(quality_report["summary"]))
@@ -919,6 +985,7 @@ def main() -> None:
     history = load_provider_stock_history(args.provider_history)
     write_public_provider_stock_history(history, payload, args.public_provider_history)
     write_payload(payload, args.output)
+    write_color_registry_if_publishable(quality_report, color_registry, args.color_registry)
 
 
 def _offer_from_raw(item: RawStockItem) -> Offer:
@@ -1012,6 +1079,7 @@ def _product_from_group(
         finish=fields.finish,
         display_name=build_display_name(fields),
         offers=offers,
+        color_review_status=str(data.get("color_review_status", "")),
     )
 
 

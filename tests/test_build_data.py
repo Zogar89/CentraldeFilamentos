@@ -3,6 +3,7 @@ from pathlib import Path
 
 import pytest
 
+import centraldefilamentos.build_data as build_data
 from centraldefilamentos.cache_grilon3_metadata import build_grilon3_metadata_cache, download_grilon3_images, load_metadata_cache
 from centraldefilamentos.build_data import (
     build_filamentos3d_enrichments,
@@ -17,6 +18,7 @@ from centraldefilamentos.build_data import (
     write_payload,
 )
 from centraldefilamentos.connectors.grilon3_catalog import CatalogProduct
+from centraldefilamentos.color_registry import ColorCandidate, ColorRegistry, load_color_registry
 from centraldefilamentos.color_estimates import ColorEstimate
 from centraldefilamentos.models import RawStockItem
 from centraldefilamentos.providers import MANUFACTURERS, SOURCES
@@ -210,6 +212,96 @@ def test_build_payload_rejects_repeated_provider_inside_product_card():
             manufacturers=MANUFACTURERS,
             generated_at="2026-05-12T13:00:00-03:00",
         )
+
+
+def test_build_payload_keeps_distinct_unknown_supplier_colors_provisional_before_grouping():
+    registry = ColorRegistry.empty()
+
+    payload = build_payload(
+        [
+            raw("grupo_senz", "Grupo Senz", "Zona Oeste", "3N3 SILK CASCADA 1.75 MM X 1 KG", 2, "3N3"),
+            raw("grupo_senz", "Grupo Senz", "Zona Oeste", "3N3 SILK ZIRCONIA 1.75 MM X 1 KG", 3, "3N3"),
+        ],
+        sources=SOURCES,
+        manufacturers=MANUFACTURERS,
+        generated_at="2026-08-03T14:11:26-03:00",
+        color_registry=registry,
+    )
+
+    products_by_color = {product["color"]: product for product in payload["products"]}
+
+    assert set(products_by_color) == {"Cascada", "Zirconia"}
+    assert {product["id"] for product in products_by_color.values()} == {
+        "pla-pla-silk-cascada-175-1000-3n3",
+        "pla-pla-silk-zirconia-175-1000-3n3",
+    }
+    assert all(product["color_review_status"] == "provisional" for product in products_by_color.values())
+    assert all(len(product["offers"]) == 1 for product in products_by_color.values())
+    assert set(registry.candidates) == {
+        "grupo_senz|3n3|pla-silk|cascada",
+        "grupo_senz|3n3|pla-silk|zirconia",
+    }
+
+
+def test_build_payload_keeps_known_color_out_of_provisional_registry():
+    registry = ColorRegistry.empty()
+
+    payload = build_payload(
+        [raw("grupo_senz", "Grupo Senz", "Zona Oeste", "3N3 SILK PAPAYA 1.75 MM X 1 KG", 2, "3N3")],
+        sources=SOURCES,
+        manufacturers=MANUFACTURERS,
+        generated_at="2026-08-03T14:11:26-03:00",
+        color_registry=registry,
+    )
+
+    assert payload["products"][0]["id"] == "pla-pla-silk-papaya-175-1000-3n3"
+    assert "color_review_status" not in payload["products"][0]
+    assert registry.candidates == {}
+
+
+def test_build_payload_keeps_colorless_pva_out_of_provisional_registry():
+    registry = ColorRegistry.empty()
+
+    payload = build_payload(
+        [raw("grupo_senz", "Grupo Senz", "Zona Oeste", "3N3 PVA 1.75 MM X 1 KG", 2, "3N3")],
+        sources=SOURCES,
+        manufacturers=MANUFACTURERS,
+        generated_at="2026-08-03T14:11:26-03:00",
+        color_registry=registry,
+    )
+
+    assert payload["products"][0]["color"] == "Sin color"
+    assert "color_review_status" not in payload["products"][0]
+    assert registry.candidates == {}
+
+
+def test_build_payload_hides_pending_status_after_candidate_is_approved():
+    key = "grupo_senz|3n3|pla-silk|cascada"
+    registry = ColorRegistry(
+        candidates={
+            key: ColorCandidate(
+                display_color="Cascada",
+                status="approved",
+                source_id="grupo_senz",
+                brand="3N3",
+                variant="PLA Silk",
+                first_seen_at="2026-08-03T14:11:26-03:00",
+                last_seen_at="2026-08-03T14:11:26-03:00",
+                examples=("3N3 SILK CASCADA 1.75 MM X 1 KG",),
+            )
+        }
+    )
+
+    payload = build_payload(
+        [raw("grupo_senz", "Grupo Senz", "Zona Oeste", "3N3 SILK CASCADA 1.75 MM X 1 KG", 2, "3N3")],
+        sources=SOURCES,
+        manufacturers=MANUFACTURERS,
+        generated_at="2026-08-03T15:11:26-03:00",
+        color_registry=registry,
+    )
+
+    assert payload["products"][0]["id"] == "pla-pla-silk-cascada-175-1000-3n3"
+    assert "color_review_status" not in payload["products"][0]
 
 
 def test_build_payload_adds_catalog_products_without_provider_stock():
@@ -516,6 +608,57 @@ def test_evaluate_build_quality_logs_enrichment_warnings_without_blocking():
     assert report["should_publish"] is True
     assert any(event["code"] == "enrichment_error" for event in report["technical_events"])
     assert any("imagenes" in event["message"] for event in report["business_events"])
+
+
+def test_evaluate_build_quality_warns_for_provisional_colors_without_blocking():
+    payload = build_payload(
+        [raw("mundoinsumos", "MundoInsumos", "Zona Norte", "GRILON3 PLA Negro 1kg", 10, brand_hint="Grilon3")],
+        generated_at="2026-08-03T14:11:26-03:00",
+    )
+
+    report = evaluate_build_quality(
+        payload,
+        provisional_color_keys=[
+            "grupo_senz|3n3|pla-silk|zirconia",
+            "grupo_senz|3n3|pla-silk|cascada",
+        ],
+    )
+
+    technical_event = next(event for event in report["technical_events"] if event["code"] == "provisional_colors")
+    business_event = next(event for event in report["business_events"] if event["code"] == "provisional_colors")
+
+    assert report["should_publish"] is True
+    assert technical_event["level"] == "warning"
+    assert technical_event["candidate_keys"] == [
+        "grupo_senz|3n3|pla-silk|cascada",
+        "grupo_senz|3n3|pla-silk|zirconia",
+    ]
+    assert business_event["level"] == "warning"
+    assert "pendientes de normalizar" in business_event["message"]
+
+
+def test_only_publishable_build_writes_color_registry(tmp_path):
+    registry = ColorRegistry(
+        candidates={
+            "grupo_senz|3n3|pla-silk|cascada": ColorCandidate(
+                display_color="Cascada",
+                status="provisional",
+                source_id="grupo_senz",
+                brand="3N3",
+                variant="PLA Silk",
+                first_seen_at="2026-08-03T14:11:26-03:00",
+                last_seen_at="2026-08-03T14:11:26-03:00",
+                examples=("3N3 SILK CASCADA 1.75 MM X 1 KG",),
+            )
+        }
+    )
+    path = tmp_path / "color_registry.json"
+
+    assert build_data.write_color_registry_if_publishable({"should_publish": False}, registry, path) is False
+    assert not path.exists()
+
+    assert build_data.write_color_registry_if_publishable({"should_publish": True}, registry, path) is True
+    assert load_color_registry(path).candidates == registry.candidates
 
 
 def test_build_grilon3_enrichments_indexes_raw_grilon_products(monkeypatch):

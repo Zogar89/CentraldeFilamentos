@@ -6,6 +6,7 @@ from typing import Literal
 StockStatus = Literal["in_stock", "out_of_stock", "unknown"]
 SourceRunStatus = Literal["ok", "error"]
 ImageSource = Literal["manufacturer", "provider", ""]
+ColorReviewStatus = Literal["", "provisional"]
 
 
 @dataclass(frozen=True)
@@ -79,12 +80,15 @@ class ProductGroup:
     finish: str
     display_name: str
     offers: list[Offer]
+    color_review_status: ColorReviewStatus = ""
 
     def to_dict(self) -> dict[str, object]:
         payload = asdict(self)
         payload["subrange"] = str(self.subrange)
         payload["finish"] = str(self.finish)
         payload["offers"] = [offer.to_dict() for offer in self.offers]
+        if not self.color_review_status:
+            payload.pop("color_review_status")
         if not self.estimated_color_hex:
             for key in tuple(payload):
                 if key.startswith("estimated_color_"):

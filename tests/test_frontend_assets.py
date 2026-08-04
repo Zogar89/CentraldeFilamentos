@@ -366,6 +366,24 @@ def test_catalog_result_identity_keeps_columns_when_product_image_is_missing():
     assert ".catalog-explorer-result-identity > div {\n  grid-column: 3;" in css
 
 
+def test_catalog_result_marks_only_provisional_provider_colors_without_changing_identity_grid():
+    results = (SRC / "components" / "CatalogExplorerResults.svelte").read_text(encoding="utf-8")
+    css = (SRC / "styles" / "global.css").read_text(encoding="utf-8")
+
+    assert '{#if product.color_review_status === "provisional"}' in results
+    assert "Color del proveedor · pendiente de normalizar" in results
+    assert 'class="catalog-explorer-provisional-color"' in results
+    assert results.index("<strong>{product.color || productBaseName(product)}</strong>") < results.index(
+        '{#if product.color_review_status === "provisional"}'
+    ) < results.index("<span>{product.brand} · {lineLabel(product)}</span>")
+    assert ".catalog-explorer-result-identity .catalog-explorer-provisional-color" in css
+    assert "max-width: 100%;" in css
+    assert "overflow-wrap: anywhere;" in css
+    assert ".catalog-explorer-result-image {\n  grid-column: 1;" in css
+    assert ".catalog-explorer-result-swatch {\n  grid-column: 2;" in css
+    assert ".catalog-explorer-result-identity > div {\n  grid-column: 3;" in css
+
+
 def test_catalog_defaults_to_historical_popularity_order():
     summary = (SRC / "SummaryApp.svelte").read_text(encoding="utf-8")
 

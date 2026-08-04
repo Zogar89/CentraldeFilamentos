@@ -73,6 +73,9 @@
             {/if}
             <div>
               <strong>{product.color || productBaseName(product)}</strong>
+              {#if product.color_review_status === "provisional"}
+                <small class="catalog-explorer-provisional-color">Color del proveedor · pendiente de normalizar</small>
+              {/if}
               <span>{product.brand} · {lineLabel(product)}</span>
               <small>{formatPresentation(product)} · {diameterLabel(product)}</small>
             </div>

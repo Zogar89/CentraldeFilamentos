@@ -10,6 +10,7 @@ from urllib.parse import urljoin, urlparse
 
 import requests
 
+from centraldefilamentos.color_registry import COLOR_OPTIONAL_MATERIALS
 from centraldefilamentos.models import NormalizedFields, RawStockItem
 from centraldefilamentos.normalize import build_product_id, normalize_record
 
@@ -17,9 +18,6 @@ BASE_URL = "https://grilon3.com.ar/productos/"
 SITEMAP_URL = "https://grilon3.com.ar/product-sitemap.xml"
 EMPTY_ENRICHMENT = {"manufacturer_product_url": "", "image_url": "", "image_source": "", "pantone": "", "sku": "", "ean": ""}
 VOID_TAGS = {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "param", "source", "track", "wbr"}
-COLOR_OPTIONAL_MATERIALS = {"PVA"}
-
-
 @dataclass(frozen=True)
 class CatalogProduct:
     product_id: str

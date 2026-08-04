@@ -65,6 +65,10 @@ def test_product_group_serializes_subrange_for_public_json():
     assert payload["ean"] == "7798049653037"
     assert payload["subrange"] == "Astra"
     assert payload["finish"] == "Glitter"
+    assert "color_review_status" not in payload
+
+    provisional = replace(product, color_review_status="provisional").to_dict()
+    assert provisional["color_review_status"] == "provisional"
 
     without_estimate = replace(
         product,
