@@ -744,14 +744,8 @@ def test_all_public_pages_declare_the_shared_favicon_and_are_publishable():
     for watched_path in ["catalogo.html", "color-picker.html", "public/favicon.svg"]:
         assert f'- "{watched_path}"' in workflow
 
-    audit_workflow = Path(".github/workflows/ui-audit.yml").read_text(encoding="utf-8")
-    for watched_path in ["vite.config.js", "lighthouserc.json", ".github/workflows/pages.yml", ".github/workflows/ui-audit.yml"]:
-        assert f'- "{watched_path}"' in audit_workflow
-
-
-def test_ui_audit_uses_a_bounded_representative_viewport_matrix() -> None:
+def test_local_ui_check_uses_a_bounded_representative_viewport_matrix() -> None:
     config = Path("playwright.config.js").read_text(encoding="utf-8")
-    workflow = Path(".github/workflows/ui-audit.yml").read_text(encoding="utf-8")
 
     for project in [
         '["desktop-4k", 3840, 2160]',
@@ -761,8 +755,6 @@ def test_ui_audit_uses_a_bounded_representative_viewport_matrix() -> None:
         assert project in config
     for removed_project in ["desktop-2k", "laptop-1366", "mobile-412", "mobile-390", "mobile-landscape"]:
         assert removed_project not in config
-    assert "retries: process.env.CI ? 1 : 0" in config
-    assert "timeout-minutes: 15" in workflow
 
     for test_path in [
         "tests/e2e/accessibility.spec.js",
