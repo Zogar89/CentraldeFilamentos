@@ -77,6 +77,9 @@
                 <small class="catalog-explorer-provisional-color">Color del proveedor · pendiente de normalizar</small>
               {/if}
               <span>{product.brand} · {lineLabel(product)}</span>
+              {#if product.pantone}
+                <small>{product.pantone}</small>
+              {/if}
               <small>{formatPresentation(product)} · {diameterLabel(product)}</small>
             </div>
           </div>

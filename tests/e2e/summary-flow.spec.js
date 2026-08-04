@@ -17,6 +17,14 @@ test.beforeEach(async ({ page }, testInfo) => {
   await waitForStablePage(page);
 });
 
+test("shows Pantone only for catalog products that provide it", async ({ page }) => {
+  const pantoneProduct = page.locator('.catalog-explorer-result-row[data-product-id="pla-amarillo-175-1000-grilon3"]');
+  const productWithoutPantone = page.locator('.catalog-explorer-result-row[data-product-id="pla-plaplus-amarillo-175-750-3n3"]');
+
+  await expect(pantoneProduct).toContainText("Pantone Yellow");
+  await expect(productWithoutPantone).not.toContainText(/Pantone/);
+});
+
 test("builds a quote, compares coverage, and prepares a provider message", async ({ page }, testInfo) => {
   const firstAddButton = page
     .locator(`.catalog-explorer-result-row[data-product-id="${productIds[0]}"]`)
