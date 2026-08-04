@@ -12,6 +12,11 @@
       "status": "warning"
     },
     {
+      "candidate_count": 0,
+      "name": "provisional_colors",
+      "status": "passed"
+    },
+    {
       "name": "schema",
       "status": "passed"
     },
@@ -39,7 +44,7 @@
       "message": "Build quality checks passed."
     }
   ],
-  "generated_at": "2026-08-03T17:43:32-03:00",
+  "generated_at": "2026-08-03T23:05:35-03:00",
   "last_good_sources": {},
   "metrics": {
     "current": {
@@ -67,28 +72,28 @@
       "total_stock_units": 35884
     },
     "previous": {
-      "product_count": 363,
+      "product_count": 364,
       "sources": {
         "filamentos3d": {
           "name": "Filamentos3D",
           "product_count": 323,
           "status": "ok",
-          "total_stock_units": 17747
+          "total_stock_units": 17694
         },
         "grupo_senz": {
           "name": "Grupo Senz",
-          "product_count": 240,
+          "product_count": 241,
           "status": "ok",
-          "total_stock_units": 7891
+          "total_stock_units": 8828
         },
         "mundoinsumos": {
           "name": "MundoInsumos",
           "product_count": 233,
           "status": "ok",
-          "total_stock_units": 9834
+          "total_stock_units": 9362
         }
       },
-      "total_stock_units": 35472
+      "total_stock_units": 35884
     }
   },
   "should_publish": true,
