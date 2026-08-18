@@ -44,7 +44,7 @@
     {
       "code": "source_error",
       "level": "error",
-      "message": "[Errno 101] Network is unreachable",
+      "message": "Client error '403 Forbidden' for url 'https://filamentos3d.com.ar/grilon3.php' For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/403",
       "source_id": "filamentos3d"
     },
     {
@@ -54,7 +54,7 @@
       "source_id": "filamentos3d"
     }
   ],
-  "generated_at": "2026-08-18T15:45:23-03:00",
+  "generated_at": "2026-08-18T18:27:49-03:00",
   "last_good_sources": {
     "filamentos3d": {
       "generated_at": "2026-08-10T13:02:00-03:00",
