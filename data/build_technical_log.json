@@ -12,9 +12,12 @@
       "status": "passed"
     },
     {
-      "candidate_count": 0,
+      "candidate_count": 1,
+      "candidate_keys": [
+        "mundoinsumos|3n3|pla-silk|plata-75mm"
+      ],
       "name": "provisional_colors",
-      "status": "passed"
+      "status": "warning"
     },
     {
       "name": "schema",
@@ -22,11 +25,11 @@
     },
     {
       "name": "non_empty_catalog",
-      "product_count": 280,
+      "product_count": 282,
       "status": "passed"
     },
     {
-      "drop_ratio": 0.2513,
+      "drop_ratio": 0.246,
       "name": "product_count_drop",
       "status": "passed"
     },
@@ -48,13 +51,21 @@
       "source_id": "filamentos3d"
     },
     {
+      "candidate_keys": [
+        "mundoinsumos|3n3|pla-silk|plata-75mm"
+      ],
+      "code": "provisional_colors",
+      "level": "warning",
+      "message": "Observed 1 provisional supplier color candidates."
+    },
+    {
       "code": "provider_stock_drop",
       "level": "error",
       "message": "filamentos3d stock dropped from 16946 to 0.",
       "source_id": "filamentos3d"
     }
   ],
-  "generated_at": "2026-08-26T21:33:56-03:00",
+  "generated_at": "2026-08-27T19:01:07-03:00",
   "last_good_sources": {
     "filamentos3d": {
       "generated_at": "2026-08-10T13:02:00-03:00",
@@ -65,7 +76,7 @@
   },
   "metrics": {
     "current": {
-      "product_count": 280,
+      "product_count": 282,
       "sources": {
         "filamentos3d": {
           "name": "Filamentos3D",
@@ -77,16 +88,16 @@
           "name": "Grupo Senz",
           "product_count": 241,
           "status": "ok",
-          "total_stock_units": 6467
+          "total_stock_units": 6451
         },
         "mundoinsumos": {
           "name": "MundoInsumos",
-          "product_count": 233,
+          "product_count": 239,
           "status": "ok",
-          "total_stock_units": 10969
+          "total_stock_units": 8865
         }
       },
-      "total_stock_units": 17436
+      "total_stock_units": 15316
     },
     "previous": {
       "product_count": 374,
