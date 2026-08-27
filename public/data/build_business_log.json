@@ -6,12 +6,17 @@
       "message": "Filamentos3D no respondio correctamente. Se conserva la ultima publicacion buena. Se mantiene el ultimo dato bueno de 2026-08-10T13:02:00-03:00."
     },
     {
+      "code": "provisional_colors",
+      "level": "warning",
+      "message": "Se incorporaron colores etiquetados por el proveedor, pendientes de normalizar."
+    },
+    {
       "code": "provider_stock_drop",
       "level": "error",
       "message": "Filamentos3D tuvo una baja de stock demasiado grande para publicarla automaticamente. Se conserva la publicacion anterior."
     }
   ],
-  "generated_at": "2026-08-26T21:33:56-03:00",
+  "generated_at": "2026-08-27T19:01:07-03:00",
   "last_good_sources": {
     "filamentos3d": {
       "generated_at": "2026-08-10T13:02:00-03:00",
