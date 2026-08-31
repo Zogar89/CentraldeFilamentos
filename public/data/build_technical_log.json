@@ -8,8 +8,11 @@
       "status": "failed"
     },
     {
+      "failed_steps": [
+        "grilon3_catalog"
+      ],
       "name": "enrichment",
-      "status": "passed"
+      "status": "warning"
     },
     {
       "candidate_count": 1,
@@ -25,11 +28,11 @@
     },
     {
       "name": "non_empty_catalog",
-      "product_count": 282,
+      "product_count": 272,
       "status": "passed"
     },
     {
-      "drop_ratio": 0.246,
+      "drop_ratio": 0.2727,
       "name": "product_count_drop",
       "status": "passed"
     },
@@ -51,6 +54,12 @@
       "source_id": "filamentos3d"
     },
     {
+      "code": "enrichment_error",
+      "level": "warning",
+      "message": "HTTPSConnectionPool(host='grilon3.com.ar', port=443): Max retries exceeded with url: /productos/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='grilon3.com.ar', port=443) at 0x7f7eb9315be0>, 'Connection to grilon3.com.ar timed out. (connect timeout=30)'))",
+      "source_id": "grilon3_catalog"
+    },
+    {
       "candidate_keys": [
         "mundoinsumos|3n3|pla-silk|plata-75mm"
       ],
@@ -65,7 +74,7 @@
       "source_id": "filamentos3d"
     }
   ],
-  "generated_at": "2026-08-28T18:57:16-03:00",
+  "generated_at": "2026-08-31T15:58:17-03:00",
   "last_good_sources": {
     "filamentos3d": {
       "generated_at": "2026-08-10T13:02:00-03:00",
@@ -76,7 +85,7 @@
   },
   "metrics": {
     "current": {
-      "product_count": 282,
+      "product_count": 272,
       "sources": {
         "filamentos3d": {
           "name": "Filamentos3D",
@@ -88,7 +97,7 @@
           "name": "Grupo Senz",
           "product_count": 241,
           "status": "ok",
-          "total_stock_units": 6297
+          "total_stock_units": 6511
         },
         "mundoinsumos": {
           "name": "MundoInsumos",
@@ -97,7 +106,7 @@
           "total_stock_units": 8172
         }
       },
-      "total_stock_units": 14469
+      "total_stock_units": 14683
     },
     "previous": {
       "product_count": 374,
