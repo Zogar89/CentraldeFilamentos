@@ -56,7 +56,7 @@
     {
       "code": "enrichment_error",
       "level": "warning",
-      "message": "HTTPSConnectionPool(host='grilon3.com.ar', port=443): Max retries exceeded with url: /productos/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='grilon3.com.ar', port=443) at 0x7fd862d79df0>, 'Connection to grilon3.com.ar timed out. (connect timeout=30)'))",
+      "message": "HTTPSConnectionPool(host='grilon3.com.ar', port=443): Max retries exceeded with url: /productos/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='grilon3.com.ar', port=443) at 0x7faa2e0b06e0>, 'Connection to grilon3.com.ar timed out. (connect timeout=30)'))",
       "source_id": "grilon3_catalog"
     },
     {
@@ -74,7 +74,7 @@
       "source_id": "filamentos3d"
     }
   ],
-  "generated_at": "2026-09-02T17:47:48-03:00",
+  "generated_at": "2026-09-02T20:08:36-03:00",
   "last_good_sources": {
     "filamentos3d": {
       "generated_at": "2026-08-10T13:02:00-03:00",
