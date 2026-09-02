@@ -50,13 +50,13 @@
     {
       "code": "source_error",
       "level": "error",
-      "message": "Client error '403 Forbidden' for url 'https://filamentos3d.com.ar/grilon3.php' For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/403",
+      "message": "[Errno 101] Network is unreachable",
       "source_id": "filamentos3d"
     },
     {
       "code": "enrichment_error",
       "level": "warning",
-      "message": "HTTPSConnectionPool(host='grilon3.com.ar', port=443): Max retries exceeded with url: /productos/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='grilon3.com.ar', port=443) at 0x7fa437a160c0>, 'Connection to grilon3.com.ar timed out. (connect timeout=30)'))",
+      "message": "HTTPSConnectionPool(host='grilon3.com.ar', port=443): Max retries exceeded with url: /productos/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='grilon3.com.ar', port=443) at 0x7fac65f15df0>, 'Connection to grilon3.com.ar timed out. (connect timeout=30)'))",
       "source_id": "grilon3_catalog"
     },
     {
@@ -74,7 +74,7 @@
       "source_id": "filamentos3d"
     }
   ],
-  "generated_at": "2026-09-01T20:09:25-03:00",
+  "generated_at": "2026-09-02T13:18:34-03:00",
   "last_good_sources": {
     "filamentos3d": {
       "generated_at": "2026-08-10T13:02:00-03:00",
@@ -97,16 +97,16 @@
           "name": "Grupo Senz",
           "product_count": 241,
           "status": "ok",
-          "total_stock_units": 7320
+          "total_stock_units": 7486
         },
         "mundoinsumos": {
           "name": "MundoInsumos",
           "product_count": 239,
           "status": "ok",
-          "total_stock_units": 8729
+          "total_stock_units": 8434
         }
       },
-      "total_stock_units": 16049
+      "total_stock_units": 15920
     },
     "previous": {
       "product_count": 374,
