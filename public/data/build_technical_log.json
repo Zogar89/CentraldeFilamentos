@@ -47,7 +47,7 @@
     {
       "code": "source_error",
       "level": "error",
-      "message": "Client error '403 Forbidden' for url 'https://filamentos3d.com.ar/grilon3.php' For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/403",
+      "message": "[Errno 101] Network is unreachable",
       "source_id": "filamentos3d"
     },
     {
@@ -65,7 +65,7 @@
       "source_id": "filamentos3d"
     }
   ],
-  "generated_at": "2026-09-09T13:14:46-03:00",
+  "generated_at": "2026-09-09T17:45:11-03:00",
   "last_good_sources": {
     "filamentos3d": {
       "generated_at": "2026-08-10T13:02:00-03:00",
@@ -88,7 +88,7 @@
           "name": "Grupo Senz",
           "product_count": 241,
           "status": "ok",
-          "total_stock_units": 6904
+          "total_stock_units": 6814
         },
         "mundoinsumos": {
           "name": "MundoInsumos",
@@ -97,7 +97,7 @@
           "total_stock_units": 9505
         }
       },
-      "total_stock_units": 16409
+      "total_stock_units": 16319
     },
     "previous": {
       "product_count": 374,
