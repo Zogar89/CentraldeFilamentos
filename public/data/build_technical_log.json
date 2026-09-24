@@ -65,7 +65,7 @@
       "source_id": "filamentos3d"
     }
   ],
-  "generated_at": "2026-09-24T13:48:28-03:00",
+  "generated_at": "2026-09-24T18:20:14-03:00",
   "last_good_sources": {
     "filamentos3d": {
       "generated_at": "2026-08-10T13:02:00-03:00",
@@ -88,7 +88,7 @@
           "name": "Grupo Senz",
           "product_count": 241,
           "status": "ok",
-          "total_stock_units": 7281
+          "total_stock_units": 6633
         },
         "mundoinsumos": {
           "name": "MundoInsumos",
@@ -97,7 +97,7 @@
           "total_stock_units": 10296
         }
       },
-      "total_stock_units": 17577
+      "total_stock_units": 16929
     },
     "previous": {
       "product_count": 374,
