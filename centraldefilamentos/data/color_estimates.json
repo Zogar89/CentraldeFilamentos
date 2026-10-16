@@ -2075,6 +2075,18 @@
     "source": "image_and_name",
     "warning": "Color estimado; puede variar según pantalla, iluminación y lote."
   },
+  "pla-pla-silk-aluminio-175-1000-3n3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#AAC1D4",
+    "evidence": "Estimación basada en foto de Filacolor verificada como 3N3 Silk Aluminio (2026-10-16). Mediana RGB de la zona de filamento [245,420,295,650], excluyendo transparencia y pixels oscuros; sin calibración física. Fuente: https://filacolor.com.ar/producto/3n3-silk/",
+    "material_finish": "silk",
+    "source": "image_and_name",
+    "warning": "Color orientativo estimado de una foto de proveedor; sin Pantone verificado. Puede variar por iluminación, pantalla y lote."
+  },
   "pla-pla-silk-azabache-175-1000-grilon3": {
     "confidence_band": "low",
     "confidence_interval": [
@@ -2147,6 +2159,18 @@
     "source": "name_only",
     "warning": "El acabado modifica el color percibido según el ángulo y la iluminación."
   },
+  "pla-pla-silk-cobre-175-1000-3n3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#B53F0E",
+    "evidence": "Estimación basada en foto de Filacolor verificada como 3N3 Silk Cobre (2026-10-16). Mediana RGB de la zona de filamento [245,420,295,650], excluyendo transparencia y pixels oscuros; sin calibración física. Fuente: https://filacolor.com.ar/producto/3n3-silk/",
+    "material_finish": "silk",
+    "source": "image_and_name",
+    "warning": "Color orientativo estimado de una foto de proveedor; sin Pantone verificado. Puede variar por iluminación, pantalla y lote."
+  },
   "pla-pla-silk-cobre-175-1000-grilon3": {
     "confidence_band": "medium",
     "confidence_interval": [
@@ -2195,6 +2219,42 @@
     "source": "name_only",
     "warning": "El acabado modifica el color percibido según el ángulo y la iluminación."
   },
+  "pla-pla-silk-malaquita-verde-175-1000-3n3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#0DA599",
+    "evidence": "Estimación basada en foto de Filacolor verificada como 3N3 Silk Malaquita Verde (2026-10-16). Mediana RGB de la zona de filamento [245,420,295,650], excluyendo transparencia y pixels oscuros; sin calibración física. Fuente: https://filacolor.com.ar/producto/3n3-silk/",
+    "material_finish": "silk",
+    "source": "image_and_name",
+    "warning": "Color orientativo estimado de una foto de proveedor; sin Pantone verificado. Puede variar por iluminación, pantalla y lote."
+  },
+  "pla-pla-silk-papaya-175-1000-3n3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#F45702",
+    "evidence": "Estimación basada en foto de Filacolor verificada como 3N3 Silk Papaya (2026-10-16). Mediana RGB de la zona de filamento [245,420,295,650], excluyendo transparencia y pixels oscuros; sin calibración física. Fuente: https://filacolor.com.ar/producto/3n3-silk/",
+    "material_finish": "silk",
+    "source": "image_and_name",
+    "warning": "Color orientativo estimado de una foto de proveedor; sin Pantone verificado. Puede variar por iluminación, pantalla y lote."
+  },
+  "pla-pla-silk-plata-175-1000-3n3": {
+    "confidence_band": "low",
+    "confidence_interval": [
+      0.2,
+      0.49
+    ],
+    "estimated_hex": "#C0C0C0",
+    "evidence": "Estimación orientativa basada únicamente en el nombre Plata de la planilla de MundoInsumos (3N3 Silk), consultada el 2026-10-16. Sin referencia cromática del fabricante.",
+    "material_finish": "silk",
+    "source": "name_only",
+    "warning": "Color orientativo estimado solo por el nombre; sin foto ni Pantone verificados. Confirmá el tono con el proveedor."
+  },
   "pla-pla-silk-platino-175-1000-grilon3": {
     "confidence_band": "high",
     "confidence_interval": [
@@ -2218,6 +2278,18 @@
     "material_finish": "silk",
     "source": "name_only",
     "warning": "El acabado modifica el color percibido según el ángulo y la iluminación."
+  },
+  "pla-pla-silk-rojo-175-1000-3n3": {
+    "confidence_band": "medium",
+    "confidence_interval": [
+      0.5,
+      0.79
+    ],
+    "estimated_hex": "#EF0B0E",
+    "evidence": "Estimación basada en foto de Filacolor verificada como 3N3 Silk Rojo (2026-10-16). Mediana RGB de la zona de filamento [245,420,295,650], excluyendo transparencia y pixels oscuros; sin calibración física. Fuente: https://filacolor.com.ar/producto/3n3-silk/",
+    "material_finish": "silk",
+    "source": "image_and_name",
+    "warning": "Color orientativo estimado de una foto de proveedor; sin Pantone verificado. Puede variar por iluminación, pantalla y lote."
   },
   "pla-pla-silk-tutti-frutti-175-1000-grilon3": {
     "confidence_band": "medium",

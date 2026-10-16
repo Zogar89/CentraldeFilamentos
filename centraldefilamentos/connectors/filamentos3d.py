@@ -4,7 +4,7 @@ import re
 import unicodedata
 
 from bs4 import BeautifulSoup
-import httpx
+import requests
 
 from centraldefilamentos.models import RawStockItem
 from centraldefilamentos.providers import SourceConfig
@@ -18,9 +18,12 @@ def fetch_filamentos3d_items(
     updated_at: str,
     timeout_seconds: int = 30,
 ) -> list[RawStockItem]:
-    response = httpx.get(source.source_url, timeout=timeout_seconds, follow_redirects=True)
+    response = requests.get(source.source_url, timeout=timeout_seconds)
     response.raise_for_status()
-    return parse_filamentos3d_html(response.text, source, updated_at)
+    items = parse_filamentos3d_html(response.text, source, updated_at)
+    if not items:
+        raise ValueError(f"No stock products found for {source.id} at {source.source_url}")
+    return items
 
 
 def parse_filamentos3d_html(html_text: str, source: SourceConfig, updated_at: str) -> list[RawStockItem]:

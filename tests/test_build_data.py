@@ -259,6 +259,63 @@ def test_build_payload_keeps_known_color_out_of_provisional_registry():
     assert registry.candidates == {}
 
 
+@pytest.mark.parametrize("color", ["Malaquita Verde", "Plata", "Aluminio", "Cobre", "Papaya", "Rojo"])
+def test_build_payload_includes_3n3_silk_colors_with_reviewed_photos_or_explicit_fallback(color):
+    from centraldefilamentos.color_estimates import load_color_estimates
+
+    registry = ColorRegistry.empty()
+    items = [raw("mundoinsumos", "MundoInsumos", "Zona Norte", f"3N3 SILK {color} 1,75MM X 1 KG", 2, "3N3")]
+    payload = build_payload(
+        items,
+        generated_at="2026-10-16T12:00:00-03:00",
+        enrichments=build_filamentos3d_enrichments(items),
+        color_estimates=load_color_estimates(),
+        color_registry=registry,
+    )
+    product = payload["products"][0]
+
+    assert product["color"] == color
+    assert product["material_finish"] == "silk"
+    assert product["estimated_color_hex"].startswith("#")
+    if color == "Plata":
+        assert product["estimated_color_source"] == "name_only"
+        assert product["estimated_color_confidence_band"] == "low"
+        assert not product["image_url"]
+        assert "sin foto ni Pantone verificados" in product["estimated_color_warning"]
+    else:
+        assert product["estimated_color_source"] == "image_and_name"
+        assert product["estimated_color_confidence_band"] == "medium"
+        assert product["image_url"].startswith("assets/reviewed/3n3-silk-")
+        assert product["image_source"] == "provider"
+        assert "sin Pantone verificado" in product["estimated_color_warning"]
+    assert not product["pantone"]
+    assert not product["pantone_hex"]
+    assert "color_review_status" not in product
+    assert registry.candidates == {}
+
+
+def test_reviewed_3n3_metadata_preserves_base_and_ignores_unverified_photos(tmp_path):
+    from centraldefilamentos.build_data import load_3n3_metadata
+
+    base = tmp_path / "base.json"
+    reviewed = tmp_path / "reviewed.json"
+    base.write_text(json.dumps({
+        "silk-plata": {"image_url": "assets/base-plata.jpg", "sku": "BASE-PLATA"},
+        "silk-rojo": {"image_url": "assets/base-rojo.jpg", "sku": "BASE-ROJO"},
+    }), encoding="utf-8")
+    reviewed.write_text(json.dumps({
+        "silk-plata": {"provider_product_url": "https://example.com/plata", "image_status": "not_found"},
+        "silk-rojo": {"image_url": "assets/reviewed-rojo.webp", "provider_product_url": "https://example.com/rojo"},
+    }), encoding="utf-8")
+
+    metadata = load_3n3_metadata(base, reviewed)
+
+    assert metadata["silk-plata"] == {"image_url": "assets/base-plata.jpg", "sku": "BASE-PLATA"}
+    assert metadata["silk-rojo"]["image_url"] == "assets/reviewed-rojo.webp"
+    assert metadata["silk-rojo"]["sku"] == "BASE-ROJO"
+    assert metadata["silk-rojo"]["provider_product_url"] == "https://example.com/rojo"
+
+
 def test_build_payload_keeps_colorless_pva_out_of_provisional_registry():
     registry = ColorRegistry.empty()
 
@@ -690,7 +747,7 @@ def test_build_grilon3_enrichments_indexes_raw_grilon_products(monkeypatch):
 
 def test_build_filamentos3d_enrichments_uses_provider_images_for_3n3_only(monkeypatch):
     monkeypatch.setattr(
-        "centraldefilamentos.build_data.load_filamentos3d_metadata",
+        "centraldefilamentos.build_data.load_3n3_metadata",
         lambda: {
             "pla-negro-175-1000-3n3": {
                 "provider_product_url": "https://filamentos3d.com.ar/3n3-negro.html",
@@ -722,7 +779,7 @@ def test_build_filamentos3d_enrichments_uses_provider_images_for_3n3_only(monkey
 
 def test_build_payload_can_render_3n3_provider_image_without_official_link(monkeypatch):
     monkeypatch.setattr(
-        "centraldefilamentos.build_data.load_filamentos3d_metadata",
+        "centraldefilamentos.build_data.load_3n3_metadata",
         lambda: {
             "pla-negro-175-1000-3n3": {
                 "provider_product_url": "https://filamentos3d.com.ar/3n3-negro.html",

@@ -39,6 +39,7 @@ from centraldefilamentos.thumbnails import thumbnail_url_for
 
 GRILON3_METADATA_CACHE = Path("centraldefilamentos/data/grilon3_metadata.json")
 FILAMENTOS3D_METADATA_CACHE = Path("centraldefilamentos/data/filamentos3d_metadata.json")
+REVIEWED_3N3_METADATA_CACHE = Path("centraldefilamentos/data/3n3_reviewed_metadata.json")
 DAILY_PROVIDER_STOCK_SNAPSHOT = Path("centraldefilamentos/data/daily_provider_stock_snapshot.json")
 PROVIDER_STOCK_HISTORY = Path("centraldefilamentos/data/provider_stock_history.json")
 PUBLIC_PROVIDER_STOCK_HISTORY = Path("public/data/provider_stock_history.json")
@@ -643,7 +644,7 @@ def build_filamentos3d_enrichments(
     raw_items: list[RawStockItem],
     metadata: Mapping[str, dict[str, str]] | None = None,
 ) -> dict[str, dict[str, str]]:
-    metadata = load_filamentos3d_metadata() if metadata is None else metadata
+    metadata = load_3n3_metadata() if metadata is None else metadata
     enrichments: dict[str, dict[str, str]] = {}
 
     for item in raw_items:
@@ -723,6 +724,17 @@ def load_filamentos3d_metadata(path: str | Path = FILAMENTOS3D_METADATA_CACHE) -
         }
         if clean:
             metadata[str(product_id)] = clean
+    return metadata
+
+
+def load_3n3_metadata(
+    filamentos3d_path: str | Path = FILAMENTOS3D_METADATA_CACHE,
+    reviewed_path: str | Path = REVIEWED_3N3_METADATA_CACHE,
+) -> dict[str, dict[str, str]]:
+    metadata = load_filamentos3d_metadata(filamentos3d_path)
+    for product_id, reviewed in load_filamentos3d_metadata(reviewed_path).items():
+        if reviewed.get("image_url"):
+            metadata[product_id] = {**metadata.get(product_id, {}), **reviewed}
     return metadata
 
 

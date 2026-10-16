@@ -140,6 +140,12 @@ Despues de una captura exitosa:
 
 Una captura bloqueada por controles de calidad no actualiza el registry, los snapshots, el historial ni `stock.json`.
 
+Para incorporar un color a la normalizacion global, agregar su etiqueta a `COLOR_RULES` con los nombres compuestos antes de los genericos (por ejemplo, `Malaquita Verde` antes de `Verde`, y `Gris Plata` antes de `Plata`). Las medidas del titulo, incluso `1,75MM` o `500GR`, no forman parte del nombre de un color provisional.
+
+El selector de colores PLA necesita un Pantone resuelto o una entrada en `centraldefilamentos/data/color_estimates.json`. Si solo se conoce el nombre del proveedor, usar `source: name_only`, confianza `low` y un aviso explicito de que no hay foto ni Pantone verificados. Luego regenerar datos y muestras con `python -m centraldefilamentos.build_data --output public/data/stock.json` y `python -m centraldefilamentos.generate_material_swatches --stock-json public/data/stock.json --public-dir public`.
+
+Las fotos 3N3 verificadas en otros proveedores se conservan, junto con su procedencia y estado de revision, en `centraldefilamentos/data/3n3_reviewed_metadata.json`. El build las combina con la cache de Filamentos3D por identidad exacta. Ver la [revision de 3N3 Silk del 16/10/2026](research/2026-10-16-3n3-silk.md) para el conjunto de fotos uniforme y los pendientes.
+
 ## Checks utiles
 
 Ver configuracion de Pages:

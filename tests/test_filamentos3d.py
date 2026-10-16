@@ -1,5 +1,8 @@
 from pathlib import Path
 
+import pytest
+import requests
+
 from centraldefilamentos.connectors.filamentos3d import fetch_filamentos3d_items, parse_filamentos3d_html
 from centraldefilamentos.providers import SOURCES
 
@@ -44,17 +47,40 @@ def test_fetch_filamentos3d_items_downloads_source_url(monkeypatch):
         def raise_for_status(self):
             calls.append("raise_for_status")
 
-    def fake_get(url, timeout, follow_redirects=True):
+    def fake_get(url, timeout):
         calls.append((url, timeout))
         return Response()
 
-    monkeypatch.setattr("centraldefilamentos.connectors.filamentos3d.httpx.get", fake_get)
+    monkeypatch.setattr("centraldefilamentos.connectors.filamentos3d.requests.get", fake_get)
 
     items = fetch_filamentos3d_items(source, updated_at, timeout_seconds=7)
 
     assert calls == [(source.source_url, 7), "raise_for_status"]
     assert len(items) == 5
     assert items[0].original_name == "PLA Grilon3 Negro 1.75mm 1kg"
+
+
+@pytest.mark.parametrize(
+    "html",
+    ["<html><body>Access denied</body></html>", "<table><tr><th>Producto</th><th>Stock</th></tr></table>"],
+)
+def test_fetch_filamentos3d_items_rejects_success_without_stock_rows(monkeypatch, html):
+    response = requests.Response()
+    response.status_code = 200
+    response._content = html.encode("utf-8")
+    monkeypatch.setattr("centraldefilamentos.connectors.filamentos3d.requests.get", lambda *args, **kwargs: response)
+
+    with pytest.raises(ValueError, match="No stock products found for filamentos3d"):
+        fetch_filamentos3d_items(SOURCES["filamentos3d"], "2026-10-16T12:00:00-03:00")
+
+
+def test_fetch_filamentos3d_items_preserves_http_errors(monkeypatch):
+    response = requests.Response()
+    response.status_code = 403
+    monkeypatch.setattr("centraldefilamentos.connectors.filamentos3d.requests.get", lambda *args, **kwargs: response)
+
+    with pytest.raises(requests.HTTPError):
+        fetch_filamentos3d_items(SOURCES["filamentos3d"], "2026-10-16T12:00:00-03:00")
 
 
 def test_parse_filamentos3d_html_supports_real_grilon3_table_shape():

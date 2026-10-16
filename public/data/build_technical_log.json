@@ -1,23 +1,17 @@
 {
   "checks": [
     {
-      "failed_sources": [
-        "filamentos3d"
-      ],
       "name": "source_errors",
-      "status": "failed"
+      "status": "passed"
     },
     {
       "name": "enrichment",
       "status": "passed"
     },
     {
-      "candidate_count": 1,
-      "candidate_keys": [
-        "mundoinsumos|3n3|pla-silk|plata-75mm"
-      ],
+      "candidate_count": 0,
       "name": "provisional_colors",
-      "status": "warning"
+      "status": "passed"
     },
     {
       "name": "schema",
@@ -25,64 +19,33 @@
     },
     {
       "name": "non_empty_catalog",
-      "product_count": 282,
+      "product_count": 374,
       "status": "passed"
     },
     {
-      "drop_ratio": 0.246,
+      "drop_ratio": 0.0,
       "name": "product_count_drop",
       "status": "passed"
-    },
-    {
-      "current": 0,
-      "drop_ratio": 1.0,
-      "max_drop_ratio": 0.6,
-      "name": "provider_stock_drop",
-      "previous": 16946,
-      "source_id": "filamentos3d",
-      "status": "failed"
     }
   ],
   "events": [
     {
-      "code": "source_error",
-      "level": "error",
-      "message": "Client error '403 Forbidden' for url 'https://filamentos3d.com.ar/grilon3.php' For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/403",
-      "source_id": "filamentos3d"
-    },
-    {
-      "candidate_keys": [
-        "mundoinsumos|3n3|pla-silk|plata-75mm"
-      ],
-      "code": "provisional_colors",
-      "level": "warning",
-      "message": "Observed 1 provisional supplier color candidates."
-    },
-    {
-      "code": "provider_stock_drop",
-      "level": "error",
-      "message": "filamentos3d stock dropped from 16946 to 0.",
-      "source_id": "filamentos3d"
+      "code": "publish_ok",
+      "level": "info",
+      "message": "Build quality checks passed."
     }
   ],
-  "generated_at": "2026-10-15T18:06:24-03:00",
-  "last_good_sources": {
-    "filamentos3d": {
-      "generated_at": "2026-08-10T13:02:00-03:00",
-      "name": "Filamentos3D",
-      "product_count": 323,
-      "total_stock_units": 16946
-    }
-  },
+  "generated_at": "2026-10-16T06:31:49-03:00",
+  "last_good_sources": {},
   "metrics": {
     "current": {
-      "product_count": 282,
+      "product_count": 374,
       "sources": {
         "filamentos3d": {
           "name": "Filamentos3D",
-          "product_count": 0,
-          "status": "error",
-          "total_stock_units": 0
+          "product_count": 323,
+          "status": "ok",
+          "total_stock_units": 12641
         },
         "grupo_senz": {
           "name": "Grupo Senz",
@@ -97,7 +60,7 @@
           "total_stock_units": 10296
         }
       },
-      "total_stock_units": 18742
+      "total_stock_units": 31383
     },
     "previous": {
       "product_count": 374,
@@ -124,7 +87,7 @@
       "total_stock_units": 35910
     }
   },
-  "should_publish": false,
-  "status": "blocked",
-  "summary": "Publicacion bloqueada por datos incompletos o sospechosos."
+  "should_publish": true,
+  "status": "ok",
+  "summary": "Publicacion habilitada. No se detectaron errores criticos."
 }

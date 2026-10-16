@@ -4,7 +4,7 @@ import argparse
 import json
 from pathlib import Path
 
-from centraldefilamentos.build_data import FILAMENTOS3D_METADATA_CACHE, load_filamentos3d_metadata
+from centraldefilamentos.build_data import FILAMENTOS3D_METADATA_CACHE, load_3n3_metadata
 from centraldefilamentos.thumbnails import ensure_thumbnail_for_url
 
 DEFAULT_STOCK_PATH = Path("public/data/stock.json")
@@ -16,7 +16,7 @@ def apply_filamentos3d_images(
 ) -> int:
     path = Path(stock_path)
     payload = json.loads(path.read_text(encoding="utf-8"))
-    metadata = load_filamentos3d_metadata(metadata_path)
+    metadata = load_3n3_metadata(metadata_path)
     updated_count = 0
 
     for product in payload.get("products", []):
@@ -47,7 +47,7 @@ def apply_filamentos3d_images(
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Aplica fotos 3N3 desde cache Filamentos3D sin refrescar stock.")
+    parser = argparse.ArgumentParser(description="Aplica fotos 3N3 desde caches de proveedores y revisiones verificadas sin refrescar stock.")
     parser.add_argument("--stock", default=str(DEFAULT_STOCK_PATH))
     parser.add_argument("--metadata", default=str(FILAMENTOS3D_METADATA_CACHE))
     args = parser.parse_args()

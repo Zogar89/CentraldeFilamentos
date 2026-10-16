@@ -1,5 +1,6 @@
 import importlib
 import json
+from dataclasses import replace
 
 import pytest
 
@@ -95,6 +96,20 @@ def test_missing_registry_starts_empty(tmp_path):
     registry = module.load_color_registry(tmp_path / "does-not-exist.json")
 
     assert registry.candidates == {}
+
+
+@pytest.mark.parametrize("measurement", ["1,75MM X 1 KG", "1.75 MM X 1000G", "2,85MM X 0,5KG", "175MM X 500GR"])
+def test_unknown_color_identity_excludes_compact_and_decimal_measurements(measurement):
+    module = color_registry_module()
+    registry = module.ColorRegistry.empty()
+    item = supplier_item("CASCADA")
+    compact = replace(item, original_name=f"3N3 SILK CASCADA {measurement}")
+    first = module.resolve_provisional_color(item, normalize_record(item), registry, "2026-10-16T12:00:00-03:00")
+    second = module.resolve_provisional_color(compact, normalize_record(compact), registry, "2026-10-16T12:00:00-03:00")
+
+    assert first.key == second.key == "grupo_senz|3n3|pla-silk|cascada"
+    assert second.display_color == "Cascada"
+    assert len(registry.candidates) == 1
 
 
 def test_registry_rejects_candidate_dates_without_timezone(tmp_path):

@@ -99,6 +99,16 @@ def test_normalizes_3n3_silk_papaya_and_aluminio_as_distinct_colors():
     )
 
 
+@pytest.mark.parametrize("diameter", ["1,75MM", "1.75 MM"])
+def test_normalizes_new_3n3_silk_colors_without_merging_existing_colors(diameter):
+    colors = ["MALAQUITA VERDE", "VERDE", "PLATA", "GRIS PLATA", "ALUMINIO"]
+    fields = [normalize_record(raw(f"3N3 SILK {color} {diameter} X 1 KG")) for color in colors]
+
+    assert [item.color for item in fields] == ["Malaquita Verde", "Verde", "Plata", "Gris Plata", "Aluminio"]
+    assert len({build_product_id(item) for item in fields}) == len(colors)
+    assert all(item.diameter_mm == 1.75 and item.weight_g == 1000 for item in fields)
+
+
 def test_keeps_other_weights_separate():
     fields = normalize_record(raw("PETG Transparente 750 GR 1.75mm"))
 

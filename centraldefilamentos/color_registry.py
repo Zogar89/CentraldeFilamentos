@@ -199,7 +199,12 @@ def _candidate_phrase(title: str, fields: NormalizedFields) -> str:
         "BOX",
         "PACK",
     }
-    words = _tokens(title)
+    title_without_measurements = re.sub(
+        r"(?<![A-Z0-9])\d+(?:[,.]\d+)?\s*(?:MM|KG|GR|G)\b",
+        " ",
+        _fold(title),
+    )
+    words = _tokens(title_without_measurements)
     candidate_words = [word for word in words if word not in ignored and not word.isdigit()]
     return " ".join(candidate_words)
 
