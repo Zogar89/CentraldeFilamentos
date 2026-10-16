@@ -24,6 +24,7 @@ Responsabilidad:
 
 - Correr el scraper.
 - Generar `public/data/stock.json`.
+- Reutilizar las rutas de muestras de color existentes, sin renderizar imagenes durante la captura.
 - Actualizar snapshots e historial de proveedores.
 - Mantener el registro interno de colores provisionales detectados en titulos de proveedores.
 - Escribir logs publicos de salud del build.

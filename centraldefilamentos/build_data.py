@@ -24,6 +24,7 @@ from centraldefilamentos.color_registry import (
     write_color_registry,
 )
 from centraldefilamentos.material_appearance import resolve_material_appearance
+from centraldefilamentos.material_swatches import estimated_material_swatch_url, material_swatch_url
 from centraldefilamentos.models import (
     ManufacturerInfo,
     Offer,
@@ -1062,6 +1063,14 @@ def _product_from_group(
         estimates=color_estimates,
     )
     estimated_fields = estimate_public_fields(estimate) if estimate else {}
+    swatch_url = ""
+    if appearance.pantone_hex:
+        swatch_url = material_swatch_url(str(enrichment["pantone"]), appearance.finish)
+    elif estimate:
+        swatch_url = estimated_material_swatch_url(product_id, appearance.finish)
+    swatch_path = Path("public") / swatch_url
+    if not swatch_url or not swatch_path.is_file() or swatch_path.stat().st_size == 0:
+        swatch_url = ""
 
     return ProductGroup(
         id=product_id,
@@ -1079,7 +1088,7 @@ def _product_from_group(
         pantone=str(enrichment["pantone"]),
         pantone_hex=appearance.pantone_hex,
         material_finish=appearance.finish,
-        material_swatch_url="",
+        material_swatch_url=swatch_url,
         estimated_color_hex=str(estimated_fields.get("estimated_color_hex", "")),
         estimated_color_confidence_band=str(estimated_fields.get("estimated_color_confidence_band", "")),
         estimated_color_confidence_interval=list(estimated_fields.get("estimated_color_confidence_interval", [])),

@@ -48,7 +48,8 @@ def raw(
     )
 
 
-def test_build_payload_groups_products_and_keeps_unknown_stock_visible():
+def test_build_payload_groups_products_and_keeps_unknown_stock_visible(tmp_path, monkeypatch):
+    monkeypatch.chdir(tmp_path)
     payload = build_payload(
         [
             raw(
@@ -104,6 +105,42 @@ def test_build_payload_groups_products_and_keeps_unknown_stock_visible():
     ]
     assert payload["products"][0]["offers"][0]["stock_status"] == "out_of_stock"
     assert payload["products"][1]["offers"][0]["stock_status"] == "unknown"
+
+
+@pytest.mark.parametrize("color_source", ["pantone", "estimated"])
+def test_build_payload_reuses_existing_swatches_without_rendering(tmp_path, monkeypatch, color_source):
+    from dataclasses import replace
+    from centraldefilamentos.material_swatches import estimated_material_swatch_url, material_swatch_url
+
+    product_id = "pla-negro-175-1000-grilon3"
+    item = raw("filamentos3d", "Filamentos3D", "Zona Sur", "GRILON3 PLA Negro 1kg 1.75mm", 4, "Grilon3")
+    estimate = ColorEstimate("#121820", "low", (0.2, 0.49), "name_only", "satin", "Nombre Negro.", "Color estimado.")
+    is_pantone = color_source == "pantone"
+    swatch_url = material_swatch_url("Pantone 179", "satin") if is_pantone else estimated_material_swatch_url(product_id, "satin")
+    swatch_path = tmp_path / "public" / swatch_url
+    swatch_path.parent.mkdir(parents=True)
+    swatch_path.write_bytes(b"existing-swatch")
+    timestamp = swatch_path.stat().st_mtime_ns
+    monkeypatch.chdir(tmp_path)
+
+    def forbid_render(*args, **kwargs):
+        raise AssertionError("A stock capture must not render images")
+
+    monkeypatch.setattr("centraldefilamentos.material_swatches.render_material_swatch", forbid_render)
+    options = {
+        "enrichments": {product_id: {"pantone": "Pantone 179"}} if is_pantone else {},
+        "color_estimates": {product_id: estimate},
+    }
+    first = build_payload([item], **options)["products"][0]
+    second = build_payload([replace(item, stock_quantity=9)], **options)["products"][0]
+
+    assert first["material_swatch_url"] == second["material_swatch_url"] == swatch_url
+    assert second["offers"][0]["stock_quantity"] == 9
+    assert swatch_path.read_bytes() == b"existing-swatch"
+    assert swatch_path.stat().st_mtime_ns == timestamp
+    swatch_path.unlink()
+    assert build_payload([item], **options)["products"][0]["material_swatch_url"] == ""
+    assert not swatch_path.exists()
 
 
 def test_build_payload_adds_estimated_color_only_without_pantone():
