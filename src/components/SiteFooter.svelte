@@ -47,7 +47,7 @@
 </script>
 
 <footer id="site-footer" class="site-footer">
-  <p class="source-freshness-policy">Alarma desde los {SOURCE_STALE_AFTER_DAYS} días sin cambios de stock o sin una lectura válida.</p>
+  <p class="source-freshness-policy">Alarma desde los {SOURCE_STALE_AFTER_DAYS} días sin cambios de stock detectados.</p>
   <div class="footer-grid">
     {#each sources as source}
       {@const stats = source.stats || {}}

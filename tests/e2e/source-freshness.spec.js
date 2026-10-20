@@ -19,7 +19,7 @@ async function installStock(page, configure) {
   await expect(page.locator(".footer-provider")).toHaveCount(stock.sources.length);
 }
 
-test("each provider distinguishes unchanged stock from missing reads and warns as time advances", async ({ page }) => {
+test("each provider warns only about unchanged stock as time advances", async ({ page }) => {
   await installStock(page, (sources) => {
     sources[0].stock_unchanged_since = isoAgo(6);
     sources[1].last_success_at = isoAgo(6);
@@ -28,7 +28,7 @@ test("each provider distinguishes unchanged stock from missing reads and warns a
   });
   const providers = page.locator(".footer-provider");
   await expect(providers.nth(0).getByRole("status")).toContainText("Stock sin cambios detectados desde hace 6 días.");
-  await expect(providers.nth(1).getByRole("status")).toContainText("Sin lectura válida desde hace 6 días.");
+  await expect(providers.nth(1).getByRole("status")).toContainText("Stock sin cambios detectados desde hace 7 días.");
   await expect(providers.nth(2).getByRole("status")).toHaveCount(0);
   await expect(providers.nth(0)).toContainText("Última lectura:");
   await expect(providers.nth(0)).toContainText("Sin cambios observados desde");
@@ -39,7 +39,7 @@ test("each provider distinguishes unchanged stock from missing reads and warns a
 
   await page.clock.setSystemTime(new Date(NOW + 5 * DAY_MS));
   await page.clock.fastForward(60_000);
-  await expect(providers.nth(2).getByRole("status")).toContainText("Sin lectura válida desde hace 5 días.");
+  await expect(providers.nth(2).getByRole("status")).toContainText("Stock sin cambios detectados desde hace 5 días.");
 });
 
 test("legacy or invalid timestamps do not invent dates or raise a five-day alarm", async ({ page }) => {
@@ -47,6 +47,7 @@ test("legacy or invalid timestamps do not invent dates or raise a five-day alarm
     sources.forEach((source) => delete source.stock_unchanged_since);
     sources[0].last_success_at = "invalid";
     sources[0].last_attempt_at = isoAgo(0);
+    sources[1].last_success_at = isoAgo(7);
   });
   await expect(page.locator(".source-freshness-alert")).toHaveCount(0);
   await expect(page.locator(".source-freshness-pending")).toHaveCount(3);

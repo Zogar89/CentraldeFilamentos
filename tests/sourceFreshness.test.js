@@ -28,22 +28,28 @@ test("uses elapsed hours and timezone offsets across the five-day boundary", () 
   assert.equal(sourceFreshness(source(since, freshRead), NOW).reason, "unchanged");
 });
 
-test("an overdue successful read is distinct and takes precedence over unchanged stock", () => {
+test("an old successful read does not replace the age of unchanged stock", () => {
   const result = sourceFreshness(source(isoAgo(8 * DAY_MS), isoAgo(6 * DAY_MS)), NOW);
   assert.equal(result.status, "stale");
-  assert.equal(result.reason, "unread");
-  assert.equal(result.days, 6);
-  assert.match(result.label, /Sin lectura válida/);
+  assert.equal(result.reason, "unchanged");
+  assert.equal(result.days, 8);
+  assert.match(result.label, /sin cambios detectados.*8 días/);
+  assert.equal(result.lastReadAt, isoAgo(6 * DAY_MS));
 });
 
-test("a recent attempt does not hide a stale successful read", () => {
-  const result = sourceFreshness({
-    ...source(isoAgo(DAY_MS), isoAgo(5 * DAY_MS)),
-    last_attempt_at: isoAgo(0),
-    status: "error",
-  }, NOW);
-  assert.equal(result.reason, "unread");
-  assert.equal(result.days, 5);
+test("an old read alone never alerts, including after a recent failed attempt", () => {
+  for (const baseline of [isoAgo(DAY_MS), undefined]) {
+    const result = sourceFreshness({
+      ...source(baseline, isoAgo(5 * DAY_MS)),
+      last_attempt_at: isoAgo(0),
+      status: "error",
+    }, NOW);
+    assert.notEqual(result.status, "stale");
+    assert.equal(result.reason, "");
+    assert.equal(result.days, null);
+    assert.equal(result.label, "");
+    assert.equal(result.lastReadAt, isoAgo(5 * DAY_MS));
+  }
 });
 
 test("missing tracking in older payloads remains unknown without inventing a change date", () => {
@@ -51,7 +57,12 @@ test("missing tracking in older payloads remains unknown without inventing a cha
   assert.equal(result.status, "untracked");
   assert.equal(result.unchangedSince, "");
   assert.equal(result.label, "");
-  assert.equal(sourceFreshness({ last_success_at: isoAgo(7 * DAY_MS) }, NOW).reason, "unread");
+  const legacy = sourceFreshness({ last_success_at: isoAgo(7 * DAY_MS) }, NOW);
+  assert.equal(legacy.status, "untracked");
+  assert.equal(legacy.reason, "");
+  assert.equal(legacy.label, "");
+  assert.equal(legacy.days, null);
+  assert.equal(legacy.lastReadAt, isoAgo(7 * DAY_MS));
 });
 
 test("missing, invalid and future dates do not create false alarms or render invalid dates", () => {

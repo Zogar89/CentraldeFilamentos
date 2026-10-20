@@ -22,10 +22,6 @@ export function sourceFreshness(source, now = Date.now()) {
     unchangedSince: unchanged === null ? "" : details.stock_unchanged_since,
   };
 
-  if (lastRead !== null && current - lastRead >= STALE_AFTER_MS) {
-    const days = Math.floor((current - lastRead) / DAY_MS);
-    return { ...state, status: "stale", reason: "unread", days, label: `Sin lectura válida desde hace ${days} días.` };
-  }
   if (unchanged !== null && current - unchanged >= STALE_AFTER_MS) {
     const days = Math.floor((current - unchanged) / DAY_MS);
     return { ...state, status: "stale", reason: "unchanged", days, label: `Stock sin cambios detectados desde hace ${days} días.` };
