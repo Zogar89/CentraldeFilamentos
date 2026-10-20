@@ -18,6 +18,7 @@ from centraldefilamentos.build_data import (
     write_payload,
 )
 from centraldefilamentos.connectors.grilon3_catalog import CatalogProduct
+from centraldefilamentos.connectors.google_sheet import parse_sheet_csv
 from centraldefilamentos.color_registry import ColorCandidate, ColorRegistry, load_color_registry
 from centraldefilamentos.color_estimates import ColorEstimate
 from centraldefilamentos.models import RawStockItem
@@ -249,6 +250,50 @@ def test_build_payload_rejects_repeated_provider_inside_product_card():
             manufacturers=MANUFACTURERS,
             generated_at="2026-05-12T13:00:00-03:00",
         )
+
+
+def test_build_payload_preserves_mundoinsumos_cardboard_edition_csv_rows():
+    csv_text = "\n".join(
+        [
+            "Código,Descripción,Código,STOCK REAL,PEDIDO",
+            "SKU Fábrica,Grilon3,EAN13,,",
+            "GAMA PLA+ 3NMAX 1 KG.,,,,",
+            "M81IBL175CJ,3NMAX PLA+ 01_BLANCO 1.75 MM X 1 KG,7798049654843,0,",
+            "M81ING175CJ,3NMAX PLA+ 02_NEGRO 1.75 MM X 1 KG,7798049654850,0,",
+            "GAMA PLA+ 3NMAX SE 750 GR.,,,,",
+            "M81IBL175CE,3NMAX CE PLA+  1.75\u00a0MM\u00a0X\u00a01\u00a0KG CARBOARD EDITION BLANCO,,183,",
+            "M81ING175CE,3NMAX CE PLA+  1.75\u00a0MM\u00a0X\u00a01\u00a0KG CARBOARD EDITION  NEGRO,,59,",
+        ]
+    )
+    source = SOURCES["mundoinsumos"]
+    items = parse_sheet_csv(csv_text, source, updated_at="2026-10-20T12:00:00-03:00")
+
+    assert [item.stock_quantity for item in items] == [0, 0, 183, 59]
+    payload = build_payload(
+        items,
+        sources={source.id: source},
+        generated_at="2026-10-20T12:00:00-03:00",
+    )
+    products = {product["id"]: product for product in payload["products"]}
+    expected_quantities = {
+        "pla-plaplus-blanco-175-1000-3n3": 0,
+        "pla-plaplus-negro-175-1000-3n3": 0,
+        "pla-plaplus-cardboard-edition-blanco-175-1000-3n3": 183,
+        "pla-plaplus-cardboard-edition-negro-175-1000-3n3": 59,
+    }
+
+    assert set(products) == set(expected_quantities)
+    for product_id, quantity in expected_quantities.items():
+        product = products[product_id]
+        assert product["weight_g"] == 1000
+        assert len(product["offers"]) == 1
+        offer = product["offers"][0]
+        assert offer["source_id"] == "mundoinsumos"
+        assert offer["stock_quantity"] == quantity
+        assert offer["stock_status"] == ("in_stock" if quantity else "out_of_stock")
+    stats = payload["sources"][0]["stats"]
+    assert stats["product_count"] == 4
+    assert stats["total_stock_units"] == 242
 
 
 def test_build_payload_keeps_distinct_unknown_supplier_colors_provisional_before_grouping():

@@ -11,8 +11,12 @@ def test_sources_cover_initial_amba_providers():
 def test_google_sheet_sources_include_sheet_ids_and_gids():
     assert SOURCES["grupo_senz"].sheet_id == "14nblAeXZfx_TEeHj4xnK90hSmUp3hk6KSO4nUTrb9zM"
     assert SOURCES["grupo_senz"].gid == "614179668"
-    assert SOURCES["mundoinsumos"].sheet_id == "1r-nKy4tRRtZ-5xwgxAcia8REDVW0Dv0h"
-    assert SOURCES["mundoinsumos"].gid == "1981641819"
+    assert SOURCES["mundoinsumos"].sheet_id == "103_Y1W5b6rYRD1MaVQSJ-2GZQiWYXEb03eEkDjRHaBY"
+    assert SOURCES["mundoinsumos"].gid == "472098222"
+    assert SOURCES["mundoinsumos"].source_url == (
+        "https://docs.google.com/spreadsheets/d/103_Y1W5b6rYRD1MaVQSJ-2GZQiWYXEb03eEkDjRHaBY/"
+        "edit?gid=472098222#gid=472098222"
+    )
 
 
 def test_provider_contacts_use_public_official_data():

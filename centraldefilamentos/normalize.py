@@ -45,6 +45,8 @@ VARIANT_RULES = [
     ("ASTRA", "PLA Astra"),
     ("SILK", "PLA Silk"),
     ("WOOD", "PLA Wood"),
+    ("CARDBOARD EDITION", "PLA+ Cardboard Edition"),
+    ("CARBOARD EDITION", "PLA+ Cardboard Edition"),
     ("PLA+", "PLA+"),
     ("PLUS", "PLA+"),
     ("PETG CLEAR", "PETG Clear"),

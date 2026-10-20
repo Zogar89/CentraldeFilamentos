@@ -85,6 +85,32 @@ def test_normalizes_3n3_pla_plus_rojo():
     assert fields.manufacturer_name == "3N3"
 
 
+@pytest.mark.parametrize("color", ["BLANCO", "NEGRO"])
+def test_normalizes_explicit_cardboard_edition_separately_from_standard_pla_plus(color):
+    editions = [
+        normalize_record(raw(f"3NMAX CE PLA+ 1.75 MM X 1 KG {spelling} {color}"))
+        for spelling in ("CARBOARD EDITION", "CARDBOARD EDITION")
+    ]
+    standard = normalize_record(raw(f"3NMAX PLA+ {color} 1.75 MM X 1 KG"))
+    ce_only = normalize_record(raw(f"3NMAX CE PLA+ {color} 1.75 MM X 1 KG"))
+
+    assert editions[0] == editions[1]
+    assert (
+        editions[0].material,
+        editions[0].variant,
+        editions[0].color,
+        editions[0].diameter_mm,
+        editions[0].weight_g,
+        editions[0].brand,
+    ) == ("PLA", "PLA+ Cardboard Edition", color.title(), 1.75, 1000, "3N3")
+    assert build_product_id(editions[0]) == (
+        f"pla-plaplus-cardboard-edition-{color.lower()}-175-1000-3n3"
+    )
+    assert standard == ce_only
+    assert standard.variant == "PLA+"
+    assert build_product_id(standard) == f"pla-plaplus-{color.lower()}-175-1000-3n3"
+
+
 def test_normalizes_3n3_silk_papaya_and_aluminio_as_distinct_colors():
     papaya = normalize_record(raw("3N3 SILK PAPAYA 1.75 MM X 1 KG", source_id="grupo_senz"))
     aluminio = normalize_record(raw("3N3 SILK ALUMINIO 1.75 MM X 1 KG", source_id="grupo_senz"))
