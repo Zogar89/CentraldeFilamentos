@@ -1075,9 +1075,9 @@
       "captured_at": "2026-10-20T13:05:36-03:00",
       "checks": [
         {
-          "captured_at": "2026-10-20T13:05:36-03:00",
+          "captured_at": "2026-10-20T13:35:26-03:00",
           "providers": {
-            "filamentos3d": 14404,
+            "filamentos3d": 14395,
             "grupo_senz": 8602,
             "mundoinsumos": 8994
           }
