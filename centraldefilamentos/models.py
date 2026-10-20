@@ -129,6 +129,8 @@ class SourceStatus:
     status: SourceRunStatus
     error_message: str
     stats: ProviderStats
+    stock_signature: str = ""
+    stock_unchanged_since: str = ""
 
     def to_dict(self) -> dict[str, object]:
         payload = asdict(self)

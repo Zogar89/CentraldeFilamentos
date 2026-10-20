@@ -1,8 +1,22 @@
 <script>
+  import { onMount } from "svelte";
   import { formatDate, formatInteger, providerAnchorId, siteContactUrl, siteRepoUrl, sourceWhatsappUrl, stockDelta } from "../lib/shared.js";
+  import { SOURCE_STALE_AFTER_DAYS, sourceFreshness } from "../lib/sourceFreshness.js";
 
   export let sources = [];
   export let contactContext = "";
+  let now = Date.now();
+
+  onMount(() => {
+    const refreshClock = () => { now = Date.now(); };
+    refreshClock();
+    const timer = window.setInterval(refreshClock, 60_000);
+    document.addEventListener("visibilitychange", refreshClock);
+    return () => {
+      window.clearInterval(timer);
+      document.removeEventListener("visibilitychange", refreshClock);
+    };
+  });
 
   $: message = `Hola, vi su stock publicado en Central de Filamentos.${contactContext ? ` Estoy buscando ${contactContext}.` : " Quería consultar disponibilidad y precio."}`;
 
@@ -33,10 +47,12 @@
 </script>
 
 <footer id="site-footer" class="site-footer">
+  <p class="source-freshness-policy">Alarma desde los {SOURCE_STALE_AFTER_DAYS} días sin cambios de stock o sin una lectura válida.</p>
   <div class="footer-grid">
     {#each sources as source}
       {@const stats = source.stats || {}}
       {@const delta = stockDelta(stats)}
+      {@const freshness = sourceFreshness(source, now)}
       <section class="footer-provider" id={providerAnchorId(source.id)} style={`--provider-accent: ${providerAccent(source.id)}`}>
         <header class="footer-provider-head">
           <a class="provider-mark" href={source.homepage_url} target="_blank" rel="noopener" aria-label={`Abrir ${source.name}`}>
@@ -71,8 +87,22 @@
           {/if}
           <p>
             <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-            <span>Actualizado: {formatDate(source.last_success_at || source.last_attempt_at)}</span>
+            <span>Última lectura: {formatDate(freshness.lastReadAt)}</span>
           </p>
+          {#if freshness.unchangedSince}
+            <p>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11a9 9 0 1 1 2.6 7.4"/><path d="M3 4v7h7"/><path d="M12 7v5l3 2"/></svg>
+              <span>Sin cambios observados desde {formatDate(freshness.unchangedSince)}</span>
+            </p>
+          {:else}
+            <p class="source-freshness-pending">Seguimiento de cambios pendiente.</p>
+          {/if}
+          {#if freshness.status === "stale"}
+            <p class="source-freshness-alert" role="status">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10.3 3-8.1 14a2 2 0 0 0 1.7 3h16.2a2 2 0 0 0 1.7-3L13.7 3a2 2 0 0 0-3.4 0Z"/><path d="M12 8v5"/><path d="M12 17h.01"/></svg>
+              <span><strong>{freshness.label}</strong> Confirmá disponibilidad con el proveedor.</span>
+            </p>
+          {/if}
         </div>
 
         <div class="contact-actions footer-actions">

@@ -23,6 +23,7 @@ from centraldefilamentos.color_registry import ColorCandidate, ColorRegistry, lo
 from centraldefilamentos.color_estimates import ColorEstimate
 from centraldefilamentos.models import RawStockItem
 from centraldefilamentos.providers import MANUFACTURERS, SOURCES
+from centraldefilamentos.source_freshness import apply_source_freshness
 from centraldefilamentos.thumbnails import apply_thumbnails_to_stock, thumbnail_url_for
 from centraldefilamentos.update_filamentos3d_images import apply_filamentos3d_images
 
@@ -1352,3 +1353,66 @@ def test_write_payload_creates_json_file(tmp_path):
     written = json.loads(output.read_text(encoding="utf-8"))
     assert written["generated_at"] == "2026-05-12T13:00:00-03:00"
     assert written["products"] == []
+
+
+@pytest.mark.parametrize("source_failure", [False, True])
+def test_main_persists_source_freshness_only_when_build_is_accepted(tmp_path, monkeypatch, source_failure):
+    first_capture = "2026-10-20T12:00:00-03:00"
+    next_capture = "2026-10-27T12:00:00-03:00"
+    original_items = [
+        raw(source_id, source.name, source.zone, "GRILON3 PLA Negro 1kg 1.75mm", 4)
+        for source_id, source in SOURCES.items()
+    ]
+    previous = build_payload(original_items, generated_at=first_capture)
+    apply_source_freshness(previous, original_items)
+    output = tmp_path / "stock.json"
+    write_payload(previous, output)
+    accepted_bytes = output.read_bytes()
+    failed_source = "grupo_senz"
+    current_items = [
+        raw(source_id, source.name, source.zone, "GRILON3 PLA Negro 1kg 1.75mm", 7 if source_id == "mundoinsumos" else 4)
+        for source_id, source in SOURCES.items()
+        if not (source_failure and source_id == failed_source)
+    ]
+    source_errors = {failed_source: "CSV export failed"} if source_failure else {}
+    load_count = 0
+    real_load = build_data.load_payload
+    real_quality = build_data.evaluate_build_quality
+    evaluated = []
+
+    def load_once(path):
+        nonlocal load_count
+        load_count += 1
+        return real_load(path)
+
+    def evaluate_observed(payload, *args, **kwargs):
+        evaluated.append(payload)
+        return real_quality(payload, *args, **kwargs)
+
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr("sys.argv", ["build_data", "--output", str(output)])
+    monkeypatch.setattr(build_data, "_now", lambda: next_capture)
+    monkeypatch.setattr(build_data, "load_payload", load_once)
+    monkeypatch.setattr(build_data, "collect_raw_items", lambda: (current_items, source_errors))
+    monkeypatch.setattr(build_data, "fetch_grilon3_catalog_products", lambda: {})
+    monkeypatch.setattr(build_data, "build_filamentos3d_enrichments", lambda *args: {})
+    monkeypatch.setattr(build_data, "build_grilon3_enrichments", lambda *args: {})
+    monkeypatch.setattr(build_data, "load_color_estimates", lambda: {})
+    monkeypatch.setattr(build_data, "evaluate_build_quality", evaluate_observed)
+
+    build_data.main()
+
+    assert load_count == 1
+    evaluated_sources = {source["id"]: source for source in evaluated[0]["sources"]}
+    assert evaluated_sources["mundoinsumos"]["stock_unchanged_since"] == next_capture
+    if source_failure:
+        assert output.read_bytes() == accepted_bytes
+        assert evaluated_sources[failed_source]["last_success_at"] == first_capture
+        assert evaluated_sources[failed_source]["stock_unchanged_since"] == first_capture
+        assert not (tmp_path / "centraldefilamentos/data/color_registry.json").exists()
+    else:
+        published = json.loads(output.read_text(encoding="utf-8"))
+        published_sources = {source["id"]: source for source in published["sources"]}
+        assert published_sources["mundoinsumos"]["stock_unchanged_since"] == next_capture
+        assert published_sources[failed_source]["stock_unchanged_since"] == first_capture
+        assert all(source["last_success_at"] == next_capture for source in published_sources.values())

@@ -350,6 +350,7 @@ El objetivo mínimo es WCAG 2.2 AA para las superficies públicas e internas.
 - La persistencia de usuario se limita al navegador y no se presenta como sincronizada.
 - La lista local no sale del dispositivo salvo por una acción explícita del usuario, como abrir un mensaje preparado.
 - Toda vista de stock muestra o permite encontrar su fecha de actualización.
+- En proveedores, «Última lectura» indica la última consulta válida y «Sin cambios observados desde» describe la continuidad del inventario observado. A las 120 horas sin cambios o sin lectura válida se muestra un aviso textual con icono que pide confirmar disponibilidad; una lectura nueva del mismo contenido no reinicia el plazo.
 - Un fallo de una fuente no se disfraza como catálogo completo.
 - Un dato faltante usa texto o fallback; nunca se rellena con una afirmación inventada.
 - Los errores explican qué ocurrió, qué información sigue siendo válida y qué puede hacer la persona.

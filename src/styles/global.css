@@ -2427,6 +2427,27 @@ input {
   gap: 12px;
 }
 
+.source-freshness-policy {
+  margin: 0 0 12px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.source-freshness-pending {
+  color: var(--muted);
+}
+
+.footer-provider-details .source-freshness-alert {
+  color: var(--warn);
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.footer-provider-details .source-freshness-alert svg {
+  color: currentColor;
+}
+
 .footer-provider {
   display: grid;
   gap: 12px;

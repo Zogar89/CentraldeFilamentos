@@ -36,6 +36,7 @@ from centraldefilamentos.models import (
 )
 from centraldefilamentos.normalize import COLOR_RULES, build_display_name, build_product_id, normalize_record
 from centraldefilamentos.providers import MANUFACTURERS, SOURCES, SourceConfig
+from centraldefilamentos.source_freshness import apply_source_freshness
 from centraldefilamentos.thumbnails import thumbnail_url_for
 
 GRILON3_METADATA_CACHE = Path("centraldefilamentos/data/grilon3_metadata.json")
@@ -953,6 +954,7 @@ def main() -> None:
     parser.add_argument("--snapshot-hour", type=int, default=9)
     args = parser.parse_args()
 
+    previous_payload = load_payload(args.output)
     color_registry = load_color_registry(args.color_registry)
     raw_items, source_errors = collect_raw_items()
     enrichment_errors: dict[str, str] = {}
@@ -979,11 +981,12 @@ def main() -> None:
         color_estimates=load_color_estimates(),
         color_registry=color_registry,
     )
+    apply_source_freshness(payload, raw_items, previous_payload)
     snapshot = load_daily_provider_stock_snapshot(args.daily_snapshot)
     apply_provider_stock_deltas(payload, snapshot)
     quality_report = evaluate_build_quality(
         payload,
-        load_payload(args.output),
+        previous_payload,
         source_errors,
         enrichment_errors,
         provisional_color_keys=color_registry.observed_provisional_keys,
