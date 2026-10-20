@@ -6,9 +6,9 @@ current_phase: 2
 current_phase_name: Portability And Import/Export Resilience
 status: verifying
 stopped_at: Completed 01-03-PLAN.md
-last_updated: "2026-10-16T09:59:02Z"
-last_activity: 2026-10-16
-last_activity_desc: Completed quick task 261016-9j3, stock capture without image generation
+last_updated: "2026-10-20T16:06:41Z"
+last_activity: 2026-10-20
+last_activity_desc: Completed quick task 261020-i0y, new MundoInsumos source published and verified
 progress:
   total_phases: 4
   completed_phases: 1
@@ -31,7 +31,7 @@ See: .planning/PROJECT.md (updated 2026-06-18)
 Phase: 2 of 4 (Portability And Import/Export Resilience)
 Plan: Not started
 Status: Ready for verification
-Last activity: 2026-10-16 - Completed quick task 261016-9j3: actualizar stock sin regenerar ni publicar imagenes.
+Last activity: 2026-10-20 - Completed quick task 261020-i0y: cambiar fuente de MundoInsumos y verificar el stock publicado.
 
 Progress: [██████████] 100%
 
@@ -94,6 +94,7 @@ None yet.
 | # | Description | Date | Commit | Directory |
 |---|-------------|------|--------|-----------|
 | 261016-9j3 | Actualizar stock sin regenerar ni publicar imagenes; captura y publicacion verificadas | 2026-10-16 | b23b63d | [261016-9j3-actualizar-stock-sin-regenerar-ni-public](./quick/261016-9j3-actualizar-stock-sin-regenerar-ni-public/) |
+| 261020-i0y | Cambiar fuente de MundoInsumos, separar Cardboard Edition y verificar captura publicada | 2026-10-20 | cf4c244 | [261020-i0y-cambiar-fuente-de-mundoinsumos-verificar](./quick/261020-i0y-cambiar-fuente-de-mundoinsumos-verificar/) |
 
 ## Deferred Items
 
