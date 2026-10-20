@@ -147,15 +147,15 @@ El selector de colores PLA necesita un Pantone resuelto o una entrada en `centra
 
 Las fotos 3N3 verificadas en otros proveedores se conservan, junto con su procedencia y estado de revision, en `centraldefilamentos/data/3n3_reviewed_metadata.json`. El build las combina con la cache de Filamentos3D por identidad exacta. Ver la [revision de 3N3 Silk del 16/10/2026](research/2026-10-16-3n3-silk.md) para el conjunto de fotos uniforme y los pendientes.
 
-## Checks utiles
-
-### Alarma de fuentes sin cambios
+## Alarma de fuentes sin cambios
 
 Cada proveedor conserva en `stock.json` una firma de sus filas de inventario (`stock_signature`) y la fecha desde la que se observa ese mismo contenido (`stock_unchanged_since`). El orden de las filas y las fechas de consulta no renuevan esa fecha. Un cambio de cantidades, productos o URL de la fuente inicia una nueva observación. El estado se guarda únicamente cuando la captura supera los controles de calidad.
 
 El pie de proveedores distingue **Última lectura** de **Sin cambios observados desde**. Desde las 120 horas sin cambios detectados muestra una alarma; también avisa cuando pasan 120 horas sin una lectura válida. El navegador evalúa el plazo al abrir la página, cada minuto y al volver a la pestaña, por lo que puede alertar aunque se detenga el workflow. Un intento fallido no cuenta como lectura válida. Fechas ausentes, inválidas o futuras no se presentan como una actualización confirmada.
 
 El seguimiento comienza con la primera captura que contiene estos campos. La fecha describe una observación de Central de Filamentos: el mismo stock durante cinco días no demuestra que el proveedor haya dejado de editar su fuente. El aviso pide confirmar disponibilidad y no bloquea capturas ni cambia cantidades. Se muestra en la web; no envía mensajes, emails ni notificaciones fuera de ella.
+
+## Checks utiles
 
 Ver configuracion de Pages:
 
