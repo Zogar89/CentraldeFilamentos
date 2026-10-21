@@ -1,41 +1,6 @@
 {
   "days": [
     {
-      "captured_at": "2026-07-03T13:38:00-03:00",
-      "checks": [
-        {
-          "captured_at": "2026-07-03T13:38:00-03:00",
-          "providers": {
-            "filamentos3d": 11061,
-            "grupo_senz": 7254,
-            "mundoinsumos": 9160
-          }
-        },
-        {
-          "captured_at": "2026-07-03T16:35:17-03:00",
-          "providers": {
-            "filamentos3d": 11039,
-            "grupo_senz": 7254,
-            "mundoinsumos": 9160
-          }
-        },
-        {
-          "captured_at": "2026-07-03T19:08:04-03:00",
-          "providers": {
-            "filamentos3d": 11036,
-            "grupo_senz": 7254,
-            "mundoinsumos": 9160
-          }
-        }
-      ],
-      "date": "2026-07-03",
-      "providers": {
-        "filamentos3d": 11061,
-        "grupo_senz": 7254,
-        "mundoinsumos": 9160
-      }
-    },
-    {
       "captured_at": "2026-07-06T12:41:29-03:00",
       "checks": [
         {
@@ -1104,6 +1069,25 @@
         "filamentos3d": 14404,
         "grupo_senz": 8602,
         "mundoinsumos": 8994
+      }
+    },
+    {
+      "captured_at": "2026-10-21T18:25:40-03:00",
+      "checks": [
+        {
+          "captured_at": "2026-10-21T18:25:40-03:00",
+          "providers": {
+            "filamentos3d": 13091,
+            "grupo_senz": 5623,
+            "mundoinsumos": 7720
+          }
+        }
+      ],
+      "date": "2026-10-21",
+      "providers": {
+        "filamentos3d": 13091,
+        "grupo_senz": 5623,
+        "mundoinsumos": 7720
       }
     }
   ]
