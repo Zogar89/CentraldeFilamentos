@@ -1,11 +1,8 @@
 {
   "checks": [
     {
-      "failed_sources": [
-        "filamentos3d"
-      ],
       "name": "source_errors",
-      "status": "failed"
+      "status": "passed"
     },
     {
       "name": "enrichment",
@@ -22,71 +19,48 @@
     },
     {
       "name": "non_empty_catalog",
-      "product_count": 284,
+      "product_count": 376,
       "status": "passed"
     },
     {
-      "drop_ratio": 0.2447,
+      "drop_ratio": 0.0,
       "name": "product_count_drop",
       "status": "passed"
-    },
-    {
-      "current": 0,
-      "drop_ratio": 1.0,
-      "max_drop_ratio": 0.6,
-      "name": "provider_stock_drop",
-      "previous": 13922,
-      "source_id": "filamentos3d",
-      "status": "failed"
     }
   ],
   "events": [
     {
-      "code": "source_error",
-      "level": "error",
-      "message": "HTTPSConnectionPool(host='filamentos3d.com.ar', port=443): Max retries exceeded with url: /grilon3.php (Caused by NewConnectionError(\"HTTPSConnection(host='filamentos3d.com.ar', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable\"))",
-      "source_id": "filamentos3d"
-    },
-    {
-      "code": "provider_stock_drop",
-      "level": "error",
-      "message": "filamentos3d stock dropped from 13922 to 0.",
-      "source_id": "filamentos3d"
+      "code": "publish_ok",
+      "level": "info",
+      "message": "Build quality checks passed."
     }
   ],
-  "generated_at": "2026-10-21T13:55:11-03:00",
-  "last_good_sources": {
-    "filamentos3d": {
-      "generated_at": "2026-10-20T18:24:26-03:00",
-      "name": "Filamentos3D",
-      "product_count": 323,
-      "total_stock_units": 13922
-    }
-  },
+  "generated_at": "2026-10-21T18:25:40-03:00",
+  "last_good_sources": {},
   "metrics": {
     "current": {
-      "product_count": 284,
+      "product_count": 376,
       "sources": {
         "filamentos3d": {
           "name": "Filamentos3D",
-          "product_count": 0,
-          "status": "error",
-          "total_stock_units": 0
+          "product_count": 323,
+          "status": "ok",
+          "total_stock_units": 13091
         },
         "grupo_senz": {
           "name": "Grupo Senz",
           "product_count": 241,
           "status": "ok",
-          "total_stock_units": 8540
+          "total_stock_units": 5623
         },
         "mundoinsumos": {
           "name": "MundoInsumos",
           "product_count": 241,
           "status": "ok",
-          "total_stock_units": 7830
+          "total_stock_units": 7720
         }
       },
-      "total_stock_units": 16370
+      "total_stock_units": 26434
     },
     "previous": {
       "product_count": 376,
@@ -113,7 +87,7 @@
       "total_stock_units": 31032
     }
   },
-  "should_publish": false,
-  "status": "blocked",
-  "summary": "Publicacion bloqueada por datos incompletos o sospechosos."
+  "should_publish": true,
+  "status": "ok",
+  "summary": "Publicacion habilitada. No se detectaron errores criticos."
 }
