@@ -1,12 +1,17 @@
 {
   "events": [
     {
+      "code": "enrichment_error",
+      "level": "warning",
+      "message": "No se pudo actualizar parte de las imagenes o metadata enriquecida. El stock se publica con los datos disponibles."
+    },
+    {
       "code": "publish_ok",
       "level": "info",
       "message": "La actualizacion paso los controles y se puede publicar."
     }
   ],
-  "generated_at": "2026-10-28T21:40:13-03:00",
+  "generated_at": "2026-10-29T15:14:37-03:00",
   "last_good_sources": {},
   "should_publish": true,
   "status": "ok",
