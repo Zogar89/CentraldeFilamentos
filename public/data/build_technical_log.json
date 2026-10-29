@@ -5,8 +5,11 @@
       "status": "passed"
     },
     {
+      "failed_steps": [
+        "grilon3_catalog"
+      ],
       "name": "enrichment",
-      "status": "passed"
+      "status": "warning"
     },
     {
       "candidate_count": 0,
@@ -19,26 +22,56 @@
     },
     {
       "name": "non_empty_catalog",
-      "product_count": 376,
+      "product_count": 366,
       "status": "passed"
     },
     {
-      "drop_ratio": 0.0,
+      "drop_ratio": 0.0266,
       "name": "product_count_drop",
       "status": "passed"
     }
   ],
   "events": [
     {
+      "code": "enrichment_error",
+      "level": "warning",
+      "message": "404 Client Error: Not Found for url: https://grilon3.com.ar/productos/",
+      "source_id": "grilon3_catalog"
+    },
+    {
       "code": "publish_ok",
       "level": "info",
       "message": "Build quality checks passed."
     }
   ],
-  "generated_at": "2026-10-28T21:40:13-03:00",
+  "generated_at": "2026-10-29T15:14:37-03:00",
   "last_good_sources": {},
   "metrics": {
     "current": {
+      "product_count": 366,
+      "sources": {
+        "filamentos3d": {
+          "name": "Filamentos3D",
+          "product_count": 323,
+          "status": "ok",
+          "total_stock_units": 15062
+        },
+        "grupo_senz": {
+          "name": "Grupo Senz",
+          "product_count": 241,
+          "status": "ok",
+          "total_stock_units": 5427
+        },
+        "mundoinsumos": {
+          "name": "MundoInsumos",
+          "product_count": 241,
+          "status": "ok",
+          "total_stock_units": 9140
+        }
+      },
+      "total_stock_units": 29629
+    },
+    "previous": {
       "product_count": 376,
       "sources": {
         "filamentos3d": {
@@ -61,30 +94,6 @@
         }
       },
       "total_stock_units": 30508
-    },
-    "previous": {
-      "product_count": 376,
-      "sources": {
-        "filamentos3d": {
-          "name": "Filamentos3D",
-          "product_count": 323,
-          "status": "ok",
-          "total_stock_units": 14279
-        },
-        "grupo_senz": {
-          "name": "Grupo Senz",
-          "product_count": 241,
-          "status": "ok",
-          "total_stock_units": 5427
-        },
-        "mundoinsumos": {
-          "name": "MundoInsumos",
-          "product_count": 241,
-          "status": "ok",
-          "total_stock_units": 7675
-        }
-      },
-      "total_stock_units": 27381
     }
   },
   "should_publish": true,
