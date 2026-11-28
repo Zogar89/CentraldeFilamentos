@@ -14,6 +14,7 @@ STOCK_COLUMNS = ["stock", "stock real", "cantidad", "disponible", "unidades"]
 BRAND_COLUMNS = ["marca", "brand", "fabricante"]
 NON_PRODUCT_NAMES = {"grilon3", "3n3", "ean13"}
 SECTION_ROW_PREFIXES = ("gama ",)
+MUNDOINSUMOS_NON_FILAMENT_SECTIONS = {"accesorios", 'pegamento cianocrilato "pegalo"'}
 
 
 def build_csv_export_url(sheet_id: str, gid: str) -> str:
@@ -36,13 +37,23 @@ def parse_sheet_csv(csv_text: str, source: SourceConfig, updated_at: str) -> lis
     rows = list(csv.reader(io.StringIO(csv_text)))
     header_index, columns = _find_header_row(rows, source)
     items: list[RawStockItem] = []
+    skip_non_filament_section = False
 
     for row in rows[header_index + 1 :]:
         original_name = _cell(row, columns["name"])
-        if not original_name:
+        stock_value = _cell(row, columns["stock"])
+        if source.id == "mundoinsumos" and not stock_value:
+            section_labels = {_normalize_header(_cell(row, 0)), _normalize_header(original_name)}
+            if section_labels & MUNDOINSUMOS_NON_FILAMENT_SECTIONS:
+                skip_non_filament_section = True
+                continue
+            if any(label.startswith(SECTION_ROW_PREFIXES) for label in section_labels):
+                skip_non_filament_section = False
+                continue
+        if skip_non_filament_section or not original_name:
             continue
 
-        stock_quantity = _parse_stock(_cell(row, columns["stock"]) if columns["stock"] is not None else "")
+        stock_quantity = _parse_stock(stock_value)
         if _is_non_product_row(original_name, stock_quantity):
             continue
 

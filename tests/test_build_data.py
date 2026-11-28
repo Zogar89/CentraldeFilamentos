@@ -253,6 +253,39 @@ def test_build_payload_rejects_repeated_provider_inside_product_card():
         )
 
 
+@pytest.mark.parametrize("section_in_code", [True, False])
+def test_build_payload_uses_only_mundoinsumos_filament_sections(section_in_code):
+    section_row = "{},,,," if section_in_code else ",{},,,"
+    csv_text = "\n".join(
+        [
+            "Código,Descripción,Código,STOCK REAL,PEDIDO",
+            "SKU Fábrica,Grilon3,EAN13,,",
+            section_row.format("  ACCESORIOS "),
+            "VASO600,VASO METALICO 600 CC,,15,",
+            "VASO1000,VASO METALICO 1000 CC,,21,",
+            section_row.format("GAMA PLA"),
+            "M10ING175CJ,GRILON3 PLA NEGRO 1.75 MM X 1 KG,,,",
+            section_row.format('"PEGAMENTO CIANOCRILATO ""PEGALO"""'),
+            "PEGA10,10 GRMS,,,",
+            "PEGA20,20 GRMS,,,",
+            "PEGA100,100 GRMS,,,",
+            section_row.format("GAMA ABS"),
+            "M10IRJ175CJ,GRILON3 ABS ROJO 1.75 MM X 1 KG,,5,",
+        ]
+    )
+    source = SOURCES["mundoinsumos"]
+    timestamp = "2026-11-28T02:00:00-03:00"
+    items = parse_sheet_csv(csv_text, source, updated_at=timestamp)
+    payload = build_payload(items, sources={source.id: source}, generated_at=timestamp)
+
+    assert [(item.original_name, item.stock_quantity) for item in items] == [
+        ("GRILON3 PLA NEGRO 1.75 MM X 1 KG", None),
+        ("GRILON3 ABS ROJO 1.75 MM X 1 KG", 5),
+    ]
+    assert len(payload["products"]) == 2
+    assert payload["sources"][0]["stats"]["total_stock_units"] == 5
+
+
 def test_build_payload_preserves_mundoinsumos_cardboard_edition_csv_rows():
     csv_text = "\n".join(
         [
