@@ -18,6 +18,7 @@
     matchesMaterialSelection,
   } from "./lib/catalogExplorer.js";
   import { createQuoteWorkspace } from "./lib/quoteWorkspace.js";
+  import { sourceFreshness } from "./lib/sourceFreshness.js";
   import { buildSummaryRows } from "./lib/summaryRows.js";
   import {
     dataUrl,
@@ -40,6 +41,7 @@
   let products = [];
   let sources = [];
   let generatedAt = "";
+  let captureHealth = null;
   let selectedMaterial = "PLA";
   let selectedColor = "";
   let sortOrder = "popular";
@@ -97,6 +99,11 @@
       ? compareExplorerProducts(left, right)
       : compareCatalogProducts(left, right)
   )));
+  $: captureBlocked = captureHealth?.status === "blocked" && Date.parse(captureHealth.generated_at) >= Date.parse(generatedAt);
+  $: displayedSources = captureBlocked ? sources.map((source) => ({ ...source, status: "error" })) : sources;
+  $: failedSources = sources.filter((source) => source.status === "error");
+  $: previousSourceNames = failedSources.filter((source) => sourceFreshness(source).lastReadAt).map((source) => source.name).join(", ");
+  $: unavailableSourceNames = failedSources.filter((source) => !sourceFreshness(source).lastReadAt).map((source) => source.name).join(", ");
   $: resultRows = buildSummaryRows(filteredProducts, sources);
   $: materialProducts = products.filter((product) => matchesMaterialSelection(product, selectedMaterial));
   $: selectedColorProductCount = selectedColorChoice
@@ -114,6 +121,7 @@
   async function loadCatalog() {
     loading = true;
     loadError = "";
+    fetchJson("data/build_business_log.json", null, { noCache: true }).then((health) => { captureHealth = health; });
     const payload = await fetchJson("data/stock.json", null);
     const catalogAvailable = Boolean(payload && Array.isArray(payload.products));
     products = catalogAvailable ? payload.products : [];
@@ -321,6 +329,15 @@
   {:else}
     <div class="catalog-explorer-layout">
       <div class="catalog-explorer-main">
+        {#if captureBlocked}
+          <p class="catalog-explorer-capture-status" role="status"><strong>Captura bloqueada.</strong> Se muestran los datos publicados el {formatDate(generatedAt)}.</p>
+        {:else if failedSources.length}
+          <p class="catalog-explorer-capture-status" role="status">
+            <strong>Actualización parcial.</strong>
+            {#if previousSourceNames}Se conservan los datos anteriores de {previousSourceNames}.{/if}
+            {#if unavailableSourceNames}Lectura válida pendiente para {unavailableSourceNames}.{/if}
+          </p>
+        {/if}
         <MaterialSelector choices={materialChoiceOptions} selected={selectedMaterial} onSelect={setMaterial} />
         <ColorRibbon choices={availableColors} selected={selectedColor} material={selectedMaterial} selectionProductCount={selectedColorProductCount} onSelect={selectColor} onClear={() => selectedColor = ""} />
 
@@ -412,7 +429,7 @@
 
         <CatalogExplorerResults
           rows={resultRows}
-          {sources}
+          sources={displayedSources}
           addFeedback={quoteAddFeedback}
           onAdd={addQuoteItem}
           onOpenPreview={openAssetPreview}
@@ -426,7 +443,7 @@
         <QuoteListPanel
           items={quoteState.items}
           {products}
-          {sources}
+          sources={displayedSources}
           showQuickControls={quoteState.settings.showQuickControls}
           storageWarning={quoteState.storageWarning}
           reconcileNotice={quoteState.reconcileNotice}
@@ -452,7 +469,7 @@
   open={compactQuoteMode && quoteDrawerOpen && quoteState.items.length > 0}
   items={quoteState.items}
   {products}
-  {sources}
+  sources={displayedSources}
   showQuickControls={quoteState.settings.showQuickControls}
   storageWarning={quoteState.storageWarning}
   reconcileNotice={quoteState.reconcileNotice}
@@ -489,7 +506,7 @@
   </div>
 {/if}
 
-<SiteFooter {sources} {contactContext} />
+<SiteFooter sources={displayedSources} {contactContext} />
 
 <svelte:window on:keydown={handleWindowKeydown} />
 

@@ -116,15 +116,15 @@ La cache `centraldefilamentos/data/daily_provider_stock_snapshot.json` se actual
 
 La cache `centraldefilamentos/data/provider_stock_history.json` guarda hasta 30 dias por proveedor para la vista interna de vendedores. Cada dia conserva la captura base de las 09 hs y los chequeos intradia de las demas corridas. La pagina se publica como archivo no enlazado y se puede apagar con `public/data/feature_flags.json` cambiando `vendorStatsEnabled` a `false`.
 
-Los logs de salud del build se publican en `public/data/build_business_log.json` y `public/data/build_technical_log.json`. Si una fuente falla o los conteos caen de forma sospechosa, la publicacion de stock se bloquea, se conserva el ultimo `stock.json` bueno y no se actualizan snapshots ni historiales con datos parciales.
+Los logs de salud de la captura se publican en `public/data/build_business_log.json` y `public/data/build_technical_log.json`. Si un proveedor falla, la captura puede actualizar a los demás y conservar el último dato válido de ese proveedor. El historial registra únicamente las mediciones aceptadas en cada corrida.
 
 Validaciones de resiliencia del build:
 
 - Cada fuente se intenta hasta 2 veces, sin esperas largas entre intentos, para no estirar GitHub Actions por fallas momentaneas.
-- Si una fuente falla despues de los retries, la publicacion se bloquea y el log de negocio muestra el ultimo dato bueno disponible para ese proveedor.
+- El log de negocio indica qué proveedor quedó pendiente y la fecha de su último dato válido.
 - Si el catalogo final queda vacio, la publicacion se bloquea.
 - Si habia al menos 50 productos y la cantidad total baja mas de 40% contra el ultimo `stock.json` bueno, la publicacion se bloquea.
-- Si un proveedor tenia al menos 100 carretes y su total baja mas de 60% contra el ultimo `stock.json` bueno, la publicacion se bloquea. Esta validacion mira el total del proveedor, no movimientos por color o producto.
+- Las colisiones, las lecturas vacías y las caídas sospechosas se evalúan por proveedor. Consultá los umbrales y pasos de recuperación en [Publicación y workflows](docs/publishing-workflows.md#reglas-de-captura-y-recuperación).
 - El JSON final debe tener `generated_at`, listas de `products`, `sources` y `manufacturers`, todas las fuentes esperadas y productos con `id` y `offers`.
 - Si falla el enriquecimiento de imagenes o metadata, no se bloquea el stock: se publica con los datos disponibles y queda un warning en los logs.
 - Si aparece un color nuevo del proveedor, se publica con identidad estable y estado provisional; queda un warning de revision y `centraldefilamentos/data/color_registry.json` se actualiza solo si la captura supera todos los controles bloqueantes.

@@ -26,6 +26,28 @@ test("shows Pantone only for catalog products that provide it", async ({ page })
 });
 
 test("builds a quote, compares coverage, and prepares a provider message", async ({ page }, testInfo) => {
+  await page.route("**/data/stock.json*", async (route) => {
+    const response = await route.fetch();
+    const stock = await response.json();
+    const source = stock.sources[0];
+    source.status = "ok";
+    for (const productId of productIds) {
+      const product = stock.products.find(({ id }) => id === productId);
+      product.offers = product.offers.filter((offer) => offer.source_id !== source.id);
+      product.offers.push({
+        source_id: source.id,
+        provider_name: source.name,
+        original_name: product.display_name,
+        stock_status: "in_stock",
+        stock_quantity: 24,
+      });
+    }
+    await route.fulfill({ json: stock });
+  });
+  await page.route("**/data/build_business_log.json*", (route) => route.fulfill({ json: { status: "ok" } }));
+  await page.reload();
+  await waitForStablePage(page);
+
   const firstAddButton = page
     .locator(`.catalog-explorer-result-row[data-product-id="${productIds[0]}"]`)
     .getByRole("button", { name: /Agregar .* a la lista de cotización/ });

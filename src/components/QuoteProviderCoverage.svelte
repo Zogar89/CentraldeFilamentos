@@ -99,8 +99,10 @@
             on:click={() => selectSource(coverage.source.id)}
           >
             <span>{coverage.source.name}</span>
-            <strong>{coverage.complete ? "Completa" : `${coverage.coveredCount}/${coverage.totalCount}`}</strong>
-            <small>{coverage.complete ? "Cubre toda la lista" : `${coverage.totalCount - coverage.coveredCount} faltante(s)`}</small>
+            <strong>{coverage.source.status === "error" ? "A confirmar" : coverage.complete ? "Completa" : `${coverage.coveredCount}/${coverage.totalCount}`}</strong>
+            {#if coverage.source.status !== "error"}
+              <small>{coverage.complete ? "Cubre toda la lista" : `${coverage.totalCount - coverage.coveredCount} faltante(s)`}</small>
+            {/if}
           </button>
         {/each}
       </div>
@@ -118,7 +120,7 @@
             on:click={() => selectSource(coverage.source.id)}
             on:keydown={(event) => handleProviderTabKeydown(event, index)}
           >
-            <span>{coverage.complete ? "✓" : `${coverage.coveredCount}/${coverage.totalCount}`}</span>
+            <span>{coverage.source.status === "error" ? "—" : coverage.complete ? "✓" : `${coverage.coveredCount}/${coverage.totalCount}`}</span>
             {coverage.source.name}
           </button>
         {/each}
@@ -135,10 +137,12 @@
       >
         <header>
           <strong>{selected.source.name}</strong>
-          <span class:complete={selected.complete}>{selected.complete ? "✓ Cubre toda la lista" : `${selected.coveredCount}/${selected.totalCount} items cubiertos`}</span>
+          <span class:complete={selected.complete}>{selected.source.status === "error" ? "A confirmar" : selected.complete ? "✓ Cubre toda la lista" : `${selected.coveredCount}/${selected.totalCount} items cubiertos`}</span>
         </header>
 
-        {#if mode === "coverage"}
+        {#if selected.source.status === "error"}
+          <p class="quote-provider-empty">Confirmá el stock con el proveedor.</p>
+        {:else if mode === "coverage"}
           {#if selectedMissing.length}
             <div class="quote-provider-missing">
               <small>Faltantes para este proveedor</small>

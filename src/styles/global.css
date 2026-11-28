@@ -2438,7 +2438,8 @@ input {
   color: var(--muted);
 }
 
-.footer-provider-details .source-freshness-alert {
+.footer-provider-details .source-freshness-alert,
+.footer-provider-details .source-read-status {
   color: var(--warn);
   line-height: 1.5;
   overflow-wrap: anywhere;
@@ -2768,6 +2769,10 @@ input {
 
 .build-health-ok {
   border-color: color-mix(in srgb, var(--ok) 34%, var(--line));
+}
+
+.build-health-degraded {
+  border-color: color-mix(in srgb, var(--warn) 34%, var(--line));
 }
 
 .build-health-blocked {
@@ -4248,6 +4253,17 @@ input {
 .catalog-explorer-main {
   min-width: 0;
   padding: 28px clamp(22px, 3vw, 44px) 48px;
+}
+
+.catalog-explorer-capture-status {
+  margin: 0 0 16px;
+  padding: 9px 12px;
+  border-left: 3px solid var(--warn);
+  border-radius: 0 6px 6px 0;
+  background: var(--surface-soft);
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.5;
 }
 
 .catalog-explorer-materials > header {

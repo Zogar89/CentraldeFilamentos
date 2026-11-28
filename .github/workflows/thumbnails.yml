@@ -18,21 +18,22 @@ permissions:
   contents: write
 
 concurrency:
-  group: thumbnails
+  group: centralde-filamentos-publishing
   cancel-in-progress: false
+  queue: max
 
 jobs:
   thumbnails:
     name: Generate and publish thumbnails
+    if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
-    env:
-      GIT_CONFIG_COUNT: 1
-      GIT_CONFIG_KEY_0: init.defaultBranch
-      GIT_CONFIG_VALUE_0: master
+    timeout-minutes: 15
 
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+        with:
+          ref: master
 
       - name: Setup Python
         uses: actions/setup-python@v6
@@ -51,46 +52,22 @@ jobs:
 
       - name: Commit thumbnails
         run: |
-          DATA_FILES="
-          public/assets/material-swatches
-          public/assets/thumbs
-          public/data/stock.json
-          "
-          if [ -z "$(git status --porcelain -- $DATA_FILES)" ]; then
+          set -euo pipefail
+          git add -- public/assets/material-swatches public/assets/thumbs public/data/stock.json
+          if git diff --cached --quiet; then
             echo "No thumbnail changes"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add $DATA_FILES
           git commit -m "Update thumbnails"
-          git push
+          for attempt in 1 2 3; do
+            if git push origin HEAD:refs/heads/master; then
+              exit 0
+            fi
+            [[ "$attempt" == 3 ]] || sleep "$((attempt * 2))"
+          done
+          exit 1
 
       - name: Publish assets to gh-pages
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          set -euo pipefail
-          pages_dir="$RUNNER_TEMP/gh-pages"
-          repo_url="https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
-          if git ls-remote --exit-code --heads origin gh-pages >/dev/null 2>&1; then
-            git clone --depth 1 --branch gh-pages "$repo_url" "$pages_dir"
-          else
-            git init "$pages_dir"
-            git -C "$pages_dir" checkout -b gh-pages
-            git -C "$pages_dir" remote add origin "$repo_url"
-          fi
-          mkdir -p "$pages_dir/assets"
-          rm -rf "$pages_dir/assets/filamentos3d" "$pages_dir/assets/grilon3" "$pages_dir/assets/thumbs"
-          mkdir -p "$pages_dir/data"
-          cp -a public/assets/. "$pages_dir/assets/"
-          cp public/data/stock.json "$pages_dir/data/stock.json"
-          git -C "$pages_dir" config user.name "github-actions[bot]"
-          git -C "$pages_dir" config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git -C "$pages_dir" add assets data/stock.json
-          if git -C "$pages_dir" diff --cached --quiet; then
-            echo "No published asset changes"
-            exit 0
-          fi
-          git -C "$pages_dir" commit -m "Publish thumbnails"
-          git -C "$pages_dir" push origin gh-pages
+        run: python3 .github/scripts/publish_pages.py thumbnails

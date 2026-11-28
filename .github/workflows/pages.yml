@@ -23,21 +23,22 @@ permissions:
   contents: write
 
 concurrency:
-  group: publish-ui
+  group: centralde-filamentos-publishing
   cancel-in-progress: false
+  queue: max
 
 jobs:
   build:
     name: Build and publish UI
+    if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
-    env:
-      GIT_CONFIG_COUNT: 1
-      GIT_CONFIG_KEY_0: init.defaultBranch
-      GIT_CONFIG_VALUE_0: master
+    timeout-minutes: 15
 
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+        with:
+          ref: master
 
       - name: Setup Node
         uses: actions/setup-node@v6
@@ -52,28 +53,4 @@ jobs:
         run: npm run build
 
       - name: Publish dist to gh-pages
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          set -euo pipefail
-          pages_dir="$RUNNER_TEMP/gh-pages"
-          repo_url="https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
-          if git ls-remote --exit-code --heads origin gh-pages >/dev/null 2>&1; then
-            git clone --depth 1 --branch gh-pages "$repo_url" "$pages_dir"
-          else
-            git init "$pages_dir"
-            git -C "$pages_dir" checkout -b gh-pages
-            git -C "$pages_dir" remote add origin "$repo_url"
-          fi
-          find "$pages_dir" -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
-          cp -a dist/. "$pages_dir/"
-          touch "$pages_dir/.nojekyll"
-          git -C "$pages_dir" config user.name "github-actions[bot]"
-          git -C "$pages_dir" config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git -C "$pages_dir" add -A
-          if git -C "$pages_dir" diff --cached --quiet; then
-            echo "No UI changes to publish"
-            exit 0
-          fi
-          git -C "$pages_dir" commit -m "Publish UI"
-          git -C "$pages_dir" push origin gh-pages
+        run: python3 .github/scripts/publish_pages.py ui

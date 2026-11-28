@@ -30,7 +30,8 @@
     return product.image_url || product.thumbnail_url || "";
   }
 
-  function stockLabel(cell) {
+  function stockLabel(cell, source) {
+    if (source.status === "error") return cell?.offer ? "dato anterior" : "sin lectura";
     if (cell?.units > 0) return "en stock";
     if (cell?.unknown) return "consultar";
     return "sin stock";
@@ -87,10 +88,12 @@
           <div class="catalog-explorer-provider-stock" aria-label={`Disponibilidad de ${productBaseName(product)}`}>
             {#each sources as source}
               {@const cell = row.cells[source.id]}
-              <div class:available={cell?.units > 0} class:unknown={cell?.unknown}>
+              {@const previous = source.status === "error"}
+              {@const unknown = cell?.unknown || (previous && !cell?.offer)}
+              <div class:available={!previous && cell?.units > 0} class:unknown={unknown || previous}>
                 <span>{source.name}</span>
-                <strong>{cell?.unknown && !cell?.units ? "—" : formatInteger(cell?.units || 0)}</strong>
-                <small>{stockLabel(cell)}</small>
+                <strong>{unknown && !cell?.units ? "—" : formatInteger(cell?.units || 0)}</strong>
+                <small>{stockLabel(cell, source)}</small>
               </div>
             {/each}
           </div>

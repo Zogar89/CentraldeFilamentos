@@ -15,19 +15,17 @@
       disabled = true;
       return;
     }
-    const history = await fetchJson("data/provider_stock_history.json", { providers: [], days: [] }, { noCache: true });
-    health = await fetchJson("data/build_business_log.json", null, { noCache: true });
+    const [history, captureHealth] = await Promise.all([
+      fetchJson("data/provider_stock_history.json", { providers: [], days: [] }, { noCache: true }),
+      fetchJson("data/build_business_log.json", null, { noCache: true }),
+    ]);
+    health = captureHealth;
     providers = history.providers || [];
     days = (history.days || []).slice(-30);
     generatedAt = history.generated_at || "";
   });
 
   $: reversedDays = [...days].reverse();
-
-  function latestQuantity(providerId) {
-    const latestDay = days[days.length - 1];
-    return latestDay ? quantityForProvider(latestDay, providerId) : 0;
-  }
 
   function latestDeltaForProvider(providerId) {
     const latestDay = days[days.length - 1];
@@ -38,21 +36,32 @@
     return days.reduce((total, day) => {
       const delta = deltaForProvider(day.date, providerId);
       if (!Number.isFinite(delta)) return total;
-      if (direction === "positive" && delta > 0) return total + delta;
-      if (direction === "negative" && delta < 0) return total + Math.abs(delta);
-      return total;
-    }, 0);
+      return (total ?? 0) + Math.max(0, direction === "positive" ? delta : -delta);
+    }, null);
   }
 
   function deltaForProvider(date, providerId) {
     const index = days.findIndex((day) => day.date === date);
     if (index <= 0) return null;
-    return quantityForProvider(days[index], providerId) - quantityForProvider(days[index - 1], providerId);
+    return deltaBetween(quantityForProvider(days[index], providerId), quantityForProvider(days[index - 1], providerId));
+  }
+
+  function deltaBetween(current, previous) {
+    return Number.isFinite(current) && Number.isFinite(previous) ? current - previous : null;
   }
 
   function quantityForProvider(day, providerId) {
-    const value = Number(day.providers?.[providerId] || 0);
-    return Number.isFinite(value) ? value : 0;
+    const value = day?.providers?.[providerId];
+    const quantity = typeof value === "string" && value.trim() ? Number(value) : value;
+    return Number.isFinite(quantity) ? quantity : null;
+  }
+
+  function quantityLabel(quantity, unit = "") {
+    return Number.isFinite(quantity) ? `${formatInteger(quantity)}${unit}` : "Sin medición";
+  }
+
+  function movementLabel(quantity, prefix) {
+    return Number.isFinite(quantity) ? `${prefix}${formatInteger(quantity)}` : "Sin base";
   }
 
   function checksForDay(day) {
@@ -71,38 +80,40 @@
 
   function stockChartForProvider(providerId) {
     const series = stockSeriesForProvider(providerId);
-    const values = series.map((item) => item.quantity);
-    const min = values.length ? Math.min(...values) : 0;
-    const max = values.length ? Math.max(...values) : 0;
-    const first = values[0] ?? 0;
-    const latest = values[values.length - 1] ?? 0;
-    const delta = latest - first;
+    const values = series.map((item) => item.quantity).filter(Number.isFinite);
+    const min = values.length ? Math.min(...values) : null;
+    const max = values.length ? Math.max(...values) : null;
+    const latest = series.at(-1)?.quantity;
+    const delta = deltaBetween(latest, series[0]?.quantity);
     const width = 220;
     const height = 72;
     const padX = 10;
     const padY = 9;
     const range = max - min || 1;
-    const points = series.map((item, index) => {
+    const segments = [];
+    for (const [index, item] of series.entries()) {
+      if (item.quantity === null) continue;
       const x = series.length === 1
         ? width / 2
         : padX + (index * (width - padX * 2)) / (series.length - 1);
       const y = height - padY - ((item.quantity - min) * (height - padY * 2)) / range;
-      return { ...item, x, y };
+      if (index === 0 || series[index - 1].quantity === null) segments.push([]);
+      segments.at(-1).push({ ...item, x, y });
+    }
+    const paths = segments.filter((segment) => segment.length > 1).map((segment) => {
+      const linePath = segment.map((point, index) => `${index ? "L" : "M"} ${point.x.toFixed(1)} ${point.y.toFixed(1)}`).join(" ");
+      const areaPath = `${linePath} L ${segment.at(-1).x.toFixed(1)} ${height - padY} L ${segment[0].x.toFixed(1)} ${height - padY} Z`;
+      return { linePath, areaPath };
     });
-    const linePath = points.map((point, index) => `${index ? "L" : "M"} ${point.x.toFixed(1)} ${point.y.toFixed(1)}`).join(" ");
-    const areaPath = points.length
-      ? `${linePath} L ${points[points.length - 1].x.toFixed(1)} ${height - padY} L ${points[0].x.toFixed(1)} ${height - padY} Z`
-      : "";
     return {
-      areaPath,
       delta,
       firstLabel: series[0]?.date ? formatDay(series[0].date) : "",
       height,
       latest,
-      linePath,
       max,
       min,
-      points,
+      paths,
+      points: segments.flat(),
       width,
     };
   }
@@ -121,6 +132,7 @@
 
   function statusLabel(status) {
     if (status === "ok") return "OK";
+    if (status === "degraded") return "Parcial";
     if (status === "blocked") return "Bloqueado";
     return status || "";
   }
@@ -136,12 +148,11 @@
   </section>
 
   {#if health && health.status && health.status !== "not_run"}
-    {@const status = health.status === "ok" ? "ok" : "blocked"}
     <section id="build-health" class="build-health" aria-label="Salud del ultimo build">
-      <article class={`build-health-card build-health-${status}`}>
+      <article class={`build-health-card build-health-${health.status}`}>
         <header>
           <div>
-            <p class="eyebrow">Salud del build</p>
+            <p class="eyebrow">Última captura · {formatDate(health.generated_at)}</p>
             <h2>{health.summary || "Sin novedades"}</h2>
           </div>
           <strong>{statusLabel(health.status)}</strong>
@@ -191,7 +202,7 @@
                   <h2>{provider.name}</h2>
                   <p>{provider.zone || ""}</p>
                 </div>
-                <strong>{formatInteger(latestQuantity(provider.id))} carretes</strong>
+                <strong>{quantityLabel(chart.latest, " carretes")}</strong>
               </header>
               <dl class="vendor-kpis">
                 <div>
@@ -200,30 +211,28 @@
                 </div>
                 <div>
                   <dt>Entradas 30d</dt>
-                  <dd class="delta-positive">+{formatInteger(movementForProvider(provider.id, "positive"))}</dd>
+                  <dd class="delta-positive">{movementLabel(movementForProvider(provider.id, "positive"), "+")}</dd>
                 </div>
                 <div>
                   <dt>Salidas 30d</dt>
-                  <dd class="delta-negative">-{formatInteger(movementForProvider(provider.id, "negative"))}</dd>
+                  <dd class="delta-negative">{movementLabel(movementForProvider(provider.id, "negative"), "-")}</dd>
                 </div>
               </dl>
               <section class="vendor-stock-chart" aria-label={`Evolucion de stock de ${provider.name} en los ultimos 30 dias`}>
                 <header>
                   <div>
                     <span>Evolucion 30d</span>
-                    <strong>{formatInteger(chart.latest)} carretes</strong>
+                    <strong>{quantityLabel(chart.latest, " carretes")}</strong>
                   </div>
                   <span class={`delta-badge delta-${deltaTone(chart.delta)}`}>{deltaLabel(chart.delta)}</span>
                 </header>
-                <svg viewBox={`0 0 ${chart.width} ${chart.height}`} preserveAspectRatio="none" role="img" aria-label={`Stock minimo ${formatInteger(chart.min)}, maximo ${formatInteger(chart.max)}`}>
+                <svg viewBox={`0 0 ${chart.width} ${chart.height}`} preserveAspectRatio="none" role="img" aria-label={chart.min === null ? "Sin mediciones" : `Stock minimo ${formatInteger(chart.min)}, maximo ${formatInteger(chart.max)}`}>
                   <line class="chart-grid-line" x1="0" y1="9" x2={chart.width} y2="9"></line>
                   <line class="chart-grid-line" x1="0" y1="63" x2={chart.width} y2="63"></line>
-                  {#if chart.areaPath}
-                    <path class="chart-area" d={chart.areaPath}></path>
-                  {/if}
-                  {#if chart.linePath}
-                    <path class="chart-line" d={chart.linePath}></path>
-                  {/if}
+                  {#each chart.paths as path}
+                    <path class="chart-area" d={path.areaPath}></path>
+                    <path class="chart-line" d={path.linePath}></path>
+                  {/each}
                   {#each chart.points as point}
                     <circle class="chart-point" cx={point.x} cy={point.y} r="2.4">
                       <title>{formatDay(point.date)} · {formatInteger(point.quantity)} carretes</title>
@@ -232,7 +241,7 @@
                 </svg>
                 <footer>
                   <span>{chart.firstLabel}</span>
-                  <span>Min {formatInteger(chart.min)} · Max {formatInteger(chart.max)}</span>
+                  <span>{chart.min === null ? "Sin mediciones" : `Min ${formatInteger(chart.min)} · Max ${formatInteger(chart.max)}`}</span>
                 </footer>
               </section>
               <div class="vendor-table-wrap">
@@ -251,7 +260,7 @@
                       {@const checks = checksForDay(day)}
                       <tr class="daily-row">
                         <td>{formatDay(day.date)}</td>
-                        <td>{formatInteger(quantity)}</td>
+                        <td>{quantityLabel(quantity)}</td>
                         <td><span class={`delta-badge delta-${deltaTone(delta)}`}>{deltaLabel(delta)}</span></td>
                       </tr>
                       <tr class="intraday-checks">
@@ -263,12 +272,13 @@
                                 {#each checks as check, index}
                                   {@const checkQuantity = quantityForProvider(check, provider.id)}
                                   {@const previous = index > 0 ? quantityForProvider(checks[index - 1], provider.id) : null}
-                                  {@const previousDelta = Number.isFinite(previous) ? checkQuantity - previous : null}
+                                  {@const previousDelta = deltaBetween(checkQuantity, previous)}
+                                  {@const baselineDelta = deltaBetween(checkQuantity, quantity)}
                                   <div class="intraday-row">
                                     <span class="intraday-time">{formatTime(check.captured_at)}</span>
-                                    <strong class="intraday-quantity">{formatInteger(checkQuantity)}</strong>
+                                    <strong class="intraday-quantity">{quantityLabel(checkQuantity)}</strong>
                                     <span class="intraday-metric"><small>vs anterior</small><span class={`delta-badge delta-${deltaTone(previousDelta)}`}>{deltaLabel(previousDelta)}</span></span>
-                                    <span class="intraday-metric"><small>vs 09:00</small><span class={`delta-badge delta-${deltaTone(checkQuantity - quantity)}`}>{deltaLabel(checkQuantity - quantity)}</span></span>
+                                    <span class="intraday-metric"><small>vs 09:00</small><span class={`delta-badge delta-${deltaTone(baselineDelta)}`}>{deltaLabel(baselineDelta)}</span></span>
                                   </div>
                                 {/each}
                               </div>
