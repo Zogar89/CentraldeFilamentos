@@ -12,7 +12,6 @@ on:
       - "centraldefilamentos/material_swatches.py"
       - "centraldefilamentos/data/pantone_srgb.json"
       - "centraldefilamentos/data/material_finish_overrides.json"
-      - ".github/workflows/thumbnails.yml"
 
 permissions:
   contents: write
@@ -27,7 +26,7 @@ jobs:
     name: Generate and publish thumbnails
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 35
 
     steps:
       - name: Checkout

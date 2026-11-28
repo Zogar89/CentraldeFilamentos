@@ -48,6 +48,8 @@ El catálogo indica qué proveedores muestran datos anteriores. Esas ofertas que
 
 Los tres workflows de publicación comparten una cola. Cada uno empieza desde el `master` vigente al recibir su turno. La publicación a Pages reintenta hasta tres veces sobre el último estado de la rama, con avance rápido de Git. Si la captura ya guardó datos en `master` y falló la publicación, volver a ejecutar `Capture Stock Data` en `master`. Puede republicar los JSON vigentes aunque no haya un nuevo commit de stock.
 
+La captura y la interfaz tienen un límite de 15 minutos por ejecución. El límite de miniaturas es de 35 minutos porque su generación completa superó los 15 minutos en ejecuciones exitosas. Editar el YAML de miniaturas por sí solo deja la regeneración disponible por despacho manual.
+
 No debe:
 
 - Ejecutar `npm run build`.

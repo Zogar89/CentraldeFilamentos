@@ -23,6 +23,8 @@ def test_stock_capture_keeps_image_generation_and_publication_separate():
     assert "if:" not in data_capture.split("- name: Publish data to gh-pages", 1)[1]
     assert "python -m centraldefilamentos.generate_material_swatches" in thumbnails_workflow
     assert "python -m centraldefilamentos.generate_thumbnails" in thumbnails_workflow
+    assert '".github/workflows/thumbnails.yml"' not in thumbnails_workflow
+    assert "timeout-minutes: 35" in thumbnails_workflow
     assert "public/assets/material-swatches" in thumbnails_workflow
     assert "publish_pages.py thumbnails" in thumbnails_workflow
     assert "publish_pages.py ui" in ui_workflow
