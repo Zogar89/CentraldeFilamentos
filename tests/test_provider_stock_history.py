@@ -206,6 +206,25 @@ def test_maybe_update_provider_stock_history_replaces_intraday_check_for_same_ho
     ]
 
 
+def test_partial_retry_preserves_same_hour_readings_and_does_not_record_cached_stock(tmp_path):
+    history_path = tmp_path / "provider_stock_history.json"
+    earlier = payload_with_sources("2026-05-01T09:01:00-03:00", [
+        ("mundoinsumos", "MundoInsumos", "Zona Norte", 100),
+        ("grupo_senz", "Grupo Senz", "Zona Oeste", 200),
+    ])
+    partial = payload_with_sources("2026-05-01T09:10:00-03:00", [
+        ("mundoinsumos", "MundoInsumos", "Zona Norte", 100),
+        ("grupo_senz", "Grupo Senz", "Zona Oeste", 0),
+    ])
+    partial["sources"][0]["status"] = "error"
+
+    assert maybe_update_provider_stock_history(earlier, history_path)
+    assert maybe_update_provider_stock_history(partial, history_path)
+    [day] = load_provider_stock_history(history_path)["days"]
+    assert day["providers"] == {"mundoinsumos": 100, "grupo_senz": 200}
+    assert [check["providers"] for check in day["checks"]] == [day["providers"], {"grupo_senz": 0}]
+
+
 def test_write_public_provider_stock_history_includes_provider_names_and_last_30_days(tmp_path):
     output_path = tmp_path / "provider_stock_history.json"
     history = {

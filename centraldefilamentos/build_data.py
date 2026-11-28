@@ -2,12 +2,14 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import unicodedata
-from collections import Counter
+from collections import Counter, defaultdict
 from dataclasses import replace
 from datetime import datetime
 from pathlib import Path
+from tempfile import NamedTemporaryFile
 from typing import Iterable, Mapping
 from zoneinfo import ZoneInfo
 
@@ -68,6 +70,12 @@ DEFAULT_ENRICHMENT = {
     "sku": "",
     "ean": "",
 }
+
+
+class DuplicateProviderOffers(ValueError):
+    def __init__(self, message: str, source_ids: set[str]) -> None:
+        super().__init__(message)
+        self.source_ids = source_ids
 
 
 def build_payload(
@@ -139,7 +147,7 @@ def build_payload(
         }
 
     products = [
-        _product_from_group(product_id, data, color_estimates or {})
+        _product_from_group(product_id, data, color_estimates or {}).to_dict()
         for product_id, data in grouped.items()
     ]
     products.sort(key=_product_sort_key)
@@ -151,10 +159,137 @@ def build_payload(
 
     return {
         "generated_at": generated,
-        "products": [product.to_dict() for product in products],
+        "products": products,
         "sources": [source.to_dict() for source in source_statuses],
         "manufacturers": [manufacturer.to_dict() for manufacturer in manufacturers.values()],
     }
+
+
+def build_capture_payload(
+    raw_items: list[RawStockItem],
+    previous_payload: Mapping[str, object],
+    source_errors: Mapping[str, str],
+    *,
+    generated_at: str,
+    color_registry: ColorRegistry,
+    enrichments: Mapping[str, Mapping[str, str]] | None = None,
+    catalog_products: Mapping[str, object] | None = None,
+    color_estimates: Mapping[str, ColorEstimate] | None = None,
+    catalog_unavailable: bool = False,
+) -> tuple[dict[str, object], dict[str, str]]:
+    errors = {source_id: message or "Source read failed." for source_id, message in source_errors.items()}
+    items_by_source: dict[str, list[RawStockItem]] = defaultdict(list)
+    for item in raw_items:
+        items_by_source[item.source_id].append(item)
+
+    previous = _sources_by_id(previous_payload)
+    for source_id in SOURCES:
+        if source_id in errors:
+            continue
+        last_source = previous.get(source_id, {})
+        stats = last_source.get("stats", {})
+        issue = _source_capture_issue(items_by_source[source_id], stats if isinstance(stats, dict) else {})
+        if issue:
+            errors[source_id] = issue
+
+    while True:
+        accepted_items = [item for item in raw_items if item.source_id not in errors]
+        attempt_registry = ColorRegistry(candidates=color_registry.candidates.copy())
+        try:
+            payload = build_payload(
+                accepted_items,
+                generated_at=generated_at,
+                enrichments=enrichments,
+                source_errors=errors,
+                catalog_products=catalog_products,
+                color_estimates=color_estimates,
+                color_registry=attempt_registry,
+            )
+        except DuplicateProviderOffers as exc:
+            rejected = exc.source_ids.difference(errors)
+            if not rejected:
+                raise
+            errors.update(dict.fromkeys(rejected, str(exc)))
+            continue
+        break
+
+    color_registry.candidates.update(attempt_registry.candidates)
+    color_registry.observed_provisional_keys.update(attempt_registry.observed_provisional_keys)
+    apply_source_freshness(payload, accepted_items, previous_payload)
+    _restore_previous_stock(payload, previous_payload, errors, catalog_unavailable)
+    return payload, errors
+
+
+def _source_capture_issue(items: list[RawStockItem], last_stats: Mapping[str, object]) -> str:
+    if not items:
+        return "Source returned no products."
+    if all(item.stock_quantity is None for item in items):
+        return "Source returned products without any readable stock quantities."
+
+    previous_count = _safe_int(last_stats.get("product_count")) or 0
+    if previous_count >= MIN_PRODUCTS_FOR_DROP_CHECK and _drop_ratio(previous_count, len(items)) > MAX_PRODUCT_DROP_RATIO:
+        return f"Provider product count dropped from {previous_count} to {len(items)}."
+
+    previous_stock = _safe_int(last_stats.get("total_stock_units")) or 0
+    current_stock = sum(item.stock_quantity for item in items if item.stock_quantity and item.stock_quantity > 0)
+    if previous_stock >= MIN_PROVIDER_STOCK_FOR_DROP_CHECK and _drop_ratio(previous_stock, current_stock) > MAX_PROVIDER_STOCK_DROP_RATIO:
+        return f"Provider stock dropped from {previous_stock} to {current_stock}."
+
+    return ""
+
+
+def _sources_by_id(payload: Mapping[str, object]) -> dict[str, dict[str, object]]:
+    sources = payload.get("sources")
+    if not isinstance(sources, list):
+        return {}
+    return {
+        source["id"]: source for source in sources
+        if isinstance(source, dict) and isinstance(source.get("id"), str) and source["id"]
+    }
+
+
+def _restore_previous_stock(
+    payload: dict[str, object],
+    previous_payload: Mapping[str, object],
+    errors: Mapping[str, str],
+    catalog_unavailable: bool,
+) -> None:
+    previous_sources = _sources_by_id(previous_payload)
+    current_sources = _sources_by_id(payload)
+    last_good = _last_good_sources(previous_payload, errors, str(payload["generated_at"]))
+    for source_id, source in current_sources.items():
+        if source_id not in errors:
+            continue
+        saved = last_good.get(source_id)
+        if saved is None:
+            source.update(last_success_at="", stock_signature="", stock_unchanged_since="")
+            continue
+        previous_stats = previous_sources[source_id].get("stats", {})
+        if isinstance(previous_stats, dict):
+            source["stats"] = {key: value for key, value in previous_stats.items() if key != "stock_delta_units"}
+        source["last_success_at"] = saved["generated_at"]
+
+    previous_products = previous_payload.get("products")
+    if not isinstance(previous_products, list) or not (last_good or catalog_unavailable):
+        return
+
+    products = payload["products"]
+    by_id = {product["id"]: product for product in products}
+    provider_order = {source_id: index for index, source_id in enumerate(current_sources)}
+    for product in previous_products:
+        if not isinstance(product, dict) or not product.get("id") or not isinstance(product.get("offers"), list):
+            continue
+        old_offers = product["offers"]
+        retained = [offer for offer in old_offers if isinstance(offer, dict) and offer.get("source_id") in last_good]
+        product_id = product["id"]
+        if product_id in by_id:
+            current = by_id[product_id]["offers"]
+            current.extend(retained)
+            current.sort(key=lambda offer: provider_order.get(offer["source_id"], len(provider_order)))
+        elif retained or (catalog_unavailable and not old_offers):
+            products.append({**product, "offers": retained})
+
+    products.sort(key=_product_sort_key)
 
 
 def write_payload(payload: Mapping[str, object], output_path: str | Path) -> None:
@@ -164,10 +299,15 @@ def write_payload(payload: Mapping[str, object], output_path: str | Path) -> Non
 def _write_json(path: str | Path, payload: Mapping[str, object]) -> None:
     output = Path(path)
     output.parent.mkdir(parents=True, exist_ok=True)
-    output.write_text(
-        json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
-        encoding="utf-8",
-    )
+    content = json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
+    temporary = NamedTemporaryFile("w", encoding="utf-8", dir=output.parent, prefix=f".{output.name}.", delete=False)
+    temporary_path = Path(temporary.name)
+    try:
+        with temporary:
+            temporary.write(content)
+        os.replace(temporary_path, output)
+    finally:
+        temporary_path.unlink(missing_ok=True)
 
 
 def load_payload(path: str | Path) -> dict[str, object]:
@@ -176,7 +316,7 @@ def load_payload(path: str | Path) -> dict[str, object]:
         return {}
     try:
         payload = json.loads(payload_path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError):
+    except (OSError, ValueError):
         return {}
     return payload if isinstance(payload, dict) else {}
 
@@ -187,13 +327,20 @@ def evaluate_build_quality(
     source_errors: Mapping[str, str] | None = None,
     enrichment_errors: Mapping[str, str] | None = None,
     provisional_color_keys: Iterable[str] = (),
+    *,
+    allow_partial: bool = False,
 ) -> dict[str, object]:
     previous_payload = previous_payload or {}
     source_errors = {str(source_id): _clean_error_message(error) for source_id, error in (source_errors or {}).items() if error}
     enrichment_errors = {str(source_id): _clean_error_message(error) for source_id, error in (enrichment_errors or {}).items() if error}
     current_metrics = _payload_quality_metrics(payload)
     previous_metrics = _payload_quality_metrics(previous_payload)
-    last_good_sources = _last_good_sources(previous_payload, source_errors)
+    generated_at = str(payload.get("generated_at", ""))
+    last_good_sources = _last_good_sources(previous_payload, source_errors, generated_at)
+    partial = allow_partial and bool(source_errors) and any(
+        source_id in SOURCES and source_id not in source_errors and source.get("status") == "ok"
+        for source_id, source in _sources_by_id(payload).items()
+    )
     technical_events: list[dict[str, object]] = []
     business_events: list[dict[str, object]] = []
     checks: list[dict[str, object]] = []
@@ -201,16 +348,17 @@ def evaluate_build_quality(
     provisional_keys = sorted({str(key) for key in provisional_color_keys if str(key)})
 
     if source_errors:
-        checks.append({"name": "source_errors", "status": "failed", "failed_sources": sorted(source_errors)})
+        level = "warning" if partial else "error"
+        checks.append({"name": "source_errors", "status": "warning" if partial else "failed", "failed_sources": sorted(source_errors)})
         for source_id, error_message in sorted(source_errors.items()):
             source_name = _source_name(payload, source_id)
             last_good = last_good_sources.get(source_id, {})
-            last_good_text = ""
+            last_good_text = " Todavía no hay una lectura válida de este proveedor." if partial else ""
             if last_good:
                 last_good_text = f" Se mantiene el ultimo dato bueno de {last_good.get('generated_at', '')}."
             technical_events.append(
                 {
-                    "level": "error",
+                    "level": level,
                     "code": "source_error",
                     "source_id": source_id,
                     "message": error_message,
@@ -218,9 +366,10 @@ def evaluate_build_quality(
             )
             business_events.append(
                 {
-                    "level": "error",
+                    "level": level,
                     "code": "source_error",
-                    "message": f"{source_name} no respondio correctamente. Se conserva la ultima publicacion buena.{last_good_text}",
+                    "source_id": source_id,
+                    "message": f"{source_name} quedó pendiente de actualización.{last_good_text}",
                 }
             )
     else:
@@ -228,6 +377,11 @@ def evaluate_build_quality(
 
     if enrichment_errors:
         checks.append({"name": "enrichment", "status": "warning", "failed_steps": sorted(enrichment_errors)})
+        auxiliary_messages = {
+            "color_registry": "El registro de colores necesita revisión. Se conserva su archivo anterior.",
+            "daily_snapshot": "La referencia diaria necesita revisión. Esta captura no calcula cambios contra ella.",
+            "provider_history": "El historial necesita revisión. Se conserva el último historial publicado.",
+        }
         for enrichment_id, error_message in sorted(enrichment_errors.items()):
             technical_events.append(
                 {
@@ -241,7 +395,7 @@ def evaluate_build_quality(
                 {
                     "level": "warning",
                     "code": "enrichment_error",
-                    "message": "No se pudo actualizar parte de las imagenes o metadata enriquecida. El stock se publica con los datos disponibles.",
+                    "message": auxiliary_messages.get(enrichment_id, "No se pudo actualizar parte de las imagenes o metadata enriquecida. El stock se publica con los datos disponibles."),
                 }
             )
     else:
@@ -337,6 +491,8 @@ def evaluate_build_quality(
     current_sources = current_metrics.get("sources", {})
     if isinstance(previous_sources, dict) and isinstance(current_sources, dict):
         for source_id, previous_source in sorted(previous_sources.items()):
+            if allow_partial and source_id in source_errors:
+                continue
             current_source = current_sources.get(source_id)
             if not isinstance(previous_source, dict) or not isinstance(current_source, dict):
                 continue
@@ -376,18 +532,20 @@ def evaluate_build_quality(
             )
 
     should_publish = not any(event.get("level") == "error" for event in technical_events)
-    status = "ok" if should_publish else "blocked"
-    summary = (
-        "Publicacion habilitada. No se detectaron errores criticos."
-        if should_publish
-        else "Publicacion bloqueada por datos incompletos o sospechosos."
-    )
-    if should_publish:
+    if not should_publish:
+        status = "blocked"
+        summary = "Se conserva el último catálogo válido. La captura no pasó los controles de publicación."
+    elif partial:
+        status = "degraded"
+        summary = "Actualización parcial. Se publicaron las lecturas que pasaron los controles."
+    else:
+        status = "ok"
+        summary = "Publicacion habilitada. No se detectaron errores criticos."
         business_events.append({"level": "info", "code": "publish_ok", "message": "La actualizacion paso los controles y se puede publicar."})
         technical_events.append({"level": "info", "code": "publish_ok", "message": "Build quality checks passed."})
 
     return {
-        "generated_at": str(payload.get("generated_at", "")),
+        "generated_at": generated_at,
         "status": status,
         "should_publish": should_publish,
         "summary": summary,
@@ -454,7 +612,7 @@ def apply_provider_stock_deltas(payload: dict[str, object], snapshot: Mapping[st
         return
 
     for source in payload.get("sources", []):
-        if not isinstance(source, dict):
+        if not isinstance(source, dict) or source.get("status", "ok") != "ok":
             continue
         source_id = str(source.get("id", ""))
         if source_id not in previous_counts:
@@ -484,17 +642,15 @@ def maybe_update_daily_provider_stock_snapshot(
         return False
 
     current_providers = _provider_counts_from_payload(payload)
+    if not current_providers:
+        return False
     next_snapshot = {
         "captured_at": generated_at,
         "providers": current_providers,
         "previous_captured_at": str(previous_snapshot.get("captured_at", "")),
         "previous_providers": _clean_provider_counts(previous_snapshot.get("providers", {})),
     }
-    snapshot_path.parent.mkdir(parents=True, exist_ok=True)
-    snapshot_path.write_text(
-        json.dumps(next_snapshot, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
-        encoding="utf-8",
-    )
+    _write_json(snapshot_path, next_snapshot)
     return True
 
 
@@ -525,6 +681,8 @@ def maybe_update_provider_stock_history(
     days = _history_days(history)
     date = generated.date().isoformat()
     counts = _provider_counts_from_payload(payload)
+    if not counts:
+        return False
     check = {
         "captured_at": generated_at,
         "providers": counts,
@@ -540,22 +698,22 @@ def maybe_update_provider_stock_history(
         days.append(day)
     else:
         checks = _history_checks(existing_day)
-        checks = [item for item in checks if _check_hour(item) != generated.hour]
+        checks = [
+            item for item in checks
+            if _check_hour(item) != generated.hour or not _clean_provider_counts(item.get("providers", {})).keys() <= counts.keys()
+        ]
         checks.append(check)
         checks = _sort_checks(checks)
         existing_day["checks"] = checks
-        if generated.hour == snapshot_hour or not existing_day.get("providers"):
+        baseline = _clean_provider_counts(existing_day.get("providers", {}))
+        if not baseline or (generated.hour == snapshot_hour and baseline.keys() <= counts.keys()):
             existing_day["captured_at"] = generated_at
             existing_day["providers"] = counts
 
     days = _trim_history_days(days, max_days)
     next_history = {"days": days}
 
-    history_path.parent.mkdir(parents=True, exist_ok=True)
-    history_path.write_text(
-        json.dumps(next_history, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
-        encoding="utf-8",
-    )
+    _write_json(history_path, next_history)
     return True
 
 
@@ -565,18 +723,13 @@ def write_public_provider_stock_history(
     output_path: str | Path = PUBLIC_PROVIDER_STOCK_HISTORY,
     max_days: int = 30,
 ) -> None:
-    path = Path(output_path)
     days = _trim_history_days(_history_days(history), max_days)
     public_payload = {
         "generated_at": _latest_history_capture_at(days) or str(payload.get("generated_at", "")),
         "providers": _provider_metadata_from_payload(payload),
         "days": days,
     }
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(
-        json.dumps(public_payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
-        encoding="utf-8",
-    )
+    _write_json(output_path, public_payload)
 
 
 def collect_raw_items(
@@ -781,30 +934,37 @@ def _source_name(payload: Mapping[str, object], source_id: str) -> str:
     return configured.name if configured is not None else source_id
 
 
-def _last_good_sources(previous_payload: Mapping[str, object], source_errors: Mapping[str, str]) -> dict[str, dict[str, object]]:
-    generated_at = str(previous_payload.get("generated_at", ""))
-    raw_sources = previous_payload.get("sources", [])
-    if not isinstance(raw_sources, list):
+def _last_good_sources(
+    previous_payload: Mapping[str, object],
+    source_errors: Mapping[str, str],
+    generated_at: str,
+) -> dict[str, dict[str, object]]:
+    observed_at = _parse_datetime(generated_at)
+    if observed_at is None or observed_at.utcoffset() is None:
         return {}
     last_good: dict[str, dict[str, object]] = {}
-    for source in raw_sources:
-        if not isinstance(source, dict):
-            continue
-        source_id = str(source.get("id", ""))
+    for source_id, source in _sources_by_id(previous_payload).items():
         if source_id not in source_errors:
             continue
-        stats = source.get("stats", {})
-        stats = stats if isinstance(stats, dict) else {}
+        stats = source.get("stats")
+        if not isinstance(stats, dict) or not _safe_int(stats.get("product_count")):
+            continue
+        last_read = source.get("last_success_at")
+        if not last_read and source.get("status") == "ok":
+            last_read = previous_payload.get("generated_at", "")
+        saved_at = _parse_datetime(str(last_read or ""))
+        if saved_at is None or saved_at.utcoffset() is None or saved_at > observed_at:
+            continue
         last_good[source_id] = {
             "name": str(source.get("name") or source_id),
-            "generated_at": generated_at,
+            "generated_at": last_read,
             "total_stock_units": _safe_int(stats.get("total_stock_units")) or 0,
             "product_count": _safe_int(stats.get("product_count")) or 0,
         }
     return last_good
 
 
-def _stock_payload_schema_errors(payload: Mapping[str, object]) -> list[str]:
+def _stock_payload_schema_errors(payload: Mapping[str, object], expected_sources: Iterable[str] = SOURCES) -> list[str]:
     errors: list[str] = []
     if not str(payload.get("generated_at", "")):
         errors.append("generated_at is required")
@@ -817,21 +977,39 @@ def _stock_payload_schema_errors(payload: Mapping[str, object]) -> list[str]:
         errors.append("sources must be a list")
     if not isinstance(manufacturers, list):
         errors.append("manufacturers must be a list")
+    source_ids = set(_sources_by_id(payload))
     if isinstance(sources, list):
-        source_ids = {str(source.get("id", "")) for source in sources if isinstance(source, dict)}
-        for expected_id in SOURCES:
+        if len(source_ids) != len(sources):
+            errors.append("sources must have unique ids")
+        for expected_id in expected_sources:
             if expected_id not in source_ids:
                 errors.append(f"missing source {expected_id}")
     if isinstance(products, list):
+        product_ids = set()
         for index, product in enumerate(products):
             if not isinstance(product, dict):
                 errors.append(f"products[{index}] must be an object")
                 continue
-            if not product.get("id"):
+            product_id = product.get("id")
+            if not isinstance(product_id, str) or not product_id:
                 errors.append(f"products[{index}].id is required")
+            elif product_id in product_ids:
+                errors.append(f"Duplicate product id {product_id}.")
+            else:
+                product_ids.add(product_id)
             offers = product.get("offers")
             if not isinstance(offers, list):
                 errors.append(f"products[{index}].offers must be a list")
+                continue
+            offer_sources = set()
+            for offer in offers:
+                source_id = offer.get("source_id") if isinstance(offer, dict) else None
+                if not isinstance(source_id, str) or source_id not in source_ids:
+                    errors.append(f"products[{index}] contains an offer without a valid source.")
+                elif source_id in offer_sources:
+                    errors.append(f"products[{index}] contains repeated offers for {source_id}.")
+                else:
+                    offer_sources.add(source_id)
     return errors
 
 
@@ -954,10 +1132,43 @@ def main() -> None:
     parser.add_argument("--snapshot-hour", type=int, default=9)
     args = parser.parse_args()
 
-    previous_payload = load_payload(args.output)
-    color_registry = load_color_registry(args.color_registry)
-    raw_items, source_errors = collect_raw_items()
     enrichment_errors: dict[str, str] = {}
+    generated_at = _now()
+    previous_payload = load_payload(args.output)
+    if Path(args.output).exists() and _stock_payload_schema_errors(previous_payload, expected_sources=()):
+        message = "El archivo de stock anterior es inválido. La captura necesita una copia válida como referencia."
+        report = evaluate_build_quality({"generated_at": generated_at})
+        report["summary"] = message
+        report["business_events"] = [{"level": "error", "code": "previous_stock_invalid", "message": message}]
+        report["technical_events"].append({"level": "error", "code": "previous_stock_invalid", "message": message})
+        write_build_logs(report, args.business_log, args.technical_log)
+        print(message)
+        raise SystemExit(1)
+
+    try:
+        color_registry = load_color_registry(args.color_registry)
+    except (OSError, ValueError) as exc:
+        enrichment_errors["color_registry"] = str(exc)
+        color_registry = ColorRegistry.empty()
+
+    try:
+        color_estimates = load_color_estimates()
+    except (OSError, ValueError) as exc:
+        enrichment_errors["color_estimates"] = str(exc)
+        color_estimates = {}
+
+    try:
+        snapshot = load_daily_provider_stock_snapshot(args.daily_snapshot)
+    except (OSError, ValueError) as exc:
+        enrichment_errors["daily_snapshot"] = str(exc)
+        snapshot = {}
+
+    try:
+        load_provider_stock_history(args.provider_history)
+    except (OSError, ValueError) as exc:
+        enrichment_errors["provider_history"] = str(exc)
+
+    raw_items, source_errors = collect_raw_items()
     catalog_products = {}
     enrichments: dict[str, dict[str, str]] = {}
     try:
@@ -973,16 +1184,17 @@ def main() -> None:
     except Exception as exc:
         enrichment_errors["grilon3_enrichment"] = str(exc)
 
-    payload = build_payload(
+    payload, source_errors = build_capture_payload(
         raw_items,
+        previous_payload,
+        source_errors,
+        generated_at=generated_at,
         enrichments=enrichments,
-        source_errors=source_errors,
         catalog_products=catalog_products,
-        color_estimates=load_color_estimates(),
+        color_estimates=color_estimates,
         color_registry=color_registry,
+        catalog_unavailable="grilon3_catalog" in enrichment_errors,
     )
-    apply_source_freshness(payload, raw_items, previous_payload)
-    snapshot = load_daily_provider_stock_snapshot(args.daily_snapshot)
     apply_provider_stock_deltas(payload, snapshot)
     quality_report = evaluate_build_quality(
         payload,
@@ -990,18 +1202,22 @@ def main() -> None:
         source_errors,
         enrichment_errors,
         provisional_color_keys=color_registry.observed_provisional_keys,
+        allow_partial=True,
     )
     write_build_logs(quality_report, args.business_log, args.technical_log)
     if not quality_report["should_publish"]:
         print(str(quality_report["summary"]))
         return
 
-    maybe_update_daily_provider_stock_snapshot(payload, args.daily_snapshot, args.snapshot_hour)
-    maybe_update_provider_stock_history(payload, args.provider_history, args.snapshot_hour)
-    history = load_provider_stock_history(args.provider_history)
-    write_public_provider_stock_history(history, payload, args.public_provider_history)
+    if "daily_snapshot" not in enrichment_errors:
+        maybe_update_daily_provider_stock_snapshot(payload, args.daily_snapshot, args.snapshot_hour)
+    if "provider_history" not in enrichment_errors:
+        maybe_update_provider_stock_history(payload, args.provider_history, args.snapshot_hour)
+        history = load_provider_stock_history(args.provider_history)
+        write_public_provider_stock_history(history, payload, args.public_provider_history)
     write_payload(payload, args.output)
-    write_color_registry_if_publishable(quality_report, color_registry, args.color_registry)
+    if "color_registry" not in enrichment_errors:
+        write_color_registry_if_publishable(quality_report, color_registry, args.color_registry)
 
 
 def _offer_from_raw(item: RawStockItem) -> Offer:
@@ -1189,7 +1405,7 @@ def _provider_counts_for_delta(snapshot: Mapping[str, object], generated_at: str
 def _provider_counts_from_payload(payload: Mapping[str, object]) -> dict[str, int]:
     counts: dict[str, int] = {}
     for source in payload.get("sources", []):
-        if not isinstance(source, dict):
+        if not isinstance(source, dict) or source.get("status", "ok") != "ok":
             continue
         stats = source.get("stats")
         if not isinstance(stats, dict):
@@ -1330,9 +1546,9 @@ def _stock_status(stock_quantity: int | None) -> StockStatus:
     return "in_stock"
 
 
-def _product_sort_key(product: ProductGroup) -> tuple[int, str, str, str]:
-    material_priority = 0 if product.material == "PLA" else 1
-    return (material_priority, product.material, product.color, product.display_name)
+def _product_sort_key(product: Mapping[str, object]) -> tuple[int, str, str, str]:
+    material = str(product.get("material", ""))
+    return (0 if material == "PLA" else 1, material, str(product.get("color", "")), str(product.get("display_name", "")))
 
 
 def _source_sort_key(source: SourceConfig) -> tuple[int, str]:
@@ -1353,10 +1569,11 @@ def _validate_unique_provider_offers(product_id: str, offers: list[Offer]) -> No
     for provider in duplicated_providers:
         provider_offers = [offer.original_name for offer in offers if offer.provider_name == provider]
         details.append(f"{provider}: {' | '.join(provider_offers)}")
-    raise ValueError(
+    raise DuplicateProviderOffers(
         f"Product {product_id} has repeated provider offers. "
         f"This usually means different products were normalized together. "
-        f"{'; '.join(details)}"
+        f"{'; '.join(details)}",
+        {offer.source_id for offer in offers if offer.provider_name in duplicated_providers},
     )
 
 

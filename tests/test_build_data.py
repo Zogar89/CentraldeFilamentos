@@ -1388,8 +1388,10 @@ def test_write_payload_creates_json_file(tmp_path):
     assert written["products"] == []
 
 
-@pytest.mark.parametrize("source_failure", [False, True])
-def test_main_persists_source_freshness_only_when_build_is_accepted(tmp_path, monkeypatch, source_failure):
+@pytest.mark.parametrize("failed_sources, broken_auxiliary_files", [
+    ([], False), (["grupo_senz"], False), (list(SOURCES), False), ([], True),
+])
+def test_main_publishes_valid_sources_and_keeps_last_valid_stock(tmp_path, monkeypatch, failed_sources, broken_auxiliary_files):
     first_capture = "2026-10-20T12:00:00-03:00"
     next_capture = "2026-10-27T12:00:00-03:00"
     original_items = [
@@ -1401,13 +1403,19 @@ def test_main_persists_source_freshness_only_when_build_is_accepted(tmp_path, mo
     output = tmp_path / "stock.json"
     write_payload(previous, output)
     accepted_bytes = output.read_bytes()
-    failed_source = "grupo_senz"
+    auxiliary = {name: tmp_path / "centraldefilamentos/data" / f"{name}.json" for name in (
+        "color_registry", "provider_stock_history", "daily_provider_stock_snapshot",
+    )}
+    if broken_auxiliary_files:
+        for path in auxiliary.values():
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_bytes(b"{")
     current_items = [
         raw(source_id, source.name, source.zone, "GRILON3 PLA Negro 1kg 1.75mm", 7 if source_id == "mundoinsumos" else 4)
         for source_id, source in SOURCES.items()
-        if not (source_failure and source_id == failed_source)
+        if source_id not in failed_sources
     ]
-    source_errors = {failed_source: "CSV export failed"} if source_failure else {}
+    source_errors = dict.fromkeys(failed_sources, "CSV export failed")
     load_count = 0
     real_load = build_data.load_payload
     real_quality = build_data.evaluate_build_quality
@@ -1437,15 +1445,119 @@ def test_main_persists_source_freshness_only_when_build_is_accepted(tmp_path, mo
 
     assert load_count == 1
     evaluated_sources = {source["id"]: source for source in evaluated[0]["sources"]}
-    assert evaluated_sources["mundoinsumos"]["stock_unchanged_since"] == next_capture
-    if source_failure:
+    health = json.loads((tmp_path / "public/data/build_business_log.json").read_text(encoding="utf-8"))
+    assert health["generated_at"] == next_capture
+    if failed_sources == list(SOURCES):
         assert output.read_bytes() == accepted_bytes
-        assert evaluated_sources[failed_source]["last_success_at"] == first_capture
-        assert evaluated_sources[failed_source]["stock_unchanged_since"] == first_capture
+        assert all(source["last_success_at"] == first_capture for source in evaluated_sources.values())
+        assert health["status"] == "blocked"
+        assert not health["should_publish"]
         assert not (tmp_path / "centraldefilamentos/data/color_registry.json").exists()
+        return
+
+    published = json.loads(output.read_text(encoding="utf-8"))
+    assert published["generated_at"] == next_capture
+    published_sources = {source["id"]: source for source in published["sources"]}
+    assert published_sources["mundoinsumos"]["stock_unchanged_since"] == next_capture
+    assert published_sources["grupo_senz"]["stock_unchanged_since"] == first_capture
+    current_offers = {offer["source_id"]: offer for offer in published["products"][0]["offers"]}
+    assert current_offers["mundoinsumos"]["stock_quantity"] == 7
+    assert health["status"] == ("degraded" if failed_sources else "ok")
+    assert health["should_publish"]
+    if broken_auxiliary_files:
+        assert all(path.read_bytes() == b"{" for path in auxiliary.values())
+        assert sum(event["code"] == "enrichment_error" for event in health["events"]) == 3
     else:
-        published = json.loads(output.read_text(encoding="utf-8"))
-        published_sources = {source["id"]: source for source in published["sources"]}
-        assert published_sources["mundoinsumos"]["stock_unchanged_since"] == next_capture
-        assert published_sources[failed_source]["stock_unchanged_since"] == first_capture
-        assert all(source["last_success_at"] == next_capture for source in published_sources.values())
+        history = build_data.load_provider_stock_history(auxiliary["provider_stock_history"])
+        assert set(history["days"][0]["providers"]) == set(SOURCES).difference(failed_sources)
+    for source_id, source in published_sources.items():
+        assert source["last_attempt_at"] == next_capture
+        if source_id in failed_sources:
+            assert source["status"] == "error"
+            assert source["last_success_at"] == health["last_good_sources"][source_id]["generated_at"] == first_capture
+            original_offer = next(offer for offer in previous["products"][0]["offers"] if offer["source_id"] == source_id)
+            assert current_offers[source_id] == original_offer
+        else:
+            assert source["status"] == "ok"
+            assert source["last_success_at"] == next_capture
+
+
+def test_main_refuses_to_publish_an_unreadable_baseline(tmp_path, monkeypatch):
+    output = tmp_path / "stock.json"
+    output.write_bytes(b'{"broken":')
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr("sys.argv", ["build_data", "--output", str(output)])
+
+    with pytest.raises(SystemExit, match="1"):
+        build_data.main()
+
+    assert output.read_bytes() == b'{"broken":'
+    report = json.loads((tmp_path / "public/data/build_business_log.json").read_text(encoding="utf-8"))
+    assert report["status"] == "blocked"
+    assert report["events"][0]["code"] == "previous_stock_invalid"
+
+
+def test_partial_capture_without_previous_stock_marks_missing_sources_unavailable():
+    item = raw("mundoinsumos", "MundoInsumos", "Zona Norte", "GRILON3 PLA Negro 1.75 MM 1KG", 6)
+    payload, errors = build_data.build_capture_payload(
+        [item], {}, {}, generated_at="2026-11-28T09:00:00-03:00", color_registry=ColorRegistry.empty(),
+    )
+    report = evaluate_build_quality(payload, {}, errors, allow_partial=True)
+
+    assert report["status"] == "degraded"
+    assert report["last_good_sources"] == {}
+    assert {offer["source_id"] for offer in payload["products"][0]["offers"]} == {item.source_id}
+    assert all(source["status"] == "error" and source["last_success_at"] == "" for source in payload["sources"] if source["id"] != item.source_id)
+
+
+@pytest.mark.parametrize(
+    ("source_rows", "previous_count", "reason"),
+    [
+        ([("GRILON3 PLA Negro 1.75 MM 1KG", 170), ("GRILON3 PLA NEGRO 1.75 MM X KG", 50)], 1, "repeated provider offers"),
+        ([("GRILON3 PLA Negro 1.75 MM 1KG", 5)], 1, "stock dropped"),
+        ([("GRILON3 PLA Negro 1.75 MM 1KG", 200)], 60, "product count dropped"),
+        ([("GRILON3 PLA Negro 1.75 MM 1KG", None)], 1, "without any readable stock"),
+        ([], 1, "no products"),
+    ],
+)
+def test_capture_quarantines_a_suspicious_provider_and_recovers_on_next_valid_read(source_rows, previous_count, reason):
+    source = SOURCES["mundoinsumos"]
+    first_time = "2026-11-27T18:00:00-03:00"
+    previous_item = raw(source.id, source.name, source.zone, "GRILON3 PLA Negro 1.75 MM 1KG", 200)
+    previous = build_payload([previous_item], generated_at=first_time)
+    apply_source_freshness(previous, [previous_item])
+    previous["sources"][0]["stats"]["product_count"] = previous_count
+    healthy = [
+        raw(source_id, details.name, details.zone, f"GRILON3 PLA {color} 1.75 MM 1KG", 8)
+        for source_id, details, color in (("grupo_senz", SOURCES["grupo_senz"], "Rojo"), ("filamentos3d", SOURCES["filamentos3d"], "Azul"))
+    ]
+    suspect = [raw(source.id, source.name, source.zone, name, quantity) for name, quantity in source_rows]
+    rejected_items = healthy + suspect
+    registry = ColorRegistry.empty()
+
+    for capture_time in ("2026-11-28T09:00:00-03:00", "2026-11-28T12:00:00-03:00"):
+        previous, errors = build_data.build_capture_payload(
+            rejected_items, previous, {}, generated_at=capture_time, color_registry=registry,
+        )
+        assert set(errors) == {source.id}
+        assert reason in errors[source.id]
+        report = evaluate_build_quality(previous, previous, errors, allow_partial=True)
+        assert report["status"] == "degraded"
+        assert report["last_good_sources"][source.id]["generated_at"] == first_time
+        sources = {entry["id"]: entry for entry in previous["sources"]}
+        assert sources[source.id]["last_attempt_at"] == capture_time
+        assert sources[source.id]["last_success_at"] == first_time
+        assert sources[source.id]["stats"]["total_stock_units"] == 200
+        assert sources["grupo_senz"]["last_success_at"] == capture_time
+        assert any(product["offers"] == [build_data._offer_from_raw(previous_item).to_dict()] for product in previous["products"])
+
+    valid_items = [previous_item] + [
+        raw(source.id, source.name, source.zone, f"GRILON3 PLA Negro 1.75 MM {1000 + index}G", 0)
+        for index in range(1, previous_count)
+    ]
+    recovered_time = "2026-11-28T15:00:00-03:00"
+    recovered, errors = build_data.build_capture_payload(
+        healthy + valid_items, previous, {}, generated_at=recovered_time, color_registry=registry,
+    )
+    assert errors == {}
+    assert all(entry["last_success_at"] == recovered_time and entry["status"] == "ok" for entry in recovered["sources"])

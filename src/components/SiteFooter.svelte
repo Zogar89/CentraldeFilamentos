@@ -51,8 +51,10 @@
   <div class="footer-grid">
     {#each sources as source}
       {@const stats = source.stats || {}}
-      {@const delta = stockDelta(stats)}
       {@const freshness = sourceFreshness(source, now)}
+      {@const previous = source.status === "error"}
+      {@const hasReading = !previous || Boolean(freshness.lastReadAt)}
+      {@const delta = previous ? null : stockDelta(stats)}
       <section class="footer-provider" id={providerAnchorId(source.id)} style={`--provider-accent: ${providerAccent(source.id)}`}>
         <header class="footer-provider-head">
           <a class="provider-mark" href={source.homepage_url} target="_blank" rel="noopener" aria-label={`Abrir ${source.name}`}>
@@ -69,13 +71,13 @@
 
         <div class="footer-provider-stats" aria-label={`Stock de ${source.name}`}>
           <span class="footer-provider-stock">
-            <strong>{formatInteger(stats.total_stock_units || 0)}</strong>
+            <strong>{hasReading ? formatInteger(stats.total_stock_units || 0) : "—"}</strong>
             <small>carretes</small>
             {#if delta}
               <span class={`stock-delta stock-delta-${delta.tone}`}>{delta.label}<small>vs ayer</small></span>
             {/if}
           </span>
-          <span><strong>{formatInteger(stats.product_count || 0)}</strong><small>productos</small></span>
+          <span><strong>{hasReading ? formatInteger(stats.product_count || 0) : "—"}</strong><small>productos</small></span>
         </div>
 
         <div class="footer-provider-details">
@@ -89,6 +91,9 @@
             <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
             <span>Última lectura: {formatDate(freshness.lastReadAt)}</span>
           </p>
+          {#if previous}
+            <p class="source-read-status">{hasReading ? "Stock de una lectura anterior." : "Lectura válida pendiente."}</p>
+          {/if}
           {#if freshness.unchangedSince}
             <p>
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11a9 9 0 1 1 2.6 7.4"/><path d="M3 4v7h7"/><path d="M12 7v5l3 2"/></svg>

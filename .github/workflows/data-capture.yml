@@ -10,21 +10,22 @@ permissions:
   contents: write
 
 concurrency:
-  group: data-capture
+  group: centralde-filamentos-publishing
   cancel-in-progress: false
+  queue: max
 
 jobs:
   capture:
     name: Capture stock data
+    if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
-    env:
-      GIT_CONFIG_COUNT: 1
-      GIT_CONFIG_KEY_0: init.defaultBranch
-      GIT_CONFIG_VALUE_0: master
+    timeout-minutes: 15
 
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+        with:
+          ref: master
 
       - name: Setup Python
         uses: actions/setup-python@v6
@@ -39,52 +40,30 @@ jobs:
         run: python -m centraldefilamentos.build_data --output public/data/stock.json
 
       - name: Commit captured data
-        id: commit-data
         run: |
-          DATA_FILES="
-          centraldefilamentos/data/daily_provider_stock_snapshot.json
-          centraldefilamentos/data/provider_stock_history.json
-          centraldefilamentos/data/color_registry.json
-          public/data/build_business_log.json
-          public/data/build_technical_log.json
-          public/data/provider_stock_history.json
-          public/data/stock.json
-          "
-          if [ -z "$(git status --porcelain -- $DATA_FILES)" ]; then
+          set -euo pipefail
+          git add -- \
+            centraldefilamentos/data/daily_provider_stock_snapshot.json \
+            centraldefilamentos/data/provider_stock_history.json \
+            centraldefilamentos/data/color_registry.json \
+            public/data/build_business_log.json \
+            public/data/build_technical_log.json \
+            public/data/provider_stock_history.json \
+            public/data/stock.json
+          if git diff --cached --quiet; then
             echo "No stock data changes"
-            echo "changed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add $DATA_FILES
           git commit -m "Update stock data"
-          git push
-          echo "changed=true" >> "$GITHUB_OUTPUT"
+          for attempt in 1 2 3; do
+            if git push origin HEAD:refs/heads/master; then
+              exit 0
+            fi
+            [[ "$attempt" == 3 ]] || sleep "$((attempt * 2))"
+          done
+          exit 1
 
       - name: Publish data to gh-pages
-        if: steps.commit-data.outputs.changed == 'true'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          set -euo pipefail
-          pages_dir="$RUNNER_TEMP/gh-pages"
-          repo_url="https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
-          if git ls-remote --exit-code --heads origin gh-pages >/dev/null 2>&1; then
-            git clone --depth 1 --branch gh-pages "$repo_url" "$pages_dir"
-          else
-            git init "$pages_dir"
-            git -C "$pages_dir" checkout -b gh-pages
-            git -C "$pages_dir" remote add origin "$repo_url"
-          fi
-          mkdir -p "$pages_dir/data"
-          cp public/data/*.json "$pages_dir/data/"
-          git -C "$pages_dir" config user.name "github-actions[bot]"
-          git -C "$pages_dir" config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git -C "$pages_dir" add data
-          if git -C "$pages_dir" diff --cached --quiet; then
-            echo "No published data changes"
-            exit 0
-          fi
-          git -C "$pages_dir" commit -m "Publish stock data"
-          git -C "$pages_dir" push origin gh-pages
+        run: python3 .github/scripts/publish_pages.py data

@@ -10,20 +10,29 @@ SRC = Path("src")
 
 
 def test_stock_capture_keeps_image_generation_and_publication_separate():
-    data_capture = Path(".github/workflows/data-capture.yml").read_text(encoding="utf-8")
-    thumbnails_workflow = Path(".github/workflows/thumbnails.yml").read_text(encoding="utf-8")
+    workflows = Path(".github/workflows")
+    data_capture = (workflows / "data-capture.yml").read_text(encoding="utf-8")
+    thumbnails_workflow = (workflows / "thumbnails.yml").read_text(encoding="utf-8")
+    ui_workflow = (workflows / "pages.yml").read_text(encoding="utf-8")
 
     assert "python -m centraldefilamentos.build_data --output public/data/stock.json" in data_capture
     assert "generate_material_swatches" not in data_capture
     assert "generate_thumbnails" not in data_capture
     assert "assets" not in data_capture
-    assert 'cp public/data/*.json "$pages_dir/data/"' in data_capture
-    assert 'git -C "$pages_dir" add data\n' in data_capture
+    assert data_capture.index("git push origin HEAD:refs/heads/master") < data_capture.index("publish_pages.py data")
+    assert "if:" not in data_capture.split("- name: Publish data to gh-pages", 1)[1]
     assert "python -m centraldefilamentos.generate_material_swatches" in thumbnails_workflow
     assert "python -m centraldefilamentos.generate_thumbnails" in thumbnails_workflow
     assert "public/assets/material-swatches" in thumbnails_workflow
-    assert 'cp -a public/assets/. "$pages_dir/assets/"' in thumbnails_workflow
-    assert 'git -C "$pages_dir" add assets data/stock.json' in thumbnails_workflow
+    assert "publish_pages.py thumbnails" in thumbnails_workflow
+    assert "publish_pages.py ui" in ui_workflow
+    for workflow in (data_capture, thumbnails_workflow, ui_workflow):
+        assert "group: centralde-filamentos-publishing" in workflow
+        assert "queue: max" in workflow
+        assert "cancel-in-progress: false" in workflow
+        assert "if: github.ref == 'refs/heads/master'" in workflow
+        assert "ref: master" in workflow
+        assert "timeout-minutes:" in workflow
 
 
 def test_prerendered_material_swatches_are_used_across_product_views():

@@ -52,6 +52,15 @@ test("provider message includes only covered items", () => {
   assert.match(message, /cotizacion y disponibilidad/);
 });
 
+test("a provider with an unsuccessful reading has no confirmed coverage", () => {
+  const [north, south] = buildProviderCoverage(items, products, [{ ...sources[0], status: "error" }, sources[1]]);
+
+  assert.equal(north.items[0].stockQuantity, 12);
+  assert.equal(north.coveredCount, 0);
+  assert.equal(north.complete, false);
+  assert.equal(south.coveredCount, 1);
+});
+
 test("general message includes every requested item", () => {
   const message = generalQuoteMessage(items);
   assert.match(message, /PLA Negro/);

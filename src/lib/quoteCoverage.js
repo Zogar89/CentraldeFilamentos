@@ -12,6 +12,7 @@ export function buildProviderCoverage(items, products, sources) {
       const stockQuantity = Number(offer?.stock_quantity || 0);
       const covered = Boolean(
         offer
+        && source.status !== "error"
         && offer.stock_status === "in_stock"
         && stockQuantity >= requestedQuantity,
       );

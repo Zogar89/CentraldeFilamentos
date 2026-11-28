@@ -31,6 +31,23 @@ Responsabilidad:
 - Committear los datos generados en `master`.
 - Copiar `public/data/*.json` a `gh-pages/data/`.
 
+### Reglas de captura y recuperación
+
+La captura decide por proveedor. Se publica una actualización parcial cuando al menos una fuente pasa los controles y el catálogo resultante es válido.
+
+| Situación | Resultado y recuperación |
+| --- | --- |
+| Fallo de lectura o respuesta sin productos o cantidades interpretables | Se hacen dos intentos de lectura ante errores del conector. Si la fuente queda pendiente, se muestran sus últimas ofertas válidas con su fecha original. La siguiente captura puede volver a actualizarla. |
+| Dos productos diferentes quedan con el mismo identificador y proveedor | Se conserva el último stock válido de esa fuente. El log técnico registra el identificador y los títulos en conflicto para corregir el conector o la normalización. |
+| Caída sospechosa de una fuente | Se aplica el mismo resguardo cuando pierde más del 40% de las filas con una referencia de al menos 50, o más del 60% de las unidades con una referencia de al menos 100. Si persiste, contrastar la planilla o página original y la lectura del conector antes de ajustar una regla. |
+| Fuente sin una lectura válida anterior | Queda marcada como pendiente y sus ofertas quedan vacías hasta la primera lectura aceptada. |
+| Todas las fuentes fallan, el resultado es inválido o el catálogo cae por encima del control global | Se conserva `stock.json` y se publica el diagnóstico de la corrida. Si el archivo de referencia ya está dañado, Actions corta la publicación. Se puede recuperar la última versión válida desde el historial de Git o de Pages y volver a ejecutar la captura. |
+| Falla una lectura auxiliar de imágenes, colores o historial | Se registra el aviso. Si el stock pasa los controles, puede actualizarse mientras se corrige el archivo o la fuente auxiliar. |
+
+El catálogo indica qué proveedores muestran datos anteriores. Esas ofertas quedan fuera de la cobertura confirmada de cotizaciones. El historial y las variaciones incluyen únicamente lecturas aceptadas. Un cero medido sigue siendo un dato válido.
+
+Los tres workflows de publicación comparten una cola. Cada uno empieza desde el `master` vigente al recibir su turno. La publicación a Pages reintenta hasta tres veces sobre el último estado de la rama, con avance rápido de Git. Si la captura ya guardó datos en `master` y falló la publicación, volver a ejecutar `Capture Stock Data` en `master`. Puede republicar los JSON vigentes aunque no haya un nuevo commit de stock.
+
 No debe:
 
 - Ejecutar `npm run build`.
@@ -51,7 +68,7 @@ Responsabilidad:
 
 - Instalar dependencias frontend.
 - Ejecutar `npm run build`.
-- Copiar `dist/` a la raiz de `gh-pages`.
+- Publicar el HTML y los recursos compilados de `dist/` en `gh-pages`. Cuando ya existe una publicación, los datos y recursos de producto se conservan.
 
 Corre cuando cambian archivos de interfaz o configuracion:
 
@@ -69,7 +86,6 @@ No debe:
 
 - Scrappear proveedores.
 - Regenerar stock.
-- Instalar Python.
 - Generar miniaturas.
 
 ### Publish Thumbnails
@@ -80,7 +96,7 @@ Responsabilidad:
 
 - Generar miniaturas WebP desde imagenes fuente.
 - Committear cambios en `public/assets/thumbs`.
-- Publicar `assets/` y `data/stock.json` en `gh-pages`.
+- Publicar los recursos de producto y el conjunto de JSON de captura de `master` en `gh-pages`.
 
 Corre manualmente o cuando cambian imagenes fuente en `public/assets/**`, excluyendo `public/assets/thumbs/**`.
 
@@ -113,8 +129,8 @@ Para probar captura de stock sin esperar cron:
 
 1. Ir a Actions.
 2. Elegir `Capture Stock Data`.
-3. Ejecutar `Run workflow`.
-4. Verificar que el run publique solo cambios de `data/` en `gh-pages`.
+3. Ejecutar `Run workflow` en `master`.
+4. Revisar el estado en `data/build_business_log.json` y las fechas `last_success_at` por proveedor en `data/stock.json`. Una captura parcial puede mostrar fechas diferentes.
 
 Para publicar una nueva UI:
 
